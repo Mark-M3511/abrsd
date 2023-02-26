@@ -1,4 +1,4 @@
-/* 
+/*
 Theme Name: Bootstrap 4 Sass
 Description: Bootstrap 4 with Sass
 */
@@ -14,7 +14,7 @@ body {
 }
 
 
-/* COLORS 
+/* COLORS
 --------------------------------------------------*/
 
 a {
@@ -57,4 +57,15 @@ a {
 
 .slick>div {
     margin: 0 15px;
+}
+
+/* FOOTER MENU */
+.menu--footer {
+    h2 {
+        font-size: medium;
+    }
+    a {
+        padding: 0;
+        font-size: small;
+    }
 }

@@ -1,0 +1,11 @@
+avrsd_header_image:
+  label: ABRSD Header Image
+  category: ABRSD
+  path: layouts
+  template: abrsd--header-image
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content

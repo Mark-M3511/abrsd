@@ -16,6 +16,13 @@
   <h2{{ title_attributes.setAttribute('id', heading_id).addClass('text-uppercase') }}>{{ configuration.label }}</h2>
   {{ title_suffix }}
 
+  {# Check for 'Contact menu' and title for social badge collection #}
+  {% if menu_name is defined %}
+    {% if menu_name == 'contact' %}
+       <h3 class="text-uppercase h2 mt-4">{{ 'FOLLOW US'|t }}</h3>
+    {% endif %}
+  {% endif %}
+
   {# Menu. #}
   {% block content %}
     {{ content }}

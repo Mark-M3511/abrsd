@@ -10,83 +10,95 @@ Description: Bootstrap 4 with Sass
 -------------------------------------------------*/
 
 body {
-    background: $white;
+  background: $white;
 }
-
 
 /* COLORS
 --------------------------------------------------*/
 
 a {
-    color: $accent-shade;
+  color: $accent-shade;
 }
 
 .bg-inverse {
-    background: $primary-shade !important;
+  background: $primary-shade !important;
 }
 
 .site-footer {
-    background: $accent-shade !important;
+  background: $accent-shade !important;
 }
 
 .menu--main li a {
-    color: $primary-shade;
+  color: $primary-shade;
 }
 
 .menu--account li a {
-    color: $primary-shade;
+  color: $primary-shade;
 }
 
 .site-name-slogan a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .card-group img {
-    margin: 0;
-    width: 100%;
-    height: auto;
+  margin: 0;
+  width: 100%;
+  height: auto;
 }
 
 .card-group .field--type-image {
-    margin: 0
+  margin: 0;
 }
 
 .slick {
-    width: 100%;
+  width: 100%;
 }
 
-.slick>div {
-    margin: 0 15px;
+.slick > div {
+  margin: 0 15px;
 }
 
 /* FOOTER MENU */
 .menu--footer {
-    h2 {
-        font-size: medium;
-        margin-bottom: 0.1rem;
-        // @include media-breakpoint-up(md) {
-        //     padding-left: 1.5rem;
-        // }
-    }
-    a {
-        padding: 0;
-        font-size: small;
-    }
+  h2 {
+    font-size: medium;
+    margin-bottom: 0.1rem;
+  }
+  a {
+    padding: 0;
+    font-size: small;
+  }
 }
 
 .menu--footer-contact-us {
-    h2 {
-        padding-left: 0;
-    }
+  h2 {
+    padding-left: 0;
+  }
 }
 
 .social-link {
-    i {
-        font-size: xx-large;
-    }
+  i {
+    font-size: xx-large;
+  }
 }
 
 a.nav-link--::before {
-    width: 0 !important;
-    height: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* RESPONSIVE IMAGES */
+.responsive-image {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.field--name-field-banner-image {
+  float: none !important;
+  margin: 0 !important;
+  img {
+    max-width: 100%;
+  }
 }

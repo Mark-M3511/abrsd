@@ -1,28 +1,35 @@
 abrsd.small:
   label: small
-  mediaQuery: 'all and (max-width: 47.99em)'
+  mediaQuery: 'all and (max-width: 540px)'
   weight: 0
   multipliers:
     - 1x
     - 2x
 abrsd.medium:
   label: medium
-  mediaQuery: 'all and (min-width: 48em)'
+  mediaQuery: 'all and (min-width: 720px)'
   weight: 1
   multipliers:
     - 1x
     - 2x
 abrsd.large:
   label: large
-  mediaQuery: 'all and (min-width: 62em)'
+  mediaQuery: 'all and (min-width: 960px)'
   weight: 2
   multipliers:
     - 1x
     - 2x
 abrsd.extra:
   label: extra
-  mediaQuery: 'all and (min-width: 75em)'
+  mediaQuery: 'all and (min-width: 1140px)'
   weight: 3
+  multipliers:
+    - 1x
+    - 2x
+abrsd.2extra:
+  label: extra
+  mediaQuery: 'all and (min-width: 1320px)'
+  weight: 4
   multipliers:
     - 1x
     - 2x

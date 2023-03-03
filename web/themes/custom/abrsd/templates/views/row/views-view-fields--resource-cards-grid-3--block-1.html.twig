@@ -31,6 +31,11 @@
  * @ingroup themeable
  */
 #}
+{# Set up variables to be used #}
+{% set link_uri = fields.field_resource_link.content|striptags|trim|raw %}
+{% set link_text = fields.field_resource_link_1.content %}
+{% set target = 'http' in link_uri ? '_blank' : '_self' %}
+
 <div class="card">
   {{ fields.field_hero_image.content }}
   <div class="card-body d-flex flex-column">
@@ -39,7 +44,9 @@
       {{ fields.body.content }}
     </p>
     <p class="card-text">
-      <a href="#" class="btn btn-primary mt-auto align-self-start">Book now</a>
+      <a href="{{ link_uri }}" class="btn btn-primary mt-auto align-self-start" target="{{ target }}">
+         {{ link_text }}
+      </a>
     </p>
   </div>
 </div>

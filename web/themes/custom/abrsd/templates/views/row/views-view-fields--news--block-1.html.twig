@@ -34,7 +34,7 @@
 {# Set up variables to be used #}
 {% set link_uri = fields.field_news_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_news_link_1.content %}
-{% set link_text = link_text ? link_text : 'News' %}
+{% set link_text = link_text ? link_text : 'Read More' %}
 {% set target = 'http' in link_uri ? '_blank' : '_self' %}
 
 <div class="card mb-3">
@@ -48,7 +48,7 @@
         <div class="card-text">{{ fields.body.content }}</div>
         <p class="card-text">
            <a href="{{ link_uri }}" class="btn btn-primary mt-auto align-self-start" target="{{ target }}">
-             {{ link_text }}
+             {{ link_text|upper }}
            </a>
         </p>
       </div>

@@ -33,7 +33,7 @@
 #}
 {# Set up variables to be used #}
 {% set link_uri = fields.field_news_link.content|striptags|trim|raw %}
-{% set link_text = fields.field_news_link_1.content %}
+{% set link_text = fields.field_news_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More' %}
 {% set target = 'http' in link_uri ? '_blank' : '_self' %}
 

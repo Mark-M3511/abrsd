@@ -9,3 +9,14 @@ avrsd_header_image:
   regions:
     content:
       label: Content
+abrsd_footer_menu:
+  label: ABRSD Footer Menu
+  category: ABRSD
+  path: layouts
+  template: abrsd--footer-menu
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content

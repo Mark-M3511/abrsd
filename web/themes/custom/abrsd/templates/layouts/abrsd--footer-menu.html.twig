@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a one-column layout.
+ *
+ * Available variables:
+ * - in_preview: Whether the plugin is being rendered in preview mode.
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'layout',
+    'layout--onecol',
+    'container',
+    'mt-3',
+  ]
+%}
+{# Reapplying inner div classes by way of the region_classes array #}
+{%
+  set region_classes = [
+    'layout__region',
+    'layout__region--content',
+    'row',
+    'justify-content-center',
+    'pt-5',
+    'px-5',
+    'pb-1',
+  ]
+%}
+{% if content %}
+  <div{{ attributes.addClass(classes) }}>
+    <div {{ region_attributes.content.addClass(region_classes) }}>
+      {{ content.content }}
+    </div>
+  </div>
+{% endif %}

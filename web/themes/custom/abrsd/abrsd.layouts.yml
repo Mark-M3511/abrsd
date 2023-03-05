@@ -20,3 +20,14 @@ abrsd_footer_menu:
   regions:
     content:
       label: Content
+abrsd_resources:
+  label: ABRSD Ressources
+  category: ABRSD
+  path: layouts
+  template: abrsd--resources
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content

@@ -120,14 +120,29 @@ a.nav-link--::before {
   width: unset;
 }
 
-@include media-breakpoint-down(lg) {
-  .resources-layout {
-    margin-top: 3rem !important;
+#header {
+  background-color: $accent-dark;
+  padding: 0 5rem;
+  @include media-breakpoint-down(lg) {
+    padding: 0;
   }
 }
 
-@include media-breakpoint-down(md) {
-  .resources-layout {
+#navbar-main {
+  background-color: $accent-dark !important;
+  height: 7.5rem;
+}
+
+.menu--main li a {
+  color: $white;
+  text-transform: uppercase !important;
+}
+
+.resources-layout {
+  @include media-breakpoint-down(lg) {
+    margin-top: 3rem !important;
+  }
+  @include media-breakpoint-down(md) {
     margin-top: 4.5rem !important;
   }
 }

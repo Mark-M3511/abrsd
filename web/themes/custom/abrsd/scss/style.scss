@@ -112,5 +112,22 @@ a.nav-link--::before {
 // BANNER IMAGE
 .floating-banner {
   top: 85% !important;
-  width: 80% !important;
+  width: 90% !important;
+}
+
+// LAYOUT STYLES
+.layout--onecol .layout__region--content {
+  width: unset;
+}
+
+@include media-breakpoint-down(lg) {
+  .resources-layout {
+    margin-top: 3rem !important;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .resources-layout {
+    margin-top: 4.5rem !important;
+  }
 }

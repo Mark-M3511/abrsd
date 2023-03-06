@@ -47,6 +47,10 @@ $enable-gradients: false;
 // Breadcrumbs (Works only on Bootstrap 5+)
 // $breadcrumb-divider: quote(">");
 
+// Backgrounds (Alt)
+$alt-background-1: rgb(29, 177, 176);
+
 // Menu
 $menu-background: #000000;
-$menu-social-icons: rgb(29, 177, 176);
+$menu-social-icons: $alt-background-1;
+

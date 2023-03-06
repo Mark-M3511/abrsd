@@ -28,6 +28,13 @@ a {
   background: $accent-shade !important;
 }
 
+.layout--onecol {
+  &.latest-news {
+    background: $alt-background-1;
+    // padding-top: 6rem !important;
+  }
+}
+
 .menu--main li a {
   color: $primary-shade;
 }
@@ -112,6 +119,7 @@ a.nav-link--::before {
   }
 }
 
+.view-workshop .card-body,
 .view-resource-cards-grid-3 .card-body {
   background-color: $card-background;
 }
@@ -179,4 +187,14 @@ a.nav-link--::before {
   @include media-breakpoint-down(md) {
     margin-top: 4.5rem !important;
   }
+}
+
+// SECTION STYLES
+.section-title-latest-news {
+  color: $white;
+}
+
+.section-title-workshops,
+.section-title-partners {
+  color: $black;
 }

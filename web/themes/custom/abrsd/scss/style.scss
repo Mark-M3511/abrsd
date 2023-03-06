@@ -126,12 +126,13 @@ a.nav-link--::before {
 }
 
 #header,
-.navbar-nav {
-  background-color: $accent-dark;
+.navbar-nav,
+.footer--onecol {
+  background-color: $menu-background;
 }
 
 #navbar-main {
-  background-color: $accent-dark !important;
+  background-color: $menu-background !important;
   height: 7.5rem;
 }
 

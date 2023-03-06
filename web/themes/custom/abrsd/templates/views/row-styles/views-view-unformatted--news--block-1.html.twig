@@ -15,7 +15,9 @@
  * @see template_preprocess_views_view_unformatted()
  */
 #}
-<h3 class="section-title section-title-latest-news mb-3">{{ 'Latest News'|t }}</h3>
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
 {% for row in rows %}
   {%
     set row_classes = [

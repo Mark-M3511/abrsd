@@ -161,7 +161,7 @@ a.nav-link--::before {
     color: $menu-background;
   }
   @include media-breakpoint-up(lg) {
-    li:has(+ a.last-item) {
+    li:has(a.last-item) {
       margin-left: 1rem;
     }
   }

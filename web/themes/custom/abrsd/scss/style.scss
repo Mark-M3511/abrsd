@@ -120,12 +120,14 @@ a.nav-link--::before {
   width: unset;
 }
 
-#header {
+// HEADER AND NAV STYLES
+.node__content {
+  margin-top: 8rem;
+}
+
+#header,
+.navbar-nav {
   background-color: $accent-dark;
-  padding: 0 5rem;
-  @include media-breakpoint-down(lg) {
-    padding: 0;
-  }
 }
 
 #navbar-main {
@@ -136,6 +138,14 @@ a.nav-link--::before {
 .menu--main li a {
   color: $white;
   text-transform: uppercase !important;
+}
+
+.site-name-line-1 {
+  font-weight: 800;
+}
+
+.site-name-line-2 {
+  font-size: 1.5rem !important;
 }
 
 .resources-layout {

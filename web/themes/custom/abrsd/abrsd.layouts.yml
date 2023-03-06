@@ -42,3 +42,27 @@ abrsd_latest_news:
   regions:
     content:
       label: Content
+abrsd_workshops:
+  label: ABRSD Workshops
+  category: ABRSD
+  path: layouts
+  template: abrsd--workshops
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content
+abrsd_sponsors:
+  label: ABRSD Sponsors
+  category: ABRSD
+  path: layouts
+  template: abrsd--sponsors
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content
+
+

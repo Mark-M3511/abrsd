@@ -15,9 +15,7 @@
  * @see template_preprocess_views_view_unformatted()
  */
 #}
-{% if title %}
-  <h3>{{ title }}</h3>
-{% endif %}
+<h3 class="section-title section-title-workshop mb-3">{{ 'Upcoming Workshops'|t }}</h3>
 {% for row in rows %}
   {%
     set row_classes = [

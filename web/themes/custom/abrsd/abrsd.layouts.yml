@@ -31,3 +31,14 @@ abrsd_resources:
   regions:
     content:
       label: Content
+abrsd_latest_news:
+  label: ABRSD Latest News
+  category: ABRSD
+  path: layouts
+  template: abrsd--latest-news
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content

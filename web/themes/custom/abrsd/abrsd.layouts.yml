@@ -53,11 +53,11 @@ abrsd_workshops:
   regions:
     content:
       label: Content
-abrsd_sponsors:
-  label: ABRSD Sponsors
+abrsd_partners:
+  label: ABRSD Partners
   category: ABRSD
   path: layouts
-  template: abrsd--sponsors
+  template: abrsd--partners
   default_region: content
   icon_map:
     - [content]

@@ -92,6 +92,12 @@ a {
   }
 }
 
+.footer-branding {
+  color: $white;
+  font-size: small;
+  padding-top: 1rem;
+}
+
 a.nav-link--::before {
   width: 0 !important;
   height: 0 !important;
@@ -142,6 +148,16 @@ a.nav-link--::before {
 // LAYOUT STYLES
 .layout--onecol .layout__region--content {
   width: unset;
+}
+
+.layout--onecol {
+  &.latest-news,
+  &.workshops {
+    @include media-breakpoint-down(md) {
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
+    }
+  }
 }
 
 // HEADER AND NAV STYLES

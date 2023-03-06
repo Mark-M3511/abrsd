@@ -60,6 +60,7 @@ a {
 
 /* FOOTER MENU */
 .menu--footer {
+  color: $white;
   h2 {
     font-size: medium;
     margin-bottom: 0.1rem;
@@ -67,6 +68,7 @@ a {
   a {
     padding: 0;
     font-size: small;
+    color: white;
   }
 }
 
@@ -79,6 +81,7 @@ a {
 .social-link {
   i {
     font-size: xx-large;
+    color: $menu-social-icons;
   }
 }
 
@@ -109,6 +112,19 @@ a.nav-link--::before {
   }
 }
 
+.view-resource-cards-grid-3 .card-body {
+  background-color: $card-background;
+}
+
+.view-news {
+  .col-text {
+    background-color: $menu-background;
+  }
+  .card-body {
+    color: $white;
+  }
+}
+
 // BANNER IMAGE
 .floating-banner {
   top: 85% !important;
@@ -127,8 +143,15 @@ a.nav-link--::before {
 
 #header,
 .navbar-nav,
-.footer--onecol {
-  background-color: $menu-background;
+.footer--onecol,
+.site-footer {
+  background-color: $menu-background !important;
+}
+
+.nav {
+  .last-item {
+    color: $menu-background;
+  }
 }
 
 #navbar-main {

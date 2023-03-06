@@ -4,7 +4,7 @@
 $primary-shade: rgb(255, 78, 46);
 $primary-light: lighten($primary-shade, 37%);
 $primary-dark: darken($primary-shade, 12%);
-$accent-shade: #0079C0;
+$accent-shade: rgb(257, 187, 53);
 $accent-light: lighten($accent-shade, 37%);
 $accent-dark: darken($accent-shade, 12%);
 // Reassign color vars to semantic color scheme
@@ -22,6 +22,7 @@ $brand-primary: $accent-shade;
 //$brand-warning: $orange;
 //$brand-danger: $red;
 $brand-inverse: $primary-shade;
+$card-background: #f7f7f7;
 // Body
 //
 // Settings for the `<body>` element.
@@ -48,3 +49,4 @@ $enable-gradients: false;
 
 // Menu
 $menu-background: #000000;
+$menu-social-icons: rgb(29, 177, 176);

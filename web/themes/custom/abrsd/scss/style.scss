@@ -160,11 +160,21 @@ a.nav-link--::before {
   .last-item {
     color: $menu-background;
   }
+  @include media-breakpoint-up(lg) {
+    li:has(+ a.last-item) {
+      margin-left: 1rem;
+    }
+  }
 }
 
+// MAIN NAV STYLES
 #navbar-main {
   background-color: $menu-background !important;
   height: 7.5rem;
+  @include media-breakpoint-down(md) {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }
 
 .menu--main li a {

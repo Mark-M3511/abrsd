@@ -17,6 +17,7 @@
     "require": {
         "composer/installers": "^2.0",
         "drupal/admin_toolbar": "^3.3",
+        "drupal/block_content_suggestions": "^1.0",
         "drupal/bootstrap_barrio": "^5.5",
         "drupal/bootstrap_library": "^2.0",
         "drupal/bootstrap_sass": "^5.0",
@@ -30,6 +31,7 @@
         "drupal/scheduler": "^1.5",
         "drupal/smart_date": "^3.7",
         "drupal/structure_sync": "^2.0",
+        "drupal/twig_tweak": "^3.2",
         "drupal/xmlsitemap": "^1.4",
         "drush/drush": "^11.5"
     },

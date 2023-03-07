@@ -1,3 +1,14 @@
+abrsd_onecol:
+  label: ABRSD One Column
+  category: ABRSD
+  path: layouts
+  template: abrsd--onecol
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content
 avrsd_header_image:
   label: ABRSD Header Image
   category: ABRSD
@@ -64,5 +75,3 @@ abrsd_partners:
   regions:
     content:
       label: Content
-
-

@@ -24,8 +24,19 @@ a {
   background: $primary-shade !important;
 }
 
+.layout--onecol {
+  &.footer--onecol {
+    background: $menu-background !important;
+    // padding-top: 6rem !important;
+  }
+}
+
 .site-footer {
-  background: $accent-shade !important;
+  background: $menu-background !important;
+}
+
+.site-footer a {
+  color: $white;
 }
 
 .layout--onecol {
@@ -166,9 +177,7 @@ a.nav-link--::before {
 }
 
 #header,
-.navbar-nav,
-.footer--onecol,
-.site-footer {
+.navbar-nav {
   background-color: $menu-background !important;
 }
 

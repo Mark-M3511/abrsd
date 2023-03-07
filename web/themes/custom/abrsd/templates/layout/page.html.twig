@@ -192,8 +192,36 @@
               {{ page.footer_fifth }}
             </div>
           {% endif %}
-          {% include "@abrsd/partials/_footer-branding.html.twig" %}
+          {# bof: Footer Menu #}
+          {# This, hopefully, is temporary #}
+          <div class="layout layout--onecol footer--onecol container-fluid mt-3 px-5">
+            <div class="layout__region layout__region--content row justify-content-center pt-3 pb-1">
+                <nav role="navigation" aria-labelledby="-menu" class="block block-menu navigation menu--footer menu--footer-about-us col-6 col-lg-2">
+                  <h2 id="-menu" class="text-uppercase">{{ 'About Us'|t }}</h2>
+                  {{ drupal_menu('footer-about-us') }}
+                </nav>
+                <nav role="navigation" aria-labelledby="-menu" class="block block-menu navigation menu--footer menu--footer-our-work col-6 col-lg-2">
+                  <h2 id="-menu" class="text-uppercase">{{ 'Our Work'|t }}</h2>
+                  {{ drupal_menu('footer-our-work') }}
+                </nav>
+                <nav role="navigation" aria-labelledby="-menu" class="block block-menu navigation menu--footer menu--footer-resources col-6 col-lg-2">
+                  <h2 id="-menu" class="text-uppercase">{{ 'Resources'|t }}</h2>
+                  {{ drupal_menu('footer-resources') }}
+                </nav>
+                <nav role="navigation" aria-labelledby="-menu" class="block block-menu navigation menu--footer menu--footer-get-involved col-6 col-lg-2">
+                  <h2 id="-menu" class="text-uppercase">{{ 'Get Involved'|t }}</h2>
+                  {{ drupal_menu('footer-get-involved') }}
+                </nav>
+                <nav role="navigation" aria-labelledby="-menu" class="block block-menu navigation menu--footer menu--footer-contact-us col-lg-3">
+                  <h2 id="-menu" class="text-uppercase">{{ 'Contact Us'|t }}</h2>
+                  <h3 class="text-uppercase h2 mt-4">{{ 'Follow Us'|t }}</h3>
+                  {{ drupal_menu('footer-contact-us') }}
+                </nav>
+            </div>
+          </div
+          {# eof: Footer Menu #}
         </div>
+        {% include "@abrsd/partials/_footer-branding.html.twig" %}
       {% endblock %}
     </footer>
   </div>

@@ -25,9 +25,9 @@ a {
 }
 
 .layout--onecol {
-  &.footer--onecol {
+  &.footer--onecol,
+  &.layout--site-footer {
     background: $menu-background !important;
-    // padding-top: 6rem !important;
   }
 }
 
@@ -42,7 +42,6 @@ a {
 .layout--onecol {
   &.latest-news {
     background: $alt-background-1;
-    // padding-top: 6rem !important;
   }
 }
 

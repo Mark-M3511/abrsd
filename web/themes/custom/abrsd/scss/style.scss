@@ -39,7 +39,8 @@ a {
 }
 
 .layout--onecol {
-  &.latest-news {
+  &.latest-news,
+  &.toolkits {
     background: $alt-background-1;
   }
 }
@@ -160,8 +161,7 @@ a.nav-link--::before {
 }
 
 .layout--onecol {
-  &.latest-news,
-  &.workshops {
+  &.latest-news {
     @include media-breakpoint-down(md) {
       padding-left: 0rem !important;
       padding-right: 0rem !important;
@@ -213,7 +213,7 @@ a.nav-link--::before {
   font-size: 1.5rem !important;
 }
 
-.resources-layout {
+.resources {
   @include media-breakpoint-down(lg) {
     margin-top: 3rem !important;
   }
@@ -223,7 +223,8 @@ a.nav-link--::before {
 }
 
 // SECTION STYLES
-.section-title-latest-news {
+.section-title-latest-news,
+.section-title-toolkit {
   color: $white;
 }
 

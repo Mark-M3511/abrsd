@@ -32,15 +32,16 @@
       %}
       <li{{ item.attributes.addClass(classes) }}>
         {# Select icons based on current item title #}
-        {% if item.title|lower == 'facebook' %}
+        {% set item_title = item.title|lower|trim %}
+        {% if item_title == 'facebook' %}
            {% set icon = 'fab fa-facebook' %}
-        {% elseif item.title|lower == 'youtube' %}
+        {% elseif item_title == 'youtube' %}
            {% set icon = 'fab fa-youtube' %}
-        {% elseif item.title|lower == 'instagram' %}
+        {% elseif item_title == 'instagram' %}
            {% set icon = 'fab fa-instagram' %}
-        {% elseif item.title|lower == 'linkedin' %}
+        {% elseif item_title == 'linkedin' %}
            {% set icon = 'fab fa-linkedin' %}
-        {% elseif item.title|lower == 'twitter' %}
+        {% elseif item_title == 'twitter' %}
            {% set icon = 'fab fa-twitter' %}
         {% endif %}
         <a href="{{ item.url }}" target="_blank" class="social-link"><i class="{{ icon }}"></i></a>

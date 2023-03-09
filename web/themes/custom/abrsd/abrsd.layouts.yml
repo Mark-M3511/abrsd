@@ -75,3 +75,14 @@ abrsd_partners:
   regions:
     content:
       label: Content
+abrsd_toolkit:
+  label: ABRSD Toolkit
+  category: ABRSD
+  path: layouts
+  template: abrsd--toolkit
+  default_region: content
+  icon_map:
+    - [content]
+  regions:
+    content:
+      label: Content

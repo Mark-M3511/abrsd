@@ -227,6 +227,15 @@ a.nav-link--::before {
   color: $white;
 }
 
+.page-node-29 {
+  .latest-news {
+    background-color: $white;
+    h3.section-title {
+      display: none;
+    }
+  }
+}
+
 .section-title-workshops,
 .section-title-partners {
   color: $black;

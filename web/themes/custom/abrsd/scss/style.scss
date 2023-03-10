@@ -166,8 +166,8 @@ a.nav-link--::before {
 }
 
 .abrsd--header-image {
-   padding-left: 0.01rem !important;
-    padding-right: 0.01rem !important;
+  padding-left: 0.01rem !important;
+  padding-right: 0.01rem !important;
 }
 
 // HEADER AND NAV STYLES
@@ -235,11 +235,27 @@ a.nav-link--::before {
 }
 
 .page-node-52 {
-  .latest-news {
-    background-color: $white;
-    h3.section-title,
-    .card-body {
-      color: $black;
+  div.latest-news {
+    &:nth-child(2) {
+      background-color: $white;
+      h3.section-title,
+      .card-body {
+        color: $black;
+      }
+    }
+  }
+
+  div.latest-news {
+    &:nth-child(3) {
+      background-color: $white;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      h3.section-title {
+        display: none;
+      }
+      .card-body {
+        color: $white;
+      }
     }
   }
 }

@@ -2,7 +2,7 @@ abrsd_onecol:
   label: ABRSD One Column
   category: ABRSD
   path: layouts
-  template: abrsd--onecol
+  template: abrsd--layout-onecol
   default_region: content
   icon_map:
     - [content]

@@ -156,10 +156,6 @@ a.nav-link--::before {
 }
 
 // LAYOUT STYLES
-// .layout--onecol .layout__region--content {
-//   width: unset;
-// }
-
 .layout--onecol {
   &.latest-news {
     @include media-breakpoint-down(md) {
@@ -175,10 +171,6 @@ a.nav-link--::before {
 }
 
 // HEADER AND NAV STYLES
-// .node__content {
-//   margin-top: 8rem;
-// }
-
 #header,
 .navbar-nav {
   background-color: $menu-background !important;
@@ -238,6 +230,16 @@ a.nav-link--::before {
     background-color: $white;
     h3.section-title {
       display: none;
+    }
+  }
+}
+
+.page-node-52 {
+  .latest-news {
+    background-color: $white;
+    h3.section-title,
+    .card-body {
+      color: $black;
     }
   }
 }

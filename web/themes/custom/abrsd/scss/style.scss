@@ -156,9 +156,9 @@ a.nav-link--::before {
 }
 
 // LAYOUT STYLES
-.layout--onecol .layout__region--content {
-  width: unset;
-}
+// .layout--onecol .layout__region--content {
+//   width: unset;
+// }
 
 .layout--onecol {
   &.latest-news {
@@ -169,10 +169,15 @@ a.nav-link--::before {
   }
 }
 
-// HEADER AND NAV STYLES
-.node__content {
-  margin-top: 8rem;
+.abrsd--header-image {
+   padding-left: 0.01rem !important;
+    padding-right: 0.01rem !important;
 }
+
+// HEADER AND NAV STYLES
+// .node__content {
+//   margin-top: 8rem;
+// }
 
 #header,
 .navbar-nav {

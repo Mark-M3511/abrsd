@@ -11,6 +11,7 @@ Description: Bootstrap 4 with Sass
 
 body {
   background: $white;
+  font-family: $font-family-base !important;
 }
 
 /* COLORS
@@ -73,6 +74,10 @@ a {
 
 .slick > div {
   margin: 0 15px;
+}
+
+h3 {
+  font-weight: bolder;
 }
 
 /* BUTTON */

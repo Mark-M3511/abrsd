@@ -8,6 +8,8 @@ base theme: bootstrap_barrio
 
 libraries:
   - abrsd/global-styling
+  - abrsd/monsterrat
+  - abrsd/sourcesanspro
 libraries-override:
   bootstrap_barrio/global-styling: false
 regions:

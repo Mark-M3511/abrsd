@@ -39,10 +39,11 @@
 
 <div class="card mb-3">
   <div class="row g-0 d-flex flex-row-reverse">
-    <div class="col-md-4 col-image">
+    {# Remove image at smallest breakpoint: col #}
+    <div class="col col-image">
       {{ fields.field_hero_image.content }}
     </div>
-    <div class="col-md-8 col-text">
+    <div class="col-md-6 col-lg-8 col-text">
       <div class="card-body d-flex flex-column justify-content-center p-5">
         <h4 class="card-title">{{ fields.title.content }}</h4>
         <div class="card-text">{{ fields.body.content }}</div>

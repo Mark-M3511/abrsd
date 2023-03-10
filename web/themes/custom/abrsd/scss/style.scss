@@ -235,6 +235,7 @@ a.nav-link--::before {
 }
 
 .page-node-52 {
+  // Press Releases
   div.latest-news {
     &:nth-child(2) {
       background-color: $white;
@@ -245,6 +246,7 @@ a.nav-link--::before {
     }
   }
 
+  // CTA
   div.latest-news {
     &:nth-child(3) {
       background-color: $white;

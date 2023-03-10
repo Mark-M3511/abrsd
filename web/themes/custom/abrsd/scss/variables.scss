@@ -1,12 +1,13 @@
 /* VARIABLES */
 
 // colors
-$primary-shade: rgb(255, 78, 46);
+$primary-shade: rgb(29, 177, 176);
 $primary-light: lighten($primary-shade, 37%);
 $primary-dark: darken($primary-shade, 12%);
 $accent-shade: rgb(257, 187, 53);
 $accent-light: lighten($accent-shade, 37%);
 $accent-dark: darken($accent-shade, 12%);
+$secondary-shade: rgb(14, 78, 171);
 // Reassign color vars to semantic color scheme
 $red: #dc3545;
 $yellow: #ffc107;
@@ -15,7 +16,16 @@ $cyan: #17a2b8;
 $white: #fff;
 $gray-100: #f8f9fa;
 $gray-800: #343a40;
-$theme-colors: ( primary: $accent-shade, secondary: $primary-shade, success: $green, info: $cyan, warning: $yellow, danger: $red, light: $gray-100, dark: $gray-800);
+$theme-colors: (
+  primary: $accent-shade,
+  secondary: $primary-shade,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800,
+);
 $brand-primary: $accent-shade;
 //$brand-success: $green;
 //$brand-info: $teal;
@@ -33,7 +43,7 @@ $inverse-color: $white;
 // Links
 //
 // Style anchor elements.
-$link-color: $accent-shade;
+$link-color: $secondary-shade;
 $link-decoration: none;
 $link-hover-color: $accent-dark;
 $link-hover-decoration: underline;

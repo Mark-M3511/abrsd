@@ -301,6 +301,15 @@ a.nav-link--::before {
 
 } // END PAGE NODE 52
 
+// CARD BUTTONS
+.card-body {
+  .btn {
+    padding: 0.5rem 2rem;
+    font-size: small;
+    font-weight: bold;
+  }
+}
+
 .section-title-workshops,
 .section-title-partners {
   color: $black;

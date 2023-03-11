@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme CTA button component.
+ *
+ * Available variables:
+ * - link_uri: URL of the link.
+ * - target: Target of the link.
+ * - link_text: Text of the link.
+ * - extra_classes: Extra classes to add to the button.
+ * - classes: Classes to add to the button.
+ *
+ * @see Various calling templates
+ */
+#}
+{% if classes is defined %}
+	{% set classes = classes ~ (extra_classes ? extra_classes : '') %}
+	<a href="{{ link_uri }}" class="{{ classes }}" target="{{ target }}">
+		{{ link_text }}
+	</a>
+{% else %}
+	<a href="{{ link_uri }}" class="btn btn-primary {{ extra_classes }}" target="{{ target }}">
+		{{ link_text }}
+	</a>
+{% endif %}

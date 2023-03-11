@@ -42,8 +42,12 @@
     {# <h5 class="card-title">{{ fields.field_page_title.content }}</h5> #}
     <div class="card-text">{{ fields.body.content }}</div>
     <div class="card-text mt-auto">{{ fields.field_start_date.content }}</div>
-    <a href="{{ link_uri }}" class="mt-auto align-self-start text-link" target="{{ target }}">
-       {{ link_text }}
-     </a>
+    {{ include('@abrsd/components/_cta_button.html.twig', {
+      'text': link_text|t,
+      'url': link_uri,
+      'target': target,
+      'extra_classes': 'mt-auto align-self-start',
+      'classes': 'text-link text-capitalize '
+    }) }}
   </div>
 </div>

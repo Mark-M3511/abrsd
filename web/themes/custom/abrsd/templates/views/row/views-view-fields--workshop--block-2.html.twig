@@ -67,8 +67,11 @@
           </div>
        </div>
     </div>
-    <a href="{{ link_uri }}" class="btn btn-primary mt-auto align-self-start" target="{{ target }}">
-       {{ link_text|t|upper }}
-     </a>
+    {{ include('@abrsd/components/_cta_button.html.twig', {
+      'text': link_text|t|upper,
+      'url': link_uri,
+      'target': target,
+      'extra_classes': 'mt-auto align-self-start'
+    }) }}
   </div>
 </div>

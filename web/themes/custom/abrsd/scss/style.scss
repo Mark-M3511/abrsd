@@ -177,6 +177,13 @@ a.nav-link--::before {
 }
 
 // LAYOUT STYLES
+.layout__region--content {
+  @include media-breakpoint-down(md) {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+  }
+}
+
 .layout--onecol {
   &.latest-news {
     @include media-breakpoint-down(md) {
@@ -228,6 +235,10 @@ a.nav-link--::before {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+}
+
+.nav-link:hover {
+  color: $accent-shade !important;
 }
 
 .menu--main li a {

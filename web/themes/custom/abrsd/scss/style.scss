@@ -146,6 +146,7 @@ a.nav-link--::before {
   }
 }
 
+// VIEWS
 .view-workshop .card-body,
 .view-resource-cards-grid-3 .card-body {
   background-color: $card-background;
@@ -157,6 +158,15 @@ a.nav-link--::before {
   }
   .card-body {
     color: $white;
+  }
+}
+
+.view-workshop {
+  &.view-display-id-block_2 {
+    i.fas {
+      color: $icon-foreground !important;
+      font-size: 1.4rem;
+    }
   }
 }
 
@@ -180,6 +190,9 @@ a.nav-link--::before {
   padding-left: 0.01rem !important;
   padding-right: 0.01rem !important;
   margin-top: 1.5rem !important;
+  .field--name-body {
+    font-weight: 700;
+  }
 }
 
 // HEADER AND NAV STYLES

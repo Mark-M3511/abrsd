@@ -16,6 +16,8 @@ $cyan: #17a2b8;
 $white: #fff;
 $gray-100: #f8f9fa;
 $gray-800: #343a40;
+$icon-foreground: rgb(247, 111, 44);
+
 $theme-colors: (
   primary: $accent-shade,
   secondary: $primary-shade,
@@ -63,4 +65,3 @@ $alt-background-1: rgb(29, 177, 176);
 // Menu
 $menu-background: #000;
 $menu-social-icons: $alt-background-1;
-

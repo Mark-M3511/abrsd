@@ -179,6 +179,7 @@ a.nav-link--::before {
 .abrsd--header-image {
   padding-left: 0.01rem !important;
   padding-right: 0.01rem !important;
+  margin-top: 1.5rem !important;
 }
 
 // HEADER AND NAV STYLES
@@ -195,16 +196,16 @@ a.nav-link--::before {
   }
 }
 
-.nav {
-  .last-item {
-    color: $menu-background;
-  }
-  @include media-breakpoint-up(lg) {
-    li:has(a.last-item) {
-      margin-left: 1rem;
-    }
-  }
-}
+// .nav {
+//   .last-item {
+//     color: $menu-background;
+//   }
+//   @include media-breakpoint-up(lg) {
+//     li:has(a.last-item) {
+//       margin-left: 1rem;
+//     }
+//   }
+// }
 
 // MAIN NAV STYLES
 #navbar-main {

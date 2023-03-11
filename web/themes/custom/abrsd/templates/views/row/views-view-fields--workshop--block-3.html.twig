@@ -34,7 +34,7 @@
 {# Set up variables to be used #}
 {% set link_uri = fields.field_workshop_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_workshop_link_1.content|striptags|trim|raw %}
-{% set link_text = link_text ? link_text : 'Read More' %}
+{% set link_text = link_text ? link_text : 'Read More'|t %}
 {% set target = 'http' in link_uri ? '_blank' : '_self' %}
 
 <div class="card mb-3">
@@ -43,7 +43,7 @@
     <div class="card-text">{{ fields.body.content }}</div>
     <div class="card-text mt-auto">{{ fields.field_start_date.content }}</div>
     {{ include('@abrsd/components/_cta_button.html.twig', {
-      'text': link_text|t,
+      'text': link_text,
       'url': link_uri,
       'target': target,
       'extra_classes': 'mt-auto align-self-start',

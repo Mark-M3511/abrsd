@@ -34,7 +34,7 @@
 {# Set up variables to be used #}
 {% set link_uri = fields.field_resource_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_resource_link_1.content|striptags|trim|raw %}
-{% set link_text = link_text ? link_text : 'Read More' %}
+{% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_uri ? '_blank' : '_self' %}
 
 <div class="card">
@@ -45,9 +45,13 @@
       {# Load the body field. #}
       {{ fields.body.content }}
     </div>
-    <a href="{{ link_uri }}" class="btn btn-primary mt-auto align-self-center" target="{{ target }}">
-      {{ link_text|t|upper }}
-    </a>
+    {# Call the button component template #}
+    {{ include('@abrsd/components/_cta_button.html.twig', {
+      'text': link_text,
+      'url': link_uri,
+      'target': target,
+      'extra_classes': 'mt-auto align-self-center'
+    }) }}
   </div>
 </div>
 

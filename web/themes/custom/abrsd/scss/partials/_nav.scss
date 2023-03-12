@@ -1,0 +1,123 @@
+// HEADER AND NAV STYLES
+#header,
+.navbar-nav {
+  background-color: $menu-background !important;
+  .nav-item {
+    margin-left: 1.5rem;
+  }
+  @include media-breakpoint-down(lg) {
+    li:has(a.last-item) {
+      margin-left: 0;
+    }
+  }
+}
+
+/* FOOTER MENU */
+.menu--footer {
+  color: $white;
+  h2 {
+    font-size: medium;
+    margin-bottom: 0.1rem;
+  }
+  a {
+    padding: 0;
+    font-size: small;
+    color: white;
+  }
+}
+
+.menu--footer-contact-us {
+  h2 {
+    padding-left: 0;
+  }
+}
+
+.social-link {
+  i {
+    font-size: xx-large;
+    color: $menu-social-icons;
+  }
+}
+
+.footer-branding {
+  color: $white;
+  font-size: small;
+  padding-top: 1rem;
+}
+
+a.nav-link--::before {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+// MAIN NAV STYLES
+.menu--main li a {
+  color: $primary-shade;
+}
+
+.menu--account li a {
+  color: $primary-shade;
+}
+
+.site-name-slogan a {
+  text-decoration: none;
+}
+
+#navbar-main {
+  background-color: $menu-background !important;
+  height: 7.5rem;
+  @include media-breakpoint-down(md) {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+.nav-link:hover {
+  color: $accent-shade !important;
+}
+
+.menu--main li a {
+  color: $white;
+  text-transform: uppercase !important;
+}
+
+.site-name-line-1 {
+  font-weight: 800;
+}
+
+.site-name-line-2 {
+  font-size: 1.5rem !important;
+}
+
+// .nav {
+//   .last-item {
+//     color: $menu-background;
+//   }
+//   @include media-breakpoint-up(lg) {
+//     li:has(a.last-item) {
+//       margin-left: 1rem;
+//     }
+//   }
+// }
+
+// DROPDOWN MENU STYLES
+.dropdown-menu {
+  background-color: $black;
+  .dropdown-item {
+    &:hover,
+    &:focus {
+      background-color: $white;
+      a {
+        color: $black;
+      }
+    }
+    .nav-link--home {
+      text-decoration: none;
+    }
+    a {
+      &:hover {
+        color: $black !important;
+      }
+    }
+  }
+}

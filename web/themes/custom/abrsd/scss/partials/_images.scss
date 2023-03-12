@@ -1,0 +1,27 @@
+/* RESPONSIVE IMAGES */
+.responsive-image {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.field--name-field-banner-image {
+  float: none !important;
+  margin: 0 !important;
+  img {
+    max-width: 100%;
+  }
+}
+
+.card {
+  img {
+    max-width: 100%;
+  }
+}
+
+// BANNER IMAGE
+.floating-banner {
+  top: 85% !important;
+  width: 90% !important;
+}

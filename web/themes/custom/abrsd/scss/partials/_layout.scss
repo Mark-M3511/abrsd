@@ -1,0 +1,122 @@
+// LAYOUT STYLES
+.layout--onecol {
+  &.footer--onecol {
+    background: $menu-background !important;
+  }
+}
+
+.site-footer {
+  background: $menu-background !important;
+}
+
+.site-footer a {
+  color: $white;
+}
+
+.layout--onecol {
+  &.latest-news,
+  &.toolkits {
+    background: $alt-background-1;
+  }
+}
+
+// HERO IMAGE STYLES FOR HOMEPAGE ONLY. THIS IS DUE TO MISSING BREADCRUMB BLOCK
+.path-frontpage {
+  .abrsd--header-image {
+    padding-top: 5.5rem !important;
+  }
+}
+
+.page-node-29 {
+  .latest-news {
+    background-color: $white;
+    h3.section-title {
+      display: none;
+    }
+  }
+}
+
+.page-node-52 {
+  // Press Releases
+  div.latest-news {
+    &:nth-child(2) {
+      background-color: $white;
+      h3.section-title,
+      .card-body {
+        color: $black;
+      }
+    }
+  }
+
+  // CTA
+  div.latest-news {
+    &:nth-child(3) {
+      background-color: $white;
+      padding-top: 0 !important;
+      padding-bottom: 3rem !important;
+      h3.section-title {
+        display: none;
+      }
+      .card-body {
+        color: $white;
+      }
+    }
+  }
+
+  // UPCOMING WORKSHOPS
+  div.workshops {
+    &:nth-child(4) {
+      background-color: $alt-background-1;
+      // padding-top: 0 !important;
+      // padding-bottom: 0 !important;
+      h3.section-title {
+        color: $white;
+      }
+    }
+  }
+} // END PAGE NODE 52
+
+.layout__region--content {
+  @include media-breakpoint-down(md) {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+  }
+}
+
+.layout--onecol {
+  &.latest-news {
+    @include media-breakpoint-down(md) {
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
+    }
+  }
+}
+
+.abrsd--header-image {
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
+  margin-top: 1.5rem !important;
+  .field--name-body {
+    font-weight: 700;
+  }
+}
+
+.resources {
+  @include media-breakpoint-down(lg) {
+    margin-top: 3rem !important;
+  }
+  @include media-breakpoint-down(md) {
+    margin-top: 4.5rem !important;
+  }
+}
+
+// SECTION STYLES
+.section-title-latest-news,
+.section-title-toolkit {
+  color: $white;
+}
+
+.section-title-workshops,
+.section-title-partners {
+  color: $black;
+}

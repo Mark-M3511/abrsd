@@ -257,6 +257,21 @@ a.nav-link--::before {
   font-size: 1.5rem !important;
 }
 
+// DROPDOWN MENU STYLES
+.dropdown-menu {
+  background-color: $black;
+  .dropdown-item {
+    &:hover,
+    &:focus {
+      background-color: $primary-shade;
+      color: $black;
+    }
+    .nav-link--home {
+      text-decoration: none;
+    }
+  }
+}
+
 .resources {
   @include media-breakpoint-down(lg) {
     margin-top: 3rem !important;
@@ -334,21 +349,6 @@ a.nav-link--::before {
     padding: 0.5rem 2rem;
     font-size: small;
     font-weight: bold;
-  }
-}
-
-// DROPDOWN MENU STYLES
-.dropdown-menu {
-  background-color: $black;
-  .dropdown-item {
-    &:hover,
-    &:focus {
-      background-color: $primary-shade;
-      color: $black;
-    }
-    .nav-link--home {
-      text-decoration: none;
-    }
   }
 }
 

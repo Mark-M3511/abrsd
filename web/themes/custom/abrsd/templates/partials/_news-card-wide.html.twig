@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Theme partial to display the wide format news card content
+ *
+ * @see calling templates for available variables and hooks
+ *
+ */
+#}
+{# Remove image at smallest breakpoint: col #}
+<div class="col col-image">
+	{{ fields.field_hero_image.content }}
+</div>
+<div class="col-lg-8 col-text">
+	<div class="card-body d-flex flex-column justify-content-center p-5">
+		<h4 class="card-title">{{ fields.field_page_title.content }}</h4>
+		<div class="card-text">{{ fields.body.content }}</div>
+		{{ include('@abrsd/components/_cta_button.html.twig', {
+          'text': link_text,
+          'url': link_uri,
+          'target': target,
+          'extra_classes': 'mt-auto align-self-start'
+        }) }}
+	</div>
+</div>

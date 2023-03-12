@@ -76,7 +76,10 @@ a {
   margin: 0 15px;
 }
 
-h2, h3, h4, h5 {
+h2,
+h3,
+h4,
+h5 {
   font-weight: bolder;
 }
 
@@ -207,7 +210,7 @@ a.nav-link--::before {
 .navbar-nav {
   background-color: $menu-background !important;
   .nav-item {
-     margin-left: 1.5rem;
+    margin-left: 1.5rem;
   }
   @include media-breakpoint-down(lg) {
     li:has(a.last-item) {
@@ -323,7 +326,6 @@ a.nav-link--::before {
       }
     }
   }
-
 } // END PAGE NODE 52
 
 // CARD BUTTONS
@@ -332,6 +334,21 @@ a.nav-link--::before {
     padding: 0.5rem 2rem;
     font-size: small;
     font-weight: bold;
+  }
+}
+
+// DROPDOWN MENU STYLES
+.dropdown-menu {
+  background-color: $black;
+  .dropdown-item {
+    &:hover,
+    &:focus {
+      background-color: $primary-shade;
+      color: $black;
+    }
+    .nav-link--home {
+      text-decoration: none;
+    }
   }
 }
 

@@ -1,0 +1,38 @@
+{#
+ /**
+  * @file
+  * Custom theme implementation to display social badges by platform
+  *
+  * Available variables:
+  * - item_title: The title of the social badge.
+  * - item_url: The URL of the social badge.
+  * - classes: A list of CSS classes to apply to the social badge.
+  * - el: The HTML element to use for the social badge.
+  */
+ #}
+{% macro social_badge(el, item_title, item_url, classes) %}
+
+	{% if el is empty %}
+		{% set el = 'li' %}
+	{% endif %}
+
+	{% set attr = create_attribute() %}
+
+	{% if item_title == 'facebook' %}
+		{% set icon = 'fab fa-facebook-f' %}
+	{% elseif item_title == 'youtube' %}
+		{% set icon = 'fab fa-youtube' %}
+	{% elseif item_title == 'instagram' %}
+		{% set icon = 'fab fa-instagram' %}
+	{% elseif item_title == 'linkedin' %}
+		{% set icon = 'fab fa-linkedin-in' %}
+	{% elseif item_title == 'twitter' %}
+		{% set icon = 'fab fa-twitter' %}
+	{% endif %}
+
+	<{{el}} {{attr.addClass(classes)}}>
+		<a href="{{ item_url }}" target="_blank" class="social-link align-self-center fs-5">
+			<i class="{{ icon }}"></i>
+		</a>
+	</{{el}}>
+{% endmacro %}

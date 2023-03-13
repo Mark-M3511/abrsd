@@ -11,4 +11,15 @@
     font-size: small;
     font-weight: bold;
   }
+  .card-text {
+    font-size: $font-family-base;
+    font-weight: $font-weight-medium;
+  }
 }
+
+// BANNER
+.floating-banner {
+  top: 90% !important;
+  width: 90% !important;
+}
+

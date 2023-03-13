@@ -26,7 +26,10 @@ $font-size-xs: $font-size-base * 0.75;
 $font-weight-normal: normal;
 $font-weight-bold: bold;
 $font-weight-base: $font-weight-normal;
+$font-weight-medium: 500;
+// Line height
 $line-height-base: 1.5;
+// Headings
 $h1-font-size: $font-size-base * 2.5;
 $h2-font-size: $font-size-base * 2;
 $h3-font-size: $font-size-base * 1.75;

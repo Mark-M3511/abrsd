@@ -34,7 +34,7 @@
 {# Set up variables to be used #}
 {% set link_uri = fields.field_toolkit_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_toolkit_link_1.content|striptags|trim|raw %}
-{% set link_text = link_text ? link_text : 'Read More'|t|upper %}
+{% set link_text = link_text ? link_text : 'Read More'|t %}
 {% set target = 'http' in link_uri ? '_blank' : '_self' %}
 
 <div class="card mb-3">
@@ -47,7 +47,8 @@
       'text': link_text,
       'url': link_uri,
       'target': target,
-      'extra_classes': 'mt-auto align-self-start'
+      'classes': 'text-link text-capitalize ',
+      'extra_classes': 'mt-auto align-self-start',
     }) }}
   </div>
 </div>

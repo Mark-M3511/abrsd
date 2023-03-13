@@ -30,12 +30,16 @@
   h2 {
     padding-left: 0;
   }
+  .nav-item {
+    background-color: $primary-shade;
+    width: 2.3rem;
+    height: 2.3rem;
+  }
 }
 
 .social-link {
   i {
-    font-size: xx-large;
-    color: $menu-social-icons;
+    color: $white;
   }
 }
 

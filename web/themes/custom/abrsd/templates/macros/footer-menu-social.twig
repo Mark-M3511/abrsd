@@ -28,23 +28,26 @@
           item.is_expanded ? 'menu-item--expanded',
           item.is_collapsed ? 'menu-item--collapsed',
           item.in_active_trail ? 'menu-item--active-trail',
+          'd-flex',
+          'justify-content-center',
+          'rounded-circle',
         ]
       %}
       <li{{ item.attributes.addClass(classes) }}>
         {# Select icons based on current item title #}
         {% set item_title = item.title|lower|trim %}
         {% if item_title == 'facebook' %}
-           {% set icon = 'fab fa-facebook' %}
+           {% set icon = 'fab fa-facebook-f' %}
         {% elseif item_title == 'youtube' %}
            {% set icon = 'fab fa-youtube' %}
         {% elseif item_title == 'instagram' %}
            {% set icon = 'fab fa-instagram' %}
         {% elseif item_title == 'linkedin' %}
-           {% set icon = 'fab fa-linkedin' %}
+           {% set icon = 'fab fa-linkedin-in' %}
         {% elseif item_title == 'twitter' %}
            {% set icon = 'fab fa-twitter' %}
         {% endif %}
-        <a href="{{ item.url }}" target="_blank" class="social-link"><i class="{{ icon }}"></i></a>
+        <a href="{{ item.url }}" target="_blank" class="social-link align-self-center fs-5"><i class="{{ icon }}"></i></a>
       </li>
     {% endfor %}
     </ul>

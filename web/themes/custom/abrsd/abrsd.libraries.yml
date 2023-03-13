@@ -1,8 +1,7 @@
 global-styling:
   version: VERSION
   js:
-    js/bootstrap.min.js: { weight: -48 }
-    js/popper.min.js: { weight: -50 }
+    js/bootstrap.min.js: {}
     js/barrio.js: {}
     js/custom.js: {}
   css:
@@ -12,13 +11,18 @@ global-styling:
     - core/jquery
     - core/drupal
     - core/popperjs
+    - abrsd/bs5-popper
+bs5-popper:
+  version: VERSION
+  js:
+    js/popper.min.js: {}
 monsterrat:
   version: VERSION
   css:
     theme:
       ? https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap
       : { type: external }
-sourcesanspro:
+source-sans-pro:
   version: VERSION
   css:
     theme:

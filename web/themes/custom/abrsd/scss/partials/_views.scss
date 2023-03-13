@@ -4,6 +4,15 @@
   background-color: $card-background;
 }
 
+.view-resource-cards-grid-3 {
+  @include media-breakpoint-down(lg) {
+    .card-body {
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+    }
+  }
+}
+
 .view-news {
   .col-text {
     background-color: $menu-background;

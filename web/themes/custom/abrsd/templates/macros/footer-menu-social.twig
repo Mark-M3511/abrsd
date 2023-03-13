@@ -20,10 +20,10 @@
 	{% if items %}
 		{% if menu_level == 0 %}
 			<ul{{attributes.addClass('nav')|without('id')}}>
-			{% else %}
+		{% else %}
 				<ul class="menu">
-				{% endif %}
-				{% for item in items %}
+		{% endif %}
+		{% for item in items %}
 					{%
         set classes = [
           'nav-item',
@@ -39,7 +39,7 @@
 					{% set item_title = item.title|lower|trim %}
           {# Call a macro to render the social platform's badge #}
           {{social.social_badge('li', item_title, item.url, classes)}}
-				{% endfor %}
-			</ul>
-		{% endif %}
-	{% endmacro %}
+		 {% endfor %}
+	 </ul>
+	{% endif %}
+{% endmacro %}

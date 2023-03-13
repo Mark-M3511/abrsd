@@ -36,7 +36,6 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
-    'position-relative',
   ]
 %}
 
@@ -47,14 +46,14 @@
 	{% endif %}
 	{{ title_suffix }}
 	{% block content %}
-		<div{{content_attributes.addClass('content')}}>
+		<div{{content_attributes.addClass('content','position-relative')}}>
 			{{ content|without('body', 'field_hero_title', 'field_button_link') }}
-		</div>
-		{% include "@abrsd/partials/_floater.html.twig"  with {
+			{% include "@abrsd/partials/_floater.html.twig"  with {
       'title': content.field_hero_title|render|striptags,
       'body': content.body,
       'url_link': content.field_button_link[0]['#url'],
       'url_title': content.field_button_link[0]['#title'],
     }  %}
+		</div>
 	{% endblock %}
 </div>

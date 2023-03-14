@@ -31,7 +31,8 @@
 	{% endif %}
 
 	<{{el}} {{attr.addClass(classes)}}>
-		<a href="{{ item_url }}" target="_blank" class="social-link align-self-center fs-5">
+		<a href="{{ item_url }}" target="_blank" title="{{ item_title|capitalize }}"
+		    class="social-link align-self-center fs-5">
 			<i class="{{ icon }}"></i>
 		</a>
 	</{{el}}>

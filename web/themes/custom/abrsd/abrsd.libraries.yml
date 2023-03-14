@@ -20,11 +20,9 @@ monsterrat:
   version: VERSION
   css:
     theme:
-      ? https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap
-      : { type: external }
+      https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap: { type: external }
 source-sans-pro:
   version: VERSION
   css:
     theme:
-      ? https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap
-      : { type: external }
+      https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap: { type: external }

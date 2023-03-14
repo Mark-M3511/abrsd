@@ -121,6 +121,7 @@ a.nav-link--::before {
     a {
       &:hover {
         color: $black !important;
+        text-decoration: none;
       }
     }
   }

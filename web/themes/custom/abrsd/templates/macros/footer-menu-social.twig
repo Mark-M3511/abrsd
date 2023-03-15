@@ -20,7 +20,7 @@
   {# eof: Import macro #}
 	{% if items %}
 		{% if menu_level == 0 %}
-			<ul{{attributes.addClass('nav')|without('id')}}>
+			<ul{{attributes.addClass('nav', 'pt-1')|without('id')}}>
 		{% else %}
 				<ul class="menu">
 		{% endif %}

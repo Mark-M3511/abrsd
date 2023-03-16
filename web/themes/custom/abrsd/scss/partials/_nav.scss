@@ -93,16 +93,19 @@ a.nav-link--::before {
   font-size: 1.5rem !important;
 }
 
-// .nav {
-//   .last-item {
-//     color: $menu-background;
-//   }
-//   @include media-breakpoint-up(lg) {
-//     li:has(a.last-item) {
-//       margin-left: 1rem;
-//     }
-//   }
-// }
+.nav {
+  .last-item {
+    color: $menu-background;
+    &:hover {
+      color: $menu-background !important;
+    }
+  }
+  // @include media-breakpoint-up(lg) {
+  //   li:has(a.last-item) {
+  //     margin-left: 1rem;
+  //   }
+  // }
+}
 
 // DROPDOWN MENU STYLES
 .dropdown-menu {

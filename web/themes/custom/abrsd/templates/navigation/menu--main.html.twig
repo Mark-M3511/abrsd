@@ -52,6 +52,7 @@
             item.below ? 'dropdown-toggle',
             item.url.getOption('attributes').class ? item.url.getOption('attributes').class | join(' '),
             'nav-link-' ~ item.url.toString() | clean_class,
+            loop.index == loop.last ? 'last-item btn btn-primary',
           ]
         %}
         {% if item.below %}

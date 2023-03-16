@@ -101,15 +101,6 @@
   }
 }
 
-.resources {
-  @include media-breakpoint-down(lg) {
-    margin-top: 3rem !important;
-  }
-  @include media-breakpoint-down(md) {
-    margin-top: 4.5rem !important;
-  }
-}
-
 // SECTION STYLES
 .section-title-latest-news,
 .section-title-toolkit {

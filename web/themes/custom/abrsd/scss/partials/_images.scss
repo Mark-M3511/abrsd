@@ -11,6 +11,11 @@
   img {
     height: 5rem;
   }
+  @include media-breakpoint-down(sm) {
+    img {
+      height: 3rem;
+    }
+  }
 }
 
 .field--name-field-banner-image {

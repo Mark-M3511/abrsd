@@ -87,7 +87,10 @@
   padding-left: 0rem !important;
   padding-right: 0rem !important;
   margin-top: 1.5rem !important;
-  margin-bottom: 7rem !important;
+  margin-bottom: 3.5rem !important;
+  @include media-breakpoint-down(md) {
+    margin-bottom: 7rem !important;
+  }
   .field--name-body {
     font-weight: 700;
   }

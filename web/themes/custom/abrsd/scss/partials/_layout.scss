@@ -83,19 +83,11 @@
   }
 }
 
-.layout--onecol {
-  &.latest-news {
-    @include media-breakpoint-down(md) {
-      padding-left: 0rem !important;
-      padding-right: 0rem !important;
-    }
-  }
-}
-
 .abrsd--header-image {
   padding-left: 0rem !important;
   padding-right: 0rem !important;
   margin-top: 1.5rem !important;
+  margin-bottom: 7rem !important;
   .field--name-body {
     font-weight: 700;
   }

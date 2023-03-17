@@ -33,7 +33,7 @@
        * Scroll to anchor on click
        * @type {HTMLElement}
        */
-      let el = document.querySelector('.navbar-nav');
+      const el = document.querySelector('.navbar-nav');
       el.addEventListener('click', e => {
         e.preventDefault();
         if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('dropdown-item')) {

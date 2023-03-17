@@ -23,10 +23,9 @@
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
         window.sessionStorage.removeItem('scrollTo');
+
         const target = document.querySelector('#' + scrollTo);
-        if (target) {
-          target.scrollIntoView({ behavior: 'auto', block: 'center' });
-        }
+        target?.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
 
       /**
@@ -34,7 +33,7 @@
        * @type {HTMLElement}
        */
       const el = document.querySelector('.navbar-nav');
-      el.addEventListener('click', e => {
+      el?.addEventListener('click', e => {
         e.preventDefault();
         if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('dropdown-item')) {
           const href = e.target.getAttribute('href');

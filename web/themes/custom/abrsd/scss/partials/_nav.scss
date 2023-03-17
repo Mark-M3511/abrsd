@@ -123,6 +123,7 @@ a.nav-link--::before {
     }
     a {
       display: inline-block;
+      height: 100%;
       width: 100%;
       &:hover {
         color: $black !important;

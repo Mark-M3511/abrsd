@@ -40,7 +40,7 @@
     'container',
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
+<div{{ attributes.addClass(classes).setAttribute('id', 'toolkit') }}>
   {{ title_prefix }}
   {% if title %}
     {{ title }}

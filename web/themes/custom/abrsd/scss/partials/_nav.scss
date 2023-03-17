@@ -122,6 +122,8 @@ a.nav-link--::before {
       text-decoration: none;
     }
     a {
+      display: inline-block;
+      width: 100%;
       &:hover {
         color: $black !important;
         text-decoration: none;

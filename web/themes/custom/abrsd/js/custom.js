@@ -14,30 +14,36 @@
 
 // })(jQuery, Drupal);
 
-(function (Drupal) {
+((Drupal, drupalSettings) => {
   Drupal.behaviors.abrsd = {
     attach: function (context, settings) {
-      // Your code here.
+      /**
+       * Scroll to anchor
+       */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
         window.sessionStorage.removeItem('scrollTo');
         const target = document.querySelector('#' + scrollTo);
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.scrollIntoView({ behavior: 'auto', block: 'center' });
         }
       }
 
+      /**
+       * Scroll to anchor on click
+       * @type {HTMLElement}
+       */
       let el = document.querySelector('.navbar-nav');
-      el.addEventListener('click', function (e) {
+      el.addEventListener('click', e => {
         e.preventDefault();
         if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('dropdown-item')) {
           const href = e.target.getAttribute('href');
-          // console.log(href.split('#')[1]);
-          window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
-          window.location.href = href.split('#')[0];
+          if (href.split('#').length > 1) {
+            window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
+            window.location.href = href.split('#')[0];
+          }
         }
       });
-
     },
   };
-}(Drupal));
+})(Drupal, drupalSettings);

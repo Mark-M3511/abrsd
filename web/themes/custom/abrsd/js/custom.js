@@ -15,7 +15,19 @@
 // })(jQuery, Drupal);
 
 ((Drupal, drupalSettings) => {
-  Drupal.behaviors.abrsd = {
+  const { behaviors } = Drupal;
+  const processClick = (e) => {
+    e.preventDefault();
+    if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('nav-target')) {
+      const href = e.target.getAttribute('href');
+      if (href.split('#').length > 1) {
+        window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
+        window.location.href = href.split('#')[0];
+      }
+    }
+  }
+  // Drupal.behaviors.abrsd = {
+  behaviors.abrsd = {
     attach: function (context, settings) {
       /**
        * Scroll to anchor
@@ -33,16 +45,9 @@
        * @type {HTMLElement}
        */
       const el = document.querySelector('.navbar-nav');
-      el?.addEventListener('click', e => {
-        e.preventDefault();
-        if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('dropdown-item')) {
-          const href = e.target.getAttribute('href');
-          if (href.split('#').length > 1) {
-            window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
-            window.location.href = href.split('#')[0];
-          }
-        }
-      });
+      const el2 = document.querySelector('.footer--onecol');
+      el?.addEventListener('click', processClick);
+      el2?.addEventListener('click', processClick);
     },
   };
 })(Drupal, drupalSettings);

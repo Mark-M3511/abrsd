@@ -52,10 +52,10 @@
        * Scroll to anchor on click
        * @type {HTMLElement}
        */
-      const el = document.querySelector('.navbar-nav');
-      const el2 = document.querySelector('.footer--onecol');
-      el?.addEventListener('click', processClick);
-      el2?.addEventListener('click', processClick);
+      const headerNav = document.querySelector('.navbar-nav');
+      const footerNav = document.querySelector('.footer--onecol');
+      headerNav?.addEventListener('click', processClick);
+      footerNav?.addEventListener('click', processClick);
     },
   };
 })(Drupal, drupalSettings);

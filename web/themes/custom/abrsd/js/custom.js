@@ -17,12 +17,20 @@
 ((Drupal, drupalSettings) => {
   const { behaviors } = Drupal;
   const processClick = (e) => {
-    e.preventDefault();
     if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('nav-target')) {
       const href = e.target.getAttribute('href');
       if (href.split('#').length > 1) {
+        e.preventDefault();
         window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
-        window.location.href = href.split('#')[0];
+        const url = new URL(window.location.href);
+        // If the current page is the same as the link, scroll to the anchor,
+        // else, redirect to the link.
+        if(url.pathname === href.split('#')[0]) {
+          const target = document.querySelector('#' + href.split('#')[1]);
+          target?.scrollIntoView({ behavior: 'auto', block: 'center' });
+        } else {
+          window.location.href = href.split('#')[0];
+        }
       }
     }
   }

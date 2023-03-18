@@ -38,6 +38,7 @@
       {%
         set classes = [
           menu_level ? 'dropdown-item' : 'nav-item',
+          menu_level ?  'nav-target',
           item.is_expanded ? 'menu-item--expanded',
           item.is_collapsed ? 'menu-item--collapsed',
           item.in_active_trail ? 'active',

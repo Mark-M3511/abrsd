@@ -132,3 +132,15 @@ a.nav-link--::before {
     }
   }
 }
+
+// MOBILE NAV STYLES
+.offcanvas-body {
+  background-color: $menu-background !important;
+  opacity: 0.8 !important;
+  .last-item {
+    text-align: left;
+    width: fit-content;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

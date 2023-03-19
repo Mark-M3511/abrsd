@@ -18,22 +18,11 @@
 
 	{% set attr = create_attribute() %}
 
-	{% if item_title == 'facebook' %}
-		{% set icon = 'fab fa-facebook-f' %}
-	{% elseif item_title == 'youtube' %}
-		{% set icon = 'fab fa-youtube' %}
-	{% elseif item_title == 'instagram' %}
-		{% set icon = 'fab fa-instagram' %}
-	{% elseif item_title == 'linkedin' %}
-		{% set icon = 'fab fa-linkedin-in' %}
-	{% elseif item_title == 'twitter' %}
-		{% set icon = 'fab fa-twitter' %}
-	{% endif %}
-
 	<{{el}} {{attr.addClass(classes)}}>
 		<a href="{{ item_url }}" target="_blank" title="{{ item_title|capitalize }}"
 		    class="social-link align-self-center fs-5">
-			<i class="{{ icon }}"></i>
+			{# <i class="{{ icon }}"></i> #}
+			{% include "@abrsd/svg/" ~ item_title ~ '.html.twig' %}
 		</a>
 	</{{el}}>
 {% endmacro %}

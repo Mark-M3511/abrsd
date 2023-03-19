@@ -15,7 +15,15 @@
 // })(jQuery, Drupal);
 
 ((Drupal, drupalSettings) => {
+  /**
+   * @type {Drupal}
+   */
   const { behaviors } = Drupal;
+  /**
+   * Process click event on header and footer nav links
+   * @param Event e - The click event paramter
+   * @returns {void}
+   */
   const processClick = (e) => {
     if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('nav-target')) {
       const href = e.target.getAttribute('href');
@@ -25,7 +33,7 @@
         const url = new URL(window.location.href);
         // If the current page is the same as the link, scroll to the anchor,
         // else, redirect to the link.
-        if(url.pathname === href.split('#')[0]) {
+        if (url.pathname === href.split('#')[0]) {
           const target = document.querySelector('#' + href.split('#')[1]);
           target?.scrollIntoView({ behavior: 'auto', block: 'center' });
         } else {
@@ -34,7 +42,11 @@
       }
     }
   }
-  // Drupal.behaviors.abrsd = {
+
+  /**
+   * Attach behaviors to the document.
+   * Note: This is normally written as Drupal.behaviors.abrsd = {
+   */
   behaviors.abrsd = {
     attach: function (context, settings) {
       /**
@@ -42,18 +54,17 @@
        */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
-        window.sessionStorage.removeItem('scrollTo');
-
         const target = document.querySelector('#' + scrollTo);
+
+        window.sessionStorage.removeItem('scrollTo');
         target?.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
 
-      /**
-       * Scroll to anchor on click
-       * @type {HTMLElement}
-       */
       const headerNav = document.querySelector('.navbar-nav');
       const footerNav = document.querySelector('.footer--onecol');
+      /**
+       * Set up click event listeners for header and footer nav links
+       */
       headerNav?.addEventListener('click', processClick);
       footerNav?.addEventListener('click', processClick);
     },

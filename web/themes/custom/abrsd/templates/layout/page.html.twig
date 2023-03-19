@@ -57,6 +57,7 @@
  * Theme variables:
  * - navbar_top_attributes: Items for the header region.
  * - navbar_attributes: Items for the header region.
+ * - navbar_offcanvas: Flag for offcanvas navbar.
  * - content_attributes: Items for the header region.
  * - sidebar_first_attributes: Items for the highlighted region.
  * - sidebar_second_attributes: Items for the primary menu region.
@@ -103,14 +104,14 @@
 										<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 									</div>
 									<div class="offcanvas-body opacity-75 bg-dark">
-									{% endif %}
+								{% endif %}
 									{{ page.primary_menu }}
 									{% if page.header_form %}
 										<div class="form-inline navbar-form justify-content-end">
 											{{ page.header_form }}
 										</div>
 									{% endif %}
-									{% if navbar_offcanvas %}
+								{% if navbar_offcanvas %}
 									</div>
 								{% endif %}
 							</div>

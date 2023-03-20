@@ -30,11 +30,6 @@
   h2 {
     padding-left: 0;
   }
-  // .nav-item {
-  //   background-color: $primary-shade;
-  //   width: 2.3rem;
-  //   height: 2.3rem;
-  // }
 }
 
 .social-link {
@@ -139,7 +134,7 @@ a.nav-link--::before {
   @include media-breakpoint-up(xl) {
     flex-direction: row-reverse !important;
   }
-  // For off canvas menu at mobile breakpoint
+  // For off canvas menu at tablet (landscape orientation) breakpoint
   @include media-breakpoint-down(lg) {
     background-color: $menu-background !important;
     opacity: 0.8 !important;
@@ -148,6 +143,12 @@ a.nav-link--::before {
       width: fit-content;
       padding-left: 1.5rem;
       padding-right: 1.5rem;
+    }
+  }
+  // For off canvas menu at mobile breakpoint
+  @include media-breakpoint-down(md) {
+    .navbar-brand-mobile {
+      display: block !important;
     }
   }
 }

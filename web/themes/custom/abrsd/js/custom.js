@@ -28,6 +28,9 @@
   const processClick = (e) => {
     if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('nav-target')) {
       const href = e.target.getAttribute('href');
+      // Check if the browser supports matchMedia
+      const { mobile, tablet } = mediaQueries();
+
       if (href.split('#').length > 1) {
         e.preventDefault();
         window.sessionStorage.setItem('scrollTo', href.split('#')[1]);
@@ -36,7 +39,13 @@
         // else, redirect to the link.
         if (url.pathname === href.split('#')[0]) {
           const target = document.querySelector('#' + href.split('#')[1]);
-          target?.scrollIntoView({ behavior: 'auto', block: 'center' });
+
+          if (mobile || tablet) {
+            // window.location.href = href.split('#')[0] + '#main-content';
+            window.location.href = window.location.href = href.split('#')[0];
+          } else {
+            target?.scrollIntoView({ behavior: 'auto', block: 'center' });
+          }
         } else {
           window.location.href = href.split('#')[0];
         }
@@ -44,6 +53,16 @@
     }
   }
 
+  /**
+   * Check if the browser supports matchMedia
+   */
+  const mediaQueries = () => {
+    const matchMediaQuery = (window.matchMedia || window.msMatchMedia);
+    const mobile = matchMediaQuery('(max-width: 47.99875rem)').matches;
+    const tablet = matchMediaQuery('(min-width: 48rem) and (max-width: 63.99875rem)').matches;
+
+    return { mobile, tablet };
+  }
   /**
    * Attach behaviors to the document.
    * Note: This is normally written as Drupal.behaviors.abrsd = {
@@ -56,9 +75,12 @@
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
         const target = document.querySelector('#' + scrollTo);
+        const { mobile, tablet } = mediaQueries();
+
+        const blockPos = (mobile || tablet) ? 'start' : 'center';
 
         window.sessionStorage.removeItem('scrollTo');
-        target?.scrollIntoView({ behavior: 'auto', block: 'center' });
+        target?.scrollIntoView({ behavior: 'auto', block: blockPos });
       }
 
       const headerNav = document.querySelector('.navbar-nav');

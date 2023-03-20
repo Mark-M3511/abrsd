@@ -15,6 +15,7 @@
 // })(jQuery, Drupal);
 
 ((Drupal, drupalSettings) => {
+  'use strict';
   /**
    * @type {Drupal}
    */

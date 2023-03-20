@@ -98,7 +98,12 @@
 							<button class="navbar-toggler collapsed" type="button" data-bs-toggle="{{ navbar_collapse_btn_data }}" data-bs-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>
 							</button>
-							<div class="{{ navbar_collapse_class }}" id="CollapsingNavbar">
+							{% set offcanvas_attr = create_attribute() %}
+							{% if navbar_offcanvas %}
+								{% set offcanvas_attr = offcanvas_attr.addClass('offcanvas', 'offcanvas-start') %}
+								{% set offcanvas_attr = offcanvas_attr.setAttribute('data-bs-scroll', 'true') %}
+							{% endif %}
+							<div class="{{ offcanvas_attr.class }}" data-bs-scroll="{{ offcanvas_attr["data-bs-scroll"] }}" id="CollapsingNavbar">
 								{% if navbar_offcanvas %}
 									<div class="offcanvas-header d-flex justify-content-between">
 									    <div class="navbar-brand-mobile d-block d-lg-none">

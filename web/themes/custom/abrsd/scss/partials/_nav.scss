@@ -153,3 +153,19 @@ a.nav-link--::before {
     }
   }
 }
+
+.offcanvas-body {
+  .navigation {
+    @include media-breakpoint-down(md) {
+      .nav-item {
+        margin-left: 0 !important;
+      }
+    }
+  }
+}
+
+// .off--canvas {
+//   @include media-breakpoint-down(md) {
+//     display: block !important;
+//   }
+// }

@@ -131,6 +131,7 @@ a.nav-link--::before {
 // MOBILE NAV STYLES
 .offcanvas-body {
   // For off canvas menu at desktop breakpoint
+  // Desltop nav is reversed so that the menu is on the right
   @include media-breakpoint-up(xl) {
     flex-direction: row-reverse !important;
   }

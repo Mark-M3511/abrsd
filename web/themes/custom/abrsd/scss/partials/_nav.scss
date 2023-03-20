@@ -146,12 +146,6 @@ a.nav-link--::before {
       padding-right: 1.5rem;
     }
   }
-  // For off canvas menu at mobile breakpoint
-  @include media-breakpoint-down(md) {
-    .navbar-brand-mobile {
-      display: block !important;
-    }
-  }
 }
 
 .offcanvas-body {

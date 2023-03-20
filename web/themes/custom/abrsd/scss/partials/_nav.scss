@@ -129,6 +129,16 @@ a.nav-link--::before {
 }
 
 // MOBILE NAV STYLES
+.offcanvas-header {
+  @include offcanvas-background;
+  @include media-breakpoint-down(lg) {
+    .btn-close {
+      background-color: #f0e4d3;
+      margin-right: 2.5rem;
+    }
+  }
+}
+
 .offcanvas-body {
   // For off canvas menu at desktop breakpoint
   // Desltop nav is reversed so that the menu is on the right
@@ -137,8 +147,7 @@ a.nav-link--::before {
   }
   // For off canvas menu at tablet (landscape orientation) breakpoint
   @include media-breakpoint-down(lg) {
-    background-color: $menu-background !important;
-    opacity: 0.8 !important;
+    @include offcanvas-background;
     .last-item {
       text-align: left;
       width: fit-content;

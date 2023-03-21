@@ -58,10 +58,11 @@
    */
   const mediaQueries = () => {
     const matchMediaQuery = (window.matchMedia || window.msMatchMedia);
-    const mobile = matchMediaQuery('(max-width: 47.99875rem)').matches;
-    const tablet = matchMediaQuery('(min-width: 48rem) and (max-width: 63.99875rem)').matches;
 
-    return { mobile, tablet };
+    return {
+      mobile: matchMediaQuery('(max-width: 47.99875rem)').matches,
+      tablet: matchMediaQuery('(min-width: 48rem) and (max-width: 63.99875rem)').matches,
+    };
   }
   /**
    * Attach behaviors to the document.

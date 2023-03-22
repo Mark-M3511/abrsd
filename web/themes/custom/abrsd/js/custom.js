@@ -42,7 +42,7 @@
 
           if (mobile || tablet) {
             // window.location.href = href.split('#')[0] + '#main-content';
-            window.location.href = window.location.href = href.split('#')[0];
+            window.location.href = href.split('#')[0];
           } else {
             target?.scrollIntoView({ behavior: 'auto', block: 'center' });
           }

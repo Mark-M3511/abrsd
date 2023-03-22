@@ -28,7 +28,7 @@
         // If the current page is the same as the link, scroll to the anchor,
         // else, redirect to the link.
         if (url.pathname === href.split('#')[0]) {
-          const target = document.querySelector('#' + href.split('#')[1]);
+          const target = document.querySelector(`#${href.split('#')[1]}`);
 
           if (mobile || tablet) {
             // window.location.href = href.split('#')[0] + '#main-content';
@@ -65,7 +65,7 @@
        */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
-        const target = document.querySelector('#' + scrollTo);
+        const target = document.querySelector(`#${scrollTo}`);
         const { mobile, tablet } = mediaQueries();
         const blockPos = (mobile || tablet) ? 'start' : 'center';
 
@@ -73,8 +73,8 @@
         target?.scrollIntoView({ behavior: 'auto', block: blockPos });
       }
 
-      const headerNav = document.querySelector('.navbar-nav');
-      const footerNav = document.querySelector('.footer--onecol');
+      const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
+      const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
       /**
        * Set up click event listeners for header and footer nav links
        */

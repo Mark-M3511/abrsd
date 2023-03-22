@@ -3,16 +3,6 @@
  * Global utilities.
  *
  */
-// (function($, Drupal) {
-
-//   'use strict';
-
-//   Drupal.behaviors.abrsd = {
-//     attach: function(context, settings) {
-//         document.addEventListener('DOMContentLoaded', function() {
-//   };
-
-// })(jQuery, Drupal);
 
 ((Drupal, drupalSettings) => {
   'use strict';
@@ -77,7 +67,6 @@
       if (scrollTo) {
         const target = document.querySelector('#' + scrollTo);
         const { mobile, tablet } = mediaQueries();
-
         const blockPos = (mobile || tablet) ? 'start' : 'center';
 
         window.sessionStorage.removeItem('scrollTo');

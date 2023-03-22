@@ -128,6 +128,11 @@ a.nav-link--::before {
   }
 }
 
+// NAV STYLES
+.offcanvas {
+  margin-bottom: 2rem;
+}
+
 // MOBILE NAV STYLES
 .offcanvas-header {
   @include offcanvas-background;
@@ -155,9 +160,7 @@ a.nav-link--::before {
       padding-right: 1.5rem;
     }
   }
-}
 
-.offcanvas-body {
   .navigation {
     @include media-breakpoint-down(md) {
       .nav-item {
@@ -167,8 +170,3 @@ a.nav-link--::before {
   }
 }
 
-// .off--canvas {
-//   @include media-breakpoint-down(md) {
-//     display: block !important;
-//   }
-// }

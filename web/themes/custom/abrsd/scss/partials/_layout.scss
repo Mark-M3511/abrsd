@@ -88,7 +88,8 @@
 .abrsd--header-image {
   padding-left: 0rem !important;
   padding-right: 0rem !important;
-  margin-top: 1.5rem !important;
+  // Display a thin white border around the image
+  margin-top: -0.5rem !important;
   margin-bottom: 3.5rem !important;
   @include media-breakpoint-down(md) {
     margin-bottom: 7rem !important;

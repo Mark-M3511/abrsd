@@ -86,9 +86,12 @@
 .abrsd--header-image {
   padding-left: 0rem !important;
   padding-right: 0rem !important;
-  // Display a thin white border around the image
-  margin-top: -0.5rem !important;
+  // bof: Display a thin white border around the image
+  margin-top: 0 !important;
   margin-bottom: 3.5rem !important;
+  // eof: Display a thin white border around the image
+  // Add border top per design requirements
+  // border-top: 0.5rem solid $white;
   @include media-breakpoint-down(md) {
     margin-bottom: 7rem !important;
   }

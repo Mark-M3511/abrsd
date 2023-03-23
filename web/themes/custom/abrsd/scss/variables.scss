@@ -4,7 +4,7 @@
 $primary-shade: rgb(29, 177, 176);
 $primary-light: lighten($primary-shade, 37%);
 $primary-dark: darken($primary-shade, 12%);
-$accent-shade: rgb(257, 187, 53);
+$accent-shade: rgb(255, 188, 45);
 $accent-light: lighten($accent-shade, 37%);
 $accent-dark: darken($accent-shade, 12%);
 $secondary-shade: rgb(14, 78, 171);
@@ -61,7 +61,7 @@ $enable-gradients: false;
 // $breadcrumb-divider: quote(">");
 
 // Backgrounds (Alt)
-$alt-background-1: rgb(29, 177, 176);
+$alt-background-1: rgb(4, 175, 175);
 
 // Menu
 $menu-background: $black;

@@ -123,3 +123,4 @@
 
 # Ignore various config and core files in root
 docker-compose.yml
+.vscode/launch.json

@@ -25,5 +25,8 @@
 .floating-banner {
   top: 90% !important;
   width: 90% !important;
+  @include media-breakpoint-down(md) {
+    top: 85% !important;
+  }
 }
 

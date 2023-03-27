@@ -37,7 +37,7 @@
             target?.scrollIntoView({ behavior: 'auto', block: 'center' });
           }
         } else {
-          window.location.href = href;
+          window.location.href = href.split('#')[0];
         }
       }
     }
@@ -65,7 +65,7 @@
        */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
-        const target = (context.querySelector('.navbar-nav') || document.querySelector(`#${scrollTo}`));
+        const target = (context.querySelector(`#${scrollTo}`) || document.querySelector(`#${scrollTo}`));
         const { mobile, tablet } = mediaQueries();
         const blockPos = (mobile || tablet) ? 'start' : 'center';
 

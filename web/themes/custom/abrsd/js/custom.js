@@ -37,7 +37,7 @@
             target?.scrollIntoView({ behavior: 'auto', block: 'center' });
           }
         } else {
-          window.location.href = href.split('#')[0];
+          window.location.href = href;
         }
       }
     }

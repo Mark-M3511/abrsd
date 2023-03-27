@@ -32,13 +32,13 @@
  */
 #}
 {# Set up variables to be used #}
-{% set link_uri = fields.field_resource_link.content|striptags|trim|raw %}
+{% set link_url = fields.field_resource_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_resource_link_1.content %}
 {% set link_text = link_text ? link_text : 'Read More' %}
-{% set target = 'http' in link_uri ? '_blank' : '_self' %}
+{% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 <div class="card">
-  <a href="{{ link_uri }}" class="website-link" target="{{ target }}">
+  <a href="{{ link_url }}" class="website-link" target="{{ target }}">
     {{ fields.field_partner_logo.content }}
   </a>
 </div>

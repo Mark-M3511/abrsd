@@ -32,10 +32,10 @@
  */
 #}
 {# Set up variables to be used #}
-{% set link_uri = fields.field_news_link.content|striptags|trim|raw %}
+{% set link_url = fields.field_news_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_news_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
-{% set target = 'http' in link_uri ? '_blank' : '_self' %}
+{% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 <div class="card mb-3">
   <div class="row g-0 d-flex flex-row-reverse">

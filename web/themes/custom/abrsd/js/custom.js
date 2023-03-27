@@ -65,7 +65,7 @@
        */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
       if (scrollTo) {
-        const target = document.querySelector(`#${scrollTo}`);
+        const target = (context.querySelector('.navbar-nav') || document.querySelector(`#${scrollTo}`));
         const { mobile, tablet } = mediaQueries();
         const blockPos = (mobile || tablet) ? 'start' : 'center';
 

@@ -64,6 +64,7 @@
        * Scroll to anchor
        */
       const scrollTo = window.sessionStorage.getItem('scrollTo');
+
       if (scrollTo) {
         const target = (context.querySelector(`#${scrollTo}`) || document.querySelector(`#${scrollTo}`));
         const { mobile, tablet } = mediaQueries();

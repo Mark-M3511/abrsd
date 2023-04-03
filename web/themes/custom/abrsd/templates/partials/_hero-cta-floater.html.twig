@@ -17,6 +17,8 @@
 		<div class="card-text my-3">
 			{{ body }}
 		</div>
-		<a href="{{ url_link }}" class="btn btn-primary mt-auto align-self-start">{{ url_title }}</a>
+		{% if url_link is not empty %}
+		  <a href="{{ url_link }}" class="btn btn-primary mt-auto align-self-start">{{ url_title }}</a>
+		{% endif %}
 	</div>
 </div>

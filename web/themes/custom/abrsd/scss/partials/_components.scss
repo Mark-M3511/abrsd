@@ -21,6 +21,15 @@
   }
 }
 
+// CARD WORKING GROUPS
+.card-working-group {
+  .btn {
+    @include media-breakpoint-down(sm) {
+      align-self: center !important;
+    }
+  }
+}
+
 // BANNER
 .floating-banner {
   top: 90% !important;
@@ -29,4 +38,3 @@
     top: 85% !important;
   }
 }
-

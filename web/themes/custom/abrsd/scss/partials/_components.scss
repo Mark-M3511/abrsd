@@ -24,7 +24,7 @@
 // CARD WORKING GROUPS
 .card-working-group {
   .btn {
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
       align-self: center !important;
     }
   }

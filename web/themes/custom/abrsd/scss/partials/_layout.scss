@@ -75,7 +75,17 @@
       }
     }
   }
-} // END PAGE NODE 52
+} // END RESOURCES
+
+// GET INVOLVED
+.get-involved {
+  .toolkits {
+    @include media-breakpoint-up(lg) {
+      padding-left: 6rem !important;
+      padding-right: 6rem !important;
+    }
+  }
+}
 
 .layout__region--content {
   @include media-breakpoint-down(md) {

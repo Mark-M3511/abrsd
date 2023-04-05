@@ -12,9 +12,9 @@
 	{{ fields.field_hero_image.content }}
 </div>
 <div class="col-12 col-sm-6 col-lg-9">
-	<div class="card-body card-working-group d-flex flex-column">
-		<h4 class="card-title">{{ fields.field_page_title.content }}</h4>
-		<div class="card-text">{{ fields.body.content }}</div>
+	<div class="card-body card-working-group d-flex flex-column px-4 px-lg-3">
+		<h4 class="card-title text-center text-lg-start">{{ fields.field_page_title.content }}</h4>
+		<div class="card-text text-center text-lg-start">{{ fields.body.content }}</div>
 		{{ include('@abrsd/components/_cta_button.html.twig', {
           'text': link_text,
           'url': link_url,

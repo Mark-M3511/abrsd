@@ -68,8 +68,10 @@
  * @see html.html.twig
  */
 #}
+{# Get canonical path of the current page #}
+{% set page_path = path('entity.node.canonical', {'node': node.id}) | clean_class [1:] %}
 <div id="page-wrapper">
-	<div id="page">
+	<div id="page" class="{{ page_path }}">
 		<header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
 			{% block head %}
 				{% if page.secondary_menu or page.top_header or page.top_header_form %}

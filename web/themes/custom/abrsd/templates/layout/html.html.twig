@@ -32,6 +32,15 @@
     db_offline ? 'db-offline',
   ]
 %}
+
+{# Get the current page path aliased #}
+{% if root_path == 'node' %}
+  {% set nid = attributes.class|split(' ')[1]|split('-')[2] %}
+  {% set page_path = path('entity.node.canonical', {'node': nid}) | clean_class [1:] %}
+  {% set page_path = 'page--' ~ page_path %}
+  {% set attributes = attributes.addClass(page_path) %}
+{% endif %}
+
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>

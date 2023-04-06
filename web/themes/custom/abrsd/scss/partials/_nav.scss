@@ -91,6 +91,7 @@ a.nav-link--::before {
 .nav {
   .last-item {
     color: $menu-background;
+    &.active,
     &:hover {
       color: $menu-background !important;
     }
@@ -169,4 +170,3 @@ a.nav-link--::before {
     }
   }
 }
-

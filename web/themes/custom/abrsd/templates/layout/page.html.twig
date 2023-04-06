@@ -72,7 +72,7 @@
 {# Get canonical path of the current page #}
 {% set page_path = 'no-node' %}
 {% if node is defined %}
-  {% set page_path = path('entity.node.canonical', {'node': node.id}) | clean_class [1:] %}
+  {% set page_path = path('entity.node.canonical', {'node': node.id}) [1:] | clean_class %}
 {% endif %}
 
 <div id="page-wrapper">

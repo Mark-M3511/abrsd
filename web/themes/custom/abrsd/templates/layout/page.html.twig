@@ -68,8 +68,13 @@
  * @see html.html.twig
  */
 #}
+
 {# Get canonical path of the current page #}
-{% set page_path = path('entity.node.canonical', {'node': node.id}) | clean_class [1:] %}
+{% set page_path = 'no-node' %}
+{% if node is defined %}
+  {% set page_path = path('entity.node.canonical', {'node': node.id}) | clean_class [1:] %}
+{% endif %}
+
 <div id="page-wrapper">
 	<div id="page" class="{{ page_path }}">
 		<header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">

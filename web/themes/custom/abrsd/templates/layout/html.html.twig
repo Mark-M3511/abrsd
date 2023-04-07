@@ -39,7 +39,7 @@
   * it to the body element.
   */
  #}
-{% if root_path == 'node' %}
+{% if ('path-node' in body_classes) or ('path-frontpage' in body_classes) %}
   {# Get the node id from the second class element e.g. page-node-20 #}
   {% set nid = attributes.class|split(' ')[1]|split('-')[2] %}
   {# Get the aliased path and strip the leading '/' character. #}

@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -29,4 +30,23 @@ function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form
     'bg-white' => t('White'),
     'bg-transparent' => t('Transparent'),
   );
+}
+
+/**
+ * Implements hook_preprocess_html().
+ * {@inheritdoc}
+ */
+function abrsd_preprocess_html(&$variables) {
+  // Add a class to the body based on the path alias of the current node.
+  // The node id is contained in the last class in the body classes array.
+  $node_class = end($variables['attributes']['class']);
+  $node_classes = explode('-', $node_class);
+  $nid = end($node_classes);
+  if (is_numeric($nid)) {
+    // Get the path alias of the current node
+    $node =  \Drupal::service('entity_type.manager')->getStorage('node')->loadMultiple([$nid]);
+    $node = reset($node);
+    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+    $variables['attributes']['class'][] = 'page--' . str_replace('/', '-', $path_alias);
+  }
 }

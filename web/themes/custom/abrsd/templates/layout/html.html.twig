@@ -32,24 +32,6 @@
     db_offline ? 'db-offline',
   ]
 %}
-
-{#
- /**
-  * Get the node id and aliased node path to create a page--{path} class name and add
-  * it to the body element.
-  */
- #}
-{% if ('path-node' in body_classes) or ('path-frontpage' in body_classes) %}
-  {# Get the node id from the second class element e.g. page-node-20 #}
-  {% set nid = attributes.class|split(' ')[1]|split('-')[2] %}
-  {# Get the aliased path and strip the leading '/' character. #}
-  {% set page_path = path('entity.node.canonical', {'node': nid}) [1:] | clean_class %}
-  {# Append the derived path value #}
-  {% set page_path = 'page--' ~ page_path %}
-  {# Add the new string ro the classes array #}
-  {% set attributes = attributes.addClass(page_path) %}
-{% endif %}
-
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>
@@ -59,7 +41,7 @@
     <js-placeholder token="{{ placeholder_token|raw }}">
   </head>
   <body{{ attributes.addClass(body_classes) }}>
-    <a href="#main-content" class="visually-hidden-focusable skip-link">
+    <a href="#main-content" class="visually-hidden-focusable">
       {{ 'Skip to main content'|t }}
     </a>
     {{ page_top }}

@@ -38,3 +38,17 @@
     top: 85% !important;
   }
 }
+
+// CARD MEMBER LIST
+.card {
+ &.member-list-item {
+   font-size: 0.8rem;
+   p {
+      margin-bottom: 0.1rem;
+   }
+   a {
+      color: $link-color;
+      text-decoration: underline;
+   }
+ }
+}

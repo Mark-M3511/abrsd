@@ -40,7 +40,13 @@
     'container',
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
+
+{% set view_id = 'member-logos' %}
+{% if display_id == 'block_2' %}
+  {% set view_id = 'member-list' %}
+{% endif %}
+
+<div{{ attributes.addClass(classes).setAttribute('id', view_id) }}>
   {{ title_prefix }}
   {% if title %}
     {{ title }}

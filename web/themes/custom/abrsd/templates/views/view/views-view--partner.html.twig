@@ -63,7 +63,11 @@
   {% endif %}
 
   {% if rows %}
-    <h3 class="section-title section-title-partners mb-3">{{ 'Our Members'|t }}</h3>
+    {% set display_title = 'Member Logos'|t %}
+    {% if display_id == 'block_2' %}
+      {% set display_title = 'Member List'|t %}
+    {% endif %}
+    <h3 class="section-title section-title-partners mb-3">{{ display_title }}</h3>
     <div class="view-content row row-cols-2 row-cols-lg-5 gy-2">
       {{ rows }}
     </div>

@@ -70,11 +70,13 @@
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
     'clearfix',
+    'p-3',
+    'p-lg-5',
   ]
 %}
 <article{{attributes.addClass(classes)}}>
 	<header>
-		<div class="pt-3">
+		<div>
 			<h2{{title_attributes.addClass('node__title')}}>
 				{{ content.field_page_title }}
 			</h2>
@@ -98,6 +100,11 @@
 		{% endif %}
 	</header>
 	<div{{content_attributes.addClass('node__content','clearfix')}}>
-		{# {{ content }} #}
+    <div>
+      {{ content.field_hero_image }}
+    </div>
+    <div>
+      {{ content.body }}
+    </div>
 	</div>
 </article>

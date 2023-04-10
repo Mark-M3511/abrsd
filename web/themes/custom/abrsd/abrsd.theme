@@ -34,7 +34,8 @@ function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form
 
 /**
  * Implements hook_preprocess_html().
- * {@inheritdoc}
+ *
+ * Add a class to the body based on the path alias of the current node.
  */
 function abrsd_preprocess_html(&$variables) {
   // Add a class to the body based on the path alias of the current node.

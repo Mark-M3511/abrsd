@@ -7,10 +7,10 @@
 
 .site-footer {
   background: $menu-background !important;
-}
-
-.site-footer a {
-  color: $white;
+  bottom: 0;
+  a {
+    color: $white;
+  }
 }
 
 .layout--onecol {

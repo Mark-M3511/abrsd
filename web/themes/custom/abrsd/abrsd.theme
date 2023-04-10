@@ -45,9 +45,10 @@ function abrsd_preprocess_html(&$variables) {
   $nid = end($node_classes);
   if (is_numeric($nid)) {
     // Get the path alias of the current node
+    $nid = (int)$nid;
     $node =  \Drupal::service('entity_type.manager')->getStorage('node')->loadMultiple([$nid]);
     $node = reset($node);
-    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => (int)$nid])->toString();
+    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
     $variables['attributes']['class'][] = 'page-' . str_replace('/', '-', $path_alias);
   }
 }

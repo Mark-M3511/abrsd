@@ -120,3 +120,11 @@
 .section-title-partners {
   color: $black;
 }
+
+// ARTICLE STYLES
+.node--full-secondary {
+  @include media-breakpoint-up(lg) {
+    padding-left: 8rem !important;
+    padding-right: 8rem !important;
+  }
+}

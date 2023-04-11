@@ -101,11 +101,7 @@
 		{% endif %}
 	</header>
 	<div{{content_attributes.addClass('node__content','clearfix')}}>
-    <div>
-      {{ content.field_hero_image }}
-    </div>
-    <div>
-      {{ content.body }}
-    </div>
+    {{ content.field_hero_image }}
+    {{ content.body }}
 	</div>
 </article>

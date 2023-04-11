@@ -127,4 +127,12 @@
     padding-left: 8rem !important;
     padding-right: 8rem !important;
   }
+  @include media-breakpoint-down(md) {
+    .feature-image {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 }

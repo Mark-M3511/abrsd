@@ -15,7 +15,11 @@
  * @see template_preprocess_views_view_unformatted()
  */
 #}
-{# Please see parent template (viws-view-partner.html.twig) for title. #}
+{#
+  See views-view-partner.html.twig for heading text. Placing the header text here
+  would cause the heading to be inserted into the rows loop due to the use of the
+  BS row-cols-* classes.
+#}
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}

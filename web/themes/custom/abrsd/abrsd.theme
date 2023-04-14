@@ -13,7 +13,8 @@ use Drupal\Core\Url;
  *
  * Replace Barrio setting options with subtheme ones.
  */
-function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form_state)
+{
   $form['components']['navbar']['bootstrap_barrio_navbar_top_background']['#options'] = array(
     'bg-primary' => t('Primary'),
     'bg-secondary' => t('Secondary'),
@@ -37,7 +38,8 @@ function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form
  *
  * Add a class to the body based on the path alias of the current node.
  */
-function abrsd_preprocess_html(&$variables) {
+function abrsd_preprocess_html(&$variables)
+{
   // Add a class to the body based on the path alias of the current node.
   // The node id is contained in the last class in the body classes array.
   $node_class = end($variables['attributes']['class']);
@@ -50,5 +52,33 @@ function abrsd_preprocess_html(&$variables) {
     $node = reset($node);
     $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
     $variables['attributes']['class'][] = 'page-' . str_replace('/', '-', $path_alias);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ *
+ * Add a theme suggestion for the page template based on the path alias of the current node.
+ */
+function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variables)
+{
+  // Get the noide of the current node object
+  $node = \Drupal::routeMatch()->getParameter('node');
+  // If not a revision, get the node id.
+  if (is_object($node)) {
+    // Get the node id of the node object.
+    $nid = $node->id();
+    // Cast the node id to an integer.
+    $nid = (int)$nid;
+    // Get the path alias of the current node
+    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+    // Change all - to _ in the path alias.
+    $path_alias = str_replace('-', '_', $path_alias);
+    // Remove the first / from the path alias.
+    $path_alias = str_replace('/', '', $path_alias);
+    // Create a new suggestion based on the path alias.
+    $new_suggestion = 'page__node__' . $path_alias;
+    // Splice the new suggestion into the suggestions array so it is the second suggestion.
+    array_splice($suggestions, 1, 0, $new_suggestion);
   }
 }

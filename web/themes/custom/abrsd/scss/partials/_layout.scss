@@ -38,10 +38,9 @@
 }
 
 .resources {
-  // Press Releases
+  // EVENTS
   div.latest-news {
     &:nth-child(2) {
-      background-color: $white;
       h3.section-title,
       .card-body {
         color: $black;
@@ -49,7 +48,7 @@
     }
   }
 
-  // CTA
+  // CURRENT NEWS
   div.latest-news {
     &:nth-child(3) {
       background-color: $white;
@@ -61,13 +60,12 @@
     }
   }
 
-  // UPCOMING WORKSHOPS / EVENTS
-  div.workshops,
-  div.events {
+  // NEWS TOPICS
+  div.latest-news {
     &:nth-child(4) {
-      background-color: $alt-background-1;
+      background-color: $white;
       h3.section-title {
-        color: $white;
+        color: $black;
       }
     }
   }

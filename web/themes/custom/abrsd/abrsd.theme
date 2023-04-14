@@ -72,11 +72,9 @@ function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variable
     $nid = (int)$nid;
     // Get the path alias of the current node
     $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-    // Change all - to _ in the path alias.
-    $path_alias = str_replace('-', '_', $path_alias);
-    // Remove the first / from the path alias.
-    $path_alias = str_replace('/', '', $path_alias);
-    // Create a new suggestion based on the path alias.
+    // Change all - to _ in the path alias and remove the first / from the path alias.
+    $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
+    // Create the new suggestion.
     $new_suggestion = 'page__node__' . $path_alias;
     // Splice the new suggestion into the suggestions array so it is the second suggestion.
     array_splice($suggestions, 1, 0, $new_suggestion);

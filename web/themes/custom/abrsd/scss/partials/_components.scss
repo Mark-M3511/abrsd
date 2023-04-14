@@ -41,14 +41,22 @@
 
 // CARD MEMBER LIST
 .card {
- &.member-list-item {
-   font-size: 0.8rem;
-   p {
+  &.member-list-item {
+    font-size: 0.8rem;
+    p {
       margin-bottom: 0.1rem;
-   }
-   a {
+    }
+    a {
       color: $link-color;
       text-decoration: underline;
-   }
- }
+    }
+  }
+  &.news-topic-card {
+    height: 300px;
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit: cover;
+    }
+  }
 }

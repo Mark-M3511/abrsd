@@ -86,3 +86,22 @@ abrsd_toolkit:
   regions:
     content:
       label: Content
+abrsd_cols_9_3:
+  label: ABRSD 9/3 Columns
+  category: ABRSD
+  path: layouts
+  template: abrsd--layout-col2-9-3
+  default_region: content
+  icon_map:
+    - [top]
+    - [first, second]
+    - [bottom]
+  regions:
+    top:
+      label: Top
+    first:
+      label: First (9 columns)
+    second:
+      label: Second (3 columns)
+    bottom:
+      label: Bottom

@@ -69,6 +69,21 @@
       }
     }
   }
+
+  // BADGES
+  .badge{
+    background-color: $accent-shade !important;
+    color: $black;
+  }
+
+  // VIEW
+  .view {
+    @include media-breakpoint-up(lg) {
+      padding-left: 5rem !important;
+      padding-right: 5rem !important;
+    }
+  }
+
 } // END RESOURCES
 
 // GET INVOLVED

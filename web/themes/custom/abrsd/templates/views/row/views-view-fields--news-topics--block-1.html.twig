@@ -33,16 +33,24 @@
 #}
 {# Set up variables to be used #}
 {% set bg_colour = fields.field_background_colour.content|striptags|trim %}
+{% set cb_attribs = create_attribute() %}
+{% set flex_classes = [
+  'card-body',
+  'd-flex',
+  'justify-content-center',
+  'align-items-center',
+] %}
 
-<div class="card w-100">
+<div class="card w-100 news-topic-card">
   {# <img src="..." class="card-img-top" alt="..."> #}
   {% if bg_colour %}
-    <div class="card-body" style="background-color: {{bg_colour}};">
+    <div{{cb_attribs.addClass(flex_classes)}} style="background-color: {{bg_colour}};">
   {% else %}
-    <div class="card-body">
+    <div{{cb_attribs.addClass(flex_classes)}} >
   {% endif %}
-    <h5 class="card-title">Card title</h5>
-    {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
+    <div>
+      {{ fields.field_topic_icon.content }}
+    </div>
   </div>
   <div class="card-footer">
     <h5 class="text-center">{{ fields.name.content }}</h5>

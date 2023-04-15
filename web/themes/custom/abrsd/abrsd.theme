@@ -66,12 +66,8 @@ function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variable
   $node = \Drupal::routeMatch()->getParameter('node');
   // If not a revision, get the node id.
   if (is_object($node)) {
-    // Get the node id of the node object.
-    $nid = $node->id();
-    // Cast the node id to an integer.
-    $nid = (int)$nid;
     // Get the path alias of the current node
-    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
     // Change all - to _ in the path alias and remove the first / from the path alias.
     $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
     // Create the new suggestion.

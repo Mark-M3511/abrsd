@@ -77,28 +77,32 @@
 %}
 <article{{attributes.addClass(classes)}}>
 	<header>
-		<div>
-			<h2{{title_attributes.addClass('node__title')}}>
-				{{ content.field_page_title }}
-			</h2>
-      <div>
-        {{ node.body.summary }}
-      </div>
+	  <div>
+	 	<h2{{title_attributes.addClass('node__title')}}>
+			{{ content.field_page_title }}
+		</h2>
+		<div class="d-flex flex-row">
+
 		</div>
-		{% if display_submitted %}
-			<div class="node__meta">
-				{{ author_picture }}
-				{% block submitted %}
-					<em{{author_attributes}}>
-						{% trans %}Submitted by
-						{{ author_name }}
-						on
-						{{ date }}{% endtrans %}
-					</em>
-				{% endblock %}
-				{{ metadata }}
-			</div>
-		{% endif %}
+        <div>
+          {{ node.body.summary }}
+        </div>
+	  </div>
+	  {% if display_submitted %}
+	  	<div class="node__meta">
+	  		{{ author_picture }}
+	  		{% block submitted %}
+	  			<em{{author_attributes}}>
+	  				{% trans %}
+					Submitted by
+	  				{{ author_name }}
+	  				on
+	  				{{ date }}{% endtrans %}
+	  			</em>
+	  		{% endblock %}
+	  		{{ metadata }}
+	  	</div>
+	  {% endif %}
 	</header>
 	<div{{content_attributes.addClass('node__content','clearfix')}}>
       {{ content.field_hero_image }}

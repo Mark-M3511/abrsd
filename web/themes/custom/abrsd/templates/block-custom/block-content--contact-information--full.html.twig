@@ -41,12 +41,12 @@
   {% if label %}
     <h2{{ title_attributes }}>{{ label }}</h2>
   {% else %}
-    <h3{{ title_attributes }}>{{'Mailing Address'|t}}</h3>
+    <h3{{ title_attributes.addClass('h4') }}>{{'Mailing Address'|t}}</h3>
   {% endif %}
   {{ title_suffix }}
   {% block content %}
     <div{{ content_attributes.addClass('content') }}>
-      <div>
+      <div class="mb-4">
         {{ content|without('field_email_address') }}
       </div>
       <h4{{ title_attributes }}>{{'General Inquiries'|t}}</h4>

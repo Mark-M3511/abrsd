@@ -76,3 +76,20 @@ function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variable
     array_splice($suggestions, 1, 0, $new_suggestion);
   }
 }
+
+function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variables)
+{
+  // Get the noide of the current node object
+  $node = \Drupal::routeMatch()->getParameter('node');
+  // If not a revision, get the node id.
+  if (is_object($node)) {
+    // Get the path alias of the current node
+    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
+    // Change all - to _ in the path alias and remove the first / from the path alias.
+    $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
+    // Create the new suggestion.
+    $new_suggestion = 'node__' . $path_alias. '__full';
+    // Splice the new suggestion into the suggestions array so it is the second suggestion.
+    array_splice($suggestions, 3, 0, $new_suggestion);
+  }
+}

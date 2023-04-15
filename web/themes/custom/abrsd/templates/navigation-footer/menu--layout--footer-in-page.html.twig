@@ -34,9 +34,11 @@
 				{% set col_styles = 'col-lg-3' %}
 			{% endif %}
 			<nav role="navigation" aria-labelledby="{{ menu_id }}-menu" class="block block-menu navigation menu--footer menu--{{menu_id}} {{ col_styles }}">
-				<h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2>
 				{% if menu_id == 'footer-contact-us' %}
+				    <a href="/contact-us"><h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2></a>
 					<h3 class="text-uppercase h2 mt-4">{{ 'Follow Us'|t }}</h3>
+				{% else %}
+					<h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2>
 				{% endif %}
 				{{ drupal_menu(menu_id) }}
 			</nav>

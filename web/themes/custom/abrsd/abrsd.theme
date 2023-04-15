@@ -80,7 +80,9 @@ function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variable
 function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variables)
 {
   // Get the noide of the current node object
-  $node = \Drupal::routeMatch()->getParameter('node');
+  $node = isset($variables['elements']['#node'])
+         ? $variables['elements']['#node']
+         : \Drupal::routeMatch()->getParameter('node');
   // If not a revision, get the node id.
   if (is_object($node)) {
     // Get the path alias of the current node

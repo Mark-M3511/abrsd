@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Footer menu template.
+ * An in page menu that is displayed in the footer.
+ */
+#}
+
+{%
+  set menu_ids = [
+   'footer-contact-us',
+  ]
+%}
+
+{%
+  set menu_titles = [
+    'Contact Us',
+   ]
+%}
+
+{#  #}
+<div class="off--canvas d-block d-lg-none layout layout--onecol footer--onecol container-fluid mt-3">
+	<div class="layout__region layout__region--content row justify-content-center pt-5 pb-3">
+		{% for menu_id in menu_ids %}
+			{% set col_styles = 'col-6 col-lg-2' %}
+			{% if menu_id == 'footer-contact-us' %}
+				{% set col_styles = 'col-lg-3' %}
+			{% endif %}
+			<nav role="navigation" aria-labelledby="{{ menu_id }}-menu" class="block block-menu navigation menu--footer menu--{{menu_id}} {{ col_styles }}">
+				{# <h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2> #}
+				{% if menu_id == 'footer-contact-us' %}
+					<h3 class="text-uppercase h2">{{ 'Follow Us'|t }}</h3>
+				{% endif %}
+				{{ drupal_menu(menu_id) }}
+			</nav>
+		{% endfor %}
+	</div>
+</div>

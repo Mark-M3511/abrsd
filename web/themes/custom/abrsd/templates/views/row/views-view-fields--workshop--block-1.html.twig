@@ -33,9 +33,12 @@
 #}
 {# Set up variables to be used #}
 {% set link_url = fields.field_workshop_link.content|striptags|trim|raw %}
+{% set self_link_url = path('entity.node.canonical', {'node': fields.nid.content|striptags|trim|raw }) %}
 {% set link_text = fields.field_workshop_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
+
+{% set link_url = link_url ? link_url : self_link_url %}
 
 <div class="card mb-3">
   <div class="card-body d-flex flex-column justify-content-between px-lg-4">

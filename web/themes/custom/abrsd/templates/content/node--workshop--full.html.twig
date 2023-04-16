@@ -78,12 +78,14 @@
 {# Set up variables #}
 {% set start_date = content.field_start_date|render|striptags|raw %}
 {% set end_date = content.field_end_date|render|striptags|raw %}
+{% set page_title = content.field_page_title|render|striptags|raw %}
+{% set title = content.title|render|striptags|raw %}
 
 <article{{attributes.addClass(classes)}}>
 	<header>
 	  <div>
 	 	<h2{{title_attributes.addClass('node__title')}}>
-			{{ content.field_page_title }}
+			{{ page_title ? page_title : title }}
 		</h2>
 		<div class="d-flex flex-row mt-2 mb-1">
 		  <div class="me-3">

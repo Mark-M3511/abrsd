@@ -75,14 +75,38 @@
     'p-md-5',
   ]
 %}
+{# Set up variables #}
+{% set start_date = content.field_start_date|render|striptags|raw %}
+{% set end_date = content.field_end_date|render|striptags|raw %}
+
 <article{{attributes.addClass(classes)}}>
 	<header>
 	  <div>
 	 	<h2{{title_attributes.addClass('node__title')}}>
 			{{ content.field_page_title }}
 		</h2>
-		<div class="d-flex flex-row">
-
+		<div class="d-flex flex-row my-3">
+		  <div class="me-3">
+            {% include "@abrsd/svg/calendar-alt.html.twig" %}
+          </div>
+		  <div class="me-3">
+			{{ start_date|render|striptags|raw|date("d /M / Y") }}
+		  </div>
+		  <div class="me-3">
+            {% include "@abrsd/svg/clock.html.twig" %}
+          </div>
+		  <div class="me-3">
+			{{ start_date|render|striptags|raw|date("g:H a") }}
+			&nbsp;{{ 'to'|t }}&nbsp;
+			{{ end_date|render|striptags|raw|date("g:H a") }}
+			{{ start_date|render|striptags|raw|date("T") }}
+		  </div>
+		  <div class="me-3">
+            {% include "@abrsd/svg/compass.html.twig" %}
+          </div>
+		  <div class="me-3">
+	         {{ content.field_workshop_type }}
+	      </div>
 		</div>
         <div>
           {{ node.body.summary }}

@@ -36,6 +36,7 @@
 {% set link_text = fields.field_news_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
+{% set term = fields.field_topic.content|striptags|raw|clean_class %}
 
 <a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
   <div class="d-flex w-100 justify-content-between">
@@ -43,6 +44,6 @@
     <small>{{fields.changed.content}}</small>
   </div>
   <p class="mb-1">{{fields.body.content}}</p>
-  <span class="badge">{{fields.field_topic.content}}</span>
+  <span class="badge" data-term="{{term}}">{{fields.field_topic.content}}</span>
 </a>
 

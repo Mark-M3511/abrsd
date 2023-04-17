@@ -40,9 +40,10 @@
   'justify-content-center',
   'align-items-center',
 ] %}
+{% set term = fields.name.content|striptags|raw|clean_class %}
 {% set tid = fields.tid.content|striptags|raw %}
 
-<div class="card w-100 news-topic-card">
+<div class="card w-100 news-topic-card" data-term="{{term}}">
   {# <img src="..." class="card-img-top" alt="..."> #}
   {% if bg_colour %}
     <div{{cb_attribs.addClass(flex_classes)}} style="background-color: {{bg_colour}};">

@@ -40,6 +40,7 @@
   'justify-content-center',
   'align-items-center',
 ] %}
+{% set tid = fields.tid.content|striptags|raw %}
 
 <div class="card w-100 news-topic-card">
   {# <img src="..." class="card-img-top" alt="..."> #}
@@ -53,7 +54,9 @@
     </div>
   </div>
   <div class="card-footer">
-    <h5 class="text-center">{{ fields.name.content }}</h5>
+    <a href="/taxonomy/term/{{tid}}">
+      <h5 class="text-center">{{ fields.name.content }}</h5>
+    </a>
   </div>
 </div>
 

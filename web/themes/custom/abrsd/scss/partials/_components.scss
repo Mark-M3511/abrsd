@@ -59,6 +59,12 @@
       object-fit: cover;
     }
   }
+  .card-footer {
+    a {
+      color: $black !important;
+      text-decoration: underline;
+    }
+  }
 }
 
 .schedule {

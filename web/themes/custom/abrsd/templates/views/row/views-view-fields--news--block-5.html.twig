@@ -25,6 +25,8 @@
  *   - element_type: An HTML element for the field content.
  *   - element_attributes: List of attributes for HTML element for field content.
  * - row: The raw result from the query, with all data it fetched.
+ * Custom variables:
+ * - tid: The term ID of the current topic.
  *
  * @see template_preprocess_views_view_fields()
  *
@@ -36,7 +38,7 @@
 {% set link_text = fields.field_news_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
-{% set term = fields.field_topic.content|striptags|raw|clean_class %}
+{% set term = fields.field_topic.content|striptags|trim|raw|clean_class %}
 
 <a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
   <div class="d-flex w-100 justify-content-between">
@@ -44,6 +46,6 @@
     <small>{{fields.changed.content}}</small>
   </div>
   <p class="mb-1">{{fields.body.content}}</p>
-  <span class="badge" data-term="{{term}}">{{fields.field_topic.content}}</span>
+  <span class="badge" data-term="{{term}}" data-href="/taxonomy/term/{{term_tid}}">{{fields.field_topic.content}}</span>
 </a>
 

@@ -75,11 +75,14 @@
     'p-md-5',
   ]
 %}
+{# Set up variables #}
+{% set page_title = content.field_page_title|render|striptags|raw %}
+{% set title = label|render|striptags|raw %}
 <article{{attributes.addClass(classes)}}>
 	<header>
 	  <div>
 	 	<h2{{title_attributes.addClass('node__title')}}>
-			{{ content.field_page_title }}
+			{{ page_title ? page_title : title }}
 		</h2>
         <div>
           {{ node.body.summary }}

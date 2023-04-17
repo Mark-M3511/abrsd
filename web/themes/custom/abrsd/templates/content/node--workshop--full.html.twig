@@ -79,7 +79,7 @@
 {% set start_date = content.field_start_date|render|striptags|raw %}
 {% set end_date = content.field_end_date|render|striptags|raw %}
 {% set page_title = content.field_page_title|render|striptags|raw %}
-{% set title = content.title|render|striptags|raw %}
+{% set title = label|render|striptags|raw %}
 
 <article{{attributes.addClass(classes)}}>
 	<header>

@@ -60,3 +60,14 @@
     }
   }
 }
+
+.schedule {
+  @include media-breakpoint-down(md) {
+    .data-icon {
+      text-align: center;
+    }
+    .data-text {
+      font-size: 0.8rem;
+    }
+  }
+}

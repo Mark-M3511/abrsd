@@ -100,26 +100,3 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
     array_splice($suggestions, 3, 0, $new_suggestion);
   }
 }
-
-/**
- * Implements theme_preprocess_views_view_fields().
- *
- * Add a variable to the variables array for the view template. In this case
- * the variable is the term id of the taxonomy term reference field on the node.
- */
-function abrsd_preprocess_views_view_fields(&$variables)
-{
-  $view = $variables['view'];
-  // Check if the view is the 'news' view and the display is 'block_5'
-  // (i.e. Current News on Resources page).
-  if ($view->id() == 'news' && $view->current_display == 'block_5' && !empty($view->result)) {
-    // Get the node object.
-    $node = $view->result[$variables['row']->index]->_entity;
-    // Get the taxonomy term reference from the node.
-    $term_ref = $node->get('field_topic')->getValue();
-    // Get the term id.
-    $tid = $term_ref[0]['target_id'];
-    // Add the term id to the variables array.
-    $variables['term_tid'] = $tid;
-  }
-}

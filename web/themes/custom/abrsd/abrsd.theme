@@ -5,8 +5,9 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\Core\Url;
+use \Drupal\views\Entity\View;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -86,8 +87,8 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
 {
   // Get the noide of the current node object
   $node = isset($variables['elements']['#node'])
-         ? $variables['elements']['#node']
-         : \Drupal::routeMatch()->getParameter('node');
+    ? $variables['elements']['#node']
+    : \Drupal::routeMatch()->getParameter('node');
   // If not a revision, get the node id.
   if (is_object($node)) {
     // Get the path alias of the current node
@@ -95,8 +96,47 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
     // Change all - to _ in the path alias and remove the first / from the path alias.
     $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
     // Create the new suggestion.
-    $new_suggestion = 'node__' . $path_alias. '__full';
+    $new_suggestion = 'node__' . $path_alias . '__full';
     // Splice the new suggestion into the suggestions array so it is the second suggestion.
     array_splice($suggestions, 3, 0, $new_suggestion);
+  }
+}
+
+/**
+ * Implements template_preprocess_block().
+ *
+ * Provide filtered news items to the block template.
+ */
+function abrsd_preprocess_block(&$variables)
+{
+  if ($variables['plugin_id'] == 'block_content:80e4ec90-a2e5-4760-b2e0-fb760bc393fe') {
+    //  Get a view by machine name
+    $view = \Drupal::entityTypeManager()->getStorage('view')->load('news');
+    // Get executable view
+    $executable_view = $view->getExecutable();
+    // Get the display
+    $executable_view->setDisplay('block_6');
+    // Set the arguments
+    $executable_view->setArguments([9]);
+    // Execute the view
+    $executed = $executable_view->execute();
+    // Get the results
+    if ($executed && !empty($executable_view->result)) {
+      foreach($executable_view->result as $result) {
+        $variables['nodes'][] = $result->_entity;
+        $current = end($variables['nodes']);
+        $current->changed_at = date('c', $current->changed->value);
+        // Calculate time ago for a given date
+        $current->changed_ago = \Drupal::service('date.formatter')->formatTimeDiffSince(
+          $current->changed->value,
+          ['granularity' => 1]
+        );
+        // Get the taxonomy term for the news item topic
+        $current->topic = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current->field_topic->target_id);
+        $current->topic_label = $current->topic->label();
+      }
+    }
+    // Get the rendered results
+    // $rendered_results = $executable_view->render();
   }
 }

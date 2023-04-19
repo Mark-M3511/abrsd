@@ -70,12 +70,6 @@
     }
   }
 
-  // BADGES
-  .badge{
-    background-color: $accent-shade !important;
-    color: $black;
-  }
-
   // VIEW
   .view {
     @include media-breakpoint-up(xl) {
@@ -83,7 +77,6 @@
       padding-right: 5rem !important;
     }
   }
-
 } // END RESOURCES
 
 // GET INVOLVED

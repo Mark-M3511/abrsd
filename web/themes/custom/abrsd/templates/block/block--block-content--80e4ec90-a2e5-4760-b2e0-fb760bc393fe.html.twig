@@ -36,29 +36,28 @@
     'block-' ~ plugin_id|clean_class,
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
-  {{ title_prefix }}
-  {% if label %}
-    <h2{{ title_attributes }}>{{ label }}</h2>
-  {% endif %}
-  {{ title_suffix }}
-  {% block content %}
-    <div{{ content_attributes.addClass('content') }}>
-      {# {{ content }} #}
-      {% for node in nodes %}
-         {# {{ node.title.value }}
-         {{ node.body.value|render|striptags|truncate(100) }}
-         {{ node.changed_ago }} #}
-         {% set link_url = '#' %}
-         <a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
-           <div class="d-flex w-100 justify-content-between">
-             <h5 class="mb-1">{{ node.title.value }}</h5>
-             <small>{{ node.changed_ago }}</small>
-           </div>
-           <p class="mb-1">{{ node.body.value|render|striptags|truncate(100)}}</p>
-           {# <span class="badge" data-term="{{node.topic_label}}" data-href="/taxonomy/term/{{node.topic}}">{{node.topic_label}}</span> #}
-         </a>
-      {% endfor %}
-    </div>
-  {% endblock %}
+<div{{attributes.addClass(classes)}}>
+	{{ title_prefix }}
+	{% if label %}
+		<h2{{title_attributes}}>{{ label }}</h2>
+	{% endif %}
+	{{ title_suffix }}
+	{% block content %}
+		<div{{content_attributes.addClass('content')}}>
+			{# {{ content }} #}
+			<div class="list-group">
+				{% for node in nodes %}
+					{% set link_url = '#' %}
+					<a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
+						<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">{{ node.title.value }}</h5>
+							<small>{{ node.changed_ago }}</small>
+						</div>
+						<p class="mb-1">{{ node.body.value|render|striptags|truncate(100)}}</p>
+						<span class="badge" data-term="{{node.topic_label}}" data-href="/node-list?topic={{node.topic_label}}">{{node.topic_label}}</span>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	{% endblock %}
 </div>

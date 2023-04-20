@@ -37,48 +37,6 @@
   }
 }
 
-.resources {
-  // EVENTS
-  div.latest-news {
-    &:nth-child(2) {
-      h3.section-title,
-      .card-body {
-        color: $black;
-      }
-    }
-  }
-
-  // CURRENT NEWS
-  div.latest-news {
-    &:nth-child(3) {
-      background-color: $white;
-      padding-top: 0 !important;
-      padding-bottom: 3rem !important;
-      .card-body {
-        color: $white;
-      }
-    }
-  }
-
-  // NEWS TOPICS
-  div.latest-news {
-    &:nth-child(4) {
-      background-color: $white;
-      h3.section-title {
-        color: $black;
-      }
-    }
-  }
-
-  // VIEW
-  .view {
-    @include media-breakpoint-up(xl) {
-      padding-left: 5rem !important;
-      padding-right: 5rem !important;
-    }
-  }
-} // END RESOURCES
-
 // GET INVOLVED
 .get-involved {
   .toolkits {

@@ -38,3 +38,45 @@
     color: $black;
   }
 }
+
+.resources {
+  // EVENTS
+  .view-id-workshop {
+    h3.section-title,
+    .card-body {
+      color: $black;
+    }
+  }
+
+  // SUBCOMMITTEES CONTAINER
+  .layout--onecol:has(.view-id-news_topics) {
+    background-color: $white;
+    h3.section-title {
+      color: $black;
+    }
+    padding-bottom: 0 !important;
+  }
+
+  // SUBCOMMITTEES
+  .view-id-news_topics {
+    background-color: $white;
+    padding-top: 0 !important;
+    padding-bottom: 3rem !important;
+    .card-body {
+      color: $white;
+    }
+  }
+
+  // CURRENT NEWS CONTAINER
+  .layout--onecol:nth-child(4) {
+    padding-bottom: 3rem !important;
+  }
+
+  .view {
+    @include media-breakpoint-up(xl) {
+      padding-left: 5rem !important;
+      padding-right: 5rem !important;
+    }
+  }
+
+}

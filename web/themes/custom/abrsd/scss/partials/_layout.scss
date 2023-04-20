@@ -74,7 +74,7 @@
 // SECTION STYLES
 .section-title-latest-news,
 .section-title-toolkit {
-  color: $white;
+  color: $black; // was white but fails WCAG AA
 }
 
 .section-title-workshops,

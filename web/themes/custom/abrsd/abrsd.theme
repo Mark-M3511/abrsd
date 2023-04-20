@@ -126,19 +126,15 @@ function _abrsd_preprocess_block_news(&$variables)
   // Get the query parameters
   $query = \Drupal::request()->query->all();
   // Get the query paramter for the topic
-  $topic = isset($query['topic']) ? $query['topic'] : '';
-  // Get the taonomy term id for the topic
-  $tid = \Drupal::entityQuery('taxonomy_term')
-    ->condition('name', $topic)
-    ->accessCheck(FALSE)
-    ->execute();
+  $tid = isset($query['topic']) ? $query['topic'] : 0;
+  $tid = (int)$tid;
   // Get executable view
   $executable_view = $view->getExecutable();
   // Get the display
   $executable_view->setDisplay('block_6');
   // Set the arguments
   if (!empty($tid)) {
-    $executable_view->setArguments([reset($tid)]);
+    $executable_view->setArguments([$tid]);
   }
   // Execute the view
   $executed = $executable_view->execute();

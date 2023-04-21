@@ -34,9 +34,9 @@
 .floating-banner {
   top: 90% !important;
   width: 90% !important;
-  @include media-breakpoint-down(lg) {
-    top: 75% !important;
-  }
+  // @include media-breakpoint-down(lg) {
+  //   top: 75% !important;
+  // }
 }
 
 // CARD MEMBER LIST
@@ -59,11 +59,18 @@
       object-fit: cover;
     }
   }
-  .card-footer {
-    a {
-      color: $black !important;
-      text-decoration: underline;
-    }
+  &.news-topic-card {
+    text-decoration: none;
+  }
+}
+
+// CARD NEWS
+.news-topic-footer {
+  h5 {
+    color: $black !important;
+  }
+  a {
+    background: $alt-background-card-footer !important;
   }
 }
 
@@ -83,4 +90,3 @@
   background-color: $accent-shade !important;
   color: $black;
 }
-

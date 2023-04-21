@@ -42,20 +42,18 @@
 ] %}
 {% set term = fields.name.content|striptags|trim|raw|clean_class %}
 {% set tid = fields.tid.content|striptags|trim|raw %}
+
 <a class="card w-100 news-topic-card" href="/news-list?topic={{tid}}">
-  {# <div data-term="{{term}}" data-href="/news-list?topic={{tid}}"> #}
-    {# <img src="..." class="card-img-top" alt="..."> #}
-    {% if bg_colour %}
-      <div{{cb_attribs.addClass(flex_classes)}} style="background-color: {{bg_colour}};">
-    {% else %}
-      <div{{cb_attribs.addClass(flex_classes)}}>
-    {% endif %}
-      <div>
-        {{ fields.field_topic_icon.content }}
-      </div>
+  {% if bg_colour %}
+    <div{{cb_attribs.addClass(flex_classes)}} style="background-color: {{bg_colour}};">
+  {% else %}
+    <div{{cb_attribs.addClass(flex_classes)}}>
+  {% endif %}
+    <div>
+      {{ fields.field_topic_icon.content }}
     </div>
-    <div class="card-footer news-topic-footer">
-      <h5 class="text-center h6">{{ fields.name.content }}</h5>
-    </div>
-  {# </div> #}
+  </div>
+  <div class="card-footer news-topic-footer">
+    <h5 class="text-center h6">{{ fields.name.content }}</h5>
+  </div>
 </a>

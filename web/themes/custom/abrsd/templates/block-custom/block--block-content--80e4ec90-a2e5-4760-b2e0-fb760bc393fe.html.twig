@@ -51,10 +51,15 @@
 			{# {{ content }} #}
 			<div class="list-group">
 				{% for node in nodes %}
-					{% set link_url = '#' %}
+				    {# bof: Setup variables #}
+					{% set link_url = '' %}
 					{% set summary = node.body.0.summary|trim %}
                     {% set body = node.body.0.value|truncate(200) ~ '...' %}
-					<a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
+					{% set link_url = node.field_news_link.0.uri %}
+					{% set link_url = link_url ? link_url : '#' %}
+					{% set target = 'http' in link_url ? '_blank' : '_self' %}
+					{# eof: Setup variables #}
+					<a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">{{ node.title.value }}</h5>
 							<small>{{ node.changed_ago }}</small>

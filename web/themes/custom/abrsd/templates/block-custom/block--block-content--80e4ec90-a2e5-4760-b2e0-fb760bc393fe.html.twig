@@ -24,6 +24,9 @@
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
  *
+ * - Custom variables:
+ *   - nodes: An array of node entities with limited access to object properties and methods.
+ *
  * @see template_preprocess_block()
  *
  * @ingroup themeable
@@ -36,6 +39,7 @@
     'block-' ~ plugin_id|clean_class,
   ]
 %}
+
 <div{{attributes.addClass(classes)}}>
 	{{ title_prefix }}
 	{% if label %}
@@ -48,12 +52,18 @@
 			<div class="list-group">
 				{% for node in nodes %}
 					{% set link_url = '#' %}
+					{% set summary = node.body.0.summary|trim %}
+                    {% set body = node.body.0.value|truncate(200) ~ '...' %}
 					<a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">{{ node.title.value }}</h5>
 							<small>{{ node.changed_ago }}</small>
 						</div>
-						<p class="mb-1">{{ node.body.value|render|striptags|truncate(100)}}</p>
+						{% if summary is not empty %}
+						   <p class="mb-1">{{ summary }}</p>
+						{% else %}
+						   <p class="mb-1">{{ body }}</p>
+						{% endif %}
 						<span class="badge" data-term="{{node.topic_label}}" data-href="/node-list?topic={{node.topic_label}}">{{node.topic_label}}</span>
 					</a>
 				{% endfor %}

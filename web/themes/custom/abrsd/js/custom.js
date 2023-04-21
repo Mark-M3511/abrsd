@@ -15,7 +15,7 @@
    * @param Event e - The click event paramter
    * @returns {void}
    */
-  const processClick = (e) => {
+  const processNavClick = (e) => {
     if (e.target.tagName === 'A' && e.target.closest('li').classList.contains('nav-target')) {
       const href = e.target.getAttribute('href');
       // Check if the browser supports matchMedia
@@ -40,6 +40,20 @@
           window.location.href = href.split('#')[0];
         }
       }
+    }
+  }
+
+  /**
+   * Process click event on list group links
+   * @param Event e - The click event paramter
+   * @returns {void}
+   */
+  const processlistGroupClick = (e) => {
+    if (e.target.classList.contains('badge')) {
+      e.preventDefault();
+      const href = e.target.dataset.href;
+      // Navigate to the link
+      window.location.href = href;
     }
   }
 
@@ -76,11 +90,13 @@
 
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
       const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
+      const listGroup = (context.querySelector('.list-group') || document.querySelector('.list-group'));
       /**
        * Set up click event listeners for header and footer nav links
        */
-      headerNav?.addEventListener('click', processClick);
-      footerNav?.addEventListener('click', processClick);
+      headerNav?.addEventListener('click', processNavClick);
+      footerNav?.addEventListener('click', processNavClick);
+      listGroup?.addEventListener('click', processlistGroupClick);
     },
   };
 })(Drupal, drupalSettings);

@@ -48,10 +48,10 @@
    * @param Event e - The click event paramter
    * @returns {void}
    */
-  const processlistGroupClick = (e) => {
-    if (e.target.classList.contains('badge')) {
+  const processNewsItemClick = (e) => {
+    if (e.target.classList.contains('badge') || e.target.classList.contains('card-body')) {
       e.preventDefault();
-      const href = e.target.dataset.href;
+      const href = e.target.dataset.href ? e.target.dataset.href : e.target.closest('div.news-topic-card').dataset.href;
       // Navigate to the link
       window.location.href = href;
     }
@@ -96,7 +96,7 @@
        */
       headerNav?.addEventListener('click', processNavClick);
       footerNav?.addEventListener('click', processNavClick);
-      listGroup?.addEventListener('click', processlistGroupClick);
+      listGroup?.addEventListener('click', processNewsItemClick);
     },
   };
 })(Drupal, drupalSettings);

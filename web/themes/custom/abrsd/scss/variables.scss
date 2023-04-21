@@ -64,8 +64,9 @@ $enable-gradients: false;
 // $breadcrumb-divider: quote(">");
 
 // Backgrounds (Alt)
-$alt-background-1: rgb(4, 175, 175);
+$alt-background-teal: rgb(4, 175, 175);
+$alt-background-card-footer: rgb(233, 231, 231);
 
 // Menu
 $menu-background: $black;
-$menu-social-icons: $alt-background-1;
+$menu-social-icons: $alt-background-teal;

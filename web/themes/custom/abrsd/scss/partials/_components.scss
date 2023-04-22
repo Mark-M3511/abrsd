@@ -34,9 +34,11 @@
 .floating-banner {
   top: 90% !important;
   width: 90% !important;
-  // @include media-breakpoint-down(lg) {
-  //   top: 75% !important;
-  // }
+  @include media-breakpoint-down(lg) {
+    top: 95% !important;
+    padding-bottom: 0.25rem !important;
+  }
+  overflow: hidden;
 }
 
 // CARD MEMBER LIST

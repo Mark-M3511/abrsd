@@ -34,6 +34,7 @@
         "drupal/scheduler": "^1.5",
         "drupal/smart_date": "^3.7",
         "drupal/structure_sync": "^2.0",
+        "drupal/svg_image": "^3.0",
         "drupal/twig_tweak": "^3.2",
         "drupal/webform": "^6.2@beta",
         "drupal/xmlsitemap": "^1.4",

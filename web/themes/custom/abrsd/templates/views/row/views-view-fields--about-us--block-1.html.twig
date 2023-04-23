@@ -37,9 +37,4 @@
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 
-<div class="card mb-3">
-  <div class="row g-0 d-flex flex-row-reverse">
-    {% include "@abrsd/partials/_about-us-wide.html.twig" %}
-  </div>
-</div>
-
+{% include "@abrsd/partials/_about-us-wide.html.twig" %}

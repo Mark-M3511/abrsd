@@ -15,11 +15,13 @@
 	<div class="card-body card-working-group d-flex flex-column px-4 px-lg-3">
 		<h4 class="card-title text-center text-lg-start">{{ fields.field_page_title.content }}</h4>
 		<div class="card-text text-center text-lg-start">{{ fields.body.content }}</div>
-		{{ include('@abrsd/components/_cta_button.html.twig', {
+    <div class="d-flex">
+		  {{ include('@abrsd/components/_cta_button.html.twig', {
           'text': link_text,
           'url': link_url,
           'target': target,
-          'extra_classes': 'mt-auto align-self-start'
-    }) }}
+          'extra_classes': 'mt-auto align-self-start me-3'
+      }) }}
+    </div>
 	</div>
 </div>

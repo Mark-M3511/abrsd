@@ -23,6 +23,12 @@
   'reports',
 ] %}
 
+{% set bkgrnd = [
+  'strat-plan-bkgrnd',
+  'toolkit-bkgrnd',
+  'reports-bkgrnd',
+] %}
+
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
@@ -30,6 +36,7 @@
   {%
     set row_classes = [
       default_row_class ? 'views-row',
+      bkgrnd[loop.index0],
     ]
   %}
   <div{{ row.attributes.addClass(row_classes).setAttribute('id', anchors[loop.index0]) }}>

@@ -35,6 +35,8 @@
 {% set link_url = fields.field_resource_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_resource_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
+{% set download_link_url = fields.field_resource_attachment.content|striptags|trim|raw %}
+{% set download_link_text = 'Download'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 <div class="card mb-3">

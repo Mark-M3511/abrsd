@@ -15,10 +15,16 @@
 	<div class="card-body card-working-group d-flex flex-column px-4 px-lg-3">
 		<h4 class="card-title text-center text-lg-start">{{ fields.field_page_title.content }}</h4>
 		<div class="card-text text-center text-lg-start">{{ fields.body.content }}</div>
-    <div class="d-flex">
+    <div class="d-flex flex-column flex-lg-row">
 		  {{ include('@abrsd/components/_cta_button.html.twig', {
           'text': link_text,
           'url': link_url,
+          'target': target,
+          'extra_classes': 'mt-auto align-self-start me-2 mb-2 mb-lg-0'
+      }) }}
+      {{ include('@abrsd/components/_download_button.html.twig', {
+          'text': download_link_text,
+          'url': download_link_url,
           'target': target,
           'extra_classes': 'mt-auto align-self-start me-3'
       }) }}

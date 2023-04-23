@@ -40,7 +40,14 @@
   'justify-content-center',
   'align-items-center',
 ] %}
+{% set icon = [
+  'education',
+  'healthcare',
+  'policing-advocacy',
+  'community-of-practice',
+] %}
 {% set term = fields.name.content|striptags|trim|raw|clean_class %}
+{% set label = fields.name.content|striptags|trim|raw %}
 {% set tid = fields.tid.content|striptags|trim|raw %}
 
 <a class="card w-100 news-topic-card" href="/news-list?topic={{tid}}">
@@ -50,7 +57,8 @@
     <div{{cb_attribs.addClass(flex_classes)}}>
   {% endif %}
     <div>
-      {{ fields.field_topic_icon.content }}
+      {# {{ fields.field_topic_icon.content }} #}
+      <img src="/themes/custom/abrsd/templates/svg/{{term}}.svg" alt="{{label}}" />
     </div>
   </div>
   <div class="card-footer news-topic-footer">

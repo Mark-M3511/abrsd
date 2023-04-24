@@ -53,7 +53,7 @@
       e.preventDefault();
       const href = e.target.dataset.href ? e.target.dataset.href : e.target.closest('div.news-topic-card').dataset.href;
       // Navigate to the link
-      window.location.href = href;
+      window.location.href = '/' + href;
     }
   }
 

@@ -62,14 +62,14 @@
 					<a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">{{ node.title.value }}</h5>
-							<small>{{ node.changed_ago }}</small>
+							<small>{{'Updated'|t}} &nbsp;{{ node.changed_ago }}</small>
 						</div>
 						{% if summary is not empty %}
 						   <p class="mb-1">{{ summary }}</p>
 						{% else %}
 						   <p class="mb-1">{{ body }}</p>
 						{% endif %}
-						<span class="badge" data-term="{{node.topic_label}}" data-href="/news-list?topic={{node.tid}}">{{node.topic_label}}</span>
+						<span class="badge" data-term="{{node.topic_label}}" data-href="news-list?topic={{node.tid}}">{{node.topic_label}}</span>
 					</a>
 				{% endfor %}
 			</div>

@@ -54,7 +54,7 @@
 				    {# bof: Setup variables #}
 					{% set link_url = '' %}
 					{% set summary = node.body.0.summary|trim %}
-                    {% set body = node.body.0.value|truncate(200) ~ '...' %}
+                    {% set body = node.body.0.value|striptags|truncate(450) ~ '...' %}
 					{% set link_url = node.field_news_link.0.uri %}
 					{% set link_url = link_url ? link_url : '#' %}
 					{% set target = 'http' in link_url ? '_blank' : '_self' %}

@@ -39,7 +39,7 @@
 {% set term = fields.field_topic.content|striptags|trim|raw|clean_class %}
 {% set tid = fields.field_topic_1.content|striptags|trim|raw %}
 
-<a href="{{link_url}}" class="list-group-item list-group-item-action" aria-current="true">
+<a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">{{fields.title.content}}</h5>
     <small>{{fields.changed.content}}</small>

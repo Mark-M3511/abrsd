@@ -97,3 +97,40 @@
     }
   }
 }
+
+// GENEAL LAYOUT STYLES
+// THIS NEEDS TO BE DONE PER PAGE
+// .layout {
+//   &.resources-layout,
+//   &.workshops,
+//   &.latest-news:nth-child(2),
+//   &.toolkits:nth-child(2) {
+//     @include media-breakpoint-down(md) {
+//       margin-top: 14rem !important;
+//     }
+//   }
+// }
+
+.page--home {
+  .resources-layout {
+    @include mobile-top-margin-first-layout-div();
+  }
+}
+
+.page--our-work {
+  .workshops {
+    @include mobile-top-margin-first-layout-div();
+  }
+}
+
+.page--resources {
+  .latest-news:nth-child(2) {
+    @include mobile-top-margin-first-layout-div();
+  }
+}
+
+.page--get-involved {
+  .toolkits:nth-child(2) {
+    @include mobile-top-margin-first-layout-div();
+  }
+}

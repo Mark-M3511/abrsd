@@ -3,3 +3,9 @@
   background-color: $menu-background !important;
   opacity: 0.9 !important;
 }
+
+@mixin mobile-top-margin-first-layout-div {
+  @include media-breakpoint-down(md) {
+    margin-top: 14rem !important;
+  }
+}

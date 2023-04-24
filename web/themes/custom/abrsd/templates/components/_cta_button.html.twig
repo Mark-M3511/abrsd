@@ -13,7 +13,17 @@
  * @see Various calling templates
  */
 #}
+
 {% if url is not empty %}
+
+   {# Process URL to convert drupal tokens to a valid URL #}
+    {% if url starts with 'entity:node' %}
+       {% set nid = url|split('/')[1] %}
+       {% set url = path('entity.node.canonical', {'node': nid} ) %}
+    {% elseif url starts with 'internal:/' %}
+        {% set url = '/' ~ url|split(':/')[1] %}
+    {% endif %}
+
     {% set text = text|upper %}
 	{% if classes is defined %}
 		{% set classes = classes ~ (extra_classes ? extra_classes : '') %}

@@ -9,3 +9,9 @@
     margin-top: 14rem !important;
   }
 }
+
+@mixin wide-mobile-top-margin-first-layout-div {
+  @include media-breakpoint-down(lg) {
+    margin-top: 6rem !important;
+  }
+}

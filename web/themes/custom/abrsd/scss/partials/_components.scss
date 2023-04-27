@@ -38,6 +38,10 @@
     top: 95% !important;
     padding-bottom: 0.25rem !important;
   }
+  @include media-breakpoint-down(sm) {
+    top: 100% !important;
+    padding-bottom: 0.25rem !important;
+  }
   overflow: hidden;
 }
 

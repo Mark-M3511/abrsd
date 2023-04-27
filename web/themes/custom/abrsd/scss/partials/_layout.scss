@@ -113,24 +113,28 @@
 
 .page--home {
   .resources-layout {
+    @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }
 }
 
 .page--our-work {
   .workshops {
+    @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }
 }
 
 .page--resources {
   .latest-news:nth-child(2) {
+    @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }
 }
 
 .page--get-involved {
   .toolkits:nth-child(2) {
+    @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }
 }

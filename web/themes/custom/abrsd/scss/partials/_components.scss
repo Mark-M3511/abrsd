@@ -96,3 +96,14 @@
   background-color: $accent-shade !important;
   color: $black;
 }
+
+// EMAIL SIGNUP
+.email-general-inquiries {
+  a {
+    color: $black;
+    &:hover {
+      color: $black;
+      // border-bottom: 1px solid $link-color;
+    }
+  }
+}

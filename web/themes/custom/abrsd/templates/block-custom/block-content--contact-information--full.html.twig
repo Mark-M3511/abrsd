@@ -34,14 +34,17 @@
     'block',
     'block-' ~ configuration.provider|clean_class,
     'block-' ~ plugin_id|clean_class,
+    'mb-3',
   ]
 %}
+{# Set up variables #}
+{% set email = content.field_email_address|render|striptags|trim|raw %}
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if label %}
     <h2{{ title_attributes }}>{{ label }}</h2>
   {% else %}
-    <h3{{ title_attributes.addClass('h4') }}>{{'Mailing Address'|t}}</h3>
+    <h3{{ title_attributes.addClass('h4', 'mb-1') }}>{{'Mailing Address'|t}}</h3>
   {% endif %}
   {{ title_suffix }}
   {% block content %}
@@ -49,9 +52,9 @@
       <div class="mb-4">
         {{ content|without('field_email_address') }}
       </div>
-      <h4{{ title_attributes }}>{{'General Inquiries'|t}}</h4>
-      <div>
-        {{ content.field_email_address }}
+      <h4{{ title_attributes.addClass('mb-1') }}>{{'General Inquiries'|t}}</h4>
+      <div class="email-general-inquiries">
+        <a href="mailto:{{ email }}">{{ email }}</a>
       </div>
     </div>
   {% endblock %}

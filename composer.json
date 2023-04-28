@@ -29,6 +29,7 @@
         "drupal/entityqueue": "^1.6",
         "drupal/field_group": "^3.4",
         "drupal/honeypot": "^2.1",
+        "drupal/ludwig": "^2.0",
         "drupal/metatag": "^1.22",
         "drupal/pathauto": "^1.11",
         "drupal/replicate_ui": "^1.1",

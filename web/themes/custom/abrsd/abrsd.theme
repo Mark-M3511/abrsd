@@ -181,13 +181,18 @@ function _abrsd_preprocess_node_resource(&$variables)
 {
   // Create an array of 3 Resource titles
   $resource_titles = [
-    'Our Work',
-    'Resources',
-    'Get Involved',
+    'Our Work (Homepage CTA)',
+    'Resources (Homepage CTA)',
+    'Get Involved (Homepage CTA)',
   ];
 
+  // Initialize object of type Random/Randomizer
+  $random = new Random\Randomizer();
+  // Get a Random integer between 0 and 2
+  $random_int = $random->getInt(0, 2);
+
   // Get a random value from the $resource_titles array
-  $random_title = $resource_titles[array_rand($resource_titles, 1)];
+  $random_title = $resource_titles[$random_int];
 
   // Get a Resource node by title
   $node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
@@ -206,10 +211,10 @@ function _abrsd_preprocess_node_resource(&$variables)
     $nid = explode('/', $node->field_resource_link->uri)[1];
     $variables['reco_url'] = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
     // Get the title of the node
-    $variables['reco_title'] = $node->getTitle();
+    $variables['reco_title'] =  !empty($node->field_page_title->value) ?  $node->field_page_title->value : $node->getTitle();
     // Ensure the node is rebuilt when the node is changed.
     $variables['reco_node'] = $node;
-    // Ensure the node is rebuilt when the node is changed
-    $variables['#cache']['tags'][] = 'node:' . $node->id();
+    // Prevent the page from being cached.
+    $variables['#cache']['max-age'] = 0;
   }
 }

@@ -107,3 +107,26 @@
     }
   }
 }
+
+// LOGO BACKGROUND
+.logo-background {
+  background-color: $black;
+  svg {
+    height: 6rem;
+  }
+}
+
+.oops {
+  font-size: 6rem;
+  font-weight: bold;
+  color: $black;
+}
+
+.reco-title {
+  color: $black;
+}
+
+.reco-url {
+  color: $link-hover-error-page;
+  text-decoration: underline;
+}

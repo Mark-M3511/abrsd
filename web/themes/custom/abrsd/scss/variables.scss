@@ -53,6 +53,7 @@ $link-color: $secondary-shade;
 $link-decoration: none;
 $link-hover-color: $accent-dark;
 $link-hover-decoration: underline;
+$link-hover-error-page: var(--bs-link-hover-color);
 // Comments
 $comment-spacer-x: 1.25em;
 $comment-spacer-y: 1.25em;

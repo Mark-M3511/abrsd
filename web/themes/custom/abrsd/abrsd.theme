@@ -157,3 +157,59 @@ function _abrsd_preprocess_block_news(&$variables)
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Provide filtered news items to the view template.
+ */
+function abrsd_preprocess_node(&$variables)
+{
+  $node = $variables['node'];
+  if ($node->getType() == 'base_layout_page' && $node->getTitle() == '400 Error') {
+    _abrsd_preprocess_node_resource($variables);
+  }
+}
+
+/**
+ * Get a resource item from the resource content type.
+ *
+ * @param array $variables - The variables array passed to the template.
+ * @return void
+ */
+function _abrsd_preprocess_node_resource(&$variables)
+{
+  // Create an array of 3 Resource titles
+  $resource_titles = [
+    'Our Work',
+    'Resources',
+    'Get Involved',
+  ];
+
+  // Get a random value from the $resource_titles array
+  $random_title = $resource_titles[array_rand($resource_titles, 1)];
+
+  // Get a Resource node by title
+  $node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+    'type' => 'resource',
+    'title' => $random_title,
+  ]);
+
+  if (!empty($node)) {
+    // Get the first node from the array
+    $node = reset($node);
+    // Get file uri from image field
+    $file_uri = $node->field_hero_image->entity->getFileUri();
+    // Get the URL of the image from the target id
+    $variables['reco_hero_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri);
+    // Get URL from field_resource_link
+    $nid = explode('/', $node->field_resource_link->uri)[1];
+    $variables['reco_url'] = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+    // Get the title of the node
+    $variables['reco_title'] = $node->getTitle();
+    // Ensure the node is rebuilt when the node is changed.
+    $variables['reco_node'] = $node;
+    // Ensure the node is rebuilt when the node is changed
+    $variables['#cache']['tags'][] = 'node:' . $node->id();
+  }
+}

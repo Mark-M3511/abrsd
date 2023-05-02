@@ -56,9 +56,7 @@
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
  * Custom variables:
- * - reco_hero_image_url: The URL of the hero image of the recommended content
- * - reco_title: The title of the recommended content
- * - reco_url: The URL of the recommended content
+ * - reco_nodes: The array of recommended nodes
  * @see template_preprocess_node()
  */
 #}
@@ -121,11 +119,15 @@
 		    </div>
         </div>
 		<div class="col-12">
-		   {# responsive image #}
-		   <a href="{{ reco_url }}" class="reco-url d-flex flex-column justify-content-center w-100 mx-auto">
-		     <h3 class="reco-title text-center">{{ reco_title }}</h3>
-		     <img src="{{ reco_hero_image_url }}" class="img-fluid" alt="Recommended content hero image">
-		   </a>
+		   {% for node in reco_nodes %}
+			 {% set the_url = path('entity.node.canonical', {'node': node.nid.value } ) %}
+			 {% set the_title = node.field_page_title.value ? node.field_page_title.value : node.title.value %}
+			 {% set image_url = file_url(node.field_hero_image.entity.uri.value) %}
+			 <a href="{{ the_url }}" class="reco-url d-flex flex-column justify-content-center w-50 mx-auto">
+		       <h3 class="reco-title text-center">{{ the_title }}</h3>
+		       <img src="{{ image_url }}" class="img-fluid reco_img" alt="Recommended content hero image">
+		     </a>
+		   {% endfor %}
 		</div>
 	  </div>
 	</div>

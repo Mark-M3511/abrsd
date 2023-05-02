@@ -200,20 +200,24 @@ function _abrsd_preprocess_node_resource(&$variables)
     'title' => $random_title,
   ]);
 
+  $reco_nodes = [];
+
   if (!empty($node)) {
     // Get the first node from the array
     $node = reset($node);
     // Get file uri from image field
-    $file_uri = $node->field_hero_image->entity->getFileUri();
+    // $file_uri = $node->field_hero_image->entity->getFileUri();
     // Get the URL of the image from the target id
-    $variables['reco_hero_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri);
+    // $variables['reco_hero_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri);
     // Get URL from field_resource_link
-    $nid = explode('/', $node->field_resource_link->uri)[1];
-    $variables['reco_url'] = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
+    // $nid = explode('/', $node->field_resource_link->uri)[1];
+    // $variables['reco_url'] = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
     // Get the title of the node
-    $variables['reco_title'] =  !empty($node->field_page_title->value) ?  $node->field_page_title->value : $node->getTitle();
+    // $variables['reco_title'] =  !empty($node->field_page_title->value) ?  $node->field_page_title->value : $node->getTitle();
+    // Add the node to the reco_nodes array
+    $reco_nodes[] = $node;
     // Ensure the node is rebuilt when the node is changed.
-    $variables['reco_node'] = $node;
+    $variables['reco_nodes'] = $reco_nodes;
     // Prevent the page from being cached.
     $variables['#cache']['max-age'] = 0;
   }

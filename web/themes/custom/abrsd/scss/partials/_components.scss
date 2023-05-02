@@ -129,4 +129,7 @@
 .reco-url {
   color: $link-hover-error-page;
   text-decoration: underline;
+  @include media-breakpoint-down(md) {
+    width: 100% !important;
+  }
 }

@@ -120,7 +120,10 @@
         </div>
 		<div class="col-12">
 		   {% for node in reco_nodes %}
-			 {% set the_url = path('entity.node.canonical', {'node': node.nid.value } ) %}
+			 {# {% set the_url = path('entity.node.canonical', {'node': node.nid.value } ) %} #}
+			 {% set ref_nid = node.field_resource_link.0.uri|split('/')[1]  %}
+			 {% set the_url = path('entity.node.canonical', {'node': ref_nid} ) %}
+			 {# {{ dump(the_url) }} #}
 			 {% set the_title = node.field_page_title.value ? node.field_page_title.value : node.title.value %}
 			 {% set image_url = file_url(node.field_hero_image.entity.uri.value) %}
 			 <a href="{{ the_url }}" class="reco-url d-flex flex-column justify-content-center w-50 mx-auto">

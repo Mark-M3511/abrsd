@@ -36,9 +36,9 @@
     'block-' ~ plugin_id|clean_class,
   ]
 %}
-{% set url_link = content.field_button_link[0]['#url'] %}
-{% set url_title = content.field_button_link[0]['#title'] %}
-{% set url_title = url_title ? url_title : 'Read More'|t|upper %}
+{% set link_url = content.field_button_link[0]['#url'] %}
+{% set link_text = content.field_button_link[0]['#title'] %}
+{% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 
 <div{{attributes.addClass(classes)}}>
 	{{ title_prefix }}
@@ -54,9 +54,14 @@
 					<div class="card-text my-3">
 						{{ content.body }}
 					</div>
-					{% if url_link is not empty %}
-					  <a href="{{ url_link }}" class="btn btn-primary mt-auto align-self-start">{{ url_title }}</a>
-					{% endif %}
+					{# 'classes' is defined above so we have to override it below #}
+					{{ include('@abrsd/components/_cta_button.html.twig', {
+                       'text': link_text,
+                       'url': link_url,
+                       'target': target,
+					   'classes': 'btn btn-primary ',
+                       'extra_classes': 'mt-auto align-self-start'
+                     }) }}
 				</div>
 			</div>
 		</div>

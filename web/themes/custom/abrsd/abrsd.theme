@@ -190,33 +190,22 @@ function _abrsd_preprocess_node_resource(&$variables)
   $random = new Random\Randomizer();
   // Get a Random integer between 0 and 2
   $random_int = $random->getInt(0, 2);
-
   // Get a random value from the $resource_titles array
   $random_title = $resource_titles[$random_int];
-
   // Get a Resource node by title
   $node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
     'type' => 'resource',
     'title' => $random_title,
   ]);
-
+  // Initialize the array of nodes
   $reco_nodes = [];
-
+  // Check if the node is not empty and add it to the reco_nodes array
   if (!empty($node)) {
     // Get the first node from the array
     $node = reset($node);
-    // Get file uri from image field
-    // $file_uri = $node->field_hero_image->entity->getFileUri();
-    // Get the URL of the image from the target id
-    // $variables['reco_hero_image_url'] = \Drupal::service('file_url_generator')->generateAbsoluteString($file_uri);
-    // Get URL from field_resource_link
-    // $nid = explode('/', $node->field_resource_link->uri)[1];
-    // $variables['reco_url'] = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-    // Get the title of the node
-    // $variables['reco_title'] =  !empty($node->field_page_title->value) ?  $node->field_page_title->value : $node->getTitle();
     // Add the node to the reco_nodes array
     $reco_nodes[] = $node;
-    // Ensure the node is rebuilt when the node is changed.
+    // Add the reco_nodes array to the variables array
     $variables['reco_nodes'] = $reco_nodes;
     // Prevent the page from being cached.
     $variables['#cache']['max-age'] = 0;

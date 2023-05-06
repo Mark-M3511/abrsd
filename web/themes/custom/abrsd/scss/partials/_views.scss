@@ -49,7 +49,8 @@
   }
 
   // SUBCOMMITTEES CONTAINER
-  .layout--onecol:has(.view-id-news_topics) {
+  .layout--onecol:has(.view-id-news_topics),
+  .layout--onecol:has(.view-subcommittees) {
     background-color: $white;
     h3.section-title {
       color: $black;

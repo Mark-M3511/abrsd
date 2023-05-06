@@ -100,11 +100,11 @@ a.nav-link--::before {
       color: $menu-background !important;
     }
   }
-  // @include media-breakpoint-up(lg) {
-  //   li:has(a.last-item) {
-  //     margin-left: 1rem;
-  //   }
-  // }
+  @include media-breakpoint-down(md) {
+    li:has(a.last-item) {
+      margin-top: 1rem;
+    }
+  }
 }
 
 // DROPDOWN MENU STYLES

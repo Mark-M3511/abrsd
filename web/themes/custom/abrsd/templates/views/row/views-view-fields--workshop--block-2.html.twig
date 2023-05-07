@@ -44,32 +44,9 @@
   <div class="card-body d-flex flex-column justify-content-between">
     <h5 class="card-title">{{ fields.field_page_title.content }}</h5>
     <div class="card-text">{{ fields.body.content }}</div>
-    <div class="card-text mb-2">
-       <div class="d-flex mt-auto">
-          <div class="me-3">
-            {% include "@abrsd/svg/calendar-alt.html.twig" %}
-          </div>
-          <div>
-            {{ fields.field_start_date.content }}
-          </div>
-       </div>
-       <div class="d-flex mb-2">
-          <div class="me-3">
-            {% include "@abrsd/svg/clock.html.twig" %}
-          </div>
-          <div>
-            {{ fields.nothing.content }}
-          </div>
-       </div>
-       <div class="d-flex  mb-2">
-          <div class="me-3">
-            {% include "@abrsd/svg/compass.html.twig" %}
-          </div>
-          <div>
-            {{ fields.field_workshop_type.content }}
-          </div>
-       </div>
-    </div>
+    {# bof: Include the scheduling data #}
+    {% include "@abrsd/partials/_event_schedule_type.html.twig" %}
+    {# eof: Include the scheduling data #}
     {{ include('@abrsd/components/_cta_button.html.twig', {
       'text': link_text,
       'url': link_url,

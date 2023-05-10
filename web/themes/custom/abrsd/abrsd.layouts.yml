@@ -105,3 +105,23 @@ abrsd_cols_9_3:
       label: Second (3 columns)
     bottom:
       label: Bottom
+abrsd_cols_6_6:
+  label: ABRSD 6/6 Columns
+  category: ABRSD
+  path: layouts
+  template: abrsd--layout-col2-6-6
+  default_region: content
+  icon_map:
+    - [top]
+    - [first, second]
+    - [bottom]
+  regions:
+    top:
+      label: Top
+    first:
+      label: First (6 columns)
+    second:
+      label: Second (6 columns)
+    bottom:
+      label: Bottom
+

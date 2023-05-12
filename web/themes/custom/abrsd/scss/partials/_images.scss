@@ -55,3 +55,14 @@ picture {
     width: 7rem;
   }
 }
+
+// OUR WORK FEATURES STYLES
+.page--our-work-strategic-plan,
+.page--our-work-toolkit,
+.page--our-work-reports {
+  .field--name-field-hero-image {
+    img {
+      height: 30rem;
+    }
+  }
+}

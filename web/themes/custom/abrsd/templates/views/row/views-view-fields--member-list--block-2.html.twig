@@ -38,28 +38,12 @@
 {# Link #}
 {% set url = fields.field_member_link.content|striptags|trim|raw %}
 {% set link_text = fields.field_member_link_1.content|striptags|trim|raw %}
-{% if url %}
-    {% if url starts with 'entity:node' %}
-        {% set nid = url|split('/')[1] %}
-        {% set url = path('entity.node.canonical', {'node': nid} ) %}
-    {% elseif url starts with 'internal:/' %}
-        {% set url = '/' ~ url|split(':/')[1] %}
-    {% elseif  url starts with 'route:' %}
-        {% set url = '' %}
-    {% endif %}
-{% else %}
-    {% set url = '#' %}
-{% endif %}
+
+{% import "@abrsd/macros/entity-uri.twig" as reu %}
 
 <li class="row px-1 px-sm-3 member-list">
   <div class="col col-lg-9">
-  {% if url %}
-     <a target="_blank" href="{{ url }}">
-  {% endif %}
-      {{ link_text }}
-  {% if url %}
-     </a>
-  {% endif %}
+    {{ reu.resolve_entity_uri(link_text, url, '_blank') }}}
   </div>
   <dir class="d-none d-lg-block col-lg-3"></dir>
 </li>

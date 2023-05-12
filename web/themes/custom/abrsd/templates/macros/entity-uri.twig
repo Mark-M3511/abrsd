@@ -1,0 +1,21 @@
+{% macro resolve_entity_uri(link_text, url, target) %}
+	{% if url %}
+		{% if url starts with 'entity:node' %}
+			{% set nid = url|split('/')[1] %}
+			{% set url = path('entity.node.canonical', {'node': nid} ) %}
+		{% elseif url starts with 'internal:/' %}
+			{% set url = '/' ~ url|split(':/')[1] %}
+		{% elseif  url starts with 'route:' %}
+			{% set url = '' %}
+		{% endif %}
+	{% else %}
+		{% set url = '#' %}
+	{% endif %}
+	{% if url %}
+      <a target="{{ target }}" href="{{ url }}">
+    {% endif %}
+      {{ link_text|raw }}
+    {% if url %}
+      </a>
+    {% endif %}
+{% endmacro %}

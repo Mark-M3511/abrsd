@@ -57,12 +57,18 @@ picture {
 }
 
 // OUR WORK FEATURES STYLES
-.page--our-work-strategic-plan,
-.page--our-work-toolkit,
-.page--our-work-reports {
-  .field--name-field-hero-image {
-    img {
-      height: 30rem;
-    }
+// .page--our-work-strategic-plan,
+// .page--our-work-toolkit,
+// .page--our-work-reports {
+//   .field--name-field-hero-image {
+//     img {
+//       height: 30rem;
+//     }
+//   }
+// }
+
+.field--name-field-hero-image {
+  img[src$=".svg"] {
+    height: 30rem;
   }
 }

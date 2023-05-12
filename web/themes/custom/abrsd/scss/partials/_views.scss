@@ -39,6 +39,16 @@
   }
 }
 
+.view-member-list {
+  &.view-display-id-block_2 {
+    .list-group {
+      @include media-breakpoint-down(sm) {
+        padding-left: 0.7rem !important;
+      }
+    }
+  }
+}
+
 .resources {
   // EVENTS
   .view-id-workshop {

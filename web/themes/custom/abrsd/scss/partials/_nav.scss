@@ -12,9 +12,11 @@
   }
 }
 
-#main-wrapper {
-  margin-top: 7.5rem;
-}
+// HEADER STYLES - The affix library declaration is in the abrsd.libraries.yml file
+// was broken. The jQuery once dependency was not being loaded.
+// #main-wrapper {
+//   margin-top: 7.5rem;
+// }
 
 /* FOOTER MENU */
 .menu--footer {

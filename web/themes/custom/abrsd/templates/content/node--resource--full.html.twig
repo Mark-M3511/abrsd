@@ -107,5 +107,16 @@
 	<div{{content_attributes.addClass('node__content','clearfix')}}>
       {{ content.field_hero_image }}
       {{ content.body }}
+	  {% set download_link_text = 'Download'|t|upper %}
+	  {% set download_link_url = file_url(content.field_resource_attachment['#items'].entity.uri.value) %}
+	  {% set download_target = '_blank' %}
+	  {% if download_link_url %}
+	     {{ include('@abrsd/components/_download_button.html.twig', {
+          'text': download_link_text,
+          'url': download_link_url,
+          'target': download_target,
+          'extra_classes': 'mt-auto align-self-start me-2'
+         }) }}
+	  {% endif %}
 	</div>
 </article>

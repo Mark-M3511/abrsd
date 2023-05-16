@@ -8,7 +8,7 @@
  * - target: Target of the link.
  * - text: Text of the link.
  * - extra_classes: Extra classes to add to the button.
- * - classes: Classes to add to the button.
+ * - btn_classes: Classes to add to the button.
  *
  * @see Various calling templates
  */
@@ -25,9 +25,9 @@
     {% endif %}
 
     {% set text = text|upper %}
-	{% if classes is defined %}
-		{% set classes = classes ~ (extra_classes ? extra_classes : '') %}
-		<a href="{{ url }}" class="{{ classes }}" target="{{ target }}">
+	{% if btn_classes is defined %}
+		{% set btn_classes = btn_classes|trim ~ ' ' ~ (extra_classes ? extra_classes : '') %}
+		<a href="{{ url }}" class="{{ btn_classes }}" target="{{ target }}">
 			{{ text }}
 		</a>
 	{% else %}

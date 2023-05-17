@@ -88,6 +88,7 @@
   }
 }
 
+// FULL VIEW WORKSHOP
 .schedule {
   @include media-breakpoint-down(md) {
     .data-icon {
@@ -95,6 +96,15 @@
     }
     .data-text {
       font-size: 0.8rem;
+    }
+  }
+}
+
+.schedule-clock,
+.schedule-compass {
+  .data-icon {
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 0.1rem !important;
     }
   }
 }

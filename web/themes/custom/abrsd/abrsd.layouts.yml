@@ -90,7 +90,7 @@ abrsd_cols_9_3:
   label: ABRSD 9/3 Columns
   category: ABRSD
   path: layouts
-  template: abrsd--layout-col2-9-3
+  template: abrsd--layout-twocol-9-3
   default_region: content
   icon_map:
     - [top]
@@ -109,7 +109,7 @@ abrsd_cols_6_6:
   label: ABRSD 6/6 Columns
   category: ABRSD
   path: layouts
-  template: abrsd--layout-col2-6-6
+  template: abrsd--layout-twocol-6-6
   default_region: content
   icon_map:
     - [top]

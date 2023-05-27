@@ -37,6 +37,8 @@
 				{% if menu_id == 'footer-contact-us' %}
 				    <a href="/contact-us"><h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2></a>
 					<h3 class="text-uppercase h2 mt-4">{{ 'Follow Us'|t }}</h3>
+				{% elseif menu_id == 'footer-get-involved' %}
+                    <a href="/get-involved"><h2 id="{{ menu_id }}-menu" class="text-uppercase nav-link--get-involved btn btn-primary">{{ menu_titles[loop.index0]|t }}</h2></a>
 				{% else %}
 					<h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2>
 				{% endif %}

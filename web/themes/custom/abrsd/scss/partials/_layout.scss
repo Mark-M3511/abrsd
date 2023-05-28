@@ -119,14 +119,14 @@
 }
 
 .page--our-work {
-  .workshops {
+  .toolkits {
     @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }
 }
 
 .page--resources {
-  .latest-news:nth-child(2) {
+  .workshops {
     @include wide-mobile-top-margin-first-layout-div();
     @include mobile-top-margin-first-layout-div();
   }

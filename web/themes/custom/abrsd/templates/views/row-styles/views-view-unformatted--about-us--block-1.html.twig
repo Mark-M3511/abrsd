@@ -20,12 +20,7 @@
 {% endif %}
 {# We set the title here and not in the view via the visual editor. #}
 <h3 class="section-title section-title-latest-news mb-3">{{ 'About Us'|t }}</h3>
-{% set target_ids = [
-   'who-we-are',
-   'mission',
-   'vision',
-   'values',
-] %}
+
 {% for row in rows %}
 	{%
     set row_classes = [
@@ -33,7 +28,9 @@
     ]
     %}
 	{% set flex_r = loop.index0 % 2 == 0 ? ' flex-row-reverse' : '' %}
-    <div{{row.attributes.addClass(row_classes).setAttribute('id', target_ids[loop.index0])}}>
+    {# Get the title field from the row object #}
+    {% set target_id = row.content['#row']._entity.title.value %}
+    <div{{row.attributes.addClass(row_classes).setAttribute('id', target_id|clean_class)}}>
   	  <div class="card mb-3">
   	    <div class="row g-0 d-flex{{flex_r}}">
   			{{ row.content }}

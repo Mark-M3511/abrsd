@@ -38,10 +38,11 @@
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 {% set term = fields.field_topic.content|striptags|trim|raw|clean_class %}
 {% set tid = fields.field_topic_1.content|striptags|trim|raw %}
+{% set page_title = fields.field_page_title.content ? fields.field_page_title.content : fields.title.content %}
 
 <a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{fields.title.content}}</h5>
+    <h5 class="mb-1">{{page_title}}</h5>
     <small>{{'Updated'|t}}&nbsp;{{fields.changed.content}}</small>
   </div>
   <p class="mb-1">{{fields.body.content}}</p>

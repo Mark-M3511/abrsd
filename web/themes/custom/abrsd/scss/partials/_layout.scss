@@ -100,41 +100,14 @@
 
 // GENEAL LAYOUT STYLES
 // THIS NEEDS TO BE DONE PER PAGE
-// .layout {
-//   &.resources-layout,
-//   &.workshops,
-//   &.latest-news:nth-child(2),
-//   &.toolkits:nth-child(2) {
-//     @include media-breakpoint-down(md) {
-//       margin-top: 14rem !important;
-//     }
-//   }
-// }
-
-.page--home {
-  .resources-layout {
-    @include wide-mobile-top-margin-first-layout-div();
-    @include mobile-top-margin-first-layout-div();
-  }
-}
-
-.page--our-work {
-  .toolkits {
-    @include wide-mobile-top-margin-first-layout-div();
-    @include mobile-top-margin-first-layout-div();
-  }
-}
-
-.page--resources {
-  .workshops {
-    @include wide-mobile-top-margin-first-layout-div();
-    @include mobile-top-margin-first-layout-div();
-  }
-}
-
+.page--home,
+.page--our-work,
+.page--resources,
 .page--get-involved {
-  .toolkits:nth-child(2) {
-    @include wide-mobile-top-margin-first-layout-div();
-    @include mobile-top-margin-first-layout-div();
+  .node__content {
+    .layout:nth-child(2) {
+      @include wide-mobile-top-margin-first-layout-div();
+      @include mobile-top-margin-first-layout-div();
+    }
   }
 }

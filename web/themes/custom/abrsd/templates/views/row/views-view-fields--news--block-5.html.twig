@@ -45,10 +45,11 @@
     <h5 class="mb-1">{{page_title}}</h5>
     {# <small>{{'Updated'|t}}&nbsp;{{fields.changed.content}}</small> #}
     <small class="external-link">
-      <span class="me-2">{{fields.field_source_date.content}}</span>
+      <span class="me-2 d-none d-md-inline">{{fields.field_source_date.content}}</span>
       {% include "@abrsd/svg/external-link.svg" %}
     </small>
   </div>
+  <p class="me-2 d-block d-md-none">{{fields.field_source_date.content}}</p>
   <p class="mb-1">{{fields.body.content}}</p>
   <span class="badge" data-term="{{term}}" data-href="news-list?topic={{tid}}">{{fields.field_topic.content}}</span>
 </a>

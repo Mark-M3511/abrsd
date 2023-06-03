@@ -31,8 +31,17 @@
  * @ingroup themeable
  */
 #}
+
+{# Get the title of the subqueue used for the view layuot #}
+{% set queue_title = fields.queue.content|striptags|trim|raw %}
+
 {# Set up variables to be used #}
 {% set link_url = fields.field_news_link.content|striptags|trim|raw %}
+{# Check whether queue_title contains the text 'Latest News' #}
+{% if 'latest news' in queue_title|lower %}
+  {% set link_url = '/resources#news' %}
+{% endif %}
+
 {% set link_text = fields.field_news_link_1.content|striptags|trim|raw %}
 {% set link_text = link_text ? link_text : 'Read More'|t|upper %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}

@@ -138,3 +138,13 @@
     }
   }
 }
+
+// REPORTS
+.page--reports {
+  .field--name-field-hero-image {
+    background-color: #ff0068;
+    img[src$=".svg"] {
+      height: 10rem;
+    }
+  }
+}

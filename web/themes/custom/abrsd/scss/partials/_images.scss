@@ -62,3 +62,19 @@ picture {
     height: 30rem;
   }
 }
+
+// RESOURCE - SECONDARY PAGE
+body:not(.page--reports) {
+  @include media-breakpoint-up(md) {
+    .node--type-resource {
+      .field--name-field-hero-image {
+        float: left;
+        margin-right: 1rem;
+        img {
+          width: 440px;
+          height: 300px;
+        }
+      }
+    }
+  }
+}

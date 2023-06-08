@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * This is a custom layout template for the footet CTA block. The markup
+ * is taken directly from the rendered version of the latest news layout template.
+ * Originating template: @abrsd/layouts/abrsd-latest-news.html.twig
+ *
+ * Available variables:
+ * - None
+ *
+ */
+#}
+<div class="layout layout--onecol latest-news container-fluid mt-3 py-5">
+	<div class="layout__region layout__region--content row">
+         {{ drupal_view('news', 'block_3') }}
+	</div>
+</div>

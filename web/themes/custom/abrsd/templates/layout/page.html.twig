@@ -197,6 +197,9 @@
 			</div>
 		{% endif %}
 		<footer class="site-footer">
+		    {# bof: Footer CTA #}
+            {% include "@abrsd/layout/footer-cta.html.twig" %}
+			{# eof: Footer CTA #}
 			{% block footer %}
 				<div class="{{ container }}">
 					{% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}
@@ -212,8 +215,11 @@
 							{{ page.footer_fifth }}
 						</div>
 					{% endif %}
+					{#
+					This, hopefully, is temporary. Once layouts can reliably display differnt blocks
+					in the footer, site-wide.
+					#}
 					{# bof: Footer Menu #}
-					{# This, hopefully, is temporary #}
 					{% include "@abrsd/navigation-footer/menu--layout--footer-in-page.html.twig" %}
 					{# eof: Footer Menu #}
 				</div>

@@ -20,6 +20,11 @@
   .card-body {
     color: $white;
   }
+  &.view-display-id-block_3 {
+    a {
+      color: $black;
+    }
+  }
 }
 
 .view-workshop {

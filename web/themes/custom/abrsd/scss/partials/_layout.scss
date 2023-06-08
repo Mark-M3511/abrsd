@@ -7,6 +7,7 @@
 
 .site-footer {
   background: $menu-background !important;
+  padding-top: 0 !important;
   a {
     color: $white;
   }
@@ -30,12 +31,18 @@
 .our-work {
   .latest-news {
     background-color: $white;
-    padding-top: 0 !important;
     h3.section-title {
       display: none;
     }
   }
 }
+
+// SITE FOOTER CTA BACKGORUND COLOR
+// .site-footer {
+//   .latest-news {
+//     background: $alt-background-teal !important;
+//   }
+// }
 
 // GET INVOLVED
 .get-involved {

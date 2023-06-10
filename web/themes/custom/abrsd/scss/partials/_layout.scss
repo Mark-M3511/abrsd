@@ -105,7 +105,7 @@
   }
 }
 
-// GENEAL LAYOUT STYLES
+// GENERAL LAYOUT STYLES
 // THIS NEEDS TO BE DONE PER PAGE
 .page--home,
 .page--our-work,
@@ -130,11 +130,22 @@
 }
 
 // LIVE
+// OUR WORK
 .page--our-work {
   .node__content {
     .layout:nth-child(2) {
       @include wide-mobile-top-margin-first-layout-div();
       @include mobile-top-margin-first-layout-div(17rem);
+    }
+  }
+}
+
+// GET INVOLVED
+.page--get-involved {
+  .node__content {
+    .layout:nth-child(2) {
+      @include wide-mobile-top-margin-first-layout-div(8rem);
+      @include mobile-top-margin-first-layout-div(14rem);
     }
   }
 }

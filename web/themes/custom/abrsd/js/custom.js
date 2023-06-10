@@ -90,7 +90,7 @@
 
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
       const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
-      const listGroup = (context.querySelector('.list-group') || document.querySelector('.list-group'));
+      const listGroup = (context.querySelector('.news-list') || document.querySelector('.news-list'));
       /**
        * Set up click event listeners for header and footer nav links
        */

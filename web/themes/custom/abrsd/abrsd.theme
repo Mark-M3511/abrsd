@@ -144,7 +144,7 @@ function _abrsd_preprocess_block_news(&$variables)
       $variables['nodes'][] = $result->_entity;
       $current = end($variables['nodes']);
       $current->changed_at = date('c', $current->changed->value);
-      // Format $current->changed_at for display as YYYY-M-DD
+      // Format $current->changed_at for display as YYYY-MMM-DD (e.g. 2019-Jan-01)
       $current->changed_at = date('Y-M-d', strtotime($current->changed_at));
       // Calculate time ago for a given date
       $current->changed_ago = \Drupal::service('date.formatter')->formatTimeDiffSince(

@@ -153,7 +153,9 @@ function _abrsd_preprocess_block_news(&$variables)
       );
       $current->changed_ago .= ' ago';
       // Get the taxonomy term for the news item topic
-      $current->topic = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current->field_topic->target_id);
+      $current->topic = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->load($current->field_topic->target_id);
       $current->tid = $current->topic->id();
       $current->topic_label = $current->topic->label();
     }

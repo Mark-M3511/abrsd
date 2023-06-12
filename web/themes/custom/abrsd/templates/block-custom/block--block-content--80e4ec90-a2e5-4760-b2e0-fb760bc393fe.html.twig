@@ -63,8 +63,12 @@
 					<a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">{{ node.title.value }}</h5>
-							<small>{{'Updated'|t}} &nbsp;{{ node.changed_ago }}</small>
+							<small class="external-link">
+                              <span class="me-2 d-none d-md-inline">{{ node.changed_at }}</span>
+                              {% include "@abrsd/svg/external-link.svg" %}
+                            </small>
 						</div>
+						<p class="me-2 d-block d-md-none">{{node.changed_at}}</p>
 						{% if summary is not empty %}
 						   <p class="mb-1">{{ summary }}</p>
 						{% else %}

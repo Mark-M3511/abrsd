@@ -136,9 +136,14 @@ function _abrsd_preprocess_block_news(&$variables)
         ->getStorage('taxonomy_term')
         ->loadByProperties(['name' => $tname]);
   // Get the first taxonomy term
-  $topic = reset($topic);
+  if (is_array($topic)) {
+    $topic = reset($topic);
+  }
   // Get the taxonomy term id
-  $tid = $topic->id() ?? 0;
+  $tid = 0;
+  if (is_object($topic)) {
+    $tid = $topic->id();
+  }
   // Get executable view
   $executable_view = $view->getExecutable();
   // Get the display

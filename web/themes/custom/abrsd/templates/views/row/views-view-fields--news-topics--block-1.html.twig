@@ -50,7 +50,7 @@
 {% set label = fields.name.content|striptags|trim|raw %}
 {% set tid = fields.tid.content|striptags|trim|raw %}
 
-<a class="card w-100 news-topic-card" href="/news-list?topic={{tid}}">
+<a class="card w-100 news-topic-card" href="/news-list?topic={{term}}">
   {% if bg_colour %}
     <div{{cb_attribs.addClass(flex_classes)}} style="background-color: {{bg_colour}};">
   {% else %}

@@ -8,6 +8,7 @@
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Url;
 use \Drupal\views\Entity\View;
+use \Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -125,9 +126,19 @@ function _abrsd_preprocess_block_news(&$variables)
   $view = \Drupal::entityTypeManager()->getStorage('view')->load('news');
   // Get the query parameters
   $query = \Drupal::request()->query->all();
-  // Get the query paramter for the topic
-  $tid = isset($query['topic']) ? $query['topic'] : 0;
-  $tid = (int)$tid;
+  $tname = isset($query['topic']) ? $query['topic'] : '';
+  // Sanitize the taxonomy term name
+  $tname = Html::escape($tname);
+  // Replace - with space in $tname
+  $tname = str_replace('-', ' ', $tname);
+  // Get the taxonomy term by label
+  $topic = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => $tname]);
+  // Get the first taxonomy term
+  $topic = reset($topic);
+  // Get the taxonomy term id
+  $tid = $topic->id() ?? 0;
   // Get executable view
   $executable_view = $view->getExecutable();
   // Get the display

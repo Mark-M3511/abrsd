@@ -56,6 +56,8 @@
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
  *
+ * Available custom variables
+ * - timezone: The timezone of the website.
  * @see template_preprocess_node()
  */
 #}
@@ -93,7 +95,7 @@
               {% include "@abrsd/svg/calendar-alt.html.twig" %}
             </div>
 		    <div class="me-3 data-text">
-			  {{ start_date|render|striptags|raw|date("d /M / Y") }}
+			  {{ start_date|render|striptags|raw|date("d /M / Y", timezone) }}
 		    </div>
 		  </div>
 		  <div class="d-flex flex-column flex-md-row schedule schedule-clock">
@@ -101,10 +103,10 @@
               {% include "@abrsd/svg/clock.html.twig" %}
             </div>
 		    <div class="me-3 data-text">
-		  	{{ start_date|render|striptags|raw|date("g:H a") }}
+		  	{{ start_date|render|striptags|raw|date("g:i a", timezone) }}
 		  	&nbsp;{{ 'to'|t }}&nbsp;
-		  	{{ end_date|render|striptags|raw|date("g:H a") }}
-		  	{{ start_date|render|striptags|raw|date("T") }}
+		  	{{ end_date|render|striptags|raw|date("g:i a", timezone) }}
+		  	{{ start_date|render|striptags|raw|date("T", timezone) }}
 		    </div>
 		  </div>
 		  <div class="d-flex flex-column flex-md-row schedule schedule-compass">

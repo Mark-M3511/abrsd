@@ -190,6 +190,14 @@ function abrsd_preprocess_node(&$variables)
   $node = $variables['node'];
   if ($node->getType() == 'base_layout_page' && $node->getTitle() == '400 Error') {
     _abrsd_preprocess_node_resource($variables);
+    return;
+  }
+  // Check for node of type workshop
+  if ($node->getType() == 'workshop') {
+    // Get the websites timezone
+    $timezone = \Drupal::config('system.date')->get('timezone.default');
+    // Add the timezone to the list of variables
+    $variables['timezone'] = $timezone;
   }
 }
 

@@ -197,9 +197,13 @@
 			</div>
 		{% endif %}
 		<footer class="site-footer">
-		    {# bof: Footer CTA #}
-            {% include "@abrsd/layout/footer-cta.html.twig" %}
-			{# eof: Footer CTA #}
+			{#
+			  Get the path of the current URL amd render the CTA
+			  block if we are not on the Get Involved page.
+		    #}
+			{% if path('<current>') != '/get-involved' %}
+              {% include "@abrsd/layout/footer-cta.html.twig" %}
+			{% endif %}
 			{% block footer %}
 				<div class="{{ container }}">
 					{% if page.footer_first or page.footer_second or page.footer_third or page.footer_fourth %}

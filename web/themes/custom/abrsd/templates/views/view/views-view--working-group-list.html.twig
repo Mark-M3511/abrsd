@@ -63,6 +63,9 @@
   {% endif %}
 
   {% if rows %}
+    {% if display_id == 'block_2' %}
+      <h3 class="section-title section-title-news-topics mb-3">{{ 'Other Subcommittees'|t }}</h3>
+    {% endif %}
     <div class="view-content row align-items-stretch g-2">
       {{ rows }}
     </div>

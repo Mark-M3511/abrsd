@@ -62,6 +62,18 @@
   }
 }
 
+.view-display-id-block_2 {
+  .card {
+    a {
+      color: $black !important;
+      text-decoration: none !important;
+      &:visited {
+        color: $black !important;
+      }
+    }
+  }
+}
+
 .resources {
   // EVENTS
   .view-id-workshop {

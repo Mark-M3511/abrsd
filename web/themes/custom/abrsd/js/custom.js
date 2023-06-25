@@ -85,7 +85,10 @@
         const blockPos = (mobile || tablet) ? 'start' : 'center';
 
         window.sessionStorage.removeItem('scrollTo');
-        target?.scrollIntoView({ behavior: 'auto', block: blockPos });
+        target?.scrollIntoView({
+          behavior: 'auto',
+          block: blockPos
+        });
       }
 
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));

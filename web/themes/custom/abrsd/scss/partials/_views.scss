@@ -62,18 +62,6 @@
   }
 }
 
-.view-display-id-block_2 {
-  .card {
-    a {
-      color: $black !important;
-      text-decoration: none !important;
-      &:visited {
-        color: $black !important;
-      }
-    }
-  }
-}
-
 .resources {
   // EVENTS
   .view-id-workshop {
@@ -114,23 +102,26 @@
       padding-right: 5rem !important;
     }
   }
-
 }
 
 .strat-plan-bkgrnd {
   .our-work-list-svg {
-    background-color: #FF6721;
+    background-color: #ff6721;
   }
 }
 
 .toolkit-bkgrnd {
   .our-work-list-svg {
-    background-color: #04B1B1;
+    background-color: #04b1b1;
   }
 }
 
 .reports-bkgrnd {
   .our-work-list-svg {
-    background-color: #FF0068;
+    background-color: #ff0068;
   }
+}
+
+.related-committees {
+  background-color: $accent-shade;
 }

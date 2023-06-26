@@ -68,6 +68,13 @@
   &.news-topic-card {
     text-decoration: none;
   }
+  a {
+    color: $black !important;
+    text-decoration: none !important;
+    &:visited {
+      color: $black !important;
+    }
+  }
 }
 
 // MEMBER LIST

@@ -21,16 +21,17 @@
 	<h3>{{ title }}</h3>
 {% endif %}
 {% for row in rows %}
-	{%
+  {%
     set row_classes = [
-      default_row_class ? 'views-row col-md-4' : '',
+      default_row_class ? 'views-row',
+	  'col-md-4',
     ]
   %}
-	{# Compare the node id for the current views row to the current node id.
+  {# Compare the node id for the current views row to the current node id.
 	If they are not equal display the contents of that row. #}
-	{% if row.content['#row']._entity.id() != nid %}
-		<div{{row.attributes.addClass(row_classes)}}>
-			{{ row.content }}
-		</div>
-	{% endif %}
+  {% if row.content['#row']._entity.id() != nid %}
+	 <div{{row.attributes.addClass(row_classes)}}>
+		{{ row.content }}
+	 </div>
+  {% endif %}
 {% endfor %}

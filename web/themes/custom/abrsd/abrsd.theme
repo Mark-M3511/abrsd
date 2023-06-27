@@ -205,6 +205,12 @@ function abrsd_preprocess_node(&$variables)
     $timezone = \Drupal::config('system.date')->get('timezone.default');
     // Add the timezone to the list of variables
     $variables['timezone'] = $timezone;
+    // Get the referring path or url
+    $referer = \Drupal::request()->headers->get('referer');
+    // Get path portion of the url
+    $referer = parse_url($referer, PHP_URL_PATH);
+    // Add the referring path or url to the variables array
+    $variables['referer'] = $referer;
   }
 }
 
@@ -259,7 +265,7 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
   // Get the id of the current view
   $view_id = $variables['view']->id();
   // Check if the current view_id is in an array of view ids
-  if (in_array($view_id, ['working_group_list', 'workshop'])) {
+  if (in_array($view_id, ['working_group_list'])) {
     // Get the current node id
     $nid = \Drupal::routeMatch()->getParameter('node')->id();
     // Add the current node id to the variables array

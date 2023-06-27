@@ -58,6 +58,7 @@
  *
  * Available custom variables
  * - timezone: The timezone of the website.
+ * - referer: The referer of the web page.
  * @see template_preprocess_node()
  */
 #}
@@ -144,4 +145,9 @@
 	</div>
 </article>
 {# Display other events as related content #}
-{{ drupal_view('workshop', 'block_5') }}
+{# If referer is equal to '/resources' then set block to 'block_2' #}
+{% if referer == '/resources' %}
+  {{ drupal_view('workshop', 'block_2') }}
+{% else %}
+  {{ drupal_view('workshop', 'block_5') }}
+{% endif %}

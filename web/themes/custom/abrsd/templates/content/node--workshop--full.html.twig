@@ -96,7 +96,7 @@
               {% include "@abrsd/svg/calendar-alt.html.twig" %}
             </div>
 		    <div class="me-3 data-text">
-			  {{ start_date|render|striptags|raw|date("d /M / Y", timezone) }}
+			  {{ start_date|date("d /M / Y", timezone) }}
 		    </div>
 		  </div>
 		  <div class="d-flex flex-column flex-md-row schedule schedule-clock">
@@ -104,10 +104,10 @@
               {% include "@abrsd/svg/clock.html.twig" %}
             </div>
 		    <div class="me-3 data-text">
-		  	{{ start_date|render|striptags|raw|date("g:i a", timezone) }}
+		  	{{ start_date|date("g:i a", timezone) }}
 		  	&nbsp;{{ 'to'|t }}&nbsp;
-		  	{{ end_date|render|striptags|raw|date("g:i a", timezone) }}
-		  	{{ start_date|render|striptags|raw|date("T", timezone) }}
+		  	{{ end_date|date("g:i a", timezone) }}
+		  	{{ start_date|date("T", timezone) }}
 		    </div>
 		  </div>
 		  <div class="d-flex flex-column flex-md-row schedule schedule-compass">

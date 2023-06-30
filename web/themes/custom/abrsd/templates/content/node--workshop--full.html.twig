@@ -145,9 +145,5 @@
 	</div>
 </article>
 {# Display other events as related content #}
-{# If referer is equal to '/resources' then set block to 'block_2' #}
-{% if referer == '/resources' %}
-  {{ drupal_view('workshop', 'block_6') }}
-{% else %}
-  {{ drupal_view('workshop', 'block_5') }}
-{% endif %}
+{{ drupal_view('workshop', 'block_6') }}
+

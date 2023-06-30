@@ -97,6 +97,9 @@
 
 // FULL VIEW WORKSHOP
 .schedule {
+  .data-text {
+    font-weight: bold;
+  }
   @include media-breakpoint-down(md) {
     .data-icon {
       text-align: center;

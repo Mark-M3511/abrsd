@@ -78,6 +78,12 @@
 						<span class="badge d-inline-block" data-term="{{node.topic_label}}" data-href="news-list?topic={{term}}">{{node.topic_label}}</span>
 					</a>
 				{% endfor %}
+				{# Display a message if no matches found #}
+				{% if nodes is empty %}
+					<div class="list-group-item">
+						<p class="mb-1 fw-bold">{{ 'No news items found.'|t }}</p>
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	{% endblock %}

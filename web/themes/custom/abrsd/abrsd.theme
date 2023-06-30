@@ -163,11 +163,16 @@ function _abrsd_preprocess_block_news(&$variables)
   }
   // Execute the view
   $executed = $executable_view->execute();
+  // Initialize the nodes array
+  $variables['nodes'] = [];
   // Get the results
   if ($executed && !empty($executable_view->result)) {
     foreach ($executable_view->result as $result) {
+      // Add the node to the variables array
       $variables['nodes'][] = $result->_entity;
+      // Get the current node
       $current = end($variables['nodes']);
+      // Format $current->changed_at for display as YYYY-MM-DDTHH:MM:SS+00:00 (e.g. 2019-01-01T00:00:00+00:00)
       $current->changed_at = date('c', $current->changed->value);
       // Format $current->changed_at for display as YYYY-MMM-DD (e.g. 2019-Jan-01)
       $current->changed_at = date('Y-M-d', strtotime($current->changed_at));

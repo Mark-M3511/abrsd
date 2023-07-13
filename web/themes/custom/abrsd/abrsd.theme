@@ -264,8 +264,6 @@ function _abrsd_preprocess_node_resource(&$variables)
  * Implements hook_preprocess_views_view_unformatted().
  *
  * Add the current node id to the view template.
- * @param array $variables - The variables array passed to the template.
- * @return void
  */
 function abrsd_preprocess_views_view_unformatted(&$variables)
 {
@@ -279,27 +277,3 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
     $variables['nid'] = $nid;
   }
 }
-
-/**
- * Implements hook_page_attachments_alter().
- *
- * Add the status-msg library to the contact-us page.
- * @param array $variables - The variables array passed to the template.
- * @return void
- */
-function abrsd_page_attachments_alter(&$variables)
-{
-  // Get the noide of the current node object
-  $node = \Drupal::routeMatch()->getParameter('node');
-  // If not a revision, get the node id.
-  if (is_object($node)) {
-    // Get the path alias of the current node
-    $path = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
-    // Check if the current node is not empty
-    if (!empty($path) && $path == '/contact-us') {
-      // Attach the status-msg library
-      $variables['#attached']['library'][] = 'abrsd/status-msg';
-    }
-  }
-}
-

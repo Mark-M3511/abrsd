@@ -17,6 +17,10 @@ bs5-popper:
   version: VERSION
   js:
     js/popper.min.js: {}
+status-msg:
+  version: VERSION
+  js:
+    js/status-msg.js: {}
 monsterrat:
   version: VERSION
   css:

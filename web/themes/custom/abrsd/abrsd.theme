@@ -43,18 +43,8 @@ function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form
 function abrsd_preprocess_html(&$variables)
 {
   // Add a class to the body based on the path alias of the current node.
-  // The node id is contained in the last class in the body classes array.
-  $node_class = end($variables['attributes']['class']);
-  $node_classes = explode('-', $node_class);
-  $nid = end($node_classes);
-  if (is_numeric($nid)) {
-    // Get the path alias of the current node
-    $nid = (int)$nid;
-    $node =  \Drupal::service('entity_type.manager')->getStorage('node')->loadMultiple([$nid]);
-    $node = reset($node);
-    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => $nid])->toString();
-    $variables['attributes']['class'][] = 'page-' . str_replace('/', '-', $path_alias);
-  }
+  $path_alias = _abrsd_get_current_path();
+  $variables['attributes']['class'][] = 'page-' . str_replace('/', '-', $path_alias);
 }
 
 /**
@@ -64,19 +54,14 @@ function abrsd_preprocess_html(&$variables)
  */
 function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variables)
 {
-  // Get the noide of the current node object
-  $node = \Drupal::routeMatch()->getParameter('node');
-  // If not a revision, get the node id.
-  if (is_object($node)) {
-    // Get the path alias of the current node
-    $path_alias = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
-    // Change all - to _ in the path alias and remove the first / from the path alias.
-    $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
-    // Create the new suggestion.
-    $new_suggestion = 'page__node__' . $path_alias;
-    // Splice the new suggestion into the suggestions array so it is the second suggestion.
-    array_splice($suggestions, 1, 0, $new_suggestion);
-  }
+  // Get the path alias of the current node
+  $path_alias = _abrsd_get_current_path();
+  // Change all - to _ in the path alias and remove the first / from the path alias.
+  $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
+  // Create the new suggestion.
+  $new_suggestion = 'page__node__' . $path_alias;
+  // Splice the new suggestion into the suggestions array so it is the second suggestion.
+  array_splice($suggestions, 1, 0, $new_suggestion);
 }
 
 /**
@@ -118,6 +103,7 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
 function abrsd_preprocess_block(&$variables)
 {
   if ($variables['plugin_id'] == 'block_content:80e4ec90-a2e5-4760-b2e0-fb760bc393fe') {
+    // Build the News List content block.
     _abrsd_preprocess_block_news($variables);
     // Ensure the News List content block is rebuilt when the topic is changed.
     $variables['#cache']['contexts'][] = 'url.query_args:topic';

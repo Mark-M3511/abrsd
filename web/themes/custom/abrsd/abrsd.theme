@@ -289,17 +289,46 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
  */
 function abrsd_page_attachments_alter(&$variables)
 {
-  // Get the noide of the current node object
-  $node = \Drupal::routeMatch()->getParameter('node');
-  // If not a revision, get the node id.
-  if (is_object($node)) {
-    // Get the path alias of the current node
-    $path = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
-    // Check if the current node is not empty
-    if (!empty($path) && $path == '/contact-us') {
-      // Attach the status-msg library
-      $variables['#attached']['library'][] = 'abrsd/status-msg';
-    }
+  // Get the current path
+  $path = _abrsd_get_current_path();
+  // Check if the current path is the contact-us page
+  if (!empty($path) && $path == '/contact-us') {
+    // Attach the status-msg library
+    $variables['#attached']['library'][] = 'abrsd/status-msg';
   }
 }
 
+/**
+ * Implements hook_preprocess_status_messages().
+ *
+ * Add the is_contact_page variable to the status messages template.
+ * @param array $variables - The variables array passed to the template.
+ * @return void
+ */
+function abrsd_preprocess_status_messages(&$variables)
+{
+  // Initialize the is_contact_page variable
+  $variables['is_contact_page'] = TRUE;
+  // Get the current path
+  $path = _abrsd_get_current_path();
+  // Check if the current path is the contact-us page
+  if (!empty($path) && $path == '/contact-us') {
+    // Add the status-msg class to the variables array
+    $variables['is_contact_page'] = TRUE;
+  }
+}
+
+/**
+ * Helper function to get the current path.
+ *
+ * @return string - The current path.
+ */
+function _abrsd_get_current_path()
+{
+  // Get the current path
+  $current_path = \Drupal::service('path.current')->getPath();
+  // Get the current path alias
+  $current_path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  // Return the current path alias
+  return $current_path_alias;
+}

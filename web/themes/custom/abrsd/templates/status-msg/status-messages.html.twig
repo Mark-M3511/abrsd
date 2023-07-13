@@ -19,6 +19,8 @@
  *   displaying messages of that specific type.
  * - attributes: HTML attributes for the element, including:
  *   - class: HTML classes.
+ * - Custom variables:
+ *   - is_contact_page: (optional) Boolean indicating if the current page is
  *
  * @see template_preprocess_status_messages()
  *
@@ -33,12 +35,8 @@
         {% set has_success_msg = 1 %}
      {% endif %}
 {% endfor %}
-{# Message count #}
-{% if messages %}
-    {% set message_count = messages|length %}
-{% endif %}
 {# See if there are any messages in the message_list #}
-{% if has_success_msg %}
+{% if has_success_msg and is_contact_page %}
    <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#submissionMsg" data-bs-whatever="@mdo">Open modal for @mdo</button>
    <div class="modal fade" id="submissionMsg" tabindex="-1" aria-labelledby="submissionMsgLabel" aria-hidden="true">
      <div class="modal-dialog">
@@ -60,4 +58,7 @@
        </div>
      </div>
    </div>
+{% else %}
+    {{ attach_library('bootstrap_barrio/alerts') }}
+    {% include "@bootstrap_barrio/misc/status-messages.html.twig" %}
 {% endif %}

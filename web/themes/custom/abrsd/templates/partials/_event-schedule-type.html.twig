@@ -1,0 +1,30 @@
+{# Event Date/Time and Type information #}
+<div class="card-text mt-auto">
+    {# Date #}
+	<div class="d-flex mb-2">
+		<div class="me-3">
+			{% include "@abrsd/svg/calendar-alt.html.twig" %}
+		</div>
+		<div>
+			{{ fields.field_start_date.content }}
+		</div>
+	</div>
+    {# Time #}
+	<div class="d-flex mb-2">
+		<div class="me-3">
+			{% include "@abrsd/svg/clock.html.twig" %}
+		</div>
+		<div>
+			{{ fields.nothing.content }}
+		</div>
+	</div>
+    {# Type #}
+	<div class="d-flex mb-2">
+		<div class="me-3">
+			{% include "@abrsd/svg/compass.html.twig" %}
+		</div>
+		<div>
+			{{ fields.field_workshop_type.content }}
+		</div>
+	</div>
+</div>

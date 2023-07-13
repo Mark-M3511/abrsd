@@ -48,7 +48,7 @@
     <h5 class="card-title">{{ fields.field_page_title.content }}</h5>
     <div class="card-text">{{ fields.body.content }}</div>
     {# bof: Include the scheduling data #}
-    {% include "@abrsd/partials/_event_schedule_type.html.twig" %}
+    {% include "@abrsd/partials/_event-schedule-type.html.twig" %}
     {# eof: Include the scheduling data #}
     {{ include('@abrsd/components/_cta_button.html.twig', {
       'text': link_text,

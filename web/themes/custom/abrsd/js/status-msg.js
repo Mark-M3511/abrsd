@@ -25,7 +25,7 @@
                     const btnStatusMsg = document.querySelector('[data-bs-target="#submissionMsg"]');
                     if (statusMsg) {
                         // Display the modal using the Bootstrap JavaScript API.
-                        btnStatusMsg.click();
+                        btnStatusMsg?.click();
                     }
                 }, 500);
             }

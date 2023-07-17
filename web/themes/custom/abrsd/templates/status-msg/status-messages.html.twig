@@ -37,8 +37,8 @@
 {% endfor %}
 {# See if there are any messages in the message_list #}
 {% if has_success_msg and is_contact_page %}
-   <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#submissionMsg" data-bs-whatever="@mdo">Open modal for @mdo</button>
-   <div class="modal fade" id="submissionMsg" tabindex="-1" aria-labelledby="submissionMsgLabel" aria-hidden="true">
+   <button type="button" id="showModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#submissionComplete">Open modal</button>
+   <div class="modal fade" id="submissionComplete" tabindex="-1" aria-labelledby="submissionMsgLabel" aria-hidden="true" data-bs-backdrop="static">
      <div class="modal-dialog">
        <div class="modal-content">
          <div class="modal-header d-flex flex-column">

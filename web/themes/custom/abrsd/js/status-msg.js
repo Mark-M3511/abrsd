@@ -13,19 +13,19 @@
     // Attach the behavior.
     behaviors.statusMsg = {
         attach: function (context, drupalSettings) {
-            const statusMsg = document.querySelector('#submissionMsg');
+            const statusMsg = document.querySelector('#submissionComplete');
             if (statusMsg) {
                 // Get the home button from the modal.
-                const btnHome = document.querySelector('[data-bs-route="home"]');
+                const btnHome = statusMsg.querySelector('[data-bs-route="home"]');
                 btnHome?.addEventListener('click', function (event) {
                     window.location.href = drupalSettings.path.baseUrl;
                 });
                 // Display the modal after 500ms.
                 setTimeout(function () {
-                    const btnStatusMsg = document.querySelector('[data-bs-target="#submissionMsg"]');
                     if (statusMsg) {
-                        // Display the modal using the Bootstrap JavaScript API.
-                        btnStatusMsg?.click();
+                        const submitMsg = document.querySelector('#submissionComplete');
+                        const modal = bootstrap.Modal.getOrCreateInstance(submitMsg);
+                        modal.show();
                     }
                 }, 500);
             }

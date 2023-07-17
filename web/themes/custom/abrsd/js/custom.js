@@ -74,9 +74,10 @@
    * @param Event e - The submit event paramter
    * @returns {void}
    */
-  const processContactFormSubmit = (e) => {
-    const btnShowSubmit = document.querySelector('[data-bs-target="#submissionInfo"]');
-    btnShowSubmit?.click();
+  const processContactFormSubmitBtnClick = (e) => {
+    const submissionStart = document.querySelector('#submissionStart');
+    const modal = bootstrap.Modal.getOrCreateInstance(submissionStart);
+    modal.show();
   }
 
   /**
@@ -105,14 +106,15 @@
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
       const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
       const listGroup = (context.querySelector('.news-list') || document.querySelector('.news-list'));
-      const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
+      // const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
+      const contactForm = (context.querySelector('#edit-actions-submit') || document.querySelector('#edit-actions-submit'));
       /**
        * Set up click event listeners for header and footer nav links
        */
       headerNav?.addEventListener('click', processNavClick);
       footerNav?.addEventListener('click', processNavClick);
       listGroup?.addEventListener('click', processNewsItemClick);
-      contactForm?.addEventListener('submit', processContactFormSubmit);
+      contactForm?.addEventListener('click', processContactFormSubmitBtnClick);
     },
   };
 })(Drupal, drupalSettings);

@@ -21,6 +21,9 @@ status-msg:
   version: VERSION
   js:
     js/status-msg.js: {}
+  css:
+    component:
+      css/spinner.css: {}
 monsterrat:
   version: VERSION
   css:

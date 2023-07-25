@@ -77,7 +77,33 @@
   const processContactFormSubmitBtnClick = (e) => {
     const submissionStart = document.querySelector('#submissionStart');
     const modal = bootstrap.Modal.getOrCreateInstance(submissionStart);
+    e.preventDefault();
     modal.show();
+  }
+
+  const processModalShow = (e) => {
+    const contactForm = document.querySelector('.webform-submission-contact-add-form');
+    const modal = bootstrap.Modal.getInstance(e.target);
+    const btnSubmit = document.querySelector('#edit-actions-submit');
+    // Just pause for 2 seconds
+    setTimeout(() => {
+      // Show time in console
+      // console.log('3 seconds passed');
+      // Disable the submit button
+      btnSubmit.setAttribute('disabled', 'disabled');
+      // Hide the modal
+      modal.hide();
+    }, 3000);
+  }
+
+  const processModalHide = (e) => {
+    const contactForm = document.querySelector('.webform-submission-contact-add-form');
+    const modal = bootstrap.Modal.getInstance(e.target);
+    const title = document.querySelector('.webform-title');
+    // Set title to 'Submitting...'
+    title.innerHTML = 'Sending emails...just a minute...';
+    // Submit the form
+    contactForm.submit();
   }
 
   /**
@@ -108,6 +134,7 @@
       const listGroup = (context.querySelector('.news-list') || document.querySelector('.news-list'));
       const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
       const formSubmitBtn = (context.querySelector('#edit-actions-submit') || document.querySelector('#edit-actions-submit'));
+      const modal = (context.querySelector('#submissionStart') || document.querySelector('#submissionStart'));
       /**
        * Set up click event listeners for header and footer nav links
        */
@@ -115,6 +142,8 @@
       footerNav?.addEventListener('click', processNavClick);
       listGroup?.addEventListener('click', processNewsItemClick);
       formSubmitBtn?.addEventListener('click', processContactFormSubmitBtnClick);
+      modal?.addEventListener('shown.bs.modal', processModalShow);
+      modal?.addEventListener('hidden.bs.modal', processModalHide);
     },
   };
 })(Drupal, drupalSettings);

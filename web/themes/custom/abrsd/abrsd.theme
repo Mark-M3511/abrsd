@@ -307,7 +307,7 @@ function abrsd_preprocess_status_messages(&$variables)
 /**
  * Helper function to get the current path.
  *
- * @return string - The current path.
+ * @return string - The path alias for the current page.
  */
 function _abrsd_get_current_path()
 {

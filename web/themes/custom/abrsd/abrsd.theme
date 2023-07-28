@@ -276,9 +276,9 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
 function abrsd_page_attachments_alter(&$variables)
 {
   // Get the current path
-  $path = _abrsd_get_current_path();
+  $path_alias = _abrsd_get_current_path();
   // Check if the current path is the contact-us page
-  if (!empty($path) && $path == '/contact-us') {
+  if (!empty($path_alias) && $path_alias == '/contact-us') {
     // Attach the status-msg library
     $variables['#attached']['library'][] = 'abrsd/status-msg';
   }

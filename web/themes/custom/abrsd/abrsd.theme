@@ -102,7 +102,7 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
  */
 function abrsd_preprocess_block(&$variables)
 {
-  if ($variables['plugin_id'] == 'block_content:80e4ec90-a2e5-4760-b2e0-fb760bc393fe') {
+  if ($variables['elements']['#configuration']['label'] == 'Filtered News List') {
     // Build the News List content block.
     _abrsd_preprocess_block_news($variables);
     // Ensure the News List content block is rebuilt when the topic is changed.

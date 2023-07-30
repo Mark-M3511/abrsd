@@ -7,7 +7,7 @@
 
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Url;
-use \Drupal\views\Entity\View;
+use Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
 
 /**
@@ -115,10 +115,6 @@ function abrsd_preprocess_block(&$variables)
  */
 function _abrsd_preprocess_block_news(&$variables)
 {
-  //  Get a view by machine name
-  $view = \Drupal::entityTypeManager()
-    ->getStorage('view')
-    ->load('news');
   // Get the query parameters
   $query = \Drupal::request()->query->all();
   $tname = isset($query['topic']) ? $query['topic'] : '';
@@ -127,33 +123,24 @@ function _abrsd_preprocess_block_news(&$variables)
   // Replace - with space in $tname
   $tname = str_replace('-', ' ', $tname);
   // Get the taxonomy term by label
-  $topic = \Drupal::entityTypeManager()
+  $term = \Drupal::entityTypeManager()
     ->getStorage('taxonomy_term')
     ->loadByProperties(['name' => $tname]);
-  // Get the first taxonomy term
-  if (is_array($topic)) {
-    $topic = reset($topic);
-  }
+  // Get the taxonomy term object
+  $topic = is_array($term) ? reset($term) : null;
   // Get the taxonomy term id
-  $tid = 0;
-  if (is_object($topic)) {
-    $tid = $topic->id();
-  }
-  // Get executable view
-  $executable_view = $view->getExecutable();
-  // Get the display
-  $executable_view->setDisplay('block_6');
+  $tid = is_object($topic) ? $topic->id() : 0;
+  // Get the view
+  $view = Views::getView('news');
+  // Set the display
+  $view->setDisplay('block_6');
   // Set the arguments
-  if (!empty($tid)) {
-    $executable_view->setArguments([$tid]);
-  }
-  // Execute the view
-  $executed = $executable_view->execute();
+  $view->setArguments([$tid]);
   // Initialize the nodes array
   $variables['nodes'] = [];
   // Get the results
-  if ($executed && !empty($executable_view->result)) {
-    foreach ($executable_view->result as $result) {
+  if ($view->execute() && !empty($view->result)) {
+    foreach ($view->result as $result) {
       // Add the node to the variables array
       $variables['nodes'][] = $result->_entity;
       // Get the current node

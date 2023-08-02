@@ -172,7 +172,10 @@ function _abrsd_preprocess_block_news(&$variables)
  */
 function abrsd_preprocess_node(&$variables)
 {
+  // Get the current node
   $node = $variables['node'];
+  //  Check for node of type base_layout_page and title 400 Error and if so call
+  // _abrsd_preprocess_node_resource() and return.
   if ($node->getType() == 'base_layout_page' && $node->getTitle() == '400 Error') {
     _abrsd_preprocess_node_resource($variables);
     return;

@@ -203,33 +203,28 @@ function abrsd_preprocess_node(&$variables)
  */
 function _abrsd_preprocess_node_resource(&$variables)
 {
-  // Get Resource nodes with their titles containing the phrase 'Homepage CTA' using the LIKE operator
+  // Get Resource nodes whose titles contain the phrase 'Homepage CTA' using the LIKE operator.
+  // Example: %Homepage CTA%
+  $phrase = sprintf('%%%1$s%%', 'Homepage CTA');
   $result = \Drupal::entityQuery('node')
     ->condition('type', 'resource')
-    ->condition('title', '%' . 'Homepage CTA' . '%', 'LIKE')
+    ->condition('title', $phrase, 'LIKE')
     ->accessCheck(FALSE)
     ->execute();
+  // Set array to [-1] if it is empty
+  $result = (!empty($result) && is_array($result)) ? $result : [-1];
   // Initialize object of type Random/Randomizer
   $random = new Random\Randomizer();
-  // Set array to [-1] if it is empty
-  $result = is_array($result) ? $result : [-1];
-  // Get a random value from the array of entity ids
-  $random_nid = $random->pickArrayKeys($result, 1);
+  // Get a random key from the $result array
+  $nid = $random->pickArrayKeys($result, 1);
   // Get the node
-  $node = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($random_nid);
-  // Initialize the array of nodes
-  $reco_nodes = [];
-  // Check if the node is not empty and add it to the reco_nodes array
-  if (!empty($node)) {
-    // Get the first node from the array
-    $node = reset($node);
-    // Add the node to the reco_nodes array
-    $reco_nodes[] = $node;
-    // Add the reco_nodes array to the variables array
-    $variables['reco_nodes'] = $reco_nodes;
-    // Prevent the page from being cached.
-    $variables['#cache']['max-age'] = 0;
-  }
+  $nodes = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple($nid);
+  // Assign the nodes array to the variables array
+  $variables['reco_nodes'] = $nodes ?? [];
+  // Prevent the page from being cached.
+  $variables['#cache']['max-age'] = 0;
 }
 
 /**

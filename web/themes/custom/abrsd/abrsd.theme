@@ -203,24 +203,20 @@ function abrsd_preprocess_node(&$variables)
  */
 function _abrsd_preprocess_node_resource(&$variables)
 {
-  // Create an array of 3 Resource titles
-  $resource_titles = [
-    'Our Work (Homepage CTA)',
-    'Resources (Homepage CTA)',
-    'Get Involved (Homepage CTA)',
-  ];
-
+  // Get Resource nodes with their titles containing the phrase 'Homepage CTA' using the LIKE operator
+  $result = \Drupal::entityQuery('node')
+    ->condition('type', 'resource')
+    ->condition('title', '%' . 'Homepage CTA' . '%', 'LIKE')
+    ->accessCheck(FALSE)
+    ->execute();
   // Initialize object of type Random/Randomizer
   $random = new Random\Randomizer();
-  // Get a Random integer between 0 and 2
-  $random_int = $random->getInt(0, 2);
-  // Get a random value from the $resource_titles array
-  $random_title = $resource_titles[$random_int];
-  // Get a Resource node by title
-  $node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
-    'type' => 'resource',
-    'title' => $random_title,
-  ]);
+  // Set array to [-1] if it is empty
+  $result = is_array($result) ? $result : [-1];
+  // Get a random value from the array of entity ids
+  $random_nid = $random->pickArrayKeys($result, 1);
+  // Get the node
+  $node = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($random_nid);
   // Initialize the array of nodes
   $reco_nodes = [];
   // Check if the node is not empty and add it to the reco_nodes array

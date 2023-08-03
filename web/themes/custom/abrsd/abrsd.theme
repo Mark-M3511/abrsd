@@ -217,11 +217,11 @@ function _abrsd_preprocess_node_resource(&$variables)
   $random = new Random\Randomizer();
   // Get a random key from the $result array
   $nid = $random->pickArrayKeys($result, 1);
-  // Get the node
+  // Get the node array
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
     ->loadMultiple($nid);
-  // Assign the nodes array to the variables array
+  // Assign the node array to the variables array
   $variables['reco_nodes'] = $nodes ?? [];
   // Prevent the page from being cached.
   $variables['#cache']['max-age'] = 0;

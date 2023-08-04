@@ -7,9 +7,9 @@
 
 use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Url;
-use Drupal\views\Views;
+use \Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+use \Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -214,7 +214,7 @@ function abrsd_preprocess_breadcrumb(&$variables)
     // Get the current node title
     $title = $node->getTitle();
     // Create a new translatable markup object from the title
-    $markup = new TranslatableMarkup($title);
+    $markup = new TranslatableMarkup('@title', ['@title' => $title]);
     // Add the current node title to the breadcrumb as translatable markup text
     $variables['breadcrumb'][] = [
       'text' => $markup,
@@ -222,6 +222,8 @@ function abrsd_preprocess_breadcrumb(&$variables)
       'langcode' => '',
     ];
   }
+  // Do not cache the breadcrumb block
+  $variables['#cache']['max-age'] = 0;
 }
 
 /**

@@ -1,0 +1,13 @@
+.block-system-breadcrumb-block {
+  padding-left: 8rem;
+  padding-right: 8rem;
+  padding-top: 0.8rem;
+  @include media-breakpoint-down(lg) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  @include media-breakpoint-down(sm) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

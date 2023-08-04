@@ -9,6 +9,7 @@ use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Url;
 use Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -192,6 +193,34 @@ function abrsd_preprocess_node(&$variables)
     $referer = parse_url($referer, PHP_URL_PATH);
     // Add the referring path or url to the variables array
     $variables['referer'] = $referer;
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ *
+ * Adds the current node title to the breadcrumb array.
+ *
+ * @param array $variables
+ *   The variables array passed to the template.
+ */
+function abrsd_preprocess_breadcrumb(&$variables)
+{
+  // Get the current node
+  $node = \Drupal::routeMatch()->getParameter('node');
+  // if the variables array contains a breadcrumb add the current node title to it
+  if (isset($variables['breadcrumb']) && !empty($node)) {
+    // Get the current node title
+    $title = $node->getTitle();
+    // Create a new translatable markup object from the title
+    $markup = new TranslatableMarkup($title);
+    // Add the current node title to the breadcrumb as translatable markup text
+    $variables['breadcrumb'][] = [
+      'text' => $markup,
+      'url' => '',
+      'langcode' => '',
+    ];
   }
 }
 

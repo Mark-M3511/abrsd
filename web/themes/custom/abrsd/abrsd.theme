@@ -211,12 +211,10 @@ function abrsd_preprocess_breadcrumb(&$variables)
   $node = \Drupal::routeMatch()->getParameter('node');
   // if the variables array contains a breadcrumb add the current node title to it
   if (isset($variables['breadcrumb']) && !empty($node)) {
-    // Get the current node title
-    $title = $node->getTitle();
     // Check if the field_page_title field exists
     $field = $node->hasField('field_page_title') ? $node->get('field_page_title') : NULL;
     // Use the page title field if it exists
-    $title = !empty($field) && !empty($field->value) ? $field->value : $title;
+    $title = (!empty($field) && !empty($field->value)) ? $field->value : $node->getTitle();
     // Create a new translatable markup object from the title
     $markup = new TranslatableMarkup('@title', ['@title' => $title]);
     // Add the current node title to the breadcrumb as translatable markup text
@@ -225,9 +223,9 @@ function abrsd_preprocess_breadcrumb(&$variables)
       'url' => '',
       'langcode' => '',
     ];
+    // Do not cache the breadcrumb block
+    $variables['#cache']['max-age'] = 0;
   }
-  // Do not cache the breadcrumb block
-  $variables['#cache']['max-age'] = 0;
 }
 
 /**

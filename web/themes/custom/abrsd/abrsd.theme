@@ -213,10 +213,10 @@ function abrsd_preprocess_breadcrumb(&$variables)
   if (isset($variables['breadcrumb']) && !empty($node)) {
     // Get the current node title
     $title = $node->getTitle();
-    // Get the page title field if it exists
-    $field = $node->get('field_page_title');
+    // Check if the field_page_title field exists
+    $field = $node->hasField('field_page_title') ? $node->get('field_page_title') : NULL;
     // Use the page title field if it exists
-    $title = !empty($field) ? $field->value : $title;
+    $title = !empty($field) && !empty($field->value) ? $field->value : $title;
     // Create a new translatable markup object from the title
     $markup = new TranslatableMarkup('@title', ['@title' => $title]);
     // Add the current node title to the breadcrumb as translatable markup text

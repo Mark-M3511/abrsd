@@ -168,7 +168,8 @@
   }
 }
 
-.field--name-body, .breadcrumb-item {
+.field--name-body,
+.breadcrumb-item {
   a {
     color: $black;
     font-weight: $font-weight-bold;
@@ -178,4 +179,8 @@
       border-bottom: none;
     }
   }
+}
+
+.tag {
+  color: $tag-text;
 }

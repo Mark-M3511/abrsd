@@ -83,10 +83,13 @@
 {% set end_date = content.field_end_date|render|striptags|raw %}
 {% set page_title = content.field_page_title|render|striptags|raw %}
 {% set title = label|render|striptags|raw %}
+{% set committee = content.field_committee|render|striptags|trim|raw %}
+{# {% set committee = committee ? ' (' ~ committee ~ ')' : committee %} #}
 
 <article{{attributes.addClass(classes)}}>
 	<header>
 	  <div>
+	    <span class="tag fw-bold">{{ committee|upper }}</span>
 	 	<h2{{title_attributes.addClass('node__title')}}>
 			{{ page_title ? page_title : title }}
 		</h2>

@@ -211,10 +211,20 @@ function abrsd_preprocess_breadcrumb(&$variables)
   $node = \Drupal::routeMatch()->getParameter('node');
   // if the variables array contains a breadcrumb add the current node title to it
   if (isset($variables['breadcrumb']) && !empty($node)) {
+    //  Initialize field name
+    $field_name = 'field_page_title';
     // Check if the field_page_title field exists
-    $field = $node->hasField('field_page_title') ? $node->get('field_page_title') : NULL;
+    $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
     // Use the page title field if it exists
     $title = (!empty($field) && !empty($field->value)) ? $field->value : $node->getTitle();
+    // Set the field name to field_workshop_title
+    $field_name = 'field_committee';
+    // Get a reference to the field_workshop_type field (Taxonomy reference field)
+    $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
+    // Get the taxonomy term label
+    $label = (!empty($field) && !empty($field->entity)) ? '(' . $field->entity->label() . ')' : '';
+    // Append the taxonomy term label to the title e.g. TItle - (Workshop)
+    $title .= !empty($label) ? ' ' . $label : '';
     // Create a new translatable markup object from the title
     $markup = new TranslatableMarkup('@title', ['@title' => $title]);
     // Add the current node title to the breadcrumb as translatable markup text

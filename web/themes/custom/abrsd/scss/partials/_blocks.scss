@@ -11,3 +11,12 @@
     padding-right: 1rem;
   }
 }
+
+.page--news-list {
+  @include media-breakpoint-up(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+}

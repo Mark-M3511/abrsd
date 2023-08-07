@@ -247,10 +247,9 @@ function abrsd_preprocess_breadcrumb(&$variables)
 function _abrsd_preprocess_node_resource(&$variables)
 {
   // Get Resource nodes whose titles contain 'Homepage CTA' using the LIKE operator.
-  // Example: %Homepage CTA%
-  // $title = sprintf('%%%1$s%%', 'Homepage CTA');
-  $title = new TranslatableMarkup('@title', ['@title' => 'Homepage CTA']);
-  $title  = sprintf('%%%1$s%%', $title->render());
+  // Example: %Homepage CTA% - sprintf('%%%1$s%%', $title);
+  $title = new TranslatableMarkup('%@title%', ['@title' => 'Homepage CTA']);
+  $title = $title->render();
   // Get the node ids of the resource nodes
   $result = \Drupal::entityQuery('node')
     ->condition('type', 'resource')

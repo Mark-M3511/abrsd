@@ -258,7 +258,7 @@ function _abrsd_preprocess_node_resource(&$variables)
     ->accessCheck(FALSE)
     ->execute();
   // Set array to [-1] if it is empty
-  $result = (!empty($result) && is_array($result)) ? $result : [-1];
+  $result = count($result) ? $result : [-1];
   // Initialize object of type Random/Randomizer
   $random = new Random\Randomizer();
   // Get a random key from the $result array. This is more effficient than using

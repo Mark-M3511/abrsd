@@ -264,11 +264,11 @@ function _abrsd_preprocess_node_resource(&$variables)
   // Get a random key from the $result array. This is more effficient than using
   // array_rand() since it returns an array [key => value], rather just the
   // random key.
-  $nid = $random->pickArrayKeys($result, 1);
+  $arr_nid = $random->pickArrayKeys($result, 1);
   // Get the node array
   $nodes = \Drupal::entityTypeManager()
     ->getStorage('node')
-    ->loadMultiple($nid);
+    ->loadMultiple($arr_nid);
   // Assign the node array to the variables array
   $variables['reco_nodes'] = $nodes ?? [];
   // Prevent the page from being cached.

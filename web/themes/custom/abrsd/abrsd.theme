@@ -261,7 +261,9 @@ function _abrsd_preprocess_node_resource(&$variables)
   $result = (!empty($result) && is_array($result)) ? $result : [-1];
   // Initialize object of type Random/Randomizer
   $random = new Random\Randomizer();
-  // Get a random key from the $result array
+  // Get a random key from the $result array. This is more effficient than using
+  // array_rand() since it returns an array [key => value], rather just the
+  // random key.
   $nid = $random->pickArrayKeys($result, 1);
   // Get the node array
   $nodes = \Drupal::entityTypeManager()

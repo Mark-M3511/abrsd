@@ -34,3 +34,8 @@ source-sans-pro:
   css:
     theme:
       https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap: { type: external }
+email:
+  version: VERSION
+  css:
+    theme:
+      css/mail.css: { preprocess: false }

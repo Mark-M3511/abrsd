@@ -3085,17 +3085,17 @@
         },
         {
             "name": "drupal/symfony_mailer",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/symfony_mailer.git",
-                "reference": "1.3.0"
+                "reference": "1.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/symfony_mailer-1.3.0.zip",
-                "reference": "1.3.0",
-                "shasum": "60170ef1e9a11e89d2458f48dc556625fc97ab76"
+                "url": "https://ftp.drupal.org/files/projects/symfony_mailer-1.3.1.zip",
+                "reference": "1.3.1",
+                "shasum": "53e0050cece592b4b89e86ad6f3ec9406d01bfb8"
             },
             "require": {
                 "drupal/core": "^9.4 || ^10",
@@ -3106,8 +3106,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.3.0",
-                    "datestamp": "1690969900",
+                    "version": "1.3.1",
+                    "datestamp": "1691678388",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"

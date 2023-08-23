@@ -12,11 +12,12 @@
   }
 }
 
-// HEADER STYLES - The affix library declaration is in the abrsd.libraries.yml file
-// was broken. The jQuery once dependency was not being loaded.
-// #main-wrapper {
-//   margin-top: 7.5rem;
-// }
+// HEADER STYLES - The affix library declaration in the bootstrap_barrio.libraries.yml file
+// was broken. The core/once dependency was not being loaded.
+// This rule appears to be unnecessary since the update to Bootstrap Barrio 5.5.13 in August 2021.
+#main-wrapper {
+  margin-top: $nav-height;
+}
 
 /* FOOTER MENU */
 .menu--footer {
@@ -70,7 +71,7 @@ a.nav-link--::before {
 
 #navbar-main {
   background-color: $menu-background !important;
-  height: 7.5rem;
+  height: $nav-height;
   @include media-breakpoint-down(md) {
     padding-left: 1rem !important;
     padding-right: 1rem !important;

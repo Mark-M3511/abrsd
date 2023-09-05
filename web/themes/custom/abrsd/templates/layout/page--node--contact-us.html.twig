@@ -75,6 +75,14 @@
 {% if node is defined %}
   {% set page_path = path('entity.node.canonical', {'node': node.id}) [1:] | clean_class %}
 {% endif %}
+{# Add remove affix class from the nav element #}
+{%
+set nav_classes = [
+	'pt-4',
+	'px-5',
+	not logged_in ? 'affix',
+]
+%}
 
 <div id="page-wrapper">
 	<div id="page" class="{{ page_path }}">
@@ -97,7 +105,7 @@
 						{% endif %}
 					</nav>
 				{% endif %}
-				<nav{{navbar_attributes.addClass('pt-4','px-5','affix')}}>
+				<nav{{navbar_attributes.addClass(nav_classes)}}>
 					{% if container_navbar %}
 						<div class="container">
 						{% endif %}

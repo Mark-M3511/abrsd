@@ -63,6 +63,9 @@
  * - sidebar_second_attributes: Items for the primary menu region.
  * - sidebar_collapse: If the sidebar_first will collapse.
  *
+ * Custom variables:
+ * - add_affix_class: Flag to add affix class to the nav element.
+ *
  * @see template_preprocess_page()
  * @see bootstrap_barrio_preprocess_page()
  * @see abrsd_preprocess_page()
@@ -80,7 +83,7 @@
 set nav_classes = [
 	'pt-4',
 	'px-5',
-	not logged_in ? 'affix',
+	add_affix_class ? 'affix',
 ]
 %}
 

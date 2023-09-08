@@ -181,6 +181,12 @@
   }
 }
 
+.breadcrumb {
+  .active {
+    padding-top: 2px;
+  }
+}
+
 .tag {
   color: $tag-text;
 }

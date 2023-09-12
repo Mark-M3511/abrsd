@@ -103,5 +103,8 @@
                 "cp -R vendor/twbs/bootstrap/dist/. web/libraries/bootstrap"
             ]
         }
+    },
+    "require-dev": {
+        "kint-php/kint": "^5.0"
     }
 }

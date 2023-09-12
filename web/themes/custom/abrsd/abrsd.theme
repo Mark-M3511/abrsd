@@ -383,14 +383,8 @@ function abrsd_preprocess_page(&$variables)
   if (!empty($path_alias) && $path_alias == '/user/login') {
     // Attach the user-login library
     $variables['add_affix_class'] = FALSE;
-    // Return if the current path is the user login page
-    return;
-  }
-  // Check if the user is logged in
-  if (\Drupal::currentUser()->isAuthenticated()) {
+  } elseif (\Drupal::currentUser()->isAuthenticated()) {
     // Attach the user-login library
     $variables['add_affix_class'] = FALSE;
-    // Return if the user is not logged in
-    return;
   }
 }

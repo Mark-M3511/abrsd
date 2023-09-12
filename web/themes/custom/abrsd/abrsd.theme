@@ -376,15 +376,17 @@ function _abrsd_get_current_path()
 function abrsd_preprocess_page(&$variables)
 {
   // Initialize the 'add_affix_class' variable
-  $variables['add_affix_class'] = TRUE;
+  $add_affix_class = TRUE;
   // Get the current path
   $path_alias = _abrsd_get_current_path();
-  // Check if current path is the user login page
+  // Check if:
+  // 1 - current path is the user login page
+  // 2 - the user is logged in
   if (!empty($path_alias) && $path_alias == '/user/login') {
-    // Attach the user-login library
-    $variables['add_affix_class'] = FALSE;
+    $add_affix_class = FALSE;
   } elseif (\Drupal::currentUser()->isAuthenticated()) {
-    // Attach the user-login library
-    $variables['add_affix_class'] = FALSE;
+    $add_affix_class = FALSE;
   }
+  // Add the 'add_affix_class' variable to the variables array
+  $variables['add_affix_class'] = $add_affix_class;
 }

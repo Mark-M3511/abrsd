@@ -32,6 +32,7 @@
         "drupal/ludwig": "^2.0",
         "drupal/metatag": "^2.0",
         "drupal/pathauto": "^1.11",
+        "drupal/redirect": "^1.9",
         "drupal/replicate_ui": "^1.1",
         "drupal/scheduler": "^1.5",
         "drupal/smart_date": "^3.7",

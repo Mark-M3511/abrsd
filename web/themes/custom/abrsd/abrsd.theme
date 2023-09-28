@@ -265,8 +265,7 @@ function _breadcrumb_path_append_fragment(&$variables)
   // Get the different path segments from the current node path
   $node_path_segments = explode('/', $node_path);
   // Search for a match on the path field in the breadcrumb taxonomy
-  $result = \Drupal::entityQuery('taxonomy_term')
-    ->accessCheck(FALSE)
+  $result = \Drupal::entityQuery('taxonomy_term')->accessCheck(FALSE)
     ->condition('vid', 'breadcrumb')
     ->condition('field_path', $node_path_segments, 'IN')
     ->sort('field_anchor', 'ASC')

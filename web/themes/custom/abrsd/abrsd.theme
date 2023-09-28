@@ -218,6 +218,8 @@ function abrsd_preprocess_breadcrumb(&$variables)
   $node = \Drupal::routeMatch()->getParameter('node');
   // if the variables array contains a breadcrumb add the current node title to it
   if (isset($variables['breadcrumb']) && !empty($node)) {
+    // Get the breadcrumb path
+    _breadcrumb_path_append_fragment($variables);
     //  Initialize field name
     $field_name = 'field_page_title';
     // Check if the field_page_title field exists
@@ -242,6 +244,59 @@ function abrsd_preprocess_breadcrumb(&$variables)
     ];
     // Do not cache the breadcrumb block
     $variables['#cache']['max-age'] = 0;
+  }
+}
+
+/**
+ * Helper function for hook_preprocess_breadcrumb().
+ *
+ * Append the fragment to the breadcrumb path.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - breadcrumb: An array of breadcrumb links.
+ */
+function _breadcrumb_path_append_fragment(&$variables)
+{
+  // Get the current node path
+  $node_path = _abrsd_get_current_path();
+  // Strip the leading slash from the node path
+  $node_path = ltrim($node_path, '/');
+  // Get the different path segments from the current node path
+  $node_path_segments = explode('/', $node_path);
+  // Search for a match on the path field in the breadcrumb taxonomy
+  $result = \Drupal::entityQuery('taxonomy_term')
+    ->accessCheck(FALSE)
+    ->condition('vid', 'breadcrumb')
+    ->condition('field_path', $node_path_segments, 'IN')
+    ->sort('field_anchor', 'ASC')
+    ->execute();
+  // Load the taxonomy term
+  $terms = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadMultiple($result);
+  // Initialize the breadcrumb path
+  $breadcrumb_path = $target_path = '';
+  // Loop through the terms
+  foreach ($terms as $term) {
+    // Get the path field value
+    $path = $term->field_path->value;
+    // Get the anchor field value
+    $anchor = $term->field_anchor->value;
+    // Get the anchor field value
+    $anchor = $anchor ? '#' : '';
+    // Set the target path
+    $target_path = empty($anchor) ? '/' . $path : $target_path;
+    // Get the breadcrumb path
+    $breadcrumb_path .=  $anchor . $path;
+  }
+  // Prepend the slash to the breadcrumb path
+  $breadcrumb_path = '/' . $breadcrumb_path;
+  // Find the breadcrumb item whose url matches the target path
+  $key = array_search($target_path, array_column($variables['breadcrumb'], 'url'));
+  // If the target path is found, assign the breadcrumb path to the url
+  if ($key !== FALSE) {
+    $variables['breadcrumb'][$key]['url'] = $breadcrumb_path;
   }
 }
 
@@ -280,7 +335,6 @@ function _abrsd_preprocess_node_resource(&$variables)
   // Prevent the page from being cached.
   $variables['#cache']['max-age'] = 0;
 }
-
 
 /**
  * Implements hook_preprocess_views_view_unformatted().

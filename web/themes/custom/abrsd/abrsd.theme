@@ -289,7 +289,7 @@ function _breadcrumb_path_append_fragment(&$variables)
     // If anchor is true and the fragment field is not empty, set the path to the fragment
     $path = ($anchor && $term->field_fragment->value) ? $term->field_fragment->value : $path;
     // Get the breadcrumb path
-    $breadcrumb_path .=  $anchor . $path;
+    $breadcrumb_path .= $anchor . $path;
   }
   // Prepend the slash to the breadcrumb path
   $breadcrumb_path = '/' . $breadcrumb_path;

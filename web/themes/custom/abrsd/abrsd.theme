@@ -352,8 +352,12 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
 {
   // Get the id of the current view
   $view_id = $variables['view']->id();
+  // Set the view ids to add the current node id to
+  $view_ids = [
+    'working_group_list',
+  ];
   // Check if the current view_id is in an array of view ids
-  if (in_array($view_id, ['working_group_list'])) {
+  if (in_array($view_id, $view_ids)) {
     // Get the current node id
     $nid = \Drupal::routeMatch()->getParameter('node')->id();
     // Add the current node id to the variables array

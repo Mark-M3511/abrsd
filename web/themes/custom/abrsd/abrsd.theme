@@ -270,6 +270,10 @@ function _breadcrumb_path_append_fragment(&$variables)
     ->condition('field_path', $node_path_segments, 'IN')
     ->sort('field_anchor', 'ASC')
     ->execute();
+  // Check that result is not empty
+  if (empty($result)) {
+    return;
+  }
   // Load the taxonomy term
   $terms = \Drupal::entityTypeManager()
     ->getStorage('taxonomy_term')

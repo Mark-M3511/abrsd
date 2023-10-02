@@ -121,7 +121,7 @@ function _abrsd_preprocess_block_news(&$variables)
   $tname = isset($query['topic']) ? $query['topic'] : '';
   // Sanitize the taxonomy term name
   $tname = Html::escape($tname);
-  // Replace - with space in $tname
+  // Replace dash ('-') with space (' ') in $tname
   $tname = str_replace('-', ' ', $tname);
   // Get the taxonomy term by label
   $term = \Drupal::entityTypeManager()

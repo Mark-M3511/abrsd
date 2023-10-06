@@ -14,10 +14,12 @@
 
 // HEADER STYLES - The affix library declaration in the bootstrap_barrio.libraries.yml file
 // was broken. The core/once dependency was not being loaded.
-// This rule appears to be unnecessary since the update to Bootstrap Barrio 5.5.13 in August 2021.
-#main-wrapper {
-  margin-top: $nav-height;
-}
+// History:
+// 1: This rule was re-enabled for 5.5.13 due to a javascript bug in affix.js
+// 2: This rule was disabled again for 5.5.14 due to a fix for the javascript bug in affix.js
+// #main-wrapper {
+//   margin-top: $nav-height;
+// }
 
 /* FOOTER MENU */
 .menu--footer {

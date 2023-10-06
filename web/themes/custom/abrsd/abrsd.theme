@@ -424,31 +424,3 @@ function _abrsd_get_current_path()
   // Return the current path alias
   return $current_path_alias;
 }
-
-
-/**
- * Implements hook_preprocess_page().
- *
- * Adds a class to the body element to affix the header to the top of the page.
- * If the current path is the user login page or the user is logged in, the class is not added.
- *
- * @param array $variables
- *   An associative array of variables for the current template.
- */
-function abrsd_preprocess_page(&$variables)
-{
-  // Initialize the 'add_affix_class' variable
-  $add_affix_class = TRUE;
-  // Get the current path
-  $path_alias = _abrsd_get_current_path();
-  // Check if:
-  // 1 - current path is the user login page
-  // 2 - the user is logged in
-  if (!empty($path_alias) && $path_alias == '/user/login') {
-    $add_affix_class = FALSE;
-  } elseif (\Drupal::currentUser()->isAuthenticated()) {
-    $add_affix_class = FALSE;
-  }
-  // Add the 'add_affix_class' variable to the variables array
-  $variables['add_affix_class'] = $add_affix_class;
-}

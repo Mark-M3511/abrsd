@@ -279,7 +279,7 @@ function _breadcrumb_path_append_fragment(&$variables)
     ->getStorage('taxonomy_term')
     ->loadMultiple($result);
   // Initialize the breadcrumb path
-  $breadcrumb_path = $target_path = '';
+  $breadcrumb_path = $target_path = $new_breadcrumb_title = '';
   // Loop through the terms
   foreach ($terms as $term) {
     // Get the path field value
@@ -294,14 +294,21 @@ function _breadcrumb_path_append_fragment(&$variables)
     $path = ($anchor && $term->field_fragment->value) ? $term->field_fragment->value : $path;
     // Get the breadcrumb path
     $breadcrumb_path .= $anchor . $path;
+    // If the current term name is not in the breadcrumb array, assign it to new_breadcrumb_title
+    if (!in_array($term->name->value, array_column($variables['breadcrumb'], 'text'))) {
+      $new_breadcrumb_title = $term->name->value;
+    }
   }
   // Prepend the slash to the breadcrumb path
   $breadcrumb_path = '/' . $breadcrumb_path;
-  // Find the breadcrumb item whose url matches the target path
-  $key = array_search($target_path, array_column($variables['breadcrumb'], 'url'));
-  // If the target path is found, assign the breadcrumb path to the url
-  if ($key !== FALSE) {
-    $variables['breadcrumb'][$key]['url'] = $breadcrumb_path;
+  // If $new_breadcrumb_title is not empty, add it to the breadcrumb array
+  if (!empty($new_breadcrumb_title)) {
+    $new_breadcrumb_title = new TranslatableMarkup('@title', ['@title' => $new_breadcrumb_title]);
+    $variables['breadcrumb'][] = [
+      'text' => $new_breadcrumb_title,
+      'url' => $breadcrumb_path,
+      'langcode' => '',
+    ];
   }
 }
 

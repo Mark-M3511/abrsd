@@ -32,10 +32,7 @@
       row.content['#row']._entity.id() == nid ? 'is-active',
     ]
   %}
-  {# If the row node id is the same as the current node id, skip the row. #}
-	{# {% if row.content['#row']._entity.id() != nid %} #}
-		<div{{row.attributes.addClass(row_classes)}}>
-			{{ row.content }}
-		</div>
-	{# {% endif %} #}
+	<div{{row.attributes.addClass(row_classes)}}>
+		{{ row.content }}
+	</div>
 {% endfor %}

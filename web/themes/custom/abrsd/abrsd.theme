@@ -362,6 +362,7 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
   // Set the view ids to add the current node id to
   $view_ids = [
     'working_group_list',
+    'workshop',
   ];
   // Check if the current view_id is in an array of view ids
   if (in_array($view_id, $view_ids)) {

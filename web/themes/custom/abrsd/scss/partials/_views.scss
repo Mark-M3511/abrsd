@@ -125,3 +125,18 @@
 .related-committees {
   background-color: $accent-shade;
 }
+
+// WORKSHOPS/OTHER EVENTS
+.views-row {
+  &.is-active {
+    .btn {
+      visibility: hidden;
+    }
+    /**
+     * Adds a box shadow to the card element.
+     */
+    .card {
+      box-shadow: 0 0 0 0.2rem rgba(255, 188, 45, 0.25);
+    }
+  }
+}

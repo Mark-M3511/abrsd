@@ -12,11 +12,21 @@
   }
 }
 
-.page--news-list {
+.page--news-list,
+.page--about-us {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {
       padding-left: 4rem;
       padding-right: 4rem;
+    }
+  }
+}
+
+.page--contact-us {
+  @include media-breakpoint-up(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
   }
 }

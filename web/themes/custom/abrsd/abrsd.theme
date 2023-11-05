@@ -294,21 +294,17 @@ function _breadcrumb_path_append_fragment(&$variables)
     $path = ($anchor && $term->field_fragment->value) ? $term->field_fragment->value : $path;
     // Get the breadcrumb path
     $breadcrumb_path .= $anchor . $path;
-    // If the current term name is not in the breadcrumb array, assign it to new_breadcrumb_title
+    // If the current term name is not in the breadcrumb array, add it
     if (!in_array($term->name->value, array_column($variables['breadcrumb'], 'text'))) {
-      $new_breadcrumb_title = $term->name->value;
+      // Create a new translatable markup object from the term name
+      $new_breadcrumb_title = new TranslatableMarkup('@title', ['@title' => $term->name->value]);
+      // Add the current term name to the breadcrumb array
+      $variables['breadcrumb'][] = [
+        'text' => $new_breadcrumb_title,
+        'url' => '/' . $breadcrumb_path,
+        'langcode' => '',
+      ];
     }
-  }
-  // Prepend the slash to the breadcrumb path
-  $breadcrumb_path = '/' . $breadcrumb_path;
-  // If $new_breadcrumb_title is not empty, add it to the breadcrumb array
-  if (!empty($new_breadcrumb_title)) {
-    $new_breadcrumb_title = new TranslatableMarkup('@title', ['@title' => $new_breadcrumb_title]);
-    $variables['breadcrumb'][] = [
-      'text' => $new_breadcrumb_title,
-      'url' => $breadcrumb_path,
-      'langcode' => '',
-    ];
   }
 }
 

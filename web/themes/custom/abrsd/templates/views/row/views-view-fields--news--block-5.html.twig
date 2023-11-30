@@ -51,5 +51,7 @@
   </div>
   <p class="me-2 d-block d-md-none">{{fields.field_source_date.content}}</p>
   <p class="mb-1">{{fields.body.content}}</p>
-  <span class="badge d-inline-block" data-term="{{term}}" data-href="news-list?topic={{term}}">{{fields.field_topic.content}}</span>
+  {% if term %}
+    <span class="badge d-inline-block" data-term="{{term}}" data-href="news-list?topic={{term}}">{{fields.field_topic.content}}</span>
+  {% endif %}
 </a>

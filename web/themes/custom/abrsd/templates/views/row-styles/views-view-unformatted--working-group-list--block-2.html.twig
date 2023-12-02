@@ -18,21 +18,22 @@
  */
 #}
 {% if title %}
-	<h3>{{ title }}</h3>
+    <h3>{{ title }}</h3>
 {% endif %}
 {% for row in rows %}
-  {%
+    {%
     set row_classes = [
       default_row_class ? 'views-row',
       'd-flex',
 	    'col-md-4',
+      'nid-' ~ nid,
     ]
   %}
-  {# Compare the node id for the current views row to the current node id.
-	If they are not equal display the contents of that row. #}
-  {% if row.content['#row']._entity.id() != nid %}
-	 <div{{row.attributes.addClass(row_classes)}}>
-		{{ row.content }}
-	 </div>
-  {% endif %}
+    {# Compare the node id for the current views row to the current node id.
+    	If they are not equal display the contents of that row. #}
+    {% if row.content['#row']._entity.id() != nid %}
+        <div{{row.attributes.addClass(row_classes)}}>
+            {{ row.content }}
+        </div>
+    {% endif %}
 {% endfor %}

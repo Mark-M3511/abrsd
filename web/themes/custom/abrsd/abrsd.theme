@@ -189,18 +189,60 @@ function abrsd_preprocess_node(&$variables)
     return;
   }
   // Check for node of type workshop
-  if ($node->getType() == 'workshop') {
-    // Get the websites timezone
-    $timezone = \Drupal::config('system.date')->get('timezone.default');
-    // Add the timezone to the list of variables
-    $variables['timezone'] = $timezone;
-    // Get the referring path or url
-    $referer = \Drupal::request()->headers->get('referer');
-    // Get path portion of the url
-    $referer = parse_url($referer, PHP_URL_PATH);
-    // Add the referring path or url to the variables array
-    $variables['referer'] = $referer;
+  _abrsd_preprocess_node_workshop($variables);
+  // Check for node of type working_group
+  _abrsd_preprocess_node_working_group($variables);
+}
+
+/**
+ * Implements hook_preprocess_node() helper for working_group nodes.
+ *
+ * Adds additional variables to the variables array for working_group nodes.
+ *
+ * @param array $variables
+ *   An array of variables to pass to the theme template.
+ */
+function _abrsd_preprocess_node_working_group(&$variables)
+{
+  // Get the current node
+  $node = $variables['node'];
+  // Get path alias of the current node
+  $path_alias = _abrsd_get_current_path();
+  // Check if the current path is 'our-work/committees' and the node type is 'resource'
+  if (strpos($path_alias, 'our-work/committees') === FALSE && $node->getType() != 'resource') {
+    return;
   }
+  $related_committees = [];
+  $related_committees = views_embed_view('working_group_list', 'block_2', $node->id());
+  $variables['related_committees'] = $related_committees;
+}
+
+/**
+ * Implements hook_preprocess_node() helper for workshop nodes.
+ *
+ * Adds the timezone and referring path or URL to the variables array for workshop nodes.
+ *
+ * @param array $variables
+ *   An array of variables to pass to the theme template.
+ */
+function _abrsd_preprocess_node_workshop(&$variables)
+{
+  // Get the current node
+  $node = $variables['node'];
+  // Check for node of type workshop
+  if ($node->getType() != 'workshop') {
+    return;
+  }
+  // Get the websites timezone
+  $timezone = \Drupal::config('system.date')->get('timezone.default');
+  // Add the timezone to the list of variables
+  $variables['timezone'] = $timezone;
+  // Get the referring path or url
+  $referer = \Drupal::request()->headers->get('referer');
+  // Get path portion of the url
+  $referer = parse_url($referer, PHP_URL_PATH);
+  // Add the referring path or url to the variables array
+  $variables['referer'] = $referer;
 }
 
 /**

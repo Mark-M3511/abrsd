@@ -55,6 +55,8 @@
  *   current user is a logged-in member.
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
+ * Custom variables:
+ * - related_committees: A list of committees related to the current node.
  *
  * @see template_preprocess_node()
  */
@@ -121,4 +123,5 @@
 	</div>
 </article>
 {# Display other committees as related content  #}
-{{ drupal_view('working_group_list', 'block_2') }}
+{# {{ drupal_view('working_group_list', 'block_2') }} #}
+{{ related_committees }}

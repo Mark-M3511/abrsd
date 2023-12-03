@@ -90,10 +90,12 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
     $new_suggestion = 'node__' . $path_alias . '__full';
     // Splice the new suggestion into the suggestions array so it is the second suggestion.
     array_splice($suggestions, 3, 0, $new_suggestion);
+    // Assign path segment to variable
+    $segment = 'our_work__committees';
     // Check if path alias contains the string 'working-group' and new suggestion if it does.
-    if (strpos($path_alias, 'our_work__committees') !== FALSE) {
+    if (strpos($path_alias, $segment) !== FALSE) {
       // Create the new suggestion.
-      $new_suggestion = 'node__our_work__committees__full';
+      $new_suggestion = 'node__' . $segment . '__full';
       // Splice the new suggestion into the suggestions array so it is the second suggestion.
       array_splice($suggestions, 3, 0, $new_suggestion);
     }

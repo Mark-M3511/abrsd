@@ -57,8 +57,10 @@ function abrsd_theme_suggestions_page_alter(array &$suggestions, array $variable
 {
   // Get the path alias of the current node
   $path_alias = _abrsd_get_current_path();
-  // Change all - to _ in the path alias and remove the first / from the path alias.
-  $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
+  // Remove the first / from the path alias.
+  $path_alias = ltrim($path_alias, '/');
+  // Change all - to _ in the path alias
+  $path_alias = str_replace(['-', '/'], ['_', '__'], $path_alias);
   // Create the new suggestion.
   $new_suggestion = 'page__node__' . $path_alias;
   // Splice the new suggestion into the suggestions array so it is the second suggestion.
@@ -80,16 +82,18 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
   if (is_object($node)) {
     // Get the path alias of the current node
     $path_alias = Url::fromRoute('entity.node.canonical', ['node' => (int)$node->id()])->toString();
-    // Change all - to _ in the path alias and remove the first / from the path alias.
-    $path_alias = str_replace(['-', '/'], ['_', ''], $path_alias);
+    // Remove the first / from the path alias.
+    $path_alias = ltrim($path_alias, '/');
+    // Change all - to _ in the path alias
+    $path_alias = str_replace(['-', '/'], ['_', '__'], $path_alias);
     // Create the new suggestion.
     $new_suggestion = 'node__' . $path_alias . '__full';
     // Splice the new suggestion into the suggestions array so it is the second suggestion.
     array_splice($suggestions, 3, 0, $new_suggestion);
     // Check if path alias contains the string 'working-group' and new suggestion if it does.
-    if (strpos($path_alias, 'working_group') !== FALSE) {
+    if (strpos($path_alias, 'our_work__committees') !== FALSE) {
       // Create the new suggestion.
-      $new_suggestion = 'node__working_group__full';
+      $new_suggestion = 'node__our_work__committees__full';
       // Splice the new suggestion into the suggestions array so it is the second suggestion.
       array_splice($suggestions, 3, 0, $new_suggestion);
     }

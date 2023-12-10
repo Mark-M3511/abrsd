@@ -192,7 +192,23 @@
 }
 
 .page--resources-reports {
-  .field--name-field-hero-image  {
+  .field--name-field-hero-image {
     background-color: $hot-pink;
+  }
+}
+
+// Select body element by attribute value (e.e. class like 'page--our-work-committees') and
+// select the field--name-field-hero-image element within it, then apply the border-radius to 5px
+body[class*="page--our-work-committees-"] {
+  .field--name-field-hero-image {
+    img {
+      border-radius: 5px;
+    }
+  }
+}
+
+.page--resources-reports {
+  .field--name-field-hero-image {
+    border-radius: 5px;
   }
 }

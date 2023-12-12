@@ -275,7 +275,7 @@ function abrsd_preprocess_breadcrumb(&$variables)
     $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
     // Get the taxonomy term label
     $label = (!empty($field) && !empty($field->entity)) ? '(' . $field->entity->label() . ')' : '';
-    // Append the taxonomy term label to the title e.g. TItle - (Workshop)
+    // Append the taxonomy term label to the title e.g. Title - (Workshop)
     $title .= !empty($label) ? ' ' . $label : '';
     // Create a new translatable markup object from the title
     $markup = new TranslatableMarkup('@title', ['@title' => $title]);

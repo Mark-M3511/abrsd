@@ -487,15 +487,12 @@ function _add_ga_script(array &$variables)
  */
 function abrsd_preprocess_status_messages(array &$variables)
 {
-  // Initialize the is_contact_page variable
-  $variables['is_contact_page'] = TRUE;
   // Get the current path
   $path = _abrsd_get_current_path();
-  // Check if the current path is the contact-us page
-  if (!empty($path) && $path == '/contact-us') {
-    // Add the status-msg class to the variables array
-    $variables['is_contact_page'] = TRUE;
-  }
+  // Initialize the is_contact_page variable
+  $variables['is_contact_page'] = (!empty($path) && $path == '/contact-us');
+  // Is the current user logged in?
+  $variables['is_logged_in'] = \Drupal::currentUser()->isAuthenticated();
 }
 
 

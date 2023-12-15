@@ -41,7 +41,7 @@ function abrsd_form_system_theme_settings_alter(&$form, FormStateInterface $form
  *
  * Add a class to the body based on the path alias of the current node.
  */
-function abrsd_preprocess_html(&$variables)
+function abrsd_preprocess_html(array &$variables)
 {
   // Add a class to the body based on the path alias of the current node.
   $path_alias = _abrsd_get_current_path();
@@ -102,7 +102,7 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
  *
  * Provide filtered news items to the block template.
  */
-function abrsd_preprocess_block(&$variables)
+function abrsd_preprocess_block(array &$variables)
 {
   if ($variables['elements']['#configuration']['label'] == 'Filtered News List') {
     // Build the News List content block.
@@ -115,7 +115,7 @@ function abrsd_preprocess_block(&$variables)
 /**
  * Provide filtered news items to the block template.
  */
-function _abrsd_preprocess_block_news(&$variables)
+function _abrsd_preprocess_block_news(array &$variables)
 {
   // Get the query parameters
   $query = \Drupal::request()->query->all();
@@ -179,7 +179,7 @@ function _abrsd_preprocess_block_news(&$variables)
  *
  * @see template_preprocess_node()
  */
-function abrsd_preprocess_node(&$variables)
+function abrsd_preprocess_node(array &$variables)
 {
   // Get the current node
   $node = $variables['node'];
@@ -203,7 +203,7 @@ function abrsd_preprocess_node(&$variables)
  * @param array $variables
  *   An array of variables to pass to the theme template.
  */
-function _abrsd_preprocess_node_working_group(&$variables)
+function _abrsd_preprocess_node_working_group(array &$variables)
 {
   // Get the current node
   $node = $variables['node'];
@@ -226,7 +226,7 @@ function _abrsd_preprocess_node_working_group(&$variables)
  * @param array $variables
  *   An array of variables to pass to the theme template.
  */
-function _abrsd_preprocess_node_workshop(&$variables)
+function _abrsd_preprocess_node_workshop(array &$variables)
 {
   // Get the current node
   $node = $variables['node'];
@@ -255,7 +255,7 @@ function _abrsd_preprocess_node_workshop(&$variables)
  * @param array $variables
  *   The variables array passed to the template.
  */
-function abrsd_preprocess_breadcrumb(&$variables)
+function abrsd_preprocess_breadcrumb(array &$variables)
 {
   // Get the current node
   $node = \Drupal::routeMatch()->getParameter('node');
@@ -299,7 +299,7 @@ function abrsd_preprocess_breadcrumb(&$variables)
  *   An associative array containing:
  *   - breadcrumb: An array of breadcrumb links.
  */
-function _breadcrumb_path_append_fragment(&$variables)
+function _breadcrumb_path_append_fragment(array &$variables)
 {
   // Get the current node path
   $node_path = _abrsd_get_current_path();
@@ -357,7 +357,7 @@ function _breadcrumb_path_append_fragment(&$variables)
  * @param array $variables
  *  The variables array passed to the template.
  */
-function _abrsd_preprocess_node_resource(&$variables)
+function _abrsd_preprocess_node_resource(array &$variables)
 {
   // Get Resource nodes whose titles contain 'Homepage CTA' using the LIKE operator.
   // Example: %Homepage CTA% - sprintf('%%%1$s%%', $title);
@@ -394,7 +394,7 @@ function _abrsd_preprocess_node_resource(&$variables)
  * @param array $variables
  *   An associative array of variables for the view.
  */
-function abrsd_preprocess_views_view_unformatted(&$variables)
+function abrsd_preprocess_views_view_unformatted(array &$variables)
 {
   // Get the id of the current view
   $view_id = !empty($variables['view']) ? $variables['view']->id() : NULL;
@@ -422,7 +422,7 @@ function abrsd_preprocess_views_view_unformatted(&$variables)
  * @param array $variables
  *   An associative array of variables to pass to the theme template.
  */
-function abrsd_page_attachments_alter(&$variables)
+function abrsd_page_attachments_alter(array &$variables)
 {
   // Get the current path
   $path_alias = _abrsd_get_current_path();

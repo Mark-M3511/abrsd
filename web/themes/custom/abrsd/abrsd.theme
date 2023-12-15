@@ -485,7 +485,7 @@ function _add_ga_script(array &$variables)
  * @param array $variables
  *   An associative array of variables to pass to the theme template.
  */
-function abrsd_preprocess_status_messages(&$variables)
+function abrsd_preprocess_status_messages(array &$variables)
 {
   // Initialize the is_contact_page variable
   $variables['is_contact_page'] = TRUE;

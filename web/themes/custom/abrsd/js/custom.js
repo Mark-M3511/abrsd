@@ -49,10 +49,11 @@
    * @returns {void}
    */
   const processNewsItemClick = (e) => {
-    if (e.target.classList.contains('badge') || e.target.classList.contains('card-body')) {
+    const { classList, dataset } = e.target;
+    const href = dataset.href || e.target.closest('div.news-topic-card').dataset.href;
+    // If the click target is a badge or card body, redirect to the link.
+    if (classList.contains('badge') || classList.contains('card-body')) {
       e.preventDefault();
-      const href = e.target.dataset.href ? e.target.dataset.href : e.target.closest('div.news-topic-card').dataset.href;
-      // Navigate to the link
       window.location.href = '/' + href;
     }
   }

@@ -20,7 +20,8 @@
  * - attributes: HTML attributes for the element, including:
  *   - class: HTML classes.
  * - Custom variables:
- *   - is_contact_page: (optional) Boolean indicating if the current page is
+ *   - is_contact_page: (optional) Boolean indicating if the current page is the contact page.
+ *   - is_logged_in: (optional) Boolean indicating if the current user is logged in.
  *
  * @see template_preprocess_status_messages()
  *
@@ -36,7 +37,7 @@
      {% endif %}
 {% endfor %}
 {# See if there are any messages in the message_list #}
-{% if has_success_msg and is_contact_page %}
+{% if has_success_msg and is_contact_page and not is_logged_in %}
    <button type="button" id="showModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#submissionComplete">Open modal</button>
    <div class="modal fade" id="submissionComplete" tabindex="-1" aria-labelledby="submissionMsgLabel" aria-hidden="true" data-bs-backdrop="static">
      <div class="modal-dialog">

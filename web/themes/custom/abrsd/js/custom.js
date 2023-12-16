@@ -12,7 +12,7 @@
   const { behaviors } = Drupal;
   /**
    * Process click event on header and footer nav links
-   * @param Event e - The click event paramter
+   * @param Event e - The click event parameter
    * @returns {void}
    */
   const processNavClick = (e) => {
@@ -45,7 +45,7 @@
 
   /**
    * Process click event on list group links
-   * @param Event e - The click event paramter
+   * @param Event e - The click event parameter
    * @returns {void}
    */
   const processNewsItemClick = (e) => {
@@ -72,7 +72,7 @@
 
   /**
    * Handle contact form submission
-   * @param Event e - The submit event paramter
+   * @param Event e - The submit event parameter
    * @returns {void}
    */
   const processContactFormSubmit = (e) => {

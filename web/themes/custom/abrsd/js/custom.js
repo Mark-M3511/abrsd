@@ -75,7 +75,7 @@
    * @param Event e - The submit event paramter
    * @returns {void}
    */
-  const processContactFormSubmitBtnClick = (e) => {
+  const processContactFormSubmit = (e) => {
     const submissionStart = document.querySelector('#submissionStart');
     const modal = bootstrap.Modal.getOrCreateInstance(submissionStart);
     modal?.show();
@@ -114,7 +114,7 @@
       headerNav?.addEventListener('click', processNavClick);
       footerNav?.addEventListener('click', processNavClick);
       listGroup?.addEventListener('click', processNewsItemClick);
-      contactForm?.addEventListener('submit', processContactFormSubmitBtnClick);
+      contactForm?.addEventListener('submit', processContactFormSubmit);
     }
   }
 })(Drupal, drupalSettings);

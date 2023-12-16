@@ -78,7 +78,7 @@
   const processContactFormSubmitBtnClick = (e) => {
     const submissionStart = document.querySelector('#submissionStart');
     const modal = bootstrap.Modal.getOrCreateInstance(submissionStart);
-    modal.show();
+    modal?.show();
   }
 
   /**
@@ -107,15 +107,14 @@
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
       const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
       const listGroup = (context.querySelector('.news-list') || document.querySelector('.news-list'));
-      // const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
-      const formSubmitBtn = (context.querySelector('#edit-actions-submit') || document.querySelector('#edit-actions-submit'));
+      const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
       /**
        * Set up click event listeners for header and footer nav links
        */
       headerNav?.addEventListener('click', processNavClick);
       footerNav?.addEventListener('click', processNavClick);
       listGroup?.addEventListener('click', processNewsItemClick);
-      formSubmitBtn?.addEventListener('click', processContactFormSubmitBtnClick);
-    },
-  };
+      contactForm?.addEventListener('submit', processContactFormSubmitBtnClick);
+    }
+  }
 })(Drupal, drupalSettings);

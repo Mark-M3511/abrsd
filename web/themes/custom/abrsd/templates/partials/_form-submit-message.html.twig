@@ -1,25 +1,20 @@
 <!-- Button trigger modal -->
 <button type="button" id="showModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#submissionStart">
-  Static
+    Static
 </button>
 
 <!-- Modal -->
 <div class="modal fade" id="submissionStart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="submissionMsgLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header d-flex flex-column">
-   	    <img
-           src="/themes/custom/abrsd/logo-black.svg"
-           alt="{{ 'Logo'|t }}"
-           class="img-fluid d-inline-block align-top"
-           style="max-width: 15rem;"
-        />
-        <h1 class="modal-title fs-5" id="submissionMsgLabel">Thank you!</h1>
-        <p class="modal-title fs-6">Processing...</p>
-      </div>
-      <div class="modal-body d-flex justify-content-center">
-          <span class="loader d-block mb-4"></span>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header d-flex flex-column">
+                <img src="/themes/custom/abrsd/logo-black.svg" alt="{{ 'Logo'|t }}" class="img-fluid d-inline-block align-top" style="max-width: 15rem;"/>
+                <h1 class="modal-title fs-5" id="submissionMsgLabel">Thank you!</h1>
+                <p class="modal-title fs-6">Processing...</p>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <span class="loader d-block mb-4"></span>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

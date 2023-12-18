@@ -78,8 +78,8 @@
   const processContactFormSubmit = (e) => {
     const submissionStart = document.querySelector('#submissionStart');
     const modal = bootstrap.Modal.getOrCreateInstance(submissionStart);
-    // Implement an on modalshown event listener
-    modal._element.addEventListener('shown.bs.modal', (el) => {
+    // Implement an 'shown.bs.modal' event listener
+    submissionStart.addEventListener('shown.bs.modal', (el) => {
       // Get the paragraph element with the class modal-title
       const modalTitle = el.target.querySelector('p.modal-title');
       // Set the text content of the modal-title element to 'Sending yur message...'

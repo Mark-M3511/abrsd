@@ -8,18 +8,21 @@
  */
 #}
 
+{# Assign the page title as a CSS class #}
+{% set titla_class = 'ow-' ~ fields.field_page_title.content|striptags|trim|raw|clean_class %}
+
 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-	{{ fields.field_hero_image.content }}
+    {{ fields.field_hero_image.content }}
 </div>
 <div class="col-12 col-sm-6 col-lg-8 col-xl-9">
-	<div class="card-body card-working-group d-flex flex-column px-4 px-lg-3">
-		<h4 class="card-title text-center text-lg-start">{{ fields.field_page_title.content }}</h4>
-		<div class="card-text text-center text-lg-start">{{ fields.body.content }}</div>
-		{{ include('@abrsd/components/_cta_button.html.twig', {
+    <div class="card-body card-working-group d-flex flex-column px-4 px-lg-3">
+        <h4 class="card-title text-center text-lg-start">{{ fields.field_page_title.content }}</h4>
+        <div class="card-text text-center text-lg-start">{{ fields.body.content }}</div>
+        {{ include('@abrsd/components/_cta_button.html.twig', {
           'text': link_text,
           'url': link_url,
           'target': target,
-          'extra_classes': 'mt-auto align-self-start'
+          'extra_classes': 'mt-auto align-self-start btn-' ~ titla_class
     }) }}
-	</div>
+    </div>
 </div>

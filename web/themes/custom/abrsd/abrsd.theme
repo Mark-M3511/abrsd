@@ -444,7 +444,10 @@ function abrsd_page_attachments_alter(array &$variables)
  */
 function _add_ga_script(array &$variables)
 {
-  // GTM account number
+  // Do not add the script if the current user is logged in
+  // if (\Drupal::currentUser()->isAuthenticated()) {
+  //   return;
+  // }
   // Get google_analytics_account from Drupal settings
   $ga_id = Settings::get('google_analytics_account', 'NOT SET');
   // Add Google Analytics external JS script to the page

@@ -9,7 +9,7 @@
 #}
 
 {# Assign the page title as a CSS class #}
-{% set titla_class = 'ow-' ~ fields.field_page_title.content|striptags|trim|raw|clean_class %}
+{% set title_class = 'ow-' ~ fields.field_page_title.content|striptags|trim|raw|clean_class %}
 
 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
     {{ fields.field_hero_image.content }}
@@ -22,7 +22,7 @@
           'text': link_text,
           'url': link_url,
           'target': target,
-          'extra_classes': 'mt-auto align-self-start btn-' ~ titla_class
+          'extra_classes': 'mt-auto align-self-start btn-' ~ title_class
     }) }}
     </div>
 </div>

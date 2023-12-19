@@ -8,6 +8,8 @@
  */
 #}
 
+{% set title_class = fields.field_page_title.content|striptags|trim|raw|clean_class %}
+
 <div class="our-work-list-svg d-flex justify-content-center align-items-center col-12 col-sm-6 col-lg-3">
 	{{ fields.field_hero_image.content }}
 </div>
@@ -21,7 +23,7 @@
               'text': link_text,
               'url': link_url,
               'target': target,
-              'extra_classes': 'mt-auto align-self-start me-2 mb-2 mb-lg-0'
+              'extra_classes': 'mt-auto align-self-start me-2 mb-2 mb-lg-0 btn-cta-' ~ title_class,
            }) }}
 			{% endif %}
       {% if download_link_url is not empty %}
@@ -29,7 +31,7 @@
               'text': download_link_text,
               'url': download_link_url,
               'target': download_target,
-              'extra_classes': 'mt-auto align-self-start me-2'
+              'extra_classes': 'mt-auto align-self-start me-2 btn-dnld-' ~ title_class,
            }) }}
       {% endif %}
 		</div>

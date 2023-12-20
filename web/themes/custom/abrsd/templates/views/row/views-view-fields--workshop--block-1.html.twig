@@ -40,6 +40,12 @@
 
 {% set link_url = link_url ? link_url : self_link_url %}
 
+{# Set up tag variable #}
+{% set tag_class = fields.field_committee.content|striptags|trim|raw %}
+{% set page_title_class = fields.field_page_title.content|striptags|trim|raw|lower|clean_class %}
+
+{% set tag_class = page_title_class ~ '-' ~ (tag_class ? tag_class : 'untagged')|clean_class %}
+
 <div class="card mb-3">
   <div class="card-body d-flex flex-column justify-content-between px-lg-4">
     {% if fields.field_committee.content is not empty %}
@@ -53,7 +59,7 @@
       'text': link_text,
       'url': link_url,
       'target': target,
-      'extra_classes': 'mt-auto align-self-start'
+      'extra_classes': 'mt-auto align-self-start btn-cta-' ~ tag_class,
     }) }}
   </div>
 </div>

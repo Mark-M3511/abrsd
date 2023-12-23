@@ -214,6 +214,7 @@ function _abrsd_preprocess_node_working_group(array &$variables)
   if (strpos($path_alias, 'our-work/committees') === FALSE && $node->getType() != 'resource') {
     return;
   }
+  // Get related committees
   $related_committees = [];
   $related_committees = views_embed_view('working_group_list', 'block_2', $node->id());
   $variables['related_committees'] = $related_committees;

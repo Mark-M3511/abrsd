@@ -13,6 +13,7 @@
 }
 
 .page--news-list,
+.page--resources-news-categories,
 .page--about-us {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {

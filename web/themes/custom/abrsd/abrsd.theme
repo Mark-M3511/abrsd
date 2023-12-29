@@ -415,6 +415,28 @@ function abrsd_preprocess_views_view_unformatted(array &$variables)
   }
 }
 
+/**
+ * Implements hook_preprocess_views_view_fields().
+ *
+ * Adds the current path to the variables array for the 'news_topics' view.
+ *
+ * @param array $variables
+ *   An associative array of variables for the view.
+ */
+function abrsd_preprocess_views_view_fields(array &$variables)
+{
+  // Get the id of the current view
+  $view_id = !empty($variables['view']) ? $variables['view']->id() : NULL;
+  // Set the view ids to add the current node id to
+  $view_ids = [
+    'news_topics',
+  ];
+  // Check if the current view_id is in an array of view ids
+  if (in_array($view_id, $view_ids)) {
+    // Get the current path
+    $variables['current_path'] = _abrsd_get_current_path();
+  }
+}
 
 /**
  * Implements hook_page_attachments_alter().

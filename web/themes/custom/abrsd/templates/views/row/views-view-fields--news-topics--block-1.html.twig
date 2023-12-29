@@ -25,6 +25,8 @@
  *   - element_type: An HTML element for the field content.
  *   - element_attributes: List of attributes for HTML element for field content.
  * - row: The raw result from the query, with all data it fetched.
+ * Custom variables:
+*   - current_path: The current path.
  *
  * @see template_preprocess_views_view_fields()
  *
@@ -49,7 +51,6 @@
 {% set term = fields.name.content|striptags|trim|raw|clean_class %}
 {% set label = fields.name.content|striptags|trim|raw %}
 {% set tid = fields.tid.content|striptags|trim|raw %}
-{% set current_path = url('<current>') %}
 
 <a class="card w-100 news-topic-card" href="{{ current_path }}?topic={{term}}">
   {% if bg_colour %}

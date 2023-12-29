@@ -71,7 +71,7 @@
   {% endif %}
     <div>
       {# {{ fields.field_topic_icon.content }} #}
-      <img src="/themes/custom/abrsd/templates/svg/{{term}}.svg" alt="{{label}}" />
+      <img src="/{{ active_theme_path() }}/templates/svg/{{term}}.svg" alt="{{label}}"/>
     </div>
   </div>
   <div class="card-footer news-topic-footer">

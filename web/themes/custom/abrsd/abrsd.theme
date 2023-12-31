@@ -118,19 +118,8 @@ function abrsd_preprocess_block(array &$variables)
  */
 function _abrsd_preprocess_block_news(array &$variables)
 {
-  // Get the query parameters
-  $query = \Drupal::request()->query->all();
-  $tname = isset($query['topic']) ? $query['topic'] : '';
-  // Sanitize the taxonomy term name
-  $tname = Html::escape($tname);
-  // Replace dash ('-') with space (' ') in $tname
-  $tname = str_replace('-', ' ', $tname);
-  // Get the taxonomy term by label
-  $term = \Drupal::entityTypeManager()
-    ->getStorage('taxonomy_term')
-    ->loadByProperties(['name' => $tname]);
-  // Get the taxonomy term object
-  $topic = is_array($term) ? reset($term) : null;
+  // Get the taxonomy term fromm the URL if we are on the news category page
+  $topic = _abrsd_get_term_from_url_query('topic');
   // Get the taxonomy term id
   $tid = is_object($topic) ? $topic->id() : 0;
   // Get the view
@@ -265,6 +254,10 @@ function abrsd_preprocess_breadcrumb(array &$variables)
   if (isset($variables['breadcrumb']) && !empty($node)) {
     // Get the breadcrumb path
     _breadcrumb_path_append_fragment($variables);
+    // Get the taxonomy term fromm the URL if we are on the news category page
+    $topic = _abrsd_get_term_from_url_query('topic');
+    // Get the term name from the taxonomy term object
+    $tname = is_object($topic) ? $topic->getName() : '';
     //  Initialize field name
     $field_name = 'field_page_title';
     // Check if the field_page_title field exists
@@ -279,6 +272,8 @@ function abrsd_preprocess_breadcrumb(array &$variables)
     $label = (!empty($field) && !empty($field->entity)) ? '(' . $field->entity->label() . ')' : '';
     // Append the taxonomy term label to the title e.g. Title - (Workshop)
     $title .= !empty($label) ? ' ' . $label : '';
+    // Append the topic name to the title e.g. Title - (Workshop) - Topic
+    $title .= !empty($tname) ? ' (' . $tname . ')' : '';
     // Create a new translatable markup object from the title
     $markup = new TranslatableMarkup('@title', ['@title' => $title]);
     // Add the current node title to the breadcrumb as translatable markup text
@@ -290,6 +285,32 @@ function abrsd_preprocess_breadcrumb(array &$variables)
     // Do not cache the breadcrumb block
     $variables['#cache']['max-age'] = 0;
   }
+}
+
+/**
+ * Retrieves a taxonomy term object based on the provided term name from the URL query parameters.
+ *
+ * @param string $term The name of the term to retrieve.
+ * @return \Drupal\taxonomy\Entity\TermInterface|null The taxonomy term object, or null if not found.
+ */
+function _abrsd_get_term_from_url_query(string $term)
+{
+  // Get the query parameters
+  $query = \Drupal::request()->query->all();
+  // Get the topic query parameter
+  $tname = isset($query[$term]) ? $query[$term] : '';
+  // Sanitize the taxonomy term name
+  $tname = Html::escape($tname);
+  // Replace dash ('-') with space (' ') in $tname
+  $tname = str_replace('-', ' ', $tname);
+  // Get the taxonomy term by label
+  $term = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadByProperties(['name' => $tname]);
+  // Get the taxonomy term object
+  $topic = is_array($term) ? reset($term) : null;
+  // Get the taxonomy term
+  return $topic;
 }
 
 /**

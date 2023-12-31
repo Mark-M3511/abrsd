@@ -121,7 +121,7 @@
 /web/web.config
 
 # Ignore css files
-/web/themes/custom/**/css
+/web/themes/custom/**/css/*
 
 # Ignore various config and core files in root
 docker-compose.yml

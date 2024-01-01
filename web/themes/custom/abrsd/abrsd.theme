@@ -253,7 +253,7 @@ function abrsd_preprocess_breadcrumb(array &$variables)
   // if the variables array contains a breadcrumb add the current node title to it
   if (isset($variables['breadcrumb']) && !empty($node)) {
     // Get the breadcrumb path
-    _breadcrumb_path_append_fragment($variables);
+    _breadcrumb_append_path_fragment($variables);
     // Get the taxonomy term fromm the URL if we are on the news category page
     $topic = _abrsd_get_term_from_url_query('topic');
     // Get the term name from the taxonomy term object
@@ -322,7 +322,7 @@ function _abrsd_get_term_from_url_query(string $term)
  *   An associative array containing:
  *   - breadcrumb: An array of breadcrumb links.
  */
-function _breadcrumb_path_append_fragment(array &$variables)
+function _breadcrumb_append_path_fragment(array &$variables)
 {
   // Get the current node path
   $node_path = _abrsd_get_current_path();

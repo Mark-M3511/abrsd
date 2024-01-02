@@ -194,6 +194,12 @@
 .page--resources-reports {
   .field--name-field-hero-image {
     background-color: $hot-pink;
+    // Set height of the image to 7rem on mobile
+    @include media-breakpoint-down(md) {
+      img[src$=".svg"] {
+        height: 7rem;
+      }
+    }
   }
 }
 

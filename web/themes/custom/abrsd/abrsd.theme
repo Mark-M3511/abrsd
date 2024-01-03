@@ -330,6 +330,8 @@ function _breadcrumb_append_path_fragment(array &$variables)
   $node_path = ltrim($node_path, '/');
   // Get the different path segments from the current node path
   $node_path_segments = explode('/', $node_path);
+  // Set the node path segments to [-1] if it is empty
+  $node_path_segments = is_array($node_path_segments) ? $node_path_segments : [-1];
   // Search for a match on the path field in the breadcrumb taxonomy
   $result = \Drupal::entityQuery('taxonomy_term')->accessCheck(FALSE)
     ->condition('vid', 'breadcrumb')

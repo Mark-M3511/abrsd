@@ -16,25 +16,25 @@
  */
 #}
 {% if title %}
-	<h3>{{ title }}</h3>
+    <h3>{{ title }}</h3>
 {% endif %}
 {# We set the title here and not in the view via the visual editor. #}
 <h3 class="section-title section-title-latest-news mb-3">{{ 'About Us'|t }}</h3>
 
 {% for row in rows %}
-	{%
+    {%
     set row_classes = [
       default_row_class ? 'views-row',
     ]
     %}
-	{% set flex_r = loop.index0 % 2 == 0 ? ' flex-row-reverse' : '' %}
+    {% set flex_r = loop.index0 % 2 == 0 ? ' flex-row-reverse' : '' %}
     {# Get the title field from the row object #}
     {% set target_id = row.content['#row']._entity.title.value %}
-    <div{{row.attributes.addClass(row_classes).setAttribute('id', target_id|clean_class)}}>
-  	  <div class="card mb-3">
-  	    <div class="row g-0 d-flex{{flex_r}}">
-  			{{ row.content }}
-  		</div>
-  	  </div>
+    <div{{row.attributes.addClass(row_classes).setAttribute('id',target_id|clean_class)}}>
+        <div class="card mb-3 mb-xl-0">
+            <div class="row g-0 d-flex{{flex_r}}">
+                {{ row.content }}
+            </div>
+        </div>
     </div>
 {% endfor %}

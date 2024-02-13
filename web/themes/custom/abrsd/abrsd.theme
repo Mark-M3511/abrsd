@@ -11,6 +11,7 @@ use \Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
 use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
+use \Drupal\node\NodeInterface;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -432,7 +433,7 @@ function abrsd_preprocess_views_view_unformatted(array &$variables)
   if (in_array($view_id, $view_ids)) {
     // Get the current node id
     $node = \Drupal::routeMatch()->getParameter('node');
-    $nid = $node ? $node->id() : NULL;
+    $nid = ($node instanceof NodeInterface) ? $node->id() : NULL;
     // Add the current node id to the variables array
     $variables['nid'] = $nid;
   }

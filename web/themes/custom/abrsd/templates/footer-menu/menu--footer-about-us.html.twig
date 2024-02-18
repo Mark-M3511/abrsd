@@ -21,8 +21,22 @@
 {% import '@abrsd/macros/footer-menu.twig' as menus %}
 
 {# Set custom classes #}
-{# {% include "@abrsd/partials/_footer_menu_vars.html.twig" %}
+{# {% include "@abrsd/partials/_footer_menu_vars.html.twig" %} #}
 {# Set custom classes #}
+{% set classes = [
+  'd-flex',
+  'flex-column',
+  'justify-content-between',
+  'mb-3',
+] %}
+
+{# Set custom attributes #}
+{% set attributes = attributes.addClass(classes) %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+ Set custom classes #}
 {% set classes = [
   'd-flex',
   'flex-column',

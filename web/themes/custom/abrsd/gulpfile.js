@@ -33,6 +33,10 @@ const paths = {
     flickity: './node_modules/flickity/dist/flickity.pkgd.min.js',
     barrio: '../../contrib/bootstrap_barrio/js/barrio.js',
     dest: './js'
+  },
+  css: {
+    flickity: './node_modules/flickity/dist/flickity.min.css',
+    dest: './css'
   }
 }
 
@@ -74,6 +78,13 @@ function js () {
     .pipe(browserSync.stream())
 }
 
+// Copy CSS files to the css folder
+function css () {
+  return gulp.src([paths.css.flickity])
+    .pipe(gulp.dest(paths.css.dest))
+    .pipe(browserSync.stream())
+}
+
 // Static Server + watching scss/html files
 function serve () {
   browserSync.init({
@@ -83,10 +94,11 @@ function serve () {
   gulp.watch([paths.scss.watch, paths.scss.bootstrap], styles).on('change', browserSync.reload)
 }
 
-const build = gulp.series(styles, gulp.parallel(js, serve))
+const build = gulp.series(styles, gulp.parallel(js, css, serve))
 
 exports.styles = styles
 exports.js = js
+exports.css = css
 exports.serve = serve
 
 exports.default = build

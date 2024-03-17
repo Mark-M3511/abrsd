@@ -49,4 +49,10 @@ flickity:
   dependencies:
     - core/drupal
     - core/drupalSettings
+flickity-front:
+  version: VERSION
+  js:
+    js/flickity-front.js: {}
+  dependencies:
+    - abrsd/flickity
 

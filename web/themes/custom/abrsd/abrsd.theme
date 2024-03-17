@@ -169,6 +169,7 @@ function abrsd_preprocess_page(array &$variables)
   if ($is_front) {
     // Attach flickty library to the front page
     $variables['#attached']['library'][] = 'abrsd/flickity';
+    $variables['#attached']['library'][] = 'abrsd/flickity-front';
   }
 }
 

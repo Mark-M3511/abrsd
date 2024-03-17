@@ -9,6 +9,7 @@ let gulp = require('gulp'),
   postcssInlineSvg = require('postcss-inline-svg'),
   browserSync = require('browser-sync').create()
   pxtorem = require('postcss-pxtorem'),
+  uglify = require('gulp-uglify'),
 	postcssProcessors = [
 		postcssInlineSvg({
       removeFill: true,
@@ -85,6 +86,15 @@ function css () {
     .pipe(browserSync.stream())
 }
 
+function minifyJs() {
+  // Uglify non-minified javascript files
+  return gulp.src([paths.js.dest + '/*.js', '!' + paths.js.dest + '/*.min.js'])
+    .pipe(uglify())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(paths.js.dest))
+    .pipe(browserSync.stream())
+}
+
 // Static Server + watching scss/html files
 function serve () {
   browserSync.init({
@@ -94,10 +104,11 @@ function serve () {
   gulp.watch([paths.scss.watch, paths.scss.bootstrap], styles).on('change', browserSync.reload)
 }
 
-const build = gulp.series(styles, gulp.parallel(js, css, serve))
+const build = gulp.series(styles, gulp.parallel(js, minifyJs, css, serve))
 
 exports.styles = styles
 exports.js = js
+exports.minifyJs = minifyJs
 exports.css = css
 exports.serve = serve
 

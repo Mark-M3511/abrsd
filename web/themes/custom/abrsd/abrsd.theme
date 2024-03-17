@@ -158,6 +158,19 @@ function _abrsd_preprocess_block_news(array &$variables)
   }
 }
 
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Attaches the flickity library to the front page.
+ */
+function abrsd_preprocess_page(array &$variables)
+{
+   $is_front = \Drupal::service('path.matcher')->isFrontPage();
+   if ($is_front) {
+    //  attach flickty library to the front page
+    $variables['#attached']['library'][] = 'abrsd/flickity';
+   }
+}
 
 /**
  * Implements hook_preprocess_node().

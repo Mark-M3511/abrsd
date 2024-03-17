@@ -1,0 +1,17 @@
+.flickity-prev-next-button {
+    top: 49% !important;
+    width: 44px !important;
+    height: 97% !important;
+    border-radius: 0 !important;
+    transform: translateY(-50%);
+}
+
+.flickity-prev-next-button.previous
+{
+    left: 0 !important;
+}
+
+.flickity-prev-next-button.next
+{
+    right: 0 !important;
+}

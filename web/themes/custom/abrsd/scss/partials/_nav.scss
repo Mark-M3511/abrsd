@@ -183,3 +183,15 @@ a.nav-link--::before {
     }
   }
 }
+
+// USER ACCESS
+#navbar-top {
+  background-color: $white !important;
+  z-index: 1045;
+}
+
+#block-abrsd-useraccess {
+  .nav-link {
+    color: $black !important;
+  }
+}

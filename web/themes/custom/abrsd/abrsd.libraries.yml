@@ -2,8 +2,8 @@ global-styling:
   version: VERSION
   js:
     js/bootstrap.min.js: {}
-    js/barrio.js: {}
-    js/custom.js: {}
+    js/barrio.min.js: {}
+    js/custom.min.js: {}
   css:
     component:
       css/style.css: {}
@@ -52,7 +52,7 @@ flickity:
 flickity-front:
   version: VERSION
   js:
-    js/flickity-front.js: {}
+    js/flickity-front.min.js: {}
   dependencies:
     - abrsd/flickity
 

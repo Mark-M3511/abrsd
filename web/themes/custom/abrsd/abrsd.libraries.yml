@@ -39,3 +39,14 @@ email:
   css:
     theme:
       css/mail.css: { preprocess: false }
+flickity:
+  version: 3.0.0
+  css:
+    theme:
+      css/flickity.min.css: {}
+  js:
+    js/flickity.pkgd.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+

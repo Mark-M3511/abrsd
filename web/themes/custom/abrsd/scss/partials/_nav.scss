@@ -74,10 +74,26 @@ a.nav-link--::before {
 #navbar-main {
   background-color: $menu-background !important;
   height: $nav-height;
+  .navbar-brand img {
+    transition: height 1s ease; // Add transition property
+  }
   @include media-breakpoint-down(md) {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+  &.affix {
+    .navbar-brand img {
+      height: 3.8rem;
+      margin-top: 1.5rem;
+      transition: height 1s ease; // Add transition property
+    }
+    @include media-breakpoint-down(md) {
+      .navbar-brand img {
+        height: 2.5rem;
+      }
+    }
+  }
+  // Add a height transition to the navbar-brand image
 }
 
 .nav-link:hover {

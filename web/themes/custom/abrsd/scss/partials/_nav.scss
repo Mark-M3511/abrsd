@@ -74,8 +74,15 @@ a.nav-link--::before {
 #navbar-main {
   background-color: $menu-background !important;
   height: $nav-height;
+
   .navbar-brand img {
     transition: height 1s ease; // Add transition property
+  }
+
+  @include media-breakpoint-down(lg) {
+    .navbar-brand img {
+      margin-top: -0.5rem
+    }
   }
   @include media-breakpoint-down(md) {
     padding-left: 1rem !important;
@@ -86,6 +93,12 @@ a.nav-link--::before {
       height: 3.8rem;
       margin-top: 1.5rem;
       transition: height 1s ease; // Add transition property
+    }
+
+    @include media-breakpoint-down(lg) {
+      .navbar-brand img {
+        margin-top: 0.8rem
+      }
     }
     @include media-breakpoint-down(md) {
       .navbar-brand img {

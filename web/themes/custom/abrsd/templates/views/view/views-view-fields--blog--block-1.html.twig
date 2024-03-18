@@ -32,9 +32,15 @@
  */
 #}
 {# Set up variables to be used #}
+{% set nid = fields.nid.content|striptags|trim|raw %}
 
 <div class="card-body">
   <span class="badge d-inline-block mb-2">Collective</span>
-  <p class="card-text">{{ fields.body.content }}</p>
+  <p class="card-text">
+    {{ fields.body.content }}
+    <a href="{{ path('entity.node.canonical', {'node': nid}) }}">
+      <span class="fw-normal">({{'read on'|t}})</span>
+    </a>
+  </p>
 </div>
 {{ fields.field_blog_hero_image.content }}

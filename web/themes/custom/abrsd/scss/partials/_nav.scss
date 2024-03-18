@@ -194,23 +194,19 @@ a.nav-link--::before {
   .nav-link {
     color: $black !important;
   }
-  // set the left margin for the first nav-item to 6rem
-  // .nav-item:first-child {
-  //   margin-left: 6rem !important;
-  // }
-}
 
-a.nav-link--user-login::before {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"%3E%3Cpath d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/%3E%3C/svg%3E') !important;
-}
+  a.nav-link--user-login::before {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"%3E%3Cpath d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/%3E%3C/svg%3E') !important;
+  }
 
-// Add a | simbol after the a.nav-link--user-login element
-a.nav-link--user-login::after {
-  content: "|";
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
+  .nav-item {
+    margin-left: -1.9rem;
+  }
 
-// #block-abrsd-useraccess > ul > li:nth-child(1) {
-//   margin-left: 6rem !important;
-// }
+  // Add a | symbol after the a.nav-link--user-login element
+  .nav-link--user-login::after {
+    content: "|";
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}

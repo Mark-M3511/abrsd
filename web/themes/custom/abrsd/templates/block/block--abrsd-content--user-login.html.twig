@@ -38,6 +38,13 @@
     'col-md-6',
   ]
 %}
+{%
+  set classes2 = [
+    'login-img',
+    'col',
+    'col-md-6',
+  ]
+%}
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if label %}
@@ -49,4 +56,6 @@
       {{ content }}
     </div>
   {% endblock %}
+</div>
+<div{{ create_attribute({'class': classes2}) }}>
 </div>

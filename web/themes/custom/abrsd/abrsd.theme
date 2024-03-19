@@ -115,6 +115,22 @@ function abrsd_preprocess_block(array &$variables)
 }
 
 /**
+ * Implements hook_theme_suggestions_block_alter().
+ *
+ * Add a theme suggestions for blocks based on the block id.
+ */
+function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variables)
+{
+  $block = $variables['elements']['#configuration']['id'];
+  // $suggestions[] = 'block__' . $block;
+  // Add a theme suggestion for the main content block and page path is user/login
+  if ($block == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
+    // Add a theme suggestion for the main content block
+    $suggestions[] = 'block__abrsd_content__user_login';
+  }
+}
+
+/**
  * Provide filtered news items to the block template.
  */
 function _abrsd_preprocess_block_news(array &$variables)

@@ -88,6 +88,7 @@ a.nav-link--::before {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
+
   &.affix {
     .navbar-brand img {
       height: 3.8rem;
@@ -106,7 +107,11 @@ a.nav-link--::before {
       }
     }
   }
-  // Add a height transition to the navbar-brand image
+  // Add top position to navbar toggler
+  .navbar-toggler {
+    position: relative;
+    top: 0.2rem;
+  }
 }
 
 .nav-link:hover {

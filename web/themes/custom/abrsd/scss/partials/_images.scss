@@ -22,7 +22,7 @@ picture {
   }
   @include media-breakpoint-down(sm) {
     img {
-      height: 3rem;
+      height: 5rem;
     }
   }
 }

@@ -100,6 +100,19 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
 }
 
 /**
+ * Implements hook_theme_suggestions_image_alter().
+ *
+ * Add a theme suggestion for images based on the image style name.
+ */
+function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variables) {
+  // If the image being processed is the blog hero image, add a theme suggestion
+  $style_name = $variables['style_name'] ?? '';
+  if ($style_name == 'blog_hero_banner_large') {
+    $suggestions[] = 'image__blog_hero__full';
+  }
+}
+
+/**
  * Implements template_preprocess_block().
  *
  * Provide filtered news items to the block template.

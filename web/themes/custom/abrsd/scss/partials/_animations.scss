@@ -1,0 +1,28 @@
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+// Create a zoom in from left animation
+@keyframes zoomInFromLeft {
+  0% {
+    transform: translateX(-100%) scale(0.5);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+// Create a zoom in animation
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

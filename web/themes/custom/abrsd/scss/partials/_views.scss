@@ -146,6 +146,7 @@
     width: 22rem;
     margin-right: 6px;
     background: transparent;
+    border-radius: 8px;
 
     img {
       border-radius: 8px;
@@ -170,6 +171,7 @@
       color: $white; /* White text */
       width: 100%; /* Full width */
       padding: 0.9rem; /* Some padding */
+      border-radius: 0 0 8px 8px; /* Rounded corners */
     }
 
     .card-body-link,

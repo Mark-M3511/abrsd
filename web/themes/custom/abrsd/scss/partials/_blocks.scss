@@ -14,7 +14,8 @@
 
 .page--news-list,
 .page--resources-news-categories,
-.page--about-us {
+.page--about-us,
+.node--type-blog {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {
       padding-left: 4rem;

@@ -76,7 +76,8 @@ a.nav-link--::before {
   height: $nav-height;
 
   .navbar-brand img {
-    transition: height 1s ease; // Add transition property
+    animation: zoomIn 2s ease forwards; // Add animation property
+    transition: height 1s ease; // Existing transition property
   }
 
   @include media-breakpoint-down(lg) {

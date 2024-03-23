@@ -328,7 +328,7 @@ function _abrsd_get_term_from_url_query(string $term)
   // Get the query parameters
   $query = \Drupal::request()->query->all();
   // Get the topic query parameter
-  $tname = isset($query[$term]) ? $query[$term] : '';
+  $tname = $query[$term] ?? '';
   // Sanitize the taxonomy term name
   $tname = Html::escape($tname);
   // Replace dash ('-') with space (' ') in $tname

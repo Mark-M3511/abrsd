@@ -99,6 +99,8 @@
         </header>
         <div{{content_attributes.addClass('node__content','clearfix','row')}}>
             <div class="col-md-8">
+                {# Add title #}
+                <h1>{{ label }}</h1>
                 {{ content }}
             </div>
             <div class="col-md-4">{# Include the related blog summaries here #}

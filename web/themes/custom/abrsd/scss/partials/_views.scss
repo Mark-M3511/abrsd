@@ -145,20 +145,37 @@
   .carousel-cell {
     width: 22rem;
     margin-right: 6px;
+    background: transparent;
 
     img {
-      border-bottom-right-radius: 6px;
-      border-bottom-left-radius: 6px;
+      border-radius: 8px;
       width: 100%;
       height: auto;
     }
 
-    .card-body {
-      padding: 8px;
+    .card-text {
+      font-size: 0.8rem;
+      font-weight: normal;
+      margin-bottom: 0.2rem;
     }
 
-    .card-text {
-      font-weight: 700;
+    .card-container {
+      position: relative;
+    }
+
+    .card-body {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3); /* Black background with 30% opacity */
+      color: $white; /* White text */
+      width: 100%; /* Full width */
+      padding: 0.9rem; /* Some padding */
+    }
+
+    .card-body-link,
+    .card-body-link:hover,
+    .card-body-link:visited {
+      color: $white !important;
     }
   }
 }

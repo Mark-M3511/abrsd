@@ -202,6 +202,17 @@ function abrsd_preprocess_page(array &$variables)
 }
 
 /**
+ * Implements hook_preprocess_menu().
+ *
+ * Passes the is_logged_in variable to the menu template.
+ */
+function abrsd_preprocess_menu(array &$variables)
+{
+  // Check if the user is logged in and pass the variable to the menu template
+  $variables['is_logged_in'] = \Drupal::currentUser()->isAuthenticated();
+}
+
+/**
  * Implements hook_preprocess_node().
  *
  * Prepares variables for node templates.

@@ -32,6 +32,7 @@
         "drupal/field_group": "^3.4",
         "drupal/honeypot": "^2.1",
         "drupal/ludwig": "^2.0",
+        "drupal/media_responsive_thumbnail": "^1.5",
         "drupal/metatag": "^2.0",
         "drupal/pathauto": "^1.11",
         "drupal/redirect": "^1.9",

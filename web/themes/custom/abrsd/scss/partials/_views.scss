@@ -142,7 +142,8 @@
 }
 
 .blog-carousel {
-  .carousel-cell {
+  .carousel-cell,
+  .sidebar-roll {
     width: 22rem;
     margin-right: 6px;
     background: transparent;
@@ -167,7 +168,7 @@
     .card-body {
       position: absolute;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.3); /* Black background with 30% opacity */
+      background: rgba(0, 0, 0, 0.5); /* Black background with 30% opacity */
       color: $white; /* White text */
       width: 100%; /* Full width */
       padding: 0.9rem; /* Some padding */

@@ -481,6 +481,7 @@ function abrsd_preprocess_views_view_unformatted(array &$variables)
   $view_ids = [
     'working_group_list',
     'workshop',
+    'blog',
   ];
   // Check if the current view_id is in an array of view ids
   if (in_array($view_id, $view_ids)) {

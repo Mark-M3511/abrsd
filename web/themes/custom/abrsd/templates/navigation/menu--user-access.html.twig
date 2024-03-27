@@ -29,11 +29,13 @@
 {% macro menu_links(items, attributes, menu_level, logged_in) %}
   {% import _self as menus %}
   {% if items %}
+
     {% if menu_level == 0 %}
       <ul{{ attributes.addClass('nav')|without('id') }}>
     {% else %}
       <ul class="dropdown-menu">
     {% endif %}
+
     {% for item in items %}
       {%
         set classes = [
@@ -48,20 +50,9 @@
       {% set no_auth = [
         '/user/login',
         '/user/register',
-      ] %}
-      {# Initialize render_item variable #}
-      {# {% set render_item = menu_level > 0 %}
-      {% if not render_item %}
-        {% if logged_in %}
-          {% set render_item = item.url.toString() not in no_auth %}
-        {% else %}
-          {% set render_item = item.url.toString() in no_auth %}
-        {% endif %}
-      {% endif %} #}
-      {# Render menu item if render is TRUE #}
-      {% set render_item = TRUE %}
-      {% if render_item %}
-        <li{{ item.attributes.addClass(classes) }}>
+      ]
+      %}
+      <li{{ item.attributes.addClass(classes) }}>
           {%
             set link_classes = [
               not menu_level ? 'nav-link',
@@ -77,8 +68,7 @@
           {% else %}
             {{ link(item.title, item.url, {'class': link_classes}) }}
           {% endif %}
-        </li>
-      {% endif %}
+       </li>
     {% endfor %}
     </ul>
   {% endif %}

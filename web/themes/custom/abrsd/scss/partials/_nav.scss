@@ -222,9 +222,13 @@ a.nav-link--::before {
 // USER ACCESS
 #navbar-top {
   background-color: $white !important;
-  border-top: 3px solid $accent-shade;
-  z-index: 1045;
+
   height: 1.5rem;
+  z-index: 1037;
+  // On mobile devices, the user access menu background is accent-shade
+  @include media-breakpoint-down(md) {
+    background-color: $accent-shade !important;
+  }
 }
 
 #block-abrsd-useraccess {

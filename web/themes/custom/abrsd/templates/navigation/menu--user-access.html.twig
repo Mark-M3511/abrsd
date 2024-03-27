@@ -62,6 +62,10 @@
               'nav-link-' ~ item.url.toString() | clean_class,
             ]
           %}
+          {# Hide link if in no_auth array and user is logged in #}
+          {% if logged_in and item.url.toString() in no_auth %}
+            {% set link_classes = link_classes | merge(['d-none']) %}
+          {% endif %}
           {% if item.below %}
             {{ link(item.title, item.url, {'class': link_classes, 'data-bs-toggle': 'dropdown', 'aria-expanded': 'false', 'aria-haspopup': 'true' }) }}
             {{ menus.menu_links(item.below, attributes, menu_level + 1) }}

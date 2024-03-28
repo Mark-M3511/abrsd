@@ -144,8 +144,6 @@
 .blog-carousel {
   .carousel-cell,
   .sidebar-roll {
-    width: 22rem;
-    margin-right: 6px;
     background: transparent;
     border-radius: 8px;
 
@@ -180,5 +178,10 @@
     .card-body-link:visited {
       color: $white !important;
     }
+  }
+  // Carousel cell specific styles
+  .carousel-cell {
+    width: 22rem;
+    margin-right: 6px;
   }
 }

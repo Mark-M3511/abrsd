@@ -158,6 +158,22 @@ function abrsd_preprocess_links(array &$variables)
 }
 
 /**
+ * Implements template_preprocess_comment().
+ *
+ * Add a variable to the block template if the block is the 'block_content' block.
+ */
+function abrsd_preprocess_comment(array &$variables)
+{
+  // Get creted date of the comment
+  $created = $variables['comment']->getCreatedTime();
+  // Format as time ago since the comment was created with granularity of 1 day
+  $variables['created_ago'] = \Drupal::service('date.formatter')->formatTimeDiffSince(
+    $created,
+    ['granularity' => 1]
+  );
+}
+
+/**
  * Provide filtered news items to the block template.
  */
 function _abrsd_preprocess_block_news(array &$variables)

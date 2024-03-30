@@ -39,6 +39,8 @@
 #}
 {{ attach_library('bootstrap_barrio/links') }}
 
+{% set flex_class = is_blog ? ['d-flex', 'justify-content-between'] : [] %}
+
 {% if links %}
   <div class="inline__links">
     {%- if heading -%}
@@ -48,9 +50,9 @@
         <h2{{ heading.attributes }}>{{ heading.text }}</h2>
       {%- endif -%}
     {%- endif -%}
-    <nav{{ attributes.addClass(['nav', 'links-inline']) }}>
+    <nav{{ attributes.addClass(['nav', 'links-inline']|merge(flex_class)) }}>
       {% if is_blog %}
-        <span class="blog-comment-heading blog-comment-cta">{{ 'Join the conversation'|t }}</span>
+        <span class="blog-comment-heading blog-comment-cta p-2 h5">{{ 'Join the conversation'|t }}</span>
       {% endif %}
       {%- for key, item in links -%}
         <span{{ item.attributes.addClass(key|clean_class, 'nav-link') }}>

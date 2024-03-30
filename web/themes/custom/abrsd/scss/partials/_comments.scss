@@ -17,8 +17,12 @@
   .comment__content {
     border: none;
     &:before {
-      content: none;
-      border: none;
+      content: none !important;
+      border: none !important;
+    }
+    &:after {
+      content: none !important;
+      border: none !important;
     }
   }
   p {
@@ -27,6 +31,7 @@
 }
 
 .comment-forbidden {
+  color: $black;
   a {
     @include link-theme-1();
   }

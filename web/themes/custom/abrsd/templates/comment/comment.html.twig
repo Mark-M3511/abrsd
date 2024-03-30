@@ -77,8 +77,6 @@
   ]
 %}
 <article role="article"{{ attributes.addClass(classes)|without('role') }}>
-  {#Add heading #}
-  <h2 class="comment__heading">{{'Comments'|t}}</h2>
   {# Add the "new" indicator to the comment. #}
   {# {%
     set new_indicator_timestamp = created|date('U')
@@ -114,9 +112,9 @@
         {{ title_suffix }}
       {% endif %}
       {{ content|without('links') }}
-      {% if content.links %}
+      {# {% if content.links %}
         <nav>{{ content.links }}</nav>
-      {% endif %}
+      {% endif %} #}
     </div>
     <div class="card-body">
       <span class="comment__time">{{ created }}</span>

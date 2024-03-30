@@ -15,3 +15,13 @@
     margin-top: $mt !important;
   }
 }
+
+@mixin link-theme-1 {
+  color: $black;
+  font-weight: $font-weight-bold;
+  border-bottom: 2px solid $black;
+  border-bottom-color: $accent-shade;
+  &:hover {
+    border-bottom: none;
+  }
+}

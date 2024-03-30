@@ -24,3 +24,9 @@
     font-size: 0.8rem;
   }
 }
+
+.comment-forbidden {
+  a {
+    @include link-theme-1();
+  }
+}

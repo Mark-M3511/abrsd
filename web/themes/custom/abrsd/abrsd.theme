@@ -113,6 +113,21 @@ function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variabl
 }
 
 /**
+ * Implements hook_theme_suggestions_block_alter().
+ *
+ * Add a theme suggestions for blocks based on the block id.
+ */
+function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variables)
+{
+  $block = $variables['elements']['#configuration']['id'];
+  // Add a theme suggestion for the main content block if page path is user/login
+  if ($block == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
+    // Add a theme suggestion for the main content block
+    $suggestions[] = 'block__abrsd_content__user_login';
+  }
+}
+
+/**
  * Implements template_preprocess_block().
  *
  * Provide filtered news items to the block template.
@@ -128,18 +143,18 @@ function abrsd_preprocess_block(array &$variables)
 }
 
 /**
- * Implements hook_theme_suggestions_block_alter().
+ * Implements template_preprocess_links().
  *
- * Add a theme suggestions for blocks based on the block id.
+ * Add a variable to the links array if the current node is a blog node.
  */
-function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variables)
+function abrsd_preprocess_links(array &$variables)
 {
-  $block = $variables['elements']['#configuration']['id'];
-  // Add a theme suggestion for the main content block if page path is user/login
-  if ($block == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
-    // Add a theme suggestion for the main content block
-    $suggestions[] = 'block__abrsd_content__user_login';
-  }
+  // Get the links array
+  // $links = $variables['links']['comment-forbidden'] ?? [];
+  // Is the current node a blog node?
+  $is_blog = \Drupal::routeMatch()->getParameter('node')->getType() == 'blog';
+  // Add the is_blog variable to the links array
+  $variables['is_blog'] = $is_blog;
 }
 
 /**

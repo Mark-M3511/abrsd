@@ -4,6 +4,11 @@
   padding: 0.425rem 1.9rem;
   display: inline-block;
   font-size: 4rem;
+  // At lg down, reduce the font size
+  @include media-breakpoint-down(lg) {
+    font-size: 1.7rem;
+    padding: 0.425rem 1.3rem;
+  }
 }
 
 .field--name-field-blog-comment {

@@ -37,6 +37,7 @@
 
 .comment-forbidden {
   color: $black;
+  padding-left: 0;
   &:hover {
     color: $comment-time-text !important;
   }

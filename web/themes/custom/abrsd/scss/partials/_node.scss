@@ -10,3 +10,7 @@
     margin-top: calc(($spacer / 2) * -1); // Half of the spacer above the caption
     margin-bottom: calc($spacer / 2); // Space below the caption
 }
+
+.blog-comment-heading {
+    padding-left: 0 !important;
+}

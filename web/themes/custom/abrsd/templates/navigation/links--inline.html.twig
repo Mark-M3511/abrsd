@@ -29,6 +29,9 @@
  *   See http://juicystudio.com/article/screen-readers-display-none.php and
  *   http://www.w3.org/TR/WCAG-TECHS/H42.html for more information.
  *
+ * - Custom variables:
+ *  - is_blog: (optional) A boolean indicating if the links are for a blog.
+ *
  * @see template_preprocess_links()
  *
  * @ingroup themeable
@@ -46,6 +49,9 @@
       {%- endif -%}
     {%- endif -%}
     <nav{{ attributes.addClass(['nav', 'links-inline']) }}>
+      {% if is_blog %}
+        <span class="blog-comment-heading blog-comment-cta">{{ 'Join the conversation'|t }}</span>
+      {% endif %}
       {%- for key, item in links -%}
         <span{{ item.attributes.addClass(key|clean_class, 'nav-link') }}>
           {%- if item.link -%}

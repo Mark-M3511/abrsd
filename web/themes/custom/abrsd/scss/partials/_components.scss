@@ -178,13 +178,7 @@
 .field--name-body,
 .breadcrumb-item {
   a {
-    color: $black;
-    font-weight: $font-weight-bold;
-    border-bottom: 2px solid $black;
-    border-bottom-color: $accent-shade;
-    &:hover {
-      border-bottom: none;
-    }
+    @include link-theme-1();
   }
 }
 

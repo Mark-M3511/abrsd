@@ -32,6 +32,9 @@
 
 .comment-forbidden {
   color: $black;
+  &:hover {
+    color: $comment-time-text !important;
+  }
   a {
     @include link-theme-1();
   }

@@ -38,13 +38,17 @@
   {{ fields.field_blog_hero_image.content }}
   <div class="card-body">
     {# <span class="badge d-inline-block mb-2">Collective</span> #}
-    <a href="{{ path('entity.node.canonical', {'node': nid}) }}" class="card-body-link">
-      <h3 class="card-title h6">
+    <a href="{{ path('entity.node.canonical', {'node': nid}) }}" class="card-body-link blog-article">
+      {# <h3 class="card-title h6">
         {{ fields.title.content }}
-      </h3>
+      </h3> #}
       <p class="card-text">
         {{ fields.body.content }}
       </p>
+      <div class="card-footer blog-card-footer d-flex justify-content-between p-0">
+        <small class="text-white-50">{{ fields.field_published_on.content }}</small>
+        <small class="text-white-50">{{ fields.comment_count.content }} {{' ' ~ 'comments'|t }}</small>
+      </div>
     </a>
   </div>
 </div>

@@ -1,0 +1,25 @@
+.user-initials {
+  background-color: rgba(10, 10, 10, 0.9);
+  color: $white;
+  padding: 0.425rem 1.9rem;
+  display: inline-block;
+  font-size: 4rem;
+}
+
+.field--name-field-blog-comment {
+  article {
+    border-top: 2px solid rgb(222, 218, 218);
+  }
+  .comment__meta {
+    padding: 1.875rem 0.175rem 0 0;
+  }
+  .comment__content {
+    border: none;
+    &:before {
+      content: none;
+    }
+  }
+  p {
+    font-size: 0.8rem;
+  }
+}

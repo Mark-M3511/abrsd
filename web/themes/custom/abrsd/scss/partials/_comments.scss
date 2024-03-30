@@ -31,3 +31,16 @@
     @include link-theme-1();
   }
 }
+
+.comment-time-permalink {
+  margin-top: -3rem;
+}
+
+.comment-content-links {
+  .card-title {
+    margin-top: 0.04rem !important;
+  }
+  .comment__author {
+    font-size: 0.9rem;
+  }
+}

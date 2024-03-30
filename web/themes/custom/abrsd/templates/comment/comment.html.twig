@@ -61,6 +61,9 @@
  * - comment: Full comment object.
  * - entity: Entity the comments are attached to.
  *
+ * Custom variables:
+ * - created_ago: Relative time since the comment was created.
+ *
  * @see template_preprocess_comment()
  */
 #}
@@ -105,7 +108,8 @@
   </div>
 
   <div{{ content_attributes.addClass(['comment__content', 'col-sm-9', 'card']) }}>
-    <div class="card-body">
+    <div class="card-body comment-content-links">
+      <span class="comment__author">{{ author }} - </span> <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
       {% if title %}
         {{ title_prefix }}
         <h3{{ title_attributes.addClass('card-title') }}>{{ title }}</h3>
@@ -116,7 +120,7 @@
         <nav>{{ content.links }}</nav>
       {% endif %} #}
     </div>
-    <div class="card-body">
+    <div class="card-body comment-time-permalink">
       <span class="comment__time">{{ created }}</span>
       <span class="comment__permalink">{{ permalink }}</span>
     </div>

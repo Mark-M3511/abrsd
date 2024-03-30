@@ -7,8 +7,9 @@
 }
 
 .field--name-field-blog-comment {
-  article {
-    border-top: 2px solid rgb(222, 218, 218);
+  border-top: 2px solid rgb(222, 218, 218);
+  .comment {
+    margin-bottom: 0;
   }
   .comment__meta {
     padding: 1.875rem 0.175rem 0 0;

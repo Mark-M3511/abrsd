@@ -55,4 +55,11 @@ flickity-front:
     js/flickity-front.min.js: {}
   dependencies:
     - abrsd/flickity
+sticky-title:
+  version: VERSION
+  js:
+    js/sticky-title.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
 

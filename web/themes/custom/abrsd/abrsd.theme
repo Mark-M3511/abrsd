@@ -507,7 +507,7 @@ function _abrsd_preprocess_node_resource(array &$variables)
 function abrsd_preprocess_views_view_unformatted(array &$variables)
 {
   // Get the id of the current view
-  $view_id = !empty($variables['view']) ? $variables['view']->id() : NULL;
+  $view_id = $variables['view']?->id();
   // Set the view ids to add the current node id to
   $view_ids = [
     'working_group_list',
@@ -534,7 +534,7 @@ function abrsd_preprocess_views_view_unformatted(array &$variables)
 function abrsd_preprocess_views_view_fields(array &$variables)
 {
   // Get the id of the current view
-  $view_id = !empty($variables['view']) ? $variables['view']->id() : NULL;
+  $view_id = $variables['view']?->id();
   // Set the view ids to add the current node id to
   $view_ids = [
     'news_topics',

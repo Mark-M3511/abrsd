@@ -81,7 +81,10 @@ set nav_classes = [
 	'px-5',
 ]
 %}
-
+{% set sticky_title_classes = [
+	'sticky-title',
+	'd-none',
+] %}
 <div id="page-wrapper">
 	<div id="page" class="{{ page_path }}">
 		<header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
@@ -146,7 +149,7 @@ set nav_classes = [
 						</div>
 					{% endif %}
 				</nav>
-				<div {{navbar_attributes.addClass(nav_classes)|without('id')}}>
+				<div {{navbar_attributes.addClass(nav_classes|merge(sticky_title_classes))|without('id')}}>
 					{# Get node title #}
 					{% set label = node.label %}
 					{% if label is empty %}

@@ -15,9 +15,7 @@
   padding-left: 0 !important;
 }
 
-.header-sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
+.sticky-title {
+  top: 100px !important; /* Replace with the height of your navigation element */
+  z-index: 100 !important;
 }

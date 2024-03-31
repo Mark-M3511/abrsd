@@ -1,0 +1,9 @@
+name: 'ABRSD User Registration'
+type: module
+description: 'Custom module for user registration functionality.'
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+  - user:user
+  - field:field
+  - webform:webform

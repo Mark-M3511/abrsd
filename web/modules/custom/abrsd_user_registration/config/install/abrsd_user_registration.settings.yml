@@ -1,0 +1,5 @@
+message: ABRSD User Registration settings
+langcode: en
+roles:
+  - authenticated
+  - comment_contributor

@@ -92,7 +92,7 @@
     #}
     <span class="hidden text-danger" data-comment-timestamp="{{ new_indicator_timestamp }}"></span>
     {{ user_picture }}
-    {% set initial = author|striptags|trim|raw|slice(0,1)|upper %}
+    {% set initial = author|striptags|trim|raw|upper[0:1] %}
     {# <small class="comment__author">{{ initial }}</small> #}
     <div class="user-initials">
       {{ initial }}

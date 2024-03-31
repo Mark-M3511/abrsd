@@ -58,7 +58,7 @@ flickity-front:
 sticky-title:
   version: VERSION
   js:
-    js/sticky-title.min.js: {}
+    js/sticky-title.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

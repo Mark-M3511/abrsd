@@ -14,17 +14,29 @@
   behaviors.sticky_title = {
     attach: function (context, settings) {
 
-      // On window scroll, add sticky class to title if it is not in view.
-      const title = document.querySelector('.header-sticky');
-      window.addEventListener('scroll', function () {
-        // if (window.scrollY > 1) {
-        //   title?.classList.add('sticky-top');
-        //   title?.classList.remove('d-none');
-        // } else {
-        //   title?.classList.remove('sticky-top');
-        //   title?.classList.add('d-none');
-        // }
-      });
+      // Get the element
+      const title = document.querySelector('.field--name-title');
+      const stickyTitle = document.querySelector('.sticky-title');
+
+      // Create an intersection observer
+      const observer = new IntersectionObserver(function (entries) {
+        // If the element is intersecting (visible in the viewport)
+        if (entries[0].isIntersecting === true) {
+          console.log('Element is in the viewport');
+          if (!stickyTitle.classList.contains('d-none')) {
+            stickyTitle.classList.add('d-none');
+          }
+        }
+        else {
+          console.log('Element has left the viewport');
+          if (stickyTitle.classList.contains('d-none')) {
+            stickyTitle.classList.remove('d-none');
+          }
+        }
+      }, { threshold: [0] });
+
+      // Start observing the element
+      observer.observe(title);
     }
   };
 

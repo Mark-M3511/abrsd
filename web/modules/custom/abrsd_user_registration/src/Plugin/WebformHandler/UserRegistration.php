@@ -71,8 +71,11 @@ class UserRegistration extends WebformHandlerBase
     $user->addRole($default_role);
     // Optional data
     $user->set('init', $email)
+      ->set('status', 0)
       ->set('preferred_langcode', $language_id)
       ->set('preferred_admin_langcode', $language_id);
+    // Set values for custom fields
+    $user->set('field_first_name', $values['first_name']);
     // finally save the new entity
     if ($user->enforceIsNew()->save()) {
       $result = $user;

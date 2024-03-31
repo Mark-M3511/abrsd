@@ -1,16 +1,23 @@
 .node__content {
-    font-size: $font-size-base;
-    margin-top: calc($spacer / 2);
+  font-size: $font-size-base;
+  margin-top: calc($spacer / 2);
 }
 
 // Image caption text
 .node__content figcaption {
-    font-size: 0.9em; // Smaller font size
-    color: #666; // Dark gray color
-    margin-top: calc(($spacer / 2) * -1); // Half of the spacer above the caption
-    margin-bottom: calc($spacer / 2); // Space below the caption
+  font-size: 0.9em; // Smaller font size
+  color: #666; // Dark gray color
+  margin-top: calc(($spacer / 2) * -1); // Half of the spacer above the caption
+  margin-bottom: calc($spacer / 2); // Space below the caption
 }
 
 .blog-comment-heading {
-    padding-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.header-sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }

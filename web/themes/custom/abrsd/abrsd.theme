@@ -152,7 +152,7 @@ function abrsd_preprocess_links(array &$variables)
   // Get the links array
   // $links = $variables['links']['comment-forbidden'] ?? [];
   // Is the current node a blog node?
-  $is_blog = \Drupal::routeMatch()->getParameter('node')->getType() == 'blog';
+  $is_blog = \Drupal::routeMatch()->getParameter('node')?->getType() === 'blog';
   // Add the is_blog variable to the links array
   $variables['is_blog'] = $is_blog;
 }

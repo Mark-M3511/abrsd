@@ -2,3 +2,5 @@ services:
   abrsd_user_registration.user_registration:
     class: Drupal\abrsd_user_registrat\Plugin\WebformHandler\UserRegistration
     arguments: ['@language_manager', '@config.factory']
+    tags:
+      - { name: webform_handler, id: abrsd_user_registration }

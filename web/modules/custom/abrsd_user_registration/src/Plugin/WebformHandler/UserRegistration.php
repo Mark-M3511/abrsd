@@ -9,6 +9,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Form submission handler.
@@ -43,39 +44,27 @@ final class UserRegistration extends WebformHandlerBase
    */
   protected $passwordGenerator;
 
+  /**
+   * @var \Psr\Log\LoggerInterface
+   *   The logger service.
+   */
+  protected $logger;
+
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     LanguageManagerInterface $language_manager,
     ConfigFactoryInterface $config_factory,
-    PasswordGeneratorInterface $password_generator
+    PasswordGeneratorInterface $password_generator,
+    LoggerInterface $logger
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->languageManager = $language_manager;
     $this->configFactory = $config_factory;
     $this->passwordGenerator = $password_generator;
+    $this->logger = $logger;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE)
-  {
-    // Get the values from the submission
-    $values = $webform_submission->getData();
-    if (!$update) {
-      // Search for user by email address
-      $email = $values['confirm_email_address'];
-      $users = \Drupal::entityTypeManager()
-        ->getStorage('user')
-        ->loadByProperties(['mail' => $email]);
-      if (empty($users)) {
-        $this->createUser($values);
-      }
-    }
-  }
-
 
   /**
    * Creates a new instance of the UserRegistration class.
@@ -92,19 +81,51 @@ final class UserRegistration extends WebformHandlerBase
    * @return static
    *   A new instance of the UserRegistration class.
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition)
-  {
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition
+  ) {
     $language_manager = $container->get('language_manager');
     $config_factory = $container->get('config.factory');
     $password_generator = $container->get('password_generator');
+    $logger = $container->get('logger.factory')->get('abrsd_user_registration');
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
       $language_manager,
       $config_factory,
-      $password_generator
+      $password_generator,
+      $logger
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE)
+  {
+    // Get the values from the submission
+    $values = $webform_submission->getData();
+    if (!$update) {
+      try {
+        // Search for the submitter's email address in the Drupal users table (mail field)
+        $email = $values['confirm_email_address'];
+        $users = \Drupal::entityTypeManager()
+          ->getStorage('user')
+          ->loadByProperties(['mail' => $email]);
+        // If no user is found, create a new user
+        if (empty($users)) {
+          $this->createUser($values);
+        }
+      } catch (\Exception $e) {
+        // Get the module name from the plugin definition
+        $module = $this->getPluginDefinition()['module'];
+        \Drupal::logger($module)->error($e->getMessage());
+      }
+    }
   }
 
   /**

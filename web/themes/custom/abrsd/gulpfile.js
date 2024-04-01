@@ -8,17 +8,17 @@ let gulp = require('gulp'),
   autoprefixer = require('autoprefixer'),
   postcssInlineSvg = require('postcss-inline-svg'),
   browserSync = require('browser-sync').create()
-  pxtorem = require('postcss-pxtorem'),
+pxtorem = require('postcss-pxtorem'),
   uglify = require('gulp-uglify'),
-	postcssProcessors = [
-		postcssInlineSvg({
+  postcssProcessors = [
+    postcssInlineSvg({
       removeFill: true,
       paths: ['./node_modules/bootstrap-icons/icons']
     }),
-		pxtorem({
-			propList: ['font', 'font-size', 'line-height', 'letter-spacing', '*margin*', '*padding*'],
-			mediaQuery: true
-		})
+    pxtorem({
+      propList: ['font', 'font-size', 'line-height', 'letter-spacing', '*margin*', '*padding*'],
+      mediaQuery: true
+    })
   ];
 
 const paths = {
@@ -33,7 +33,8 @@ const paths = {
     popper: './node_modules/@popperjs/core/dist/umd/popper.min.js',
     flickity: './node_modules/flickity/dist/flickity.pkgd.min.js',
     barrio: '../../contrib/bootstrap_barrio/js/barrio.js',
-    dest: './js'
+    dest: './js',
+    watch: './js/**/*.js' // Add the watch pattern for JS files
   },
   css: {
     flickity: './node_modules/flickity/dist/flickity.min.css',
@@ -42,7 +43,7 @@ const paths = {
 }
 
 // Compile sass into CSS & auto-inject into browsers
-function styles () {
+function styles() {
   return gulp.src([paths.scss.bootstrap, paths.scss.src])
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -73,14 +74,14 @@ function styles () {
 }
 
 // Move the javascript files into our js folder
-function js () {
+function js() {
   return gulp.src([paths.js.bootstrap, paths.js.popper, paths.js.flickity, paths.js.barrio])
     .pipe(gulp.dest(paths.js.dest))
     .pipe(browserSync.stream())
 }
 
 // Copy CSS files to the css folder
-function css () {
+function css() {
   return gulp.src([paths.css.flickity])
     .pipe(gulp.dest(paths.css.dest))
     .pipe(browserSync.stream())
@@ -96,12 +97,15 @@ function minifyJs() {
 }
 
 // Static Server + watching scss/html files
-function serve () {
+function serve() {
   browserSync.init({
     proxy: 'http://localhost:8088',
   })
 
-  gulp.watch([paths.scss.watch, paths.scss.bootstrap], styles).on('change', browserSync.reload)
+  gulp.watch([paths.scss.watch,
+  paths.scss.bootstrap,
+  paths.js.watch
+  ], gulp.series(styles, minifyJs)).on('change', browserSync.reload)
 }
 
 const build = gulp.series(styles, gulp.parallel(js, minifyJs, css, serve))

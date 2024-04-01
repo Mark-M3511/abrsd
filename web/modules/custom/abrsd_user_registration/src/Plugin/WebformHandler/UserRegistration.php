@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\abrsd_user_registrat\Plugin\WebformHandler;
+namespace Drupal\abrsd_user_registration\Plugin\WebformHandler;
 
 use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\WebformSubmissionInterface;

@@ -8,6 +8,7 @@ use Drupal\user\Entity\User;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Password\PasswordGeneratorInterface;
 
 /**
  * Form submission handler.
@@ -36,11 +37,24 @@ final class UserRegistration extends WebformHandlerBase
    */
   protected $configFactory;
 
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory)
-  {
+  /**
+   * @var PasswordGeneratorInterface $passwordGenerator
+   *   The password generator service used for generating passwords.
+   */
+  protected $passwordGenerator;
+
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    LanguageManagerInterface $language_manager,
+    ConfigFactoryInterface $config_factory,
+    PasswordGeneratorInterface $password_generator
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->languageManager = $language_manager;
     $this->configFactory = $config_factory;
+    $this->passwordGenerator = $password_generator;
   }
 
   /**
@@ -57,7 +71,7 @@ final class UserRegistration extends WebformHandlerBase
         ->getStorage('user')
         ->loadByProperties(['mail' => $email]);
       if (empty($users)) {
-        self::createUser($values);
+        $this->createUser($values);
       }
     }
   }
@@ -82,12 +96,14 @@ final class UserRegistration extends WebformHandlerBase
   {
     $language_manager = $container->get('language_manager');
     $config_factory = $container->get('config.factory');
+    $password_generator = $container->get('password_generator');
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
       $language_manager,
-      $config_factory
+      $config_factory,
+      $password_generator
     );
   }
 
@@ -97,14 +113,16 @@ final class UserRegistration extends WebformHandlerBase
    * @param array $values
    *   The values from the webform submission.
    */
-  private static function createUser(array $values)
+  private function createUser(array $values)
   {
     // Create a new user entity
     $result = null;
 
-    $language_id = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    // $language_id = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    $language_id = $this->languageManager->getCurrentLanguage()->getId();
     // Get a temporary password
-    $password = user_password(30);
+    // $password_generator = \Drupal::service('password_generator');
+    $password = $this->passwordGenerator->generate(30);
     $email = $values['confirm_email_address'];
 
     $required_values = [
@@ -117,13 +135,14 @@ final class UserRegistration extends WebformHandlerBase
     $other_values = [
       'field_display_name' => $values['user_name'],
       'field_organization' => $values['organization'],
-      'field_user_name' => $values['user_name'],
       'field_interests' => $values['interests'],
     ];
 
     $user = User::create($required_values);
 
     $default_role = 'comment_contributor';
+    // Get default role from configuration
+    $config = $this->configFactory->get('abrsd_user_registration.settings');
 
     $user->addRole($default_role);
     // Optional data

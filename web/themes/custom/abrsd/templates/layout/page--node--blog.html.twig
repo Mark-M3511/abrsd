@@ -155,8 +155,7 @@ set nav_classes = [
 					{% if label is empty %}
 						{% set label = 'Page Title' %}
 					{% endif %}
-					{# Render the page title #}
-					{{ label|render|striptags }}
+					{{ label }}
 				</div>
 			{% endblock %}
 		</header>

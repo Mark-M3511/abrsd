@@ -143,8 +143,9 @@ final class UserRegistration extends WebformHandlerBase
     $default_role = 'comment_contributor';
     // Get default role from configuration
     $config = $this->configFactory->get('abrsd_user_registration.settings');
+    $custom_role = $config->get('roles')[1] ?? $default_role;
 
-    $user->addRole($default_role);
+    $user->addRole($custom_role);
     // Optional data
     $user->set('init', $email)
       ->set('status', 0)

@@ -17,6 +17,8 @@
       // Get the element
       const title = document.querySelector('.field--name-title');
       const stickyTitle = document.querySelector('.sticky-title');
+      const navbarMain = document.querySelector('#navbar-main');
+      const navBarTop = document.querySelector('#navbar-top');
 
       // Create an intersection observer
       const observer = new IntersectionObserver(function (entries) {
@@ -31,6 +33,9 @@
           console.log('Element has left the viewport');
           if (stickyTitle.classList.contains('d-none')) {
             stickyTitle.classList.remove('d-none');
+            let top = navbarMain?.clientHeight;
+            // Set the top position of the sticky title with !important
+            stickyTitle.style.top = `${top}px`;
           }
         }
       }, { threshold: [0] });

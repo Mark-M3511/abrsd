@@ -4,12 +4,12 @@ namespace Drupal\abrsd_user_registration\Plugin\WebformHandler;
 
 use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\WebformSubmissionInterface;
-use Drupal\user\Entity\User;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
 use Psr\Log\LoggerInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Form submission handler.
@@ -113,12 +113,17 @@ final class UserRegistration extends WebformHandlerBase
       try {
         // Search for the submitter's email address in the Drupal users table (mail field)
         $email = $values['confirm_email_address'];
-        $users = \Drupal::entityTypeManager()
+        $user = \Drupal::entityTypeManager()
           ->getStorage('user')
           ->loadByProperties(['mail' => $email]);
         // If no user is found, create a new user
-        if (empty($users)) {
-          $this->createUser($values);
+        if (empty($user)) {
+          $user = $this->createUser($values);
+          if ($user) {
+            $this->logger->info('User created: ' . $user->id());
+            // Send an email to the user of the type 'user_register_pending_approval'
+            _user_mail_notify('register_pending_approval', $user);
+          }
         }
       } catch (\Exception $e) {
         $this->logger->error($e->getMessage());
@@ -173,3 +178,4 @@ final class UserRegistration extends WebformHandlerBase
 
     return $result;
   }
+}

@@ -1,10 +1,10 @@
 # User Registration Module
 
-This module provides a custom webform handler that is run when a user submits a custom User Registration webform. This custom webform replaces the default Drupal user registration webform. See the [Webform contrib module](https://drupal.org/projects/webform) for more information on creating custom webforms for Drupal sites.
+This module provides a custom webform handler that is run when a user submits a custom User Registration webform. This custom webform replaces the default Drupal user registration webform. See the [Webform contrib module](https://drupal.org/project/webform) for more information on creating custom webforms for Drupal sites.
 
 ## Overview
 
-- The code implements a Webform handler that creates a new user entity when a Webform submission is saved. The handler is defined in the _annotation of the class_, and the _postSave_ method is called when a Webform submission is saved. The _createUser_ method creates a new user entity using the values from the Webform submission.
+- The code implements a **Webform handler** that creates a new user entity when a Webform submission is saved. The handler is defined in the _annotation of the class_, and the _postSave_ method is called when a Webform submission is saved. The _createUser_ method creates a new user entity using the values from the Webform submission.
 - The UserRegistration class extends WebformHandlerBase and implements the postSave method. This method is called after the webform submission is saved. The postSave method receives the WebformSubmissionInterface object and a boolean value indicating whether the submission is an update.
 - The postSave method gets the values from the submission and calls the createUser method to create a new user. The createUser method creates a new user entity, sets the username, email, and password, and saves the user.
 - The UserRegistrationHandler class is annotated with the @WebformHandler annotation. This annotation provides metadata about the handler, such as the ID, label, category, description, cardinality, and results.

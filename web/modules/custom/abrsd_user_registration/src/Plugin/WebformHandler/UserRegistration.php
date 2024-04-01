@@ -121,9 +121,7 @@ final class UserRegistration extends WebformHandlerBase
           $this->createUser($values);
         }
       } catch (\Exception $e) {
-        // Get the module name from the plugin definition
-        $module = $this->getPluginDefinition()['module'];
-        \Drupal::logger($module)->error($e->getMessage());
+        $this->logger->error($e->getMessage());
       }
     }
   }
@@ -136,51 +134,42 @@ final class UserRegistration extends WebformHandlerBase
    */
   private function createUser(array $values)
   {
-    // Create a new user entity
     $result = null;
 
-    // $language_id = \Drupal::languageManager()->getCurrentLanguage()->getId();
-    $language_id = $this->languageManager->getCurrentLanguage()->getId();
-    // Get a temporary password
-    // $password_generator = \Drupal::service('password_generator');
-    $password = $this->passwordGenerator->generate(30);
-    $email = $values['confirm_email_address'];
+    try {
+      $language_id = $this->languageManager->getCurrentLanguage()->getId();
+      $password = $this->passwordGenerator->generate(30);
+      $email = $values['confirm_email_address'];
 
-    $required_values = [
-      'pass' => $password,
-      'mail' => $email,
-      'name' => $email,
-      'langcode' => $language_id,
-    ];
+      $user_values = [
+        'pass' => $password,
+        'mail' => $email,
+        'name' => $email,
+        'langcode' => $language_id,
+        'init' => $email,
+        'status' => 0,
+        'preferred_langcode' => $language_id,
+        'preferred_admin_langcode' => $language_id,
+        'field_display_name' => $values['user_name'],
+        'field_organization' => $values['organization'],
+        'field_interests' => $values['interests'],
+      ];
 
-    $other_values = [
-      'field_display_name' => $values['user_name'],
-      'field_organization' => $values['organization'],
-      'field_interests' => $values['interests'],
-    ];
+      $user = User::create($user_values);
 
-    $user = User::create($required_values);
+      $default_role = 'comment_contributor';
+      $custom_role = $this->configFactory->get('abrsd_user_registration.settings')
+       ->get('roles')[1] ?? $default_role;
 
-    $default_role = 'comment_contributor';
-    // Get default role from configuration
-    $config = $this->configFactory->get('abrsd_user_registration.settings');
-    $custom_role = $config->get('roles')[1] ?? $default_role;
+      $user->addRole($custom_role);
 
-    $user->addRole($custom_role);
-    // Optional data
-    $user->set('init', $email)
-      ->set('status', 0)
-      ->set('preferred_langcode', $language_id)
-      ->set('preferred_admin_langcode', $language_id);
-    // Use the other_values array to set additional fields
-    foreach ($other_values as $field_name => $field_value) {
-      $user->set($field_name, $field_value);
-    }
-    // finally save the new entity
-    if ($user->enforceIsNew()->save()) {
-      $result = $user;
+      if ($user->enforceIsNew()->save()) {
+        $result = $user;
+      }
+    } catch (\Exception $e) {
+      // $this->logger->error($e->getMessage());
+      throw $e;
     }
 
     return $result;
   }
-}

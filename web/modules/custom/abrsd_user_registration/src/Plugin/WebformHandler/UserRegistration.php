@@ -16,7 +16,7 @@ use Drupal\Core\Password\PasswordGeneratorInterface;
  * @WebformHandler(
  *   id = "abrsd_user_registration",
  *   label = @Translation("ABRSD User Registration"),
- *   category = @Translation("ABRSD User Registration"),
+ *   category = @Translation("Form Handlers"),
  *   description = @Translation("Handles user registrations for the ABRSD website."),
  *   cardinality = \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_SINGLE,
  *   results = \Drupal\webform\Plugin\WebformHandlerInterface::RESULTS_PROCESSED,

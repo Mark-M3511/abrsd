@@ -105,27 +105,33 @@ final class UserRegistration extends WebformHandlerBase
   /**
    * Implements hook_webform_submission_presave() for the User Registration webform handler.
    *
-   * This function is called before saving a webform submission. It checks if a user with the submitted email address already exists and throws an exception if so.
+   * This function is called before saving a webform submission.
+   * It checks if a user with the submitted email address already exists
+   * and throws an exception if so.
    *
    * @param \Drupal\webform\WebformSubmissionInterface $storage
    *   The webform submission storage object.
    *
    * @throws \Exception
-   *   Thrown if a user with the submitted email address already exists.
+   *   Thrown if a user with the submitted email or display_name address already exists.
    */
   public function preSave(WebformSubmissionInterface $storage) {
     parent::preSave($storage);
 
     // Get the email address from the current entity.
     $email = $storage->getElementData('confirm_email_address');
+    $display_name = $storage->getElementData('user_name');
 
-    // Check if a user with this email already exists.
+    // Check if a user with this email or display name already exists
     $users = \Drupal::entityTypeManager()
       ->getStorage('user')
-      ->loadByProperties(['mail' => $email]);
+      ->loadByProperties([
+        'mail' => $email,
+        'field_display_name' => $display_name,
+      ]);
 
     if (!empty($users)) {
-      throw new \Exception('A user with this email already exists.');
+      throw new \Exception($this->t('This registration cannot be processed at this time.'));
     }
   }
 

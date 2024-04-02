@@ -46,6 +46,13 @@
   }
 }
 
+.comment-add {
+  a {
+    @include link-theme-1();
+  }
+}
+
+
 .comment-time-permalink {
   margin-top: -3rem;
 }

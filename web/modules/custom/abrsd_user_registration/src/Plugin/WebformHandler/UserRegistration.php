@@ -50,6 +50,12 @@ final class UserRegistration extends WebformHandlerBase
    */
   protected $logger;
 
+  /**
+   * @var bool
+   *   A flag indicating whether the user already exists.
+   */
+  private $userExists;
+
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -64,6 +70,7 @@ final class UserRegistration extends WebformHandlerBase
     $this->configFactory = $config_factory;
     $this->passwordGenerator = $password_generator;
     $this->logger = $logger;
+    $this->userExists = FALSE;
   }
 
   /**
@@ -123,16 +130,18 @@ final class UserRegistration extends WebformHandlerBase
     $display_name = $storage->getElementData('user_name');
 
     // Check if a user with this email or display name already exists
-    $users = \Drupal::entityTypeManager()
-      ->getStorage('user')
-      ->loadByProperties([
-        'mail' => $email,
-        'field_display_name' => $display_name,
-      ]);
+    $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery();
+    $query->accessCheck(FALSE);
+    $or = $query->orConditionGroup()
+      ->condition('mail', $email)
+      ->condition('field_display_name', $display_name);
+    $query->condition($or);
+    $uids = $query->execute();
 
-    if (!empty($users)) {
-      throw new \Exception($this->t('This registration cannot be processed at this time.'));
-    }
+    $this->userExists = !empty($uids);
+
+    // Set the user created ELement value to the userExists flag
+    $storage->setElementData('user_created', !$this->userExists);
   }
 
   /**
@@ -146,11 +155,8 @@ final class UserRegistration extends WebformHandlerBase
       try {
         // Search for the submitter's email address in the Drupal users table (mail field)
         $email = $values['confirm_email_address'];
-        $user = \Drupal::entityTypeManager()
-          ->getStorage('user')
-          ->loadByProperties(['mail' => $email]);
         // If no user is found, create a new user
-        if (empty($user)) {
+        if (!$this->userExists) {
           $user = $this->createUser($values);
           if ($user) {
             $this->logger->info('User created: ' . $user->field_display_name->value);
@@ -158,7 +164,7 @@ final class UserRegistration extends WebformHandlerBase
             _user_mail_notify('register_pending_approval', $user);
           }
         } else {
-          $this->logger->info('User already exists: ' . $email);
+          $this->logger->info('User already exists with Email address: ' . $email);
         }
       } catch (\Exception $e) {
         $this->logger->error($e->getMessage());

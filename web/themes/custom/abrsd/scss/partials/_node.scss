@@ -25,3 +25,9 @@
     height: 2.5rem;
   }
 }
+
+.field--name-field-tag {
+  a {
+    @include link-theme-1();
+  }
+}

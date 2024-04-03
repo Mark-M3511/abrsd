@@ -164,12 +164,20 @@ function abrsd_preprocess_links(array &$variables)
 
   try {
     if ($is_blog && !\Drupal::currentUser()->isAuthenticated()) {
-      $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? null;
-      $args[':login'] = remove_query_string($args[':login']);
-      $args[':register'] = remove_query_string($args[':register']);
+      $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? [];
+      $register = $args[':register'] ?? null;
 
-      $new_text = new TranslatableMarkup($variables['links']['comment-forbidden']['text']->getUntranslatedString(), $args);
-      $variables['links']['comment-forbidden']['text'] = $new_text;
+      if (isset($register)) {
+        $new_register = remove_query_string($register);
+
+        // Only create a new TranslatableMarkup object if the :register argument has changed.
+        if ($new_register !== $register) {
+          $args[':register'] = $new_register;
+          $new_string = $variables['links']['comment-forbidden']['text']->getUntranslatedString();
+          $tm = new TranslatableMarkup($new_string, $args);
+          $variables['links']['comment-forbidden']['text'] = $tm;
+        }
+      }
     }
   } catch (Exception $e) {
     \Drupal::logger('abrsd')->error($e->getMessage());

@@ -36,7 +36,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         // Only redirect for anonymous users.
         if ($request->getPathInfo() == '/user/register' && \Drupal::currentUser()->isAnonymous()) {
             $response = new RedirectResponse('/create-profile', 301);
-            $response->setPrivate();
+            // $response->setPrivate();
             $event->setResponse($response);
         }
     }

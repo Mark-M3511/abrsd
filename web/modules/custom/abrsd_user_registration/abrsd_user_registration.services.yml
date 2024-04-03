@@ -4,3 +4,8 @@ services:
     arguments: ['@language_manager', '@config.factory', '@password_generator', '@logger.factory']
     tags:
       - { name: webform_handler, id: abrsd_user_registration }
+  abrsd_user_registration.user_registration_redirect_subscriber:
+    class: Drupal\abrsd_user_registration\EventSubscriber\UserRegistrationRedirectSubscriber
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }

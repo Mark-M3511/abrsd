@@ -130,8 +130,7 @@ final class UserRegistration extends WebformHandlerBase
     $display_name = $storage->getElementData('user_name');
 
     // Check if a user with this email or display name already exists
-    $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery();
-    $query->accessCheck(FALSE);
+    $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery()->accessCheck(FALSE);
     $or = $query->orConditionGroup()
       ->condition('mail', $email)
       ->condition('field_display_name', $display_name);

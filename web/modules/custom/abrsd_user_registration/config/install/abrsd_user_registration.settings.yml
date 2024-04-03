@@ -3,3 +3,6 @@ langcode: en
 roles:
   - authenticated
   - comment_contributor
+redirects:
+  /user/register: /create-member-account
+  /register: /create-member-account

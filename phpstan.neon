@@ -1,0 +1,11 @@
+includes:
+    - vendor/mglaman/phpstan-drupal/extension.neon
+parameters:
+    level: max
+    paths:
+        - web/modules/custom
+    ignoreErrors:
+        - '#\Drupal calls should be avoided in classes, use dependency injection instead#'
+    bootstrapFiles:
+        - web/core/tests/bootstrap.php
+        - web/autoload.php

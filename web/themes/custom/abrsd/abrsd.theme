@@ -104,7 +104,8 @@ function abrsd_theme_suggestions_node_alter(array &$suggestions, array $variable
  *
  * Add a theme suggestion for images based on the image style name.
  */
-function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variables) {
+function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variables)
+{
   // If the image being processed is the blog hero image, add a theme suggestion
   $style_name = $variables['style_name'] ?? '';
   if ($style_name == 'blog_hero_banner_large') {
@@ -149,12 +150,30 @@ function abrsd_preprocess_block(array &$variables)
  */
 function abrsd_preprocess_links(array &$variables)
 {
-  // Get the links array
-  // $links = $variables['links']['comment-forbidden'] ?? [];
   // Is the current node a blog node?
   $is_blog = \Drupal::routeMatch()->getParameter('node')?->getType() === 'blog';
   // Add the is_blog variable to the links array
   $variables['is_blog'] = $is_blog;
+
+  // Function to remove query string from URL
+  function remove_query_string($url)
+  {
+    $parsed_url = parse_url($url);
+    return $parsed_url['path'];
+  }
+
+  try {
+    if ($is_blog && !\Drupal::currentUser()->isAuthenticated()) {
+      $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? null;
+      $args[':login'] = remove_query_string($args[':login']);
+      $args[':register'] = remove_query_string($args[':register']);
+
+      $new_text = new TranslatableMarkup($variables['links']['comment-forbidden']['text']->getUntranslatedString(), $args);
+      $variables['links']['comment-forbidden']['text'] = $new_text;
+    }
+  } catch (Exception $e) {
+    \Drupal::logger('abrsd')->error($e->getMessage());
+  }
 }
 
 /**

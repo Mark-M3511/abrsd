@@ -109,6 +109,7 @@
         }
     },
     "require-dev": {
-        "kint-php/kint": "^5.0"
+        "kint-php/kint": "^5.0",
+        "mglaman/phpstan-drupal": "^1.0"
     }
 }

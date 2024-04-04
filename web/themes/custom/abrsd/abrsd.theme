@@ -161,7 +161,7 @@ function abrsd_preprocess_links(array &$variables)
       $register = $args[':register'] ?? null;
 
       if (isset($register)) {
-        $new_register = remove_query_string($register);
+        $new_register = _remove_query_string($register);
 
         // Only create a new TranslatableMarkup object if the :register argument has changed.
         if ($new_register !== $register) {
@@ -184,7 +184,7 @@ function abrsd_preprocess_links(array &$variables)
  * @param string $url The URL to remove the query string from.
  * @return string The URL without the query string.
  */
-function remove_query_string($url)
+function _remove_query_string($url)
 {
   $parsed_url = parse_url($url);
   return $parsed_url['path'];

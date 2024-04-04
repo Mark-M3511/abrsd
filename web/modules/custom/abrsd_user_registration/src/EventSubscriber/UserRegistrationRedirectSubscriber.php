@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * Event subscriber for redirecting user/register routes.
@@ -37,8 +38,10 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     public function __construct(
         ConfigFactoryInterface $config_factory,
+        LoggerChannelFactoryInterface $logger
     ) {
         $this->configFactory = $config_factory;
+        $this->logger = $logger->get('abrsd_user_registration');
     }
 
     /**
@@ -49,11 +52,9 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     public static function create(ContainerInterface $container)
     {
         $config_factory = $container->get('config.factory');
-        $request_stack =  $container->get('request_stack');
-        $logger = $container->get('logger.factory')->get('abrsd_user_registration');
+        $logger = $container->get('logger.factory');
         return new static(
             $config_factory,
-            $request_stack,
             $logger
         );
     }
@@ -66,7 +67,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     {
         // The higher the number, the earlier the method is called.
         $events = [];
-        $events[KernelEvents::REQUEST][] = ['redirectUserRegister', 100];
+        $events[KernelEvents::REQUEST][] = ['onRedirectUserRegister', 100];
         return $events;
     }
 
@@ -76,7 +77,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      *
      * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function redirectUserRegister(RequestEvent $event)
+    public function onRedirectUserRegister(RequestEvent $event)
     {
         $allowed_paths = [
             '/user/register',
@@ -84,18 +85,25 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         ];
         // $request = $event->getRequest();
         $request = $event->getRequest();
+        $path_info = $request->getPathInfo();
+
         // Check if the current path is in the allowed paths.
-        if (!in_array($request->getPathInfo(), $allowed_paths, true)) {
+        if (!in_array($path_info, $allowed_paths, TRUE)) {
             return;
         }
 
         // Get the redirect path from the config
-        $redirect_path = $this->getRedirectPathFromConfig('/user/register', 'redirects');
+        $redirect_path = $this->getRedirectPathFromConfig($path_info, 'redirects');
 
         // Only redirect for anonymous users.
         if (\Drupal::currentUser()->isAnonymous()) {
             $response = new RedirectResponse($redirect_path, 301);
             $event->setResponse($response);
+            // Log the redirect.
+            $this->logger->info('Redirecting user from @from to @to', [
+                '@from' => $path_info,
+                '@to' => $redirect_path,
+            ]);
         }
     }
 
@@ -108,11 +116,13 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     public function getRedirectPathFromConfig(string $path, string $config_name)
     {
-        $config = $this->configFactory->get('abrsd_user_registration.settings');
-        $redirect_maps = $config->get($config_name);
+        try {
+            $config = $this->configFactory->get('abrsd_user_registration.settings');
+            $redirect_maps = $config->get($config_name);
 
-        if (isset($redirect_maps[$path])) {
-            return $redirect_maps[$path];
+            return $redirect_maps[$path] ?? null;
+        } catch (\Exception $e) {
+            $this->logger->error('Error getting configuration: @error', ['@error' => $e->getMessage()]);
         }
 
         return null;

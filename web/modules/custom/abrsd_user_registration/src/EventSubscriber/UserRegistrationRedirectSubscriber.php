@@ -85,9 +85,8 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             '/user/register',
             '/register',
         ];
-        // $request = $event->getRequest();
-        $request = $event->getRequest();
-        $path_info = $request->getPathInfo();
+        // Get the URL path from the request.
+        $path_info = $event->getRequest()?->getPathInfo();
 
         // Check if the current path is in the allowed paths.
         if (!in_array($path_info, $allowed_paths, TRUE)) {

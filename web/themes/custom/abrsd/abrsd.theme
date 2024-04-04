@@ -155,13 +155,6 @@ function abrsd_preprocess_links(array &$variables)
   // Add the is_blog variable to the links array
   $variables['is_blog'] = $is_blog;
 
-  // Function to remove query string from URL
-  function remove_query_string($url)
-  {
-    $parsed_url = parse_url($url);
-    return $parsed_url['path'];
-  }
-
   try {
     if ($is_blog && !\Drupal::currentUser()->isAuthenticated()) {
       $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? [];
@@ -182,6 +175,19 @@ function abrsd_preprocess_links(array &$variables)
   } catch (Exception $e) {
     \Drupal::logger('abrsd')->error($e->getMessage());
   }
+}
+
+
+/**
+ * Removes the query string from a given URL.
+ *
+ * @param string $url The URL to remove the query string from.
+ * @return string The URL without the query string.
+ */
+function remove_query_string($url)
+{
+  $parsed_url = parse_url($url);
+  return $parsed_url['path'];
 }
 
 /**

@@ -122,25 +122,32 @@ final class UserRegistration extends WebformHandlerBase
    * @throws \Exception
    *   Thrown if a user with the submitted email or display_name address already exists.
    */
-  public function preSave(WebformSubmissionInterface $storage) {
-    parent::preSave($storage);
+  public function preSave(WebformSubmissionInterface $storage)
+  {
+    try {
+      // Call the parent preSave method
+      parent::preSave($storage);
 
-    // Get the email address from the current entity.
-    $email = $storage->getElementData('confirm_email_address');
-    $display_name = $storage->getElementData('user_name');
+      // Get the email address from the current entity.
+      $email = $storage->getElementData('confirm_email_address');
+      $display_name = $storage->getElementData('user_name');
 
-    // Check if a user with this email or display name already exists
-    $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery()->accessCheck(FALSE);
-    $or = $query->orConditionGroup()
-      ->condition('mail', $email)
-      ->condition('field_display_name', $display_name);
-    $query->condition($or);
-    $uids = $query->execute();
+      // Check if a user with this email or display name already exists
+      $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery()->accessCheck(FALSE);
+      $or = $query->orConditionGroup()
+        ->condition('mail', $email)
+        ->condition('field_display_name', $display_name);
+      $query->condition($or);
+      $uids = $query->execute();
 
-    $this->userExists = !empty($uids);
+      $this->userExists = !empty($uids);
 
-    // Set the user created ELement value to the userExists flag
-    $storage->setElementData('user_created', !$this->userExists);
+      // Set the user created ELement value to the userExists flag
+      $storage->setElementData('user_created', !$this->userExists);
+    } catch (\Exception $e) {
+      $this->logger->error($e->getMessage());
+      throw $e;
+    }
   }
 
   /**
@@ -204,7 +211,7 @@ final class UserRegistration extends WebformHandlerBase
 
       $default_role = 'comment_contributor';
       $custom_role = $this->configFactory->get('abrsd_user_registration.settings')
-       ->get('roles')[1] ?? $default_role;
+        ->get('roles')[1] ?? $default_role;
 
       $user->addRole($custom_role);
 

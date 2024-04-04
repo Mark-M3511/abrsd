@@ -6,6 +6,6 @@ services:
       - { name: webform_handler, id: abrsd_user_registration }
   abrsd_user_registration.user_registration_redirect_subscriber:
     class: Drupal\abrsd_user_registration\EventSubscriber\UserRegistrationRedirectSubscriber
-    arguments: ['@config.factory']
+    arguments: ['@config.factory', '@logger.factory']
     tags:
       - { name: event_subscriber }

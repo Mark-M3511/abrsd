@@ -25,7 +25,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     /**
      * The logger.
      *
-     * @var \Psr\Log\LoggerInterface
+     * @var Drupal\Core\Logger\LoggerChannelFactoryInterface
      */
     protected $logger;
 
@@ -35,6 +35,8 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      *
      * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
      *   The configuration factory.
+     * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+     *   The logger.
      */
     public function __construct(
         ConfigFactoryInterface $config_factory,

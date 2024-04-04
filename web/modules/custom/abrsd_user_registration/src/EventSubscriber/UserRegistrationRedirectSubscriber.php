@@ -85,26 +85,31 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             '/user/register',
             '/register',
         ];
-        // Get the URL path from the request.
-        $path_info = $event->getRequest()?->getPathInfo();
 
-        // Check if the current path is in the allowed paths.
-        if (!in_array($path_info, $allowed_paths, TRUE)) {
-            return;
-        }
+        try {
+            // Get the URL path from the request.
+            $path_info = $event->getRequest()?->getPathInfo();
 
-        // Get the redirect path from the config
-        $redirect_path = $this->getRedirectPathFromConfig($path_info, 'redirects');
+            // Check if the current path is in the allowed paths.
+            if (!in_array($path_info, $allowed_paths, TRUE)) {
+                return;
+            }
 
-        // Only redirect for anonymous users.
-        if (\Drupal::currentUser()->isAnonymous()) {
-            $response = new RedirectResponse($redirect_path, 301);
-            $event->setResponse($response);
-            // Log the redirect.
-            $this->logger->info('Redirecting user from @from to @to', [
-                '@from' => $path_info,
-                '@to' => $redirect_path,
-            ]);
+            // Get the redirect path from the config
+            $redirect_path = $this->getRedirectPathFromConfig($path_info, 'redirects');
+
+            // Only redirect for anonymous users.
+            if (\Drupal::currentUser()->isAnonymous()) {
+                $response = new RedirectResponse($redirect_path, 301);
+                $event->setResponse($response);
+                // Log the redirect.
+                $this->logger->info('Redirecting user from @from to @to', [
+                    '@from' => $path_info,
+                    '@to' => $redirect_path,
+                ]);
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error redirecting user: @error', ['@error' => $e->getMessage()]);
         }
     }
 

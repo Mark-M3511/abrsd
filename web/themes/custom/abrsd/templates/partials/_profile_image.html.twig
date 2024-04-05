@@ -14,9 +14,6 @@
 {% else %}
     <div class="user-initials {{ additional_classes }}">
         {% set initial = author|striptags|trim|raw|upper[0:1] %}
-        {# <small class="comment__author">{{ initial }}</small> #}
-        <div class="user-initials">
-            {{ initial }}
-        </div>
+        {{ initial }}
     </div>
 {% endif %}

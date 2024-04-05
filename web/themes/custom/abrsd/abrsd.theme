@@ -197,13 +197,21 @@ function _remove_query_string($url)
  */
 function abrsd_preprocess_comment(array &$variables)
 {
-  // Get creted date of the comment
-  $created = $variables['comment']->getCreatedTime();
-  // Format as time ago since the comment was created with granularity of 1 day
-  $variables['created_ago'] = \Drupal::service('date.formatter')->formatTimeDiffSince(
-    $created,
-    ['granularity' => 1]
-  );
+  try {
+    // Get the comment owner (Drupal user object)
+    $user = $variables['comment']->getOwner();
+    // Check if the user has a profile picture
+    $variables['has_picture'] = !$user->user_picture->isEmpty();
+    // Get creted date of the comment
+    $created = $variables['comment']->getCreatedTime();
+    // Format as time ago since the comment was created with granularity of 1 day
+    $variables['created_ago'] = \Drupal::service('date.formatter')->formatTimeDiffSince(
+      $created,
+      ['granularity' => 1]
+    );
+  } catch (Exception $e) {
+    \Drupal::logger('abrsd')->error($e->getMessage());
+  }
 }
 
 /**

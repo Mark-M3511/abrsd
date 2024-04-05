@@ -5,9 +5,10 @@
  * Available variables:
  * - user_picture: A user picture render array.
  * - author: The user name.
+ * - has_picture: A flag indicating whether the user has a picture.
 #}
 
-{% if user_picture %}
+{% if has_picture %}
     <div class="user-picture {{ additional_classes }}">
         {{ user_picture }}
     </div>

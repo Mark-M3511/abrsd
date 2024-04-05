@@ -193,7 +193,7 @@ function _remove_query_string($url)
 /**
  * Implements template_preprocess_comment().
  *
- * Add a variable to the block template if the block is the 'block_content' block.
+ * Add variables to the comment template.
  */
 function abrsd_preprocess_comment(array &$variables)
 {

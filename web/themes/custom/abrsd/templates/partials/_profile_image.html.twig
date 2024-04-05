@@ -8,11 +8,11 @@
 #}
 
 {% if user_picture %}
-    <div class="user-picture">
+    <div class="user-picture {{ additional_classes }}">
         {{ user_picture }}
     </div>
 {% else %}
-    <div class="user-initials d-lg-none">
+    <div class="user-initials {{ additional_classes }}">
         {% set initial = author|striptags|trim|raw|upper[0:1] %}
         {# <small class="comment__author">{{ initial }}</small> #}
         <div class="user-initials">

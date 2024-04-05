@@ -12,8 +12,8 @@
 }
 
 .user-picture {
-  display: inline-block;
-  margin-right: 1rem;
+  // right justify the image
+  float: right;
   img {
     border-radius: 50%;
     width: 3.5rem;
@@ -23,6 +23,10 @@
       width: 2.5rem;
       height: 2.5rem;
     }
+  }
+  .field--name-user-picture {
+    margin: 0 auto !important;
+    float: none !important;
   }
 }
 

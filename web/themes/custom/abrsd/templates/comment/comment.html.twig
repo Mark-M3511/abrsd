@@ -78,9 +78,20 @@
     author_id and author_id == commented_entity.getOwnerId() ? 'by-' ~ commented_entity.getEntityTypeId() ~ '-author',
     'clearfix',
     'row',
-    "d-flex",
+    'd-flex',
+    'ms-xl-1',
   ]
 %}
+
+{%
+  set content_attrib_classes = [
+    'comment__content',
+    'col-12',
+    'col-xl-8',
+    'card'
+  ]
+%}
+
 <article role="article"{{ attributes.addClass(classes)|without('role') }}>
   {# Add the "new" indicator to the comment. #}
   {# {%
@@ -109,7 +120,7 @@
     {% endif %}
   </div>
 
-  <div{{ content_attributes.addClass(['comment__content', 'col-sm-12 col-xl-8', 'card']) }}>
+  <div{{ content_attributes.addClass(content_attrib_classes) }}>
     <div class="card-body comment-content-links">
       <div class="d-flex justify-content-start">
         {% include "@abrsd/partials/_profile_image.html.twig" with{
@@ -118,7 +129,7 @@
            'author': author,
            'additional_classes': 'd-lg-none',
         }%}
-        <div class="comment-author-time p-2 align-items-center">
+        <div class="comment-author-time align-items-center p-2 p-xl-0">
           <span class="comment__author">{{ author }} - </span>
           <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
         </div>

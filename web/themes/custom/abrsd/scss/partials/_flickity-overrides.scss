@@ -1,21 +1,23 @@
 .flickity-prev-next-button {
-    top: 49% !important;
-    width: 44px !important;
-    height: 97% !important;
-    border-radius: 0 !important;
-    transform: translateY(-50%);
-    // On mobile devices, hide the previous and next buttons
-    @include media-breakpoint-down(md) {
-        display: none;
-    }
+  top: 49% !important;
+  width: 44px !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  transform: translateY(-50%);
+  // On mobile devices, hide the previous and next buttons
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
 }
 
-.flickity-prev-next-button.previous
-{
-    left: 0 !important;
+.flickity-prev-next-button.previous {
+  left: 0 !important;
 }
 
-.flickity-prev-next-button.next
-{
-    right: 0 !important;
+.flickity-prev-next-button.next {
+  right: 0 !important;
+}
+
+.flickity-button {
+  background: hsl(0 0% 100% /50%) !important;
 }

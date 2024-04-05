@@ -11,6 +11,21 @@
   }
 }
 
+.user-picture {
+  display: inline-block;
+  margin-right: 1rem;
+  img {
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    // At lg down, reduce the font size
+    @include media-breakpoint-down(lg) {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}
+
 .field--name-field-blog-comment {
   border-top: 2px solid rgb(222, 218, 218);
   .comment {

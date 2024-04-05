@@ -63,6 +63,7 @@
  *
  * Custom variables:
  * - created_ago: Relative time since the comment was created.
+ * - has_picture: Whether the comment author has a profile picture.
  *
  * @see template_preprocess_comment()
  */
@@ -94,7 +95,8 @@
     {% include "@abrsd/partials/_profile_image.html.twig" with{
        'user_picture': user_picture,
        'author': author,
-        'additional_classes': 'd-none d-lg-block',
+       'has_picture': has_picture,
+       'additional_classes': 'd-none d-lg-block',
     }%}
     {#
       Indicate the semantic relationship between parent and child comments
@@ -108,12 +110,18 @@
 
   <div{{ content_attributes.addClass(['comment__content', 'col-sm-8', 'card']) }}>
     <div class="card-body comment-content-links">
-      {% include "@abrsd/partials/_profile_image.html.twig" with{
-          'user_picture': user_picture,
-          'author': author,
-          'additional_classes': 'd-lg-none',
-       }%}
-      <span class="comment__author">{{ author }} - </span> <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
+      <div class="d-flex justify-content-start">
+        {% include "@abrsd/partials/_profile_image.html.twig" with{
+           'user_picture': user_picture,
+           'has_picture:': has_picture,
+           'author': author,
+           'additional_classes': 'd-lg-none',
+        }%}
+        <div class="comment-author-time">
+          <span class="comment__author">{{ author }} - </span>
+          <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
+        </div>
+      </div>
       {% if title %}
         {{ title_prefix }}
         <h3{{ title_attributes.addClass('card-title') }}>{{ title }}</h3>

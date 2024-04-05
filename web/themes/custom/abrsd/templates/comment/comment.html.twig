@@ -91,12 +91,10 @@
       indicator here would break the render cache.
     #}
     <span class="hidden text-danger" data-comment-timestamp="{{ new_indicator_timestamp }}"></span>
-    {{ user_picture }}
-    {% set initial = author|striptags|trim|raw|upper[0:1] %}
-    {# <small class="comment__author">{{ initial }}</small> #}
-    <div class="user-initials">
-      {{ initial }}
-    </div>
+    {% include "@abrsd/partials/_profile_image.html.twig" with{
+       'user_picture': user_picture,
+       'author': author,
+    }%}
     {#
       Indicate the semantic relationship between parent and child comments
       for accessibility. The list is difficult to navigate in a screen
@@ -109,9 +107,10 @@
 
   <div{{ content_attributes.addClass(['comment__content', 'col-sm-8', 'card']) }}>
     <div class="card-body comment-content-links">
-      <div class="user-initials d-lg-none">
-        {{ initial }}
-      </div>
+      {% include "@abrsd/partials/_profile_image.html.twig" with{
+          'user_picture': user_picture,
+          'author': author,
+       }%}
       <span class="comment__author">{{ author }} - </span> <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
       {% if title %}
         {{ title_prefix }}

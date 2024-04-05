@@ -1,0 +1,22 @@
+{#
+ * @file
+ * Default theme implementation to display a user picture.
+ *
+ * Available variables:
+ * - user_picture: A user picture render array.
+ * - author: The user name.
+#}
+
+{% if user_picture %}
+    <div class="user-picture">
+        {{ user_picture }}
+    </div>
+{% else %}
+    <div class="user-initials d-lg-none">
+        {% set initial = author|striptags|trim|raw|upper[0:1] %}
+        {# <small class="comment__author">{{ initial }}</small> #}
+        <div class="user-initials">
+            {{ initial }}
+        </div>
+    </div>
+{% endif %}

@@ -78,6 +78,7 @@
     author_id and author_id == commented_entity.getOwnerId() ? 'by-' ~ commented_entity.getEntityTypeId() ~ '-author',
     'clearfix',
     'row',
+    "d-flex",
   ]
 %}
 <article role="article"{{ attributes.addClass(classes)|without('role') }}>
@@ -108,7 +109,7 @@
     {% endif %}
   </div>
 
-  <div{{ content_attributes.addClass(['comment__content', 'col-sm-8', 'card']) }}>
+  <div{{ content_attributes.addClass(['comment__content', 'col-sm-12 col-xl-8', 'card']) }}>
     <div class="card-body comment-content-links">
       <div class="d-flex justify-content-start">
         {% include "@abrsd/partials/_profile_image.html.twig" with{
@@ -117,7 +118,7 @@
            'author': author,
            'additional_classes': 'd-lg-none',
         }%}
-        <div class="comment-author-time">
+        <div class="comment-author-time p-2 align-items-center">
           <span class="comment__author">{{ author }} - </span>
           <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
         </div>

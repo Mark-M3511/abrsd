@@ -2,29 +2,27 @@
   background-color: rgba(10, 10, 10, 0.9);
   color: $white;
   font-size: 2.5rem;
-  margin-left: 1.5rem;
-  border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  border-radius: $avatar-radius;
+  width: $avatar-size;
+  height: $avatar-size;
   // At lg down, reduce the font size
   @include media-breakpoint-down(lg) {
-    margin-left: 0 !important;
-    margin-right: 0.4rem !important;
     font-size: 2rem;
-    padding: 0.425rem 1.3rem;
+    width: calc($avatar-size - 1rem);
+    height: calc($avatar-size - 1rem);
   }
 }
 
 .user-picture {
   img {
-    border-radius: 10px;
-    width: 5rem;
-    height: 5rem;
+    border-radius: $avatar-radius;
+    width: $avatar-size;
+    height: $avatar-size;
     // margin-left: 3rem !important;
     // At lg down, reduce the font size
     @include media-breakpoint-down(lg) {
-      width: 3rem;
-      height: 3rem;
+      width: calc($avatar-size - 2rem);
+      height: calc($avatar-size - 2rem);
     }
   }
 }

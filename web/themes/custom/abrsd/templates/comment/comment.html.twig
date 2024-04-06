@@ -87,8 +87,17 @@
   set content_attrib_classes = [
     'comment__content',
     'col-12',
-    'col-xl-8',
+    'col-xl-10',
     'card'
+  ]
+%}
+
+{%
+  set comment_meta_attrib_classes = [
+    'comment__meta',
+    'd-none',
+    'd-lg-block',
+    'col-sm-2',
   ]
 %}
 
@@ -97,7 +106,7 @@
   {# {%
     set new_indicator_timestamp = created|date('U')
   %} #}
-  <div class="comment__meta d-none d-lg-block col-sm-2">
+  <div {{ create_attribute().addClass(comment_meta_attrib_classes) }}>
     {#
       Hide the "new" indicator by default, let a piece of JavaScript ask the
       server which comments are new for the user. Rendering the final "new"
@@ -108,7 +117,7 @@
        'user_picture': user_picture,
        'author': author,
        'has_picture': has_picture,
-       'additional_classes': 'd-none d-lg-block',
+       'additional_classes': 'd-none d-xl-flex',
     }%}
     {#
       Indicate the semantic relationship between parent and child comments
@@ -127,9 +136,9 @@
            'user_picture': user_picture,
            'has_picture:': has_picture,
            'author': author,
-           'additional_classes': 'd-lg-none',
+           'additional_classes': 'd-flex d-xl-none',
         }%}
-        <div class="comment-author-time align-items-center p-2 p-xl-0">
+        <div class="comment-author-time align-self-center p-2 p-xl-0">
           <span class="comment__author">{{ author }} - </span>
           <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
         </div>

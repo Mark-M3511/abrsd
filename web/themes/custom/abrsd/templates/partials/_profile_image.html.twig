@@ -13,8 +13,8 @@
         {{ user_picture }}
     </div>
 {% else %}
-    <div class="user-initials {{ additional_classes }}">
+    <div class="user-initials {{ additional_classes }} justify-content-center">
         {% set initial = author|striptags|trim|raw|upper[0:1] %}
-        {{ initial }}
+        <span class="align-self-center">{{ initial }}</span>
     </div>
 {% endif %}

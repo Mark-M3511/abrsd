@@ -201,7 +201,7 @@ function abrsd_preprocess_comment(array &$variables)
     // Get the comment owner (Drupal user object)
     $user = $variables['comment']->getOwner();
     // Check if the user has a profile picture
-    $variables['has_picture'] = !$user->user_picture->isEmpty();
+    $variables['has_picture'] = !$user?->user_picture->isEmpty() ?? FALSE;
     // Get creted date of the comment
     $created = $variables['comment']->getCreatedTime();
     // Format as time ago since the comment was created with granularity of 1 day

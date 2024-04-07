@@ -23,6 +23,8 @@
  *   displayed in front of the main title tag that appears in the template.
  * - title_suffix: Additional output populated by modules, intended to be
  *   displayed after the main title tag that appears in the template.
+ * - Custom variables:
+  *   - block_id: The block ID.
  *
  * @see template_preprocess_block()
  *
@@ -58,4 +60,5 @@
   {% endblock %}
 </div>
 <div{{ create_attribute({'class': classes2}) }}>
+   {{ drupal_entity('block_content', block_id)  }}
 </div>

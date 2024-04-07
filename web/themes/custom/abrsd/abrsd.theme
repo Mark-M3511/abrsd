@@ -159,7 +159,7 @@ function abrsd_preprocess_links(array &$variables)
       $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? [];
       $register = $args[':register'] ?? null;
       if (isset($register)) {
-        $new_register = _remove_query_string($register);
+        $new_register = _get_path_from_url($register);
         // Only create a new TranslatableMarkup object if the :register argument has changed.
         if ($new_register !== $register) {
           $args[':register'] = $new_register;
@@ -181,7 +181,7 @@ function abrsd_preprocess_links(array &$variables)
  * @param string $url The URL to remove the query string from.
  * @return string The URL without the query string.
  */
-function _remove_query_string($url)
+function _get_path_from_url($url)
 {
   $parsed_url = parse_url($url);
   return $parsed_url['path'];

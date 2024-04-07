@@ -141,6 +141,29 @@ function abrsd_preprocess_block(array &$variables)
     // Ensure the News List content block is rebuilt when the topic is changed.
     $variables['#cache']['contexts'][] = 'url.query_args:topic';
   }
+  // If we have the login block and the current path is user/login, add a class to the block.
+  if ($variables['elements']['#configuration']['id'] == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
+    // Get the id of the block with the label = 'Login Image'
+    $variables['block_id'] = _abrsd_get_block_id_by_label('Login Image');
+  }
+}
+
+/**
+ * Get the block id by label.
+ *
+ * @param string $label The label of the block to get the id for.
+ * @return int The block id.
+ */
+function _abrsd_get_block_id_by_label(string $label)
+{
+  // Get the block id by label
+  $query = \Drupal::entityQuery('block_content')->accessCheck(FALSE)
+    ->condition('info', $label)
+    ->execute();
+  // Get the block id
+  $block_id = reset($query);
+  // Return the block id
+  return $block_id;
 }
 
 /**

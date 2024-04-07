@@ -154,12 +154,10 @@ function abrsd_preprocess_links(array &$variables)
   $is_blog = \Drupal::routeMatch()->getParameter('node')?->getType() === 'blog';
   // Add the is_blog variable to the links array
   $variables['is_blog'] = $is_blog;
-
   try {
     if ($is_blog && !\Drupal::currentUser()->isAuthenticated()) {
       $args = $variables['links']['comment-forbidden']['text']->getArguments() ?? [];
       $register = $args[':register'] ?? null;
-
       if (isset($register)) {
         $new_register = _remove_query_string($register);
         // Only create a new TranslatableMarkup object if the :register argument has changed.

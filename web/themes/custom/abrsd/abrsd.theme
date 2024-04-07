@@ -162,7 +162,6 @@ function abrsd_preprocess_links(array &$variables)
 
       if (isset($register)) {
         $new_register = _remove_query_string($register);
-
         // Only create a new TranslatableMarkup object if the :register argument has changed.
         if ($new_register !== $register) {
           $args[':register'] = $new_register;

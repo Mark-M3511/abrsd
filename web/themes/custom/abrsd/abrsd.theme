@@ -161,7 +161,7 @@ function _abrsd_get_block_id_by_label(string $label)
     ->condition('info', $label)
     ->execute();
   // Get the block id
-  $block_id = reset($query);
+  $block_id = reset($query) ?? 0;
   // Return the block id
   return $block_id;
 }

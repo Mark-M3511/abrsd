@@ -108,8 +108,16 @@ function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variabl
 {
   // If the image being processed is the blog hero image, add a theme suggestion
   $style_name = $variables['style_name'] ?? '';
-  if ($style_name == 'blog_hero_banner_large') {
-    $suggestions[] = 'image__blog_hero__full';
+  switch ($style_name) {
+    case 'blog_hero_banner_large':
+      $suggestions[] = 'image__blog_hero__full';
+      break;
+    case 'login_feature_image':
+      $suggestions[] = 'image__login_image__full';
+      break;
+    default:
+      // Default case
+      break;
   }
 }
 

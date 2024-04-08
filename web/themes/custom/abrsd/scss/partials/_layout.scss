@@ -160,3 +160,18 @@
     }
   }
 }
+
+// USER LOGIN
+.page--user-login {
+  .section.row {
+    // Set height to 80% of the viewport
+    height: 80vh;
+  }
+  .login-img,
+  .field--name-field-login-image {
+    height: 100% !important;
+    @include media-breakpoint-down(sm) {
+      height: 83% !important;
+    }
+  }
+}

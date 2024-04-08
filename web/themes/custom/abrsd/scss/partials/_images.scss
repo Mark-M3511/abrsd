@@ -79,3 +79,11 @@ body:not(.page--reports) {
     }
   }
 }
+
+.field--name-field-login-image {
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

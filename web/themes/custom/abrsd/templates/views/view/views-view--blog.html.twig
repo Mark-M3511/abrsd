@@ -38,6 +38,7 @@
     'view-display-id-' ~ display_id,
     dom_id ? 'js-view-dom-id-' ~ dom_id,
     'container',
+    'p-sm-0',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
@@ -61,7 +62,7 @@
       {{ attachment_before }}
     </div>
   {% endif %}
-  <h3 class="section-title section-title-latest-news mb-3 h5">{{ 'Most Commented and Latest'|t }}</h3>
+  <h2 class="section-title section-title-latest-news mb-3">{{ 'Most Commented and Latest'|t }}</h2>
   {% if rows %}
     <div class="view-content row align-items-stretch g-2 blog-carousel">
       {{ rows }}

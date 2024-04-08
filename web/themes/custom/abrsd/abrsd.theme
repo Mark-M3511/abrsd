@@ -11,7 +11,6 @@ use \Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
 use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
-use \Drupal\node\NodeInterface;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -130,7 +129,8 @@ function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variabl
 {
   $block = $variables['elements']['#configuration']['id'];
   // Add a theme suggestion for the main content block if page path is user/login
-  if ($block == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
+  $user_login = Url::fromRoute('user.login')->toString();
+  if ($block == 'system_main_block' && _abrsd_get_current_path() == $user_login) {
     // Add a theme suggestion for the main content block
     $suggestions[] = 'block__abrsd_content__user_login';
   }
@@ -150,7 +150,8 @@ function abrsd_preprocess_block(array &$variables)
     $variables['#cache']['contexts'][] = 'url.query_args:topic';
   }
   // If we have the login block and the current path is user/login, add a class to the block.
-  if ($variables['elements']['#configuration']['id'] == 'system_main_block' && _abrsd_get_current_path() == '/user/login') {
+  $user_login = Url::fromRoute('user.login')->toString();
+  if ($variables['elements']['#configuration']['id'] == 'system_main_block' && _abrsd_get_current_path() == $user_login) {
     // Get the id of the block with the label = 'Login Image'
     $variables['block_id'] = _abrsd_get_block_id_by_label('Login Image');
   }

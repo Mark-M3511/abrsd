@@ -149,9 +149,9 @@
         {{ title_suffix }}
       {% endif %}
       {{ content|without('links') }}
-      {# {% if content.links %}
+      {% if content.links %}
         <nav>{{ content.links }}</nav>
-      {% endif %} #}
+      {% endif %}
     </div>
     <div class="card-body comment-time-permalink">
       <span class="comment__time">{{ created }}</span>

@@ -47,6 +47,9 @@
       border: none !important;
     }
   }
+  .blog-comment-cta {
+    display: none !important;
+  }
   p {
     font-size: 0.9rem;
   }
@@ -69,8 +72,16 @@
   }
 }
 
+// Adjust the margin-top of the comment-time-permalink (Must preceed the user-logged-in style)
 .comment-time-permalink {
   margin-top: -3rem;
+}
+
+// If the user is logged in, adjust the margin-top of the comment-time-permalink
+.user-logged-in {
+  .comment-time-permalink {
+    margin-top: -1rem;
+  }
 }
 
 .comment-content-links {
@@ -79,5 +90,19 @@
   }
   .comment__author {
     font-size: 0.9rem;
+  }
+}
+
+body:not(.user-logged-in) {
+    .comment-content-links {
+        .inline__links {
+            display: none !important;
+        }
+    }
+}
+
+.comment-content-links {
+  .inline__links {
+      font-size: 0.8rem;
   }
 }

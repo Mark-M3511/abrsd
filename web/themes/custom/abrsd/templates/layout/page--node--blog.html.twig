@@ -83,7 +83,6 @@ set nav_classes = [
 %}
 {% set sticky_title_classes = [
 	'sticky-title',
-	'd-none',
 ] %}
 <div id="page-wrapper">
 	<div id="page" class="{{ page_path }}">
@@ -93,7 +92,7 @@ set nav_classes = [
 					<nav{{navbar_top_attributes}}>
 						{% if container_navbar %}
 							<div class="container">
-							{% endif %}
+						{% endif %}
 							{{ page.secondary_menu }}
 							{{ page.top_header }}
 							{% if page.top_header_form %}
@@ -101,7 +100,7 @@ set nav_classes = [
 									{{ page.top_header_form }}
 								</div>
 							{% endif %}
-							{% if container_navbar %}
+						{% if container_navbar %}
 							</div>
 						{% endif %}
 					</nav>

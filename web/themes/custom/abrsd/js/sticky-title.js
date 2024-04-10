@@ -20,22 +20,22 @@
       const navbarMain = document.querySelector('#navbar-main');
       const navBarTop = document.querySelector('#navbar-top');
 
+      const top = navbarMain?.clientHeight;
+      // Set the top position of the sticky title with !important
+      stickyTitle.style.top = `${top}px`;
+
       // Create an intersection observer
       const observer = new IntersectionObserver(function (entries) {
         // If the element is intersecting (visible in the viewport)
         if (entries[0].isIntersecting === true) {
-          console.log('Element is in the viewport');
-          if (!stickyTitle.classList.contains('d-none')) {
-            stickyTitle.classList.add('d-none');
+          // console.log('Element is in the viewport');
+          if (stickyTitle.classList.contains('reveal')) {
+            stickyTitle.classList.remove('reveal');
           }
-        }
-        else {
-          console.log('Element has left the viewport');
-          if (stickyTitle.classList.contains('d-none')) {
-            stickyTitle.classList.remove('d-none');
-            let top = navbarMain?.clientHeight;
-            // Set the top position of the sticky title with !important
-            stickyTitle.style.top = `${top}px`;
+        } else {
+          // console.log('Element has left the viewport');
+          if (!stickyTitle.classList.contains('reveal')) {
+            stickyTitle.classList.add('reveal');
           }
         }
       }, { threshold: [0] });

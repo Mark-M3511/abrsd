@@ -125,7 +125,6 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         try {
             $config = $this->configFactory->get('abrsd_user_registration.settings');
             $redirect_maps = $config->get($config_name);
-
             return $redirect_maps[$path] ?? null;
         } catch (\Exception $e) {
             $this->logger->error('Error getting configuration: @error', ['@error' => $e->getMessage()]);

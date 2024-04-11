@@ -29,14 +29,10 @@
         // If the element is intersecting (visible in the viewport)
         if (entries[0].isIntersecting === true) {
           // console.log('Element is in the viewport');
-          if (stickyTitle.classList.contains('reveal')) {
-            stickyTitle.classList.remove('reveal');
-          }
+          stickyTitle.classList.remove('reveal');
         } else {
           // console.log('Element has left the viewport');
-          if (!stickyTitle.classList.contains('reveal')) {
-            stickyTitle.classList.add('reveal');
-          }
+          stickyTitle.classList.add('reveal');
         }
       }, { threshold: [0] });
 

@@ -36,11 +36,16 @@
 .sticky-title {
   // transition: opacity 0.5s ease-in-out;
   opacity: 0;
+  height: 0;
 }
 
 .sticky-title.reveal {
   transition: opacity 2s ease-in-out;
+  height: 2rem;
   opacity: 1;
+  @include media-breakpoint-down(sm) {
+    height: 2.5rem;
+  }
 }
 
 

@@ -8,8 +8,8 @@
   // At lg down, reduce the font size
   @include media-breakpoint-down(lg) {
     font-size: 2rem;
-    width: calc($avatar-size - 1rem);
-    height: calc($avatar-size - 1rem);
+    width: $avatar-size - 1rem;
+    height: $avatar-size - 1rem;
   }
 }
 
@@ -21,8 +21,8 @@
     // margin-left: 3rem !important;
     // At lg down, reduce the font size
     @include media-breakpoint-down(lg) {
-      width: calc($avatar-size - 2rem);
-      height: calc($avatar-size - 2rem);
+      width: $avatar-size - 1rem;
+      height: $avatar-size - 1rem;
     }
   }
 }
@@ -34,7 +34,7 @@
   }
   .comment__meta {
     padding: 1.875rem 0.175rem 0 0;
-    width: 5rem;
+    width: $avatar-size;
   }
   .comment__content {
     border: none;

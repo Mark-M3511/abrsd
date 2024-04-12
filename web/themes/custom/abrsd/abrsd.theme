@@ -723,10 +723,18 @@ function abrsd_preprocess_field(&$variables)
     $variables['element']['#view_mode'] == 'full'
   ) {
     // Add a class to the field_tag field items
-    $focus_ring_class = 'd-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2';
+    $focus_ring_class = [
+      'd-inline-flex',
+      'focus-ring',
+      'py-1',
+      'px-2',
+      'text-decoration-none',
+      'border',
+      'rounded-2',
+    ];
     foreach ($variables['items'] as &$item) {
       if (isset($item['content']['#url'])) {
-        $item['content']['#options']['attributes']['class'][] = $focus_ring_class;
+        $item['content']['#options']['attributes']['class'] = implode(' ', $focus_ring_class);
       }
     }
   }

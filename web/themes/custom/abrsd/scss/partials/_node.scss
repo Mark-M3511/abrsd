@@ -53,7 +53,7 @@
   a {
     font-weight: normal;
     font-size: 0.9rem;
-    color: $tag-text;
+    color: $focus-ring-text-color;
     // Display tag icon from the Bootstrap icon pacj before the tag text
     &:before {
       content: "";
@@ -71,5 +71,6 @@
 .field--name-field-tag {
   a {
     border-color: $focus-ring-border-color !important;
+    border-radius: 4rem !important;
   }
 }

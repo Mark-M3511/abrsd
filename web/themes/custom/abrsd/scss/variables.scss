@@ -61,6 +61,7 @@ $focus-ring-border-color: var(--bs-border-color) !default;
 $focus-ring-border-width: var(--bs-border-width) !default;
 
 $focus-ring-border-color: darken(#dee2e6, 12%);
+$focus-ring-text-color: lighten($black, 37%);
 // Comments
 $comment-spacer-x: 1.25em;
 $comment-spacer-y: 1.25em;

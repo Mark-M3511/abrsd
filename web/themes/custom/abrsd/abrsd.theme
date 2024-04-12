@@ -679,7 +679,6 @@ function _add_ga_script(array &$variables)
   ];
 }
 
-
 /**
  * Implements hook_preprocess_status_messages().
  *
@@ -699,6 +698,39 @@ function abrsd_preprocess_status_messages(array &$variables)
   $variables['is_logged_in'] = \Drupal::currentUser()->isAuthenticated();
 }
 
+
+/**
+ * Implements hook_preprocess_field().
+ *
+ * Preprocesses variables for the field template.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: The renderable array representing the field.
+ *   - items: An array of field items. Each item contains:
+ *     - content: The renderable array representing the field item.
+ *
+ * @return void
+ *   There is no return value for this function.
+ */
+function abrsd_preprocess_field(&$variables)
+{
+  // Check that we are processing the 'field_tag' field, and the entity bundler is 'blog',
+  // and the view mode is 'full'
+  if (
+    $variables['element']['#field_name'] == 'field_tag' &&
+    $variables['element']['#bundle'] == 'blog' &&
+    $variables['element']['#view_mode'] == 'full'
+  ) {
+    // Add a class to the field_tag field items
+    $focus_ring_class = 'd-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2';
+    foreach ($variables['items'] as &$item) {
+      if (isset($item['content']['#url'])) {
+        $item['content']['#options']['attributes']['class'][] = $focus_ring_class;
+      }
+    }
+  }
+}
 
 /**
  * Returns the current path alias.

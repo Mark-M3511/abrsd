@@ -130,13 +130,11 @@ final class UserRegistration extends WebformHandlerBase
 
       // Get the email address from the current entity.
       $email = $storage->getElementData('confirm_email_address');
-      $display_name = $storage->getElementData('user_name');
 
-      // Check if a user with this email or display name already exists
+      // Check if a user with this email already exists
       $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery()->accessCheck(FALSE);
       $or = $query->orConditionGroup()
         ->condition('mail', $email)
-        ->condition('field_display_name', $display_name);
       $query->condition($or);
       $uids = $query->execute();
 

@@ -106,3 +106,13 @@ body:not(.user-logged-in) {
       font-size: 0.8rem;
   }
 }
+
+.indented {
+  margin-left: 0.8rem !important;
+  /* LTR */
+}
+
+[dir="rtl"] .indented {
+  margin-right:  0.8rem !important;
+  margin-left: 0;
+}

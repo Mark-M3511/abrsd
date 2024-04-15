@@ -132,10 +132,10 @@ final class UserRegistration extends WebformHandlerBase
       $email = $storage->getElementData('confirm_email_address');
 
       // Check if a user with this email already exists
-      $query = \Drupal::entityTypeManager()->getStorage('user')->getQuery()->accessCheck(FALSE);
-      $or = $query->orConditionGroup()
-        ->condition('mail', $email)
-      $query->condition($or);
+      $query = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->getQuery()->accessCheck(FALSE)
+        ->condition('mail', $email);
       $uids = $query->execute();
 
       $this->userExists = !empty($uids);

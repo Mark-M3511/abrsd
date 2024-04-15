@@ -165,7 +165,7 @@ final class UserRegistration extends WebformHandlerBase
         if (!$this->userExists) {
           $user = $this->createUser($values);
           if ($user) {
-            $this->logger->info('User created: ' . $user->field_display_name->value);
+            $this->logger->info('User created: ' . $user->mail->value);
             // Send an email to the user of the type 'user_register_pending_approval'
             _user_mail_notify('register_pending_approval', $user);
           }

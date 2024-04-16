@@ -200,7 +200,6 @@ final class UserRegistration extends WebformHandlerBase
         'status' => 0,
         'preferred_langcode' => $language_id,
         'preferred_admin_langcode' => $language_id,
-        'field_display_name' => $values['user_name'],
         'field_organization' => $values['organization'],
         'field_interests' => $values['interests'],
       ];

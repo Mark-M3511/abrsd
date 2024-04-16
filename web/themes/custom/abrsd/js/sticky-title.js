@@ -34,7 +34,7 @@
           // console.log('Element has left the viewport');
           stickyTitle.classList.add('reveal');
         }
-      }, { threshold: [0] });
+      }, { threshold: [0.5] });
 
       // Start observing the element
       observer.observe(title);

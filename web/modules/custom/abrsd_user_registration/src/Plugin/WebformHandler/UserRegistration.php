@@ -202,6 +202,11 @@ final class UserRegistration extends WebformHandlerBase
         'preferred_admin_langcode' => $language_id,
         'field_organization' => $values['organization'],
         'field_interests' => $values['interests'],
+        'field_display_name' => $values['display_name'],
+        'field_first_name' => $values['first_name'],
+        'field_last_name' => $values['last_name'],
+        'field_country' => $values['country'],
+        'field_about_me' => $values['about_me'],
       ];
 
       $user = User::create($user_values);

@@ -61,7 +61,13 @@
       {{ attachment_before }}
     </div>
   {% endif %}
-  <h3 class="section-title section-title-latest-news mb-3">{{ 'Most Commented and Latest'|t }}</h3>
+  {# bof: Set title  #}
+  {% set title_text = 'Latest Blogs'|t %}
+  {% if display_id == 'block_2' %}
+    {% set title_text = 'Most Commented and Latest'|t %}
+  {% endif %}
+  {# eof: Set title #}
+  <h3 class="section-title section-title-latest-news mb-3">{{ title_text }}</h3>
   {% if rows %}
     <div class="view-content row align-items-stretch g-2 blog-carousel">
       {{ rows }}

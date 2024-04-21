@@ -1,7 +1,7 @@
 services:
   abrsd_user_registration.user_registration:
     class: Drupal\abrsd_user_registrat\Plugin\WebformHandler\UserRegistration
-    arguments: ['@language_manager', '@config.factory', '@password_generator', '@logger.factory']
+    arguments: ['@language_manager', '@config.factory', '@password_generator', '@logger.factory', '@current_user']
     tags:
       - { name: webform_handler, id: abrsd_user_registration }
   abrsd_user_registration.user_registration_redirect_subscriber:

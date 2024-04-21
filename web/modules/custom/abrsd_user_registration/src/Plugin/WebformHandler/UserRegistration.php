@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Password\PasswordGeneratorInterface;
 use Psr\Log\LoggerInterface;
 use Drupal\user\Entity\User;
+use Drupal\Core\Session\AccountProxyInterface;
 
 /**
  * Form submission handler.
@@ -56,6 +57,12 @@ final class UserRegistration extends WebformHandlerBase
    */
   private $userExists;
 
+  /**
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   *   The current user.
+   */
+  private $currentUser;
+
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -63,7 +70,8 @@ final class UserRegistration extends WebformHandlerBase
     LanguageManagerInterface $language_manager,
     ConfigFactoryInterface $config_factory,
     PasswordGeneratorInterface $password_generator,
-    LoggerInterface $logger
+    LoggerInterface $logger,
+    AccountProxyInterface $account_proxy
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->languageManager = $language_manager;
@@ -71,6 +79,7 @@ final class UserRegistration extends WebformHandlerBase
     $this->passwordGenerator = $password_generator;
     $this->logger = $logger;
     $this->userExists = FALSE;
+    $this->currentUser = $account_proxy;
   }
 
   /**
@@ -98,6 +107,7 @@ final class UserRegistration extends WebformHandlerBase
     $config_factory = $container->get('config.factory');
     $password_generator = $container->get('password_generator');
     $logger = $container->get('logger.factory')->get('abrsd_user_registration');
+    $curren_user = $container->get('current_user');
     return new static(
       $configuration,
       $plugin_id,
@@ -105,7 +115,8 @@ final class UserRegistration extends WebformHandlerBase
       $language_manager,
       $config_factory,
       $password_generator,
-      $logger
+      $logger,
+      $curren_user
     );
   }
 
@@ -132,16 +143,14 @@ final class UserRegistration extends WebformHandlerBase
       $email = $storage->getElementData('confirm_email_address');
 
       // Check if a user with this email already exists
-      $query = \Drupal::entityTypeManager()
-        ->getStorage('user')
-        ->getQuery()->accessCheck(FALSE)
-        ->condition('mail', $email);
-      $uids = $query->execute();
+      $uid = $this->searchUserByEmail($email);
 
-      $this->userExists = !empty($uids);
+      $this->userExists = !empty($uid);
 
       // Set the user created ELement value to the userExists flag
-      $storage->setElementData('user_created', !$this->userExists);
+      if ($storage->getElementData('user_created') === NULL) {
+        $storage->setElementData('user_created', !$this->userExists);
+      }
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());
       throw $e;
@@ -155,14 +164,15 @@ final class UserRegistration extends WebformHandlerBase
   {
     // Get the values from the submission
     $values = $webform_submission->getData();
-    if (!$update) {
-      try {
-        // Search for the submitter's email address in the Drupal users table (mail field)
-        $email = $values['confirm_email_address'];
-        // If no user is found, create a new user
-        if (!$this->userExists) {
-          // Get the entity id
-          $values['sid'] = $webform_submission->id();
+
+    try {
+      // Search for the submitter's email address in the Drupal users table (mail field)
+      $email = $values['confirm_email_address'];
+      // Get the entity id
+      $values['sid'] = $webform_submission->id();
+      // If no user is found, create a new user
+      if (!$update) {
+        if ($this->userExists) {
           $user = $this->createUserAccount($values);
           if ($user) {
             $this->logger->info('User created: ' . $user->mail->value);
@@ -172,9 +182,18 @@ final class UserRegistration extends WebformHandlerBase
         } else {
           $this->logger->info('User already exists with Email address: ' . $email);
         }
-      } catch (\Exception $e) {
-        $this->logger->error($e->getMessage());
+      } else {
+        // Get the current user from the account proxy property
+        $account = $this->currentUser->getAccount();
+        // Load the user entity
+        $user = User::load($account->id());
+        // If the user is authenticated, update the user account else log a message
+        if ($user->isAuthenticated()) {
+          $this->updateUserAccount($values, $user);
+        }
       }
+    } catch (\Exception $e) {
+      $this->logger->error($e->getMessage());
     }
   }
 
@@ -212,12 +231,13 @@ final class UserRegistration extends WebformHandlerBase
         'field_webform_submission_id' => $values['sid'],
       ];
 
+      // Create a new user
       $user = User::create($user_values);
-
+      // Set the user role
       $default_role = 'comment_contributor';
       $custom_role = $this->configFactory->get('abrsd_user_registration.settings')
         ->get('roles')[1] ?? $default_role;
-
+      // Add the custom role to the user
       $user->addRole($custom_role);
 
       if ($user->enforceIsNew()->save()) {
@@ -229,5 +249,67 @@ final class UserRegistration extends WebformHandlerBase
     }
 
     return $result;
+  }
+
+  /**
+   * Updates the user account with the provided values.
+   *
+   * @param array $values
+   *   An array of values to update the user account.
+   * @param \Drupal\user\Entity\User $user
+   *   The user entity object to update.
+   *
+   * @throws \Exception
+   *   If there is an error updating the user account.
+   */
+  private function updateUserAccount(array $values, User $user)
+  {
+    try {
+      // if current user is admin load the user entity using the email address
+      if ($this->currentUser->hasPermission('administer users')) {
+        $email = $values['confirm_email_address'];
+        $uid = $this->searchUserByEmail($email);
+        $user = User::load($uid);
+      } else {
+        // make sure the current user is the owner of the account
+        if ($this->currentUser->id() !== $user->id()) {
+          throw new \Exception('You are not authorized to update this account.');
+        }
+      }
+
+      $user->set('field_organization', $values['organization']);
+      $user->set('field_interests', $values['interests']);
+      $user->set('field_display_name', $values['display_name']);
+      $user->set('field_first_name', $values['first_name']);
+      $user->set('field_last_name', $values['last_name']);
+      $user->set('field_country', $values['country']);
+      $user->set('field_about_me', $values['about_me']);
+      $user->set('field_webform_submission_id', $values['sid']);
+      $user->enforceIsNew(FALSE)->save();
+    } catch (\Exception $e) {
+      $this->logger->error($e->getMessage());
+    }
+  }
+
+  /**
+   * Searches for a user by email.
+   *
+   * @param string $email
+   *   The email address to search for.
+   *
+   * @return int|null
+   *   The user ID if a user with the given email is found, NULL otherwise.
+   */
+  protected function searchUserByEmail(string $email)
+  {
+    // Query the user entity for the email address
+    $query = \Drupal::entityTypeManager()
+      ->getStorage('user')
+      ->getQuery()->accessCheck(FALSE)
+      ->condition('mail', $email);
+    $uids = $query->execute();
+
+    // return the id
+    return !empty($uids) ? reset($uids) : NULL;
   }
 }

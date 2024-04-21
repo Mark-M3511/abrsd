@@ -221,8 +221,8 @@ final class UserRegistration extends WebformHandlerBase
         $result = $user;
       }
     } catch (\Exception $e) {
-      // $this->logger->error($e->getMessage());
-      throw $e;
+      $this->logger->error($e->getMessage());
+      // throw $e;
     }
 
     return $result;

@@ -162,17 +162,20 @@ final class UserRegistration extends WebformHandlerBase
    */
   public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE)
   {
-    // Get the values from the submission
-    $values = $webform_submission->getData();
-
     try {
+      // Get the current user from the account proxy property
+      $account = $this->currentUser->getAccount();
+      // Load the user entity
+      $user = User::load($account->id());
+      // Get the values from the submission
+      $values = $webform_submission->getData();
       // Search for the submitter's email address in the Drupal users table (mail field)
       $email = $values['confirm_email_address'];
       // Get the entity id
       $values['sid'] = $webform_submission->id();
       // If no user is found, create a new user
       if (!$update) {
-        if ($this->userExists) {
+        if (!$this->userExists) {
           $user = $this->createUserAccount($values);
           if ($user) {
             $this->logger->info('User created: ' . $user->mail->value);
@@ -183,10 +186,6 @@ final class UserRegistration extends WebformHandlerBase
           $this->logger->info('User already exists with Email address: ' . $email);
         }
       } else {
-        // Get the current user from the account proxy property
-        $account = $this->currentUser->getAccount();
-        // Load the user entity
-        $user = User::load($account->id());
         // If the user is authenticated, update the user account else log a message
         if ($user->isAuthenticated()) {
           $this->updateUserAccount($values, $user);

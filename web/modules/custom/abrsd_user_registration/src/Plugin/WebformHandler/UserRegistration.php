@@ -161,7 +161,7 @@ final class UserRegistration extends WebformHandlerBase
         $email = $values['confirm_email_address'];
         // If no user is found, create a new user
         if (!$this->userExists) {
-          $user = $this->createUser($values);
+          $user = $this->createUserAccount($values);
           if ($user) {
             $this->logger->info('User created: ' . $user->mail->value);
             // Send an email to the user of the type 'user_register_pending_approval'
@@ -182,7 +182,7 @@ final class UserRegistration extends WebformHandlerBase
    * @param array $values
    *   The values from the webform submission.
    */
-  private function createUser(array $values)
+  private function createUserAccount(array $values)
   {
     $result = null;
 

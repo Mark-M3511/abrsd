@@ -161,6 +161,8 @@ final class UserRegistration extends WebformHandlerBase
         $email = $values['confirm_email_address'];
         // If no user is found, create a new user
         if (!$this->userExists) {
+          // Get the entity id
+          $values['sid'] = $webform_submission->id();
           $user = $this->createUserAccount($values);
           if ($user) {
             $this->logger->info('User created: ' . $user->mail->value);
@@ -207,6 +209,7 @@ final class UserRegistration extends WebformHandlerBase
         'field_last_name' => $values['last_name'],
         'field_country' => $values['country'],
         'field_about_me' => $values['about_me'],
+        'field_webform_submission_id' => $values['sid'],
       ];
 
       $user = User::create($user_values);

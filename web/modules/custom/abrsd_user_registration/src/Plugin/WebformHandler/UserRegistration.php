@@ -275,15 +275,15 @@ final class UserRegistration extends WebformHandlerBase
           throw new \Exception('You are not authorized to update this account.');
         }
       }
-
-      $user->set('field_organization', $values['organization']);
-      $user->set('field_interests', $values['interests']);
-      $user->set('field_display_name', $values['display_name']);
-      $user->set('field_first_name', $values['first_name']);
-      $user->set('field_last_name', $values['last_name']);
-      $user->set('field_country', $values['country']);
-      $user->set('field_about_me', $values['about_me']);
-      $user->set('field_webform_submission_id', $values['sid']);
+      // Update the user account with the provided values
+      $user->set('field_organization', $values['organization'] ?? $user->field_organization->value);
+      $user->set('field_interests', $values['interests'] ?? $user->field_interests->value);
+      $user->set('field_display_name', $values['display_name'] ?? $user->field_display_name->value);
+      $user->set('field_first_name', $values['first_name'] ?? $user->field_first_name->value);
+      $user->set('field_last_name', $values['last_name'] ?? $user->field_last_name->value);
+      $user->set('field_country', $values['country'] ?? $user->field_country->value);
+      $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
+      $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
       $user->enforceIsNew(FALSE)->save();
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());

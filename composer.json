@@ -31,7 +31,6 @@
         "drupal/entityqueue": "^1.6",
         "drupal/field_group": "^3.4",
         "drupal/honeypot": "^2.1",
-        "drupal/imce": "^3.0",
         "drupal/ludwig": "^2.0",
         "drupal/media_responsive_thumbnail": "^1.5",
         "drupal/metatag": "^2.0",

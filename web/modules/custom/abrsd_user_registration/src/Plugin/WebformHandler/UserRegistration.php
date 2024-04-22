@@ -150,17 +150,20 @@ final class UserRegistration extends WebformHandlerBase
       // Call the parent preSave method
       parent::preSave($storage);
 
-      // Get the email address from the current entity.
-      $email = $storage->getElementData('confirm_email_address');
-
-      // Check if a user with this email already exists
-      $uid = $this->searchUserByEmail($email);
-
-      $this->userExists = !empty($uid);
-
-      // Set the user created ELement value to the userExists flag
-      if ($storage->getElementData('user_created') === NULL) {
-        $storage->setElementData('user_created', !$this->userExists);
+      // Get the form id
+      $form_id = $storage->getWebform()->id();
+      // Check if the form id is 'user_registration'
+      if ($form_id == 'user_registration') {
+        // Get the email address from the current entity.
+        $email = $storage->getElementData('confirm_email_address');
+        // Check if a user with this email already exists
+        $uid = $this->searchUserByEmail($email);
+        // Set the userExists flag to TRUE if a user with the email exists
+        $this->userExists = !empty($uid);
+        // Set the user created ELement value to the userExists flag
+        if ($storage->getElementData('user_created') === NULL) {
+          $storage->setElementData('user_created', !$this->userExists);
+        }
       }
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());
@@ -174,32 +177,40 @@ final class UserRegistration extends WebformHandlerBase
   public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE)
   {
     try {
-      // Get the current user from the account proxy property
-      $account = $this->currentUser->getAccount();
-      // Load the user entity
-      $user = User::load($account->id());
-      // Get the values from the submission
-      $values = $webform_submission->getData();
-      // Search for the submitter's email address in the Drupal users table (mail field)
-      $email = $values['confirm_email_address'];
-      // Get the entity id
-      $values['sid'] = $webform_submission->id();
-      // If no user is found, create a new user
-      if (!$update) {
-        if (!$this->userExists) {
-          $user = $this->createUserAccount($values);
-          if ($user) {
-            $this->logger->info('User created: ' . $user->mail->value);
-            // Send an email to the user of the type 'user_register_pending_approval'
-            _user_mail_notify('register_pending_approval', $user);
+      // Get the webforim id
+      $form_id = $webform_submission->getWebform()->id();
+      if ($form_id == 'user_registration') {
+        // Call the parent postSave method
+        // parent::postSave($webform_submission, $update);
+        // Process the submission
+        // $this->processSubmission($webform_submission, $update);
+        // Get the current user from the account proxy property
+        $account = $this->currentUser->getAccount();
+        // Load the user entity
+        $user = User::load($account->id());
+        // Get the values from the submission
+        $values = $webform_submission->getData();
+        // Search for the submitter's email address in the Drupal users table (mail field)
+        $email = $values['confirm_email_address'];
+        // Get the entity id
+        $values['sid'] = $webform_submission->id();
+        // If no user is found, create a new user
+        if (!$update) {
+          if (!$this->userExists) {
+            $user = $this->createUserAccount($values);
+            if ($user) {
+              $this->logger->info('User created: ' . $user->mail->value);
+              // Send an email to the user of the type 'user_register_pending_approval'
+              _user_mail_notify('register_pending_approval', $user);
+            }
+          } else {
+            $this->logger->info('User already exists with Email address: ' . $email);
           }
         } else {
-          $this->logger->info('User already exists with Email address: ' . $email);
-        }
-      } else {
-        // If the user is authenticated, update the user account else log a message
-        if ($user->isAuthenticated()) {
-          $this->updateUserAccount($values, $user);
+          // If the user is authenticated, update the user account else log a message
+          if ($user->isAuthenticated()) {
+            $this->updateUserAccount($values, $user);
+          }
         }
       }
     } catch (\Exception $e) {

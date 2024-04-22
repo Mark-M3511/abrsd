@@ -11,6 +11,7 @@ use Drupal\Core\Password\PasswordGeneratorInterface;
 use Psr\Log\LoggerInterface;
 use Drupal\user\Entity\User;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Form submission handler.
@@ -63,6 +64,12 @@ final class UserRegistration extends WebformHandlerBase
    */
   private $currentUser;
 
+  /**
+   * @var \Drupal\file\Entity\File;
+   *   The file system service.
+   */
+  private $fileEntity;
+
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -71,7 +78,8 @@ final class UserRegistration extends WebformHandlerBase
     ConfigFactoryInterface $config_factory,
     PasswordGeneratorInterface $password_generator,
     LoggerInterface $logger,
-    AccountProxyInterface $account_proxy
+    AccountProxyInterface $account_proxy,
+    EntityTypeManagerInterface $fileEntity
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->languageManager = $language_manager;
@@ -80,6 +88,7 @@ final class UserRegistration extends WebformHandlerBase
     $this->logger = $logger;
     $this->userExists = FALSE;
     $this->currentUser = $account_proxy;
+    $this->fileEntity = $fileEntity;
   }
 
   /**
@@ -108,6 +117,7 @@ final class UserRegistration extends WebformHandlerBase
     $password_generator = $container->get('password_generator');
     $logger = $container->get('logger.factory')->get('abrsd_user_registration');
     $curren_user = $container->get('current_user');
+    $fileEntity = $container->get('entity_type.manager');
     return new static(
       $configuration,
       $plugin_id,
@@ -116,7 +126,8 @@ final class UserRegistration extends WebformHandlerBase
       $config_factory,
       $password_generator,
       $logger,
-      $curren_user
+      $curren_user,
+      $fileEntity
     );
   }
 
@@ -310,5 +321,35 @@ final class UserRegistration extends WebformHandlerBase
 
     // return the id
     return !empty($uids) ? reset($uids) : NULL;
+  }
+
+  /**
+   * Get the submission ID.
+   *
+   * @param int $uid
+   *   The user ID.
+   *
+   * @return int|null
+   *   The submission ID if found, NULL otherwise.
+   */
+  public static function getSubmissionId(int $uid = -1)
+  {
+    $result = NULL;
+    try {
+      if ($uid == -1) {
+        $uid = \Drupal::currentUser()->id();
+      }
+      $query = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->getQuery()->accessCheck(FALSE)
+        ->condition('uid', $uid);
+      $uids = $query->execute();
+      $user = User::load(reset($uids));
+      $result = (int)$user->field_webform_submission_id->value;
+    } catch (\Exception $e) {
+      \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+
+    return $result;
   }
 }

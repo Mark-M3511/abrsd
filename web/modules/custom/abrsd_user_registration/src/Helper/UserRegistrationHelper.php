@@ -74,37 +74,43 @@ class UserRegistrationHelper
             // Get the form values
             $values = $this->webform_submission->getData();
             // Get the entity id
-            $values['sid'] =$this->webform_submission->id();
+            $values['sid'] = $this->webform_submission->id();
             // Get the user entity
             $user = $this->user;
             // if current user is admin load the user entity using the email address
+            $email = '';
             if ($this->userRegistration->currentUser->hasPermission('administer users')) {
-                $email = '';
                 if (isset($values['confirm_email_address'])) {
                     // Get the email from the Registration form
                     $email = $values['confirm_email_address'];
                 } else {
                     // Get the email from the Profile Update form
-                    $email = $values['signup_email'];
+                    $email = $values['signup_email'] ?? '';
                 }
-                $uid = $this->userRegistration->searchUserByEmail($email);
-                $user = User::load($uid);
             } else {
                 // Make sure the current user is the owner of the account
                 if ($this->userRegistration->currentUser->id() !== $user->id()) {
                     throw new \Exception('You are not authorized to update this account.');
                 }
             }
-            // Update the user account with the provided values
-            $user->set('field_organization', $values['organization'] ?? $user->field_organization->value);
-            $user->set('field_interests', $values['interests'] ?? $user->field_interests->value);
-            $user->set('field_display_name', $values['display_name'] ?? $user->field_display_name->value);
-            $user->set('field_first_name', $values['first_name'] ?? $user->field_first_name->value);
-            $user->set('field_last_name', $values['last_name'] ?? $user->field_last_name->value);
-            $user->set('field_country', $values['country'] ?? $user->field_country->value);
-            $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
-            $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
-            $user->enforceIsNew(FALSE)->save();
+
+            $uid = 0;
+            if (!empty($email)) {
+                $uid = $this->userRegistration->searchUserByEmail($email);
+                if (!empty($uid)) {
+                    $user = User::load($uid);
+                    // Update the user account with the provided values
+                    $user->set('field_organization', $values['organization'] ?? $user->field_organization->value);
+                    $user->set('field_interests', $values['interests'] ?? $user->field_interests->value);
+                    $user->set('field_display_name', $values['display_name'] ?? $user->field_display_name->value);
+                    $user->set('field_first_name', $values['first_name'] ?? $user->field_first_name->value);
+                    $user->set('field_last_name', $values['last_name'] ?? $user->field_last_name->value);
+                    $user->set('field_country', $values['country'] ?? $user->field_country->value);
+                    $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
+                    $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
+                    $user->enforceIsNew(FALSE)->save();
+                }
+            }
         } catch (\Exception $e) {
             $this->userRegistration->logger->error($e->getMessage());
         }

@@ -180,72 +180,24 @@ final class UserRegistration extends WebformHandlerBase
     try {
       // Get the webforim id
       $form_id = $webform_submission->getWebform()->id();
-      if ($form_id == 'user_registration') {
-        // Call the parent postSave method
-        // parent::postSave($webform_submission, $update);
-        // Process the submission
-        // $this->processSubmission($webform_submission, $update);
-        // Get the current user from the account proxy property
-        $account = $this->currentUser->getAccount();
-        // Load the user entity
-        $user = User::load($account->id());
-        // Get the values from the submission
-        $values = $webform_submission->getData();
-        // Search for the submitter's email address in the Drupal users table (mail field)
-        $email = $values['confirm_email_address'];
-        // Get the entity id
-        $values['sid'] = $webform_submission->id();
-        // If no user is found, create a new user
-        if (!$update) {
-          $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
-          $reg_helper->addUserAccount();
-        } else {
-          // If the user is authenticated, update the user account else log a message
-          if ($user->isAuthenticated()) {
-            $this->updateUserAccount($values, $user);
+      // Get the current user from the account proxy property
+      $account = $this->currentUser->getAccount();
+      // Load the user entity
+      $user = User::load($account->id());
+      switch ($form_id) {
+        case 'user_registration':
+          if (!$update) {
+            $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
+            $reg_helper->addUserAccount();
           }
-        }
+          break;
+        case 'user_profile':
+          if (!$update && $user->isAuthenticated()) {
+            $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
+            $reg_helper->updateUserAccount();
+          }
+          break;
       }
-    } catch (\Exception $e) {
-      $this->logger->error($e->getMessage());
-    }
-  }
-
-  /**
-   * Updates the user account with the provided values.
-   *
-   * @param array $values
-   *   An array of values to update the user account.
-   * @param \Drupal\user\Entity\User $user
-   *   The user entity object to update.
-   *
-   * @throws \Exception
-   *   If there is an error updating the user account.
-   */
-  private function updateUserAccount(array $values, User $user)
-  {
-    try {
-      // if current user is admin load the user entity using the email address
-      if ($this->currentUser->hasPermission('administer users')) {
-        $email = $values['confirm_email_address'];
-        $uid = $this->searchUserByEmail($email);
-        $user = User::load($uid);
-      } else {
-        // make sure the current user is the owner of the account
-        if ($this->currentUser->id() !== $user->id()) {
-          throw new \Exception('You are not authorized to update this account.');
-        }
-      }
-      // Update the user account with the provided values
-      $user->set('field_organization', $values['organization'] ?? $user->field_organization->value);
-      $user->set('field_interests', $values['interests'] ?? $user->field_interests->value);
-      $user->set('field_display_name', $values['display_name'] ?? $user->field_display_name->value);
-      $user->set('field_first_name', $values['first_name'] ?? $user->field_first_name->value);
-      $user->set('field_last_name', $values['last_name'] ?? $user->field_last_name->value);
-      $user->set('field_country', $values['country'] ?? $user->field_country->value);
-      $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
-      $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
-      $user->enforceIsNew(FALSE)->save();
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());
     }
@@ -260,7 +212,7 @@ final class UserRegistration extends WebformHandlerBase
    * @return int|null
    *   The user ID if a user with the given email is found, NULL otherwise.
    */
-  protected function searchUserByEmail(string $email)
+  public function searchUserByEmail(string $email)
   {
     // Query the user entity for the email address
     $query = \Drupal::entityTypeManager()

@@ -51,31 +51,35 @@ function abrsd_user_registration_help($route_name, RouteMatchInterface $route_ma
  */
 function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_state, $form_id)
 {
-    if ($form_id == 'webform_submission_user_profile_add_form') {
-        try {
+    try {
+        if ($form_id == 'webform_submission_user_profile_add_form') {
             // Load the custom UserRegistration service
             $sid = UserRegistration::getSubmissionId(13);
             // Load the submission from the webform entity
             $submission = WebformSubmission::load($sid);
             // Element data
             $submission_data = $submission->getData();
+            // Get a refernce to the form elements array
+            $fe = &$form['elements'];
             // Add first name
-            $form['elements']['first_name']['#default_value'] = $submission_data['first_name'];
+            $fe['first_name']['#default_value'] = $submission_data['first_name'];
             // Add last name
-            $form['elements']['last_name']['#default_value'] = $submission_data['last_name'];
+            $fe['last_name']['#default_value'] = $submission_data['last_name'];
             // Add country
-            $form['elements']['country']['#default_value'] = $submission_data['country'];
+            $fe['country']['#default_value'] = $submission_data['country'];
             // Add email
-            $form['elements']['signup_email']['#default_value'] = $submission_data['confirm_email_address'];
+            $fe['signup_email']['#default_value'] = $submission_data['confirm_email_address'];
             // Add organization
-            $form['elements']['organization']['#default_value'] = $submission_data['organization'];
+            $fe['organization']['#default_value'] = $submission_data['organization'];
             // Add interests
-            $form['elements']['interests']['#default_value'] = $submission_data['interests'];
+            $fe['interests']['#default_value'] = $submission_data['interests'];
             // Add about_me
-            $form['elements']['about_me']['#default_value'] = $submission_data['about_me'];
-        } catch (\Exception $e) {
-            // Log any errors
-            \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+            $fe['about_me']['#default_value'] = $submission_data['about_me'];
+            // Add display name
+            $fe['display_name']['#default_value'] = $submission_data['display_name'];
         }
+    } catch (\Exception $e) {
+        // Log any errors
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
 }

@@ -86,7 +86,7 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             // Add profile picture
             $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
             // Add the webform submission ID
-            $file_url = _abrsd_user_registration_user_picture($user, $submission_data['profile_picture']);
+            $file_url = _abrsd_user_registration_user_picture($user);
             // Add the profile picture display
             $fe['profile_picture_display'] = [
                 '#type' => 'inline_template',
@@ -109,26 +109,19 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
  *
  * @param int $uid
  *   The user ID.
- * @param int $fid
- *   The file ID.
  *
  * @return string|null
  *   The URL of the user picture if found, NULL otherwise.
  */
-function _abrsd_user_registration_user_picture(User $user, int $fid)
+function _abrsd_user_registration_user_picture(User $user)
 {
     $result = NULL;
     try {
-        // Get the file ID of the user picture.
-        $fid = $user->get('user_picture')->target_id;
-        $file = File::load($fid);
+        // Load the file entity
+        $file = File::load($user->get('user_picture')->target_id);
         if ($file) {
-            // Get the file's URI.
-            $uri = $file->getFileUri();
             // Get the URL of the image with the desired style.
-            $style = ImageStyle::load('thumbnail');
-            // Get the URL of the image with the desired style.
-            $result = $style->buildUrl($uri);
+            $result = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
         }
     } catch (\Exception $e) {
         // Log any errors

@@ -5,6 +5,7 @@ namespace Drupal\abrsd_user_registration\Helper;
 use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Drupal\user\Entity\User;
 use Drupal\webform\WebformSubmissionInterface;
+use Drupal\file\Entity\File;
 
 
 class UserRegistrationHelper
@@ -109,6 +110,7 @@ class UserRegistrationHelper
                     $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
                     $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
                     $user->enforceIsNew(FALSE)->save();
+                    $this->updateProfilePicture($values['profile_picture'], $user);
                 }
             }
         } catch (\Exception $e) {
@@ -116,6 +118,26 @@ class UserRegistrationHelper
         }
     }
 
+    /**
+     * Updates the profile picture of a user.
+     *
+     * @param int $fid The file ID of the profile picture.
+     * @param User $user The user object to update.
+     *
+     * @throws \Exception If an error occurs while updating the profile picture.
+     */
+    public function updateProfilePicture(int $fid, User $user)
+    {
+        try {
+            $file = File::load($fid);
+            if ($file) {
+                $user->set('user_picture', $file->id());
+                $user->enforceIsNew(FALSE)->save();
+            }
+        } catch (\Exception $e) {
+            $this->userRegistration->logger->error($e->getMessage());
+        }
+    }
 
     /**
      * Create a new user.

@@ -84,6 +84,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         $allowed_paths = [
             '/user/register',
             '/register',
+            '/user/profile',
         ];
 
         try {
@@ -100,13 +101,22 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
 
             // Only redirect for anonymous users.
             if (\Drupal::currentUser()->isAnonymous()) {
-                $response = new RedirectResponse($redirect_path, 301);
+                // Redirect the user to the specified path.
+                $response_code = 301;
+                $url = $redirect_path;
+                if ($redirect_path === NULL) {
+                    $response_code = 401;
+                    $url = '/user/register';
+                }
+                $response = new RedirectResponse($url, $response_code);
                 $event->setResponse($response);
-                // Log the redirect.
-                $this->logger->info('Redirecting user from @from to @to', [
-                    '@from' => $path_info,
-                    '@to' => $redirect_path,
-                ]);
+                // If this response code is 301 then log the redirect
+                if ($response->getStatusCode() === 301) {
+                    $this->logger->info('Redirecting user from @from to @to', [
+                        '@from' => $path_info,
+                        '@to' => $redirect_path,
+                    ]);
+                }
             }
         } catch (\Exception $e) {
             $this->logger->error('Error redirecting user: @error', ['@error' => $e->getMessage()]);

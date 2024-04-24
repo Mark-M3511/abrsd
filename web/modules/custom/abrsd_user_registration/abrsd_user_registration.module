@@ -68,7 +68,7 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             // Add country
             $fe['country']['#default_value'] = $submission_data['country'];
             // Add email
-            $fe['signup_email']['#default_value'] = $submission_data['confirm_email_address'];
+            $fe['signup_email']['#default_value'] = $submission_data['signup_email'];
             // Add organization
             $fe['organization']['#default_value'] = $submission_data['organization'];
             // Add interests

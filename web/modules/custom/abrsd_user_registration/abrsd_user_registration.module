@@ -10,6 +10,9 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\webform\Entity\WebformSubmission;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
+use Drupal\user\Entity\User;
+use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements hook_help().
@@ -77,9 +80,58 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             $fe['about_me']['#default_value'] = $submission_data['about_me'];
             // Add display name
             $fe['display_name']['#default_value'] = $submission_data['display_name'];
+            // Add profile picture
+            $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
+            // Add the webform submission ID
+            $file_url = _abrsd_user_registration_user_picture(14, $submission_data['profile_picture']);
+            $fe['profile_picture_display'] = [
+                '#type' => 'inline_template',
+                '#template' => '<img src="{{ url }}" alt="Profile picture" />',
+                '#context' => [
+                    'url' => $file_url,
+                ],
+                '#weight' => 0,
+            ];
         }
     } catch (\Exception $e) {
         // Log any errors
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+}
+
+
+/**
+ * Get the user picture.
+ *
+ * @param int $uid
+ *   The user ID.
+ * @param int $fid
+ *   The file ID.
+ *
+ * @return string|null
+ *   The URL of the user picture if found, NULL otherwise.
+ */
+function _abrsd_user_registration_user_picture(int $uid, int $fid)
+{
+    $result = NULL;
+    try {
+        // Load the user entity.
+        $user = User::load($uid);
+        // Get the file ID of the user picture.
+        $fid = $user->get('user_picture')->target_id;
+        $file = File::load($fid);
+        if ($file) {
+            // Get the file's URI.
+            $uri = $file->getFileUri();
+            // Get the URL of the image with the desired style.
+            $style = ImageStyle::load('thumbnail');
+            // Get the URL of the image with the desired style.
+            $result = $style->buildUrl($uri);
+        }
+    } catch (\Exception $e) {
+        // Log any errors
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+
+    return $result;
 }

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
@@ -102,16 +103,16 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             // Only redirect for anonymous users.
             if (\Drupal::currentUser()->isAnonymous()) {
                 // Redirect the user to the specified path.
-                $response_code = 301;
+                $response_code = Response::HTTP_MOVED_PERMANENTLY;
                 $url = $redirect_path;
                 if ($redirect_path === NULL) {
-                    $response_code = 401;
+                    $response_code = Response::HTTP_UNAUTHORIZED;
                     $url = '/user/register';
                 }
                 $response = new RedirectResponse($url, $response_code);
                 $event->setResponse($response);
                 // If this response code is 301 then log the redirect
-                if ($response->getStatusCode() === 301) {
+                if ($response->getStatusCode() === Response::HTTP_MOVED_PERMANENTLY) {
                     $this->logger->info('Redirecting user from @from to @to', [
                         '@from' => $path_info,
                         '@to' => $redirect_path,

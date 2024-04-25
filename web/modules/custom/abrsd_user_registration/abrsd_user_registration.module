@@ -55,7 +55,7 @@ function abrsd_user_registration_help($route_name, RouteMatchInterface $route_ma
 function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_state, $form_id)
 {
     try {
-        if ($form['#webform_id'] == 'user_profile') {
+        if (!empty($form['#webform_id']) && ($form['#webform_id'] == 'user_profile')) {
             // Load the logged in user
             // $user = User::load(\Drupal::currentUser()->id());
             $user = User::load(14);
@@ -85,17 +85,20 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             $fe['display_name']['#default_value'] = $submission_data['display_name'];
             // Add profile picture
             $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
-            // Add the webform submission ID
-            $file_url = _abrsd_user_registration_user_picture($user);
-            // Add the profile picture display
-            $fe['profile_picture_display'] = [
-                '#type' => 'inline_template',
-                '#template' => '<img src="{{ url }}" alt="Profile picture" />',
-                '#context' => [
-                    'url' => $file_url,
-                ],
-                '#weight' => 0,
-            ];
+            // If the profile picture is not empty add the profile picture display
+            if (!empty($fe['profile_picture']['#default_value'])) {
+                // Add the webform submission ID
+                $file_url = _abrsd_user_registration_user_picture($user);
+                // Add the profile picture display
+                $fe['profile_picture_display'] = [
+                    '#type' => 'inline_template',
+                    '#template' => '<img src="{{ url }}" alt="Profile picture" />',
+                    '#context' => [
+                        'url' => $file_url,
+                    ],
+                    '#weight' => 0,
+                ];
+            }
         }
     } catch (\Exception $e) {
         // Log any errors

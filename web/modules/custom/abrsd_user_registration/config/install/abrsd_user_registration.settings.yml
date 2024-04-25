@@ -4,5 +4,5 @@ roles:
   - authenticated
   - comment_contributor
 redirects:
-  /user/register: /create-member-account
-  /register: /create-member-account
+  /user/register: /user/create-member-account
+  /register: /user/create-member-account

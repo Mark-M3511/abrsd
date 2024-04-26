@@ -130,11 +130,15 @@ function _abrsd_user_registration_user_picture(User $user)
 {
     $result = NULL;
     try {
+        // Get the file ID of the user picture
+        $fid = $user->get('user_picture')->target_id;
         // Load the file entity
-        $file = File::load($user->get('user_picture')->target_id);
-        if ($file) {
-            // Get the URL of the image with the desired style.
-            $result = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
+        if (!empty($fid)) {
+            $file = File::load($fid);
+            if ($file) {
+                // Get the URL of the image with the desired style.
+                $result = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
+            }
         }
     } catch (\Exception $e) {
         // Log any errors

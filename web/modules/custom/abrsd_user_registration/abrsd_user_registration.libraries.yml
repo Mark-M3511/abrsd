@@ -1,6 +1,9 @@
 abrsd_user_registration:
   js:
     js/abrsd_user_registration.js: {}
+  css:
+    theme:
+      css/abrsd_user_registration.css: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

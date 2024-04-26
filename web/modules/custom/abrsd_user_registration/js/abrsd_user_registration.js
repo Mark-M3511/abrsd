@@ -3,14 +3,16 @@
         attach: function (context, settings) {
             // Create a new MutationObserver instance.
             const observer = new MutationObserver(function (mutations) {
+                const elUploader = document.querySelector('input[name="files[profile_picture]"]');
                 mutations.forEach(function (mutation) {
                     if (mutation.type === 'childList') {
-                        // Check for the presence of a input element with the name attribute = "files[profile_picture]"
-                        if (document.querySelector('input[name="files[profile_picture]"]')) {
+                        if (elUploader) {
                             // Hide the element with id attribute == #profile-picture-display
-                            document.querySelector('#profile-picture-display').style.display = 'none';
+                            const elDisplay = document.querySelector('#profile-picture-display');
+                            if (elDisplay) {
+                                elDisplay.style.display = 'none';
+                            }
                         }
-                        // console.log('A child node has been added or removed.');
                     } else if (mutation.type === 'attributes') {
                         // console.log('The ' + mutation.attributeName + ' attribute was modified.');
                     }

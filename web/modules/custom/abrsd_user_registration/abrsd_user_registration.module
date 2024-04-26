@@ -9,6 +9,7 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\webform\Entity\WebformSubmission;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Utility\WebformFormHelper;
 use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
@@ -59,45 +60,52 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             // Load the logged in user
             // $user = User::load(\Drupal::currentUser()->id());
             $user = User::load(14);
-            // Load the custom UserRegistration service
-            $sid = UserRegistration::getSubmissionId($user->id());
-            // Load the submission from the webform entity
-            $submission = WebformSubmission::load($sid);
-            // Element data
-            $submission_data = $submission->getData();
-            // Get a refernce to the form elements array
-            $fe = &$form['elements'];
-            // Add first name
-            $fe['first_name']['#default_value'] = $submission_data['first_name'];
-            // Add last name
-            $fe['last_name']['#default_value'] = $submission_data['last_name'];
-            // Add country
-            $fe['country']['#default_value'] = $submission_data['country'];
-            // Add email
-            $fe['signup_email']['#default_value'] = $submission_data['signup_email'];
-            // Add organization
-            $fe['organization']['#default_value'] = $submission_data['organization'];
-            // Add interests
-            $fe['interests']['#default_value'] = $submission_data['interests'];
-            // Add about_me
-            $fe['about_me']['#default_value'] = $submission_data['about_me'];
-            // Add display name
-            $fe['display_name']['#default_value'] = $submission_data['display_name'];
-            // Add profile picture
-            $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
-            // If the profile picture is not empty add the profile picture display
-            if (!empty($fe['profile_picture']['#default_value'])) {
-                // Add the webform submission ID
-                $file_url = _abrsd_user_registration_user_picture($user);
-                // Add the profile picture display
-                $fe['profile_picture_display'] = [
-                    '#type' => 'inline_template',
-                    '#template' => '<img src="{{ url }}" alt="Profile picture" />',
-                    '#context' => [
-                        'url' => $file_url,
-                    ],
-                    '#weight' => 0,
-                ];
+            if (!empty($user)) {
+                // Load the custom UserRegistration service
+                $sid = UserRegistration::getSubmissionId($user->id());
+                if (!empty($sid)) {
+                    // Load the submission from the webform entity
+                    $submission = WebformSubmission::load($sid);
+                    // Element data
+                    $submission_data = $submission->getData();
+                    // Test
+                    // $fe = &WebformFormHelper::flattenElements($form['elements']);
+                    // Get a refernce to the form elements array
+                    $fe = &$form['elements'];
+                    // Add first name
+                    $fe['first_name']['#default_value'] = $submission_data['first_name'];
+                    // Add last name
+                    $fe['last_name']['#default_value'] = $submission_data['last_name'];
+                    // Add country
+                    $fe['country']['#default_value'] = $submission_data['country'];
+                    // Add email
+                    $fe['signup_email']['#default_value'] = $submission_data['signup_email'];
+                    // Add organization
+                    $fe['organization']['#default_value'] = $submission_data['organization'];
+                    // Add interests
+                    $fe['interests']['#default_value'] = $submission_data['interests'];
+                    // Add about_me
+                    $fe['about_me']['#default_value'] = $submission_data['about_me'];
+                    // Add display name
+                    $fe['display_name']['#default_value'] = $submission_data['display_name'];
+                    // Check if the profile picture has been removed
+                    $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
+                    // If the profile picture is not empty add the profile picture display
+                    $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
+                    // Add the webform submission ID
+                    $file_url = _abrsd_user_registration_user_picture($user);
+                    // Add the profile picture display
+                    $fe['profile_picture_display'] = [
+                        '#type' => 'inline_template',
+                        '#template' => '<img src="{{ url }}" class="{{ css_class }}" alt="Profile picture" />',
+                        '#context' => [
+                            'url' => $file_url,
+                            'css_class' => $user_pic_removed ? 'hidden' : '',
+                        ],
+                        '#weight' => 0,
+                        '#access' => $user_pic_removed ? FALSE : TRUE,
+                    ];
+                }
             }
         }
     } catch (\Exception $e) {
@@ -125,6 +133,23 @@ function _abrsd_user_registration_user_picture(User $user)
         if ($file) {
             // Get the URL of the image with the desired style.
             $result = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
+        }
+    } catch (\Exception $e) {
+        // Log any errors
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+
+    return $result;
+}
+
+function _abrsd_user_registration_user_picture_removed($form_state)
+{
+    $result = FALSE;
+    try {
+        // Check if the user picture has been removed
+        $user_pic = $form_state->getValue('profile_picture');
+        if (!empty($user_pic)) {
+            $result  = empty($user_pic['fid']);
         }
     } catch (\Exception $e) {
         // Log any errors

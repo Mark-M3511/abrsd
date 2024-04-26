@@ -121,17 +121,22 @@ class UserRegistrationHelper
     /**
      * Updates the profile picture of a user.
      *
-     * @param int $fid The file ID of the profile picture.
+     * @param int|null $fid The file ID of the profile picture.
      * @param User $user The user object to update.
      *
      * @throws \Exception If an error occurs while updating the profile picture.
      */
-    public function updateProfilePicture(int $fid, User $user)
+    public function updateProfilePicture(?int $fid, User $user)
     {
         try {
-            $file = File::load($fid);
-            if ($file) {
-                $user->set('user_picture', $file->id());
+            if ($fid) {
+                $file = File::load($fid);
+                if ($file) {
+                    $user->set('user_picture', $file->id());
+                    $user->enforceIsNew(FALSE)->save();
+                }
+            } else {
+                $user->set('user_picture', NULL);
                 $user->enforceIsNew(FALSE)->save();
             }
         } catch (\Exception $e) {

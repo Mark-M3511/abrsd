@@ -18,12 +18,8 @@
                     }
                 });
             });
-
             // Start observing the document with the configured parameters.
             observer.observe(document, { attributes: true, childList: true, subtree: true });
-
-            // For example, to log a message to the console:
-            // console.log('abrsd_user_registration module JavaScript loaded.');
         }
     };
 })(Drupal, drupalSettings);

@@ -133,12 +133,11 @@ class UserRegistrationHelper
                 $file = File::load($fid);
                 if ($file) {
                     $user->set('user_picture', $file->id());
-                    $user->enforceIsNew(FALSE)->save();
                 }
             } else {
                 $user->set('user_picture', NULL);
-                $user->enforceIsNew(FALSE)->save();
             }
+            $user->enforceIsNew(FALSE)->save();
         } catch (\Exception $e) {
             $this->userRegistration->logger->error($e->getMessage());
         }

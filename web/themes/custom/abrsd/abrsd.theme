@@ -731,6 +731,9 @@ function abrsd_preprocess_field(&$variables)
       'text-decoration-none',
       'border',
       'rounded-2',
+      'btn',
+      'btn-primary',
+      'fw-semibold',
     ];
     foreach ($variables['items'] as &$item) {
       if (isset($item['content']['#url'])) {

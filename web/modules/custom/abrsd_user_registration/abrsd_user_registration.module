@@ -154,9 +154,7 @@ function _abrsd_user_registration_user_picture_removed($form_state)
     try {
         // Check if the user picture has been removed
         $user_pic = $form_state->getValue('profile_picture');
-        if (!empty($user_pic)) {
-            $result  = empty($user_pic['fid']);
-        }
+        $result = is_array($user_pic) && !isset($user_pic['fid']);
     } catch (\Exception $e) {
         // Log any errors
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());

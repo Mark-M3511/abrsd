@@ -57,6 +57,7 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
 {
     try {
         if (!empty($form['#webform_id']) && ($form['#webform_id'] == 'user_profile')) {
+            $form['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_registration';
             // Load the logged in user
             // $user = User::load(\Drupal::currentUser()->id());
             $user = User::load(14);
@@ -103,7 +104,9 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
                             'css_class' => $user_pic_removed ? 'hidden' : '',
                         ],
                         '#weight' => 0,
-                        '#access' => $user_pic_removed ? FALSE : TRUE,
+                        // '#access' => $user_pic_removed ? FALSE : TRUE,
+                        '#prefix' => '<div id="profile-picture-display">',
+                        '#suffix' => '</div>',
                     ];
                 }
             }
@@ -113,7 +116,6 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
 }
-
 
 /**
  * Get the user picture.

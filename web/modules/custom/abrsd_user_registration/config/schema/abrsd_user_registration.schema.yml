@@ -1,0 +1,26 @@
+abrsd_user_registration.settings:
+  type: config_object
+  label: 'ABRSD User Registration settings'
+  mapping:
+    message:
+      type: string
+      label: 'Message'
+    langcode:
+      type: string
+      label: 'Language code'
+    roles:
+      type: sequence
+      label: 'Roles'
+      sequence:
+        type: string
+        label: 'Role'
+    redirects:
+      type: mapping
+      label: 'Redirects'
+      mapping:
+        '/user/register':
+          type: string
+          label: 'User register redirect'
+        '/register':
+          type: string
+          label: 'Register redirect'

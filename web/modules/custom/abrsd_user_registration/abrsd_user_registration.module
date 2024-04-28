@@ -58,8 +58,8 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
         if (!empty($form['#webform_id']) && ($form['#webform_id'] == 'user_profile')) {
             $form['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_registration';
             // Load the logged in user
-            // $user = User::load(\Drupal::currentUser()->id());
-            $user = User::load(14);
+            $user = User::load(\Drupal::currentUser()->id());
+            // $user = User::load(14);
             if (!empty($user)) {
                 // Load the custom UserRegistration service
                 $sid = UserRegistration::getSubmissionId($user->id());

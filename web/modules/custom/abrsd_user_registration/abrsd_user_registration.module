@@ -69,8 +69,6 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
                     $submission = WebformSubmission::load($sid);
                     // Element data
                     $submission_data = $submission->getData();
-                    // Test
-                    // $fe = &WebformFormHelper::flattenElements($form['elements']);
                     // Get a refernce to the form elements array
                     $fe = &$form['elements'];
                     // Add first name

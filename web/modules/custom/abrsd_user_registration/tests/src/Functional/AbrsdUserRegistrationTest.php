@@ -22,6 +22,13 @@ class AbrsdUserRegistrationTest extends BrowserTestBase
     protected $user;
 
     /**
+     * The default theme for tests.
+     *
+     * @var string
+     */
+    protected $defaultTheme = 'stark';
+
+    /**
      * {@inheritdoc}
      */
     protected function setUp(): void

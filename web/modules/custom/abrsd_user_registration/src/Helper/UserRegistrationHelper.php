@@ -80,7 +80,7 @@ class UserRegistrationHelper
             $user = $this->user;
             // if current user is admin load the user entity using the email address
             $email = '';
-            if ($this->userRegistration->currentUser->hasPermission('administer users')) {
+            if ($this->userRegistration->currentUser->hasPermission('post comments')) {
                 if (isset($values['confirm_email_address'])) {
                     // Get the email from the Registration form
                     $email = $values['confirm_email_address'];

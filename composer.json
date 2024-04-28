@@ -109,7 +109,10 @@
         }
     },
     "require-dev": {
+        "behat/mink": "^1.11",
         "kint-php/kint": "^5.0",
-        "mglaman/phpstan-drupal": "^1.0"
+        "mglaman/phpstan-drupal": "^1.0",
+        "phpunit/phpunit": "^9.6",
+        "symfony/phpunit-bridge": "^7.0"
     }
 }

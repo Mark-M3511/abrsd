@@ -9,7 +9,6 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\webform\Entity\WebformSubmission;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\Utility\WebformFormHelper;
 use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Drupal\user\Entity\User;
 use Drupal\file\Entity\File;

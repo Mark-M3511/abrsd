@@ -3,14 +3,14 @@
         attach: function (context, settings) {
             // Create a new MutationObserver instance.
             const observer = new MutationObserver(mutations => {
-                const elUploader = document.querySelector('input[name="files[profile_picture]"]');
+                const uploader = document.querySelector('input[name="files[profile_picture]"]');
                 mutations.forEach(mutation => {
                     if (mutation.type === 'childList') {
-                        if (elUploader) {
+                        if (uploader) {
                             // Hide the element with id attribute == #profile-picture-display
-                            const elDisplay = document.querySelector('#profile-picture-display');
-                            if (elDisplay) {
-                                elDisplay.style.display = 'none';
+                            const profilePic = document.querySelector('#profile-picture-display');
+                            if (profilePic) {
+                                profilePic.style.display = 'none';
                             }
                         }
                     }

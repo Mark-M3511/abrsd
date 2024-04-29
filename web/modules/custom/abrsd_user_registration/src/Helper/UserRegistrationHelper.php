@@ -159,7 +159,7 @@ class UserRegistrationHelper
             $email = $values['confirm_email_address'];
 
             $user_values = [
-                'pass' => $password,
+                // 'pass' => $password,
                 'mail' => $email,
                 'name' => $email,
                 'langcode' => $language_id,
@@ -185,7 +185,9 @@ class UserRegistrationHelper
                 ->get('roles')[1] ?? $default_role;
             // Add the custom role to the user
             $user->addRole($custom_role);
-
+            // Hash and set the new password
+            $user->setPassword($password);
+            // Save the user
             if ($user->enforceIsNew()->save()) {
                 $result = $user;
             }

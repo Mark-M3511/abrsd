@@ -145,7 +145,6 @@ function _abrsd_user_registration_user_picture(User $user)
     return $result;
 }
 
-
 /**
  * Checks if the user picture has been removed from the form.
  *

@@ -145,6 +145,16 @@ function _abrsd_user_registration_user_picture(User $user)
     return $result;
 }
 
+
+/**
+ * Checks if the user picture has been removed from the form.
+ *
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object.
+ *
+ * @return bool
+ *   TRUE if the user picture has been removed, FALSE otherwise.
+ */
 function _abrsd_user_registration_user_picture_removed($form_state)
 {
     $result = FALSE;

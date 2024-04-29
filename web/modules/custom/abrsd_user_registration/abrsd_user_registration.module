@@ -63,50 +63,81 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             if (!empty($user)) {
                 // Load the custom UserRegistration service
                 $sid = UserRegistration::getSubmissionId($user->id());
-                if (!empty($sid)) {
-                    // Load the submission from the webform entity
-                    $submission = WebformSubmission::load($sid);
-                    // Element data
-                    $submission_data = $submission->getData();
-                    // Get a refernce to the form elements array
-                    $fe = &$form['elements'];
-                    // Add first name
-                    $fe['first_name']['#default_value'] = $submission_data['first_name'];
-                    // Add last name
-                    $fe['last_name']['#default_value'] = $submission_data['last_name'];
-                    // Add country
-                    $fe['country']['#default_value'] = $submission_data['country'];
-                    // Add email
-                    $fe['signup_email']['#default_value'] = $submission_data['signup_email'];
-                    // Add organization
-                    $fe['organization']['#default_value'] = $submission_data['organization'];
-                    // Add interests
-                    $fe['interests']['#default_value'] = $submission_data['interests'];
-                    // Add about_me
-                    $fe['about_me']['#default_value'] = $submission_data['about_me'];
-                    // Add display name
-                    $fe['display_name']['#default_value'] = $submission_data['display_name'];
-                    // Check if the profile picture has been removed
-                    $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
-                    // If the profile picture is not empty add the profile picture display
-                    $fe['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
-                    // Add the webform submission ID
-                    $file_url = _abrsd_user_registration_user_picture($user);
-                    // Add the profile picture display
-                    $fe['profile_picture_display'] = [
-                        '#type' => 'inline_template',
-                        '#template' => '<img src="{{ url }}" class="{{ css_class }}" alt="Profile picture" />',
-                        '#context' => [
-                            'url' => $file_url,
-                            'css_class' => $user_pic_removed ? 'hidden' : '',
-                        ],
-                        '#weight' => 0,
-                        // '#access' => $user_pic_removed ? FALSE : TRUE,
-                        '#prefix' => '<div id="profile-picture-display">',
-                        '#suffix' => '</div>',
-                    ];
-                }
+                // Load the profile form values
+                _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
             }
+        }
+    } catch (\Exception $e) {
+        // Log any errors
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+}
+
+/**
+ * Loads the profile form values for a user registration.
+ *
+ * This function is responsible for loading the default values for the profile form
+ * elements based on the submission data retrieved from a webform entity.
+ *
+ * @param array &$form_elements
+ *   The array of form elements.
+ * @param FormStateInterface &$form_state
+ *   The form state object.
+ * @param int|null $sid
+ *   The submission ID.
+ * @param User $user
+ *   The user object.
+ *
+ * @throws \Exception
+ *   If an error occurs during the process.
+ */
+function _abrsd_user_registration_load_profile_form_values(
+    array &$form_elements,
+    FormStateInterface &$form_state,
+    ?int $sid,
+    User $user
+) {
+    try {
+        if (!empty($sid)) {
+            // Load the submission from the webform entity
+            $submission = WebformSubmission::load($sid);
+            // Element data
+            $submission_data = $submission->getData();
+            // Add first name
+            $form_elements['first_name']['#default_value'] = $submission_data['first_name'];
+            // Add last name
+            $form_elements['last_name']['#default_value'] = $submission_data['last_name'];
+            // Add country
+            $form_elements['country']['#default_value'] = $submission_data['country'];
+            // Add email
+            $form_elements['signup_email']['#default_value'] = $submission_data['signup_email'];
+            // Add organization
+            $form_elements['organization']['#default_value'] = $submission_data['organization'];
+            // Add interests
+            $form_elements['interests']['#default_value'] = $submission_data['interests'];
+            // Add about_me
+            $form_elements['about_me']['#default_value'] = $submission_data['about_me'];
+            // Add display name
+            $form_elements['display_name']['#default_value'] = $submission_data['display_name'];
+            // Check if the profile picture has been removed
+            $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
+            // If the profile picture is not empty add the profile picture display
+            $form_elements['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
+            // Add the webform submission ID
+            $file_url = _abrsd_user_registration_user_picture($user);
+            // Add the profile picture display
+            $form_elements['profile_picture_display'] = [
+                '#type' => 'inline_template',
+                '#template' => '<img src="{{ url }}" class="{{ css_class }}" alt="Profile picture" />',
+                '#context' => [
+                    'url' => $file_url,
+                    'css_class' => $user_pic_removed ? 'hidden' : '',
+                ],
+                '#weight' => 0,
+                // '#access' => $user_pic_removed ? FALSE : TRUE,
+                '#prefix' => '<div id="profile-picture-display">',
+                '#suffix' => '</div>',
+            ];
         }
     } catch (\Exception $e) {
         // Log any errors

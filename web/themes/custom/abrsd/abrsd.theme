@@ -242,10 +242,28 @@ function abrsd_preprocess_comment(array &$variables)
     // Get the fully loaded user
     $user = User::load($user->id());
     // Get the display name
-    $variables['display_name'] = $user->field_display_name->value;
+    $variables['display_name'] = _abrsd_get_display_name($user);
   } catch (Exception $e) {
     \Drupal::logger('abrsd')->error($e->getMessage());
   }
+}
+
+/**
+ * Retrieves the display name for a user.
+ *
+ * @param User $user The user object for which to retrieve the display name.
+ * @return string The display name of the user.
+ */
+function _abrsd_get_display_name(User $user)
+{
+  $result = $user->field_display_name->value;
+
+  // If user has permission 'Administer comments and comment settings' then set result to 'Moderator'
+  if ($user->hasPermission('administer comments')) {
+    $result = 'Moderator';
+  }
+
+  return $result;
 }
 
 /**

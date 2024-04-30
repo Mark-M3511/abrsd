@@ -64,6 +64,7 @@
  * Custom variables:
  * - created_ago: Relative time since the comment was created.
  * - has_picture: Whether the comment author has a profile picture.
+ * - display_name: The display name of the comment author.
  *
  * @see template_preprocess_comment()
  */
@@ -101,6 +102,8 @@
   ]
 %}
 
+{% set commenter = display_name ?? author  %}
+
 <article role="article"{{ attributes.addClass(classes)|without('role') }}>
   {# Add the "new" indicator to the comment. #}
   {# {%
@@ -115,7 +118,7 @@
     <span class="hidden text-danger" data-comment-timestamp="{{ new_indicator_timestamp }}"></span>
     {% include "@abrsd/partials/_profile_image.html.twig" with{
        'user_picture': user_picture,
-       'author': author,
+       'author': commenter,
        'has_picture': has_picture,
        'additional_classes': 'd-none d-xl-flex',
     }%}
@@ -135,11 +138,11 @@
         {% include "@abrsd/partials/_profile_image.html.twig" with{
            'user_picture': user_picture,
            'has_picture:': has_picture,
-           'author': author,
+           'author': commenter,
            'additional_classes': 'd-flex d-xl-none',
         }%}
         <div class="comment-author-time align-self-center p-2 p-xl-0">
-          <span class="comment__author">{{ author }} - </span>
+          <span class="comment__author">{{ commenter }} - </span>
           <span class="comment__time">{{ created_ago }} {{'ago'|t}}</span>
         </div>
       </div>

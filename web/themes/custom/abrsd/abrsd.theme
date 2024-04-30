@@ -11,6 +11,7 @@ use \Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
 use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
+use \Drupal\user\Entity\User;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -238,6 +239,10 @@ function abrsd_preprocess_comment(array &$variables)
       $created,
       ['granularity' => 1]
     );
+    // Get the fully loaded user
+    $user = User::load($user->id());
+    // Get the display name
+    $variables['display_name'] = $user->field_display_name->value;
   } catch (Exception $e) {
     \Drupal::logger('abrsd')->error($e->getMessage());
   }

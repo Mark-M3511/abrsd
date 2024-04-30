@@ -123,6 +123,7 @@ function _abrsd_user_registration_load_profile_form_values(
             $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
             // If the profile picture is not empty add the profile picture display
             if (!empty($submission_data['profile_picture'])) {
+                // Add the profile picture
                 $form_elements['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
                 // Add the webform submission ID
                 $file_url = _abrsd_user_registration_user_picture($user);

@@ -258,7 +258,7 @@ function _abrsd_get_display_name(User $user)
 {
   $result = $user->field_display_name->value;
 
-  // If user has permission 'Administer comments and comment settings' then set result to 'Moderator'
+  // If user has permission 'administer comments' then set result to 'Moderator'
   if ($user->hasPermission('administer comments')) {
     $result = 'Moderator';
   }

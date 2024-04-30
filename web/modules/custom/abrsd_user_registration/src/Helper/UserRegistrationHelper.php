@@ -86,7 +86,7 @@ class UserRegistrationHelper
                     $email = $values['confirm_email_address'];
                 } else {
                     // Get the email from the Profile Update form
-                    $email = $values['signup_email'] ?? '';
+                    $email = $values['signup_email'] ?: $user->mail->value;
                 }
             } else {
                 // Make sure the current user is the owner of the account

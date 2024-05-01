@@ -150,7 +150,6 @@ final class UserRegistration extends WebformHandlerBase
     try {
       // Call the parent preSave method
       parent::preSave($storage);
-
       // Get the form id
       $form_id = $storage->getWebform()->id();
       // Check if the form id is 'user_registration'
@@ -178,22 +177,23 @@ final class UserRegistration extends WebformHandlerBase
   public function postSave(WebformSubmissionInterface $webform_submission, $update = TRUE)
   {
     try {
+      // Call the parent's post save method
+      parent::postSave($webform_submission, $update);
       // Get the webforim id
       $form_id = $webform_submission->getWebform()->id();
       // Get the current user from the account proxy property
       $account = $this->currentUser->getAccount();
       // Load the user entity
       $user = User::load($account->id());
+      $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
       switch ($form_id) {
         case 'user_registration':
           if (!$update) {
-            $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
             $reg_helper->addUserAccount();
           }
           break;
         case 'user_profile':
           if (!$update && $user->isAuthenticated()) {
-            $reg_helper = new UserRegistrationHelper($user, $webform_submission, $this);
             $reg_helper->updateUserAccount();
           }
           break;

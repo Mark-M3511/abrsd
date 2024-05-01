@@ -263,3 +263,11 @@ a.nav-link--::before {
     margin: 0.4rem 0.5rem 0 0.5rem;
   }
 }
+
+a.nav-link--user-password::before,
+a.nav-link--user-logout::before {
+  // Remove the background image
+  background-image: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

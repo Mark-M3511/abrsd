@@ -159,7 +159,7 @@ function _abrsd_user_registration_load_profile_form_values(
  * @return string|null
  *   The URL of the user picture if found, NULL otherwise.
  */
-function _abrsd_user_registration_user_picture(User $user)
+function _abrsd_user_registration_user_picture(User $user): ?string
 {
     $result = NULL;
     try {
@@ -190,7 +190,7 @@ function _abrsd_user_registration_user_picture(User $user)
  * @return bool
  *   TRUE if the user picture has been removed, FALSE otherwise.
  */
-function _abrsd_user_registration_user_picture_removed($form_state)
+function _abrsd_user_registration_user_picture_removed(FormStateInterface $form_state): bool
 {
     $result = FALSE;
     try {
@@ -203,4 +203,35 @@ function _abrsd_user_registration_user_picture_removed($form_state)
     }
 
     return $result;
+}
+
+function abrsd_user_registration_form_user_form_alter(
+    array &$form,
+    FormStateInterface &$form_state,
+    string $form_id
+) {
+    try {
+        // Does the current user have the Comment Contributor role
+        $user = User::load(\Drupal::currentUser()->id());
+        if (!empty($user)) {
+            $roles = $user->getRoles();
+            if (in_array('comment_contributor', $roles)) {
+                // Hide the image upload field
+                $form['user_picture']['#access'] = FALSE;
+                // $form['account']['pass']['#access'] = FALSE;
+                // Hide the contact settings checkbox
+                $form['contact']['#access'] = FALSE;
+                $form['language']['#access'] = FALSE;
+                $form['field_display_name']['#access'] = FALSE;
+                $form['field_first_name']['#access'] = FALSE;
+                $form['field_last_name']['#access'] = FALSE;
+                $form['field_country']['#access'] = FALSE;
+                $form['field_organization']['#access'] = FALSE;
+                $form['field_about_me']['#access'] = FALSE;
+                $form['field_interests']['#access'] = FALSE;
+            }
+        }
+    } catch (\Exception $e) {
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
 }

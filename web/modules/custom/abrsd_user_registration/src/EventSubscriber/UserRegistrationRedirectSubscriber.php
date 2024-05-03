@@ -52,7 +52,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      *
      * @var \Drupal\Core\Config\ConfigFactoryInterface
      */
-    public static function create(ContainerInterface $container)
+    public static function create(ContainerInterface $container): self
     {
         $config_factory = $container->get('config.factory');
         $logger = $container->get('logger.factory');
@@ -66,7 +66,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         // The higher the number, the earlier the method is called.
         $events = [];
@@ -131,7 +131,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      * @param string $config_name The name of the configuration to retrieve the redirect from.
      * @return string|null The redirect path if found, or null if not found.
      */
-    public function getRedirectPathFromConfig(string $path, string $config_name)
+    public function getRedirectPathFromConfig(string $path, string $config_name): ?string
     {
         try {
             $config = $this->configFactory->get('abrsd_user_registration.settings');

@@ -212,7 +212,7 @@ final class UserRegistration extends WebformHandlerBase
    * @return int|null
    *   The user ID if a user with the given email is found, NULL otherwise.
    */
-  public function searchUserByEmail(string $email)
+  public function searchUserByEmail(string $email): ?int
   {
     // Query the user entity for the email address
     $query = \Drupal::entityTypeManager()
@@ -234,7 +234,7 @@ final class UserRegistration extends WebformHandlerBase
    * @return int|null
    *   The submission ID if found, NULL otherwise.
    */
-  public static function getSubmissionId(int $uid = -1)
+  public static function getSubmissionId(int $uid = -1): ?int
   {
     $result = NULL;
     try {

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the abrsd_user_registration module.
+ */
+
+function abrsd_user_registration_install()
+{
+    // Set the weight of this module to a high value to ensure it runs after the contact module.
+    module_set_weight('abrsd_user_registration', 10);
+}
+
+
+/**
+ * Implements hook_update_N().
+ *
+ * Set the weight of the abrsd_user_registration module to a high value.
+ * This ensures that it runs after the contact module.
+ */
+function abrsd_user_registration_update_91001()
+{
+    // Set the weight of this module to a high value to ensure it runs after the contact module.
+    module_set_weight('abrsd_user_registration', 10);
+}

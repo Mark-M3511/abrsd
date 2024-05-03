@@ -148,8 +148,9 @@ class UserRegistrationHelper
      *
      * @param array $values
      *   The values from the webform submission.
+     * @return \Drupal\user\Entity\User|null
      */
-    private function createUserAccount(array $values)
+    private function createUserAccount(array $values): ?User
     {
         $result = null;
 

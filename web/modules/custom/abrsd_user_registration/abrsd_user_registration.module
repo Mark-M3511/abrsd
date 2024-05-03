@@ -216,13 +216,13 @@ function abrsd_user_registration_form_user_form_alter(
         if (!empty($user)) {
             $roles = $user->getRoles();
             if (in_array('comment_contributor', $roles)) {
-                // Hide the image upload field
+                // Hide some fields provided by core
                 $form['user_picture']['#access'] = FALSE;
                 $form['language']['#access'] = FALSE;
                 $form['timezone']['#access'] = FALSE;
                 // Hide the contact field - this is a core form field set in the contact.module
                 // See this projects .install file more information
-                $form['contact']['contact']['#access'] = FALSE;
+                $form['contact']['#access'] = FALSE;
                 // Hide custom fields
                 $form['field_display_name']['#access'] = FALSE;
                 $form['field_first_name']['#access'] = FALSE;

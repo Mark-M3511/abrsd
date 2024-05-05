@@ -9,7 +9,6 @@ This module provides a custom webform handler that is run when a user submits a 
 - The postSave method gets the values from the submission and calls the createUser method to create a new user. The createUser method creates a new user entity, sets the username, email, and password, and saves the user.
 - The UserRegistrationHandler class is annotated with the @WebformHandler annotation. This annotation provides metadata about the handler, such as the ID, label, category, description, cardinality, and results.
 
-
 ## Features
 
 - Custom user registration form
@@ -28,6 +27,7 @@ This module provides a custom webform handler that is run when a user submits a 
 - `postSave()`: This method is called after the webform submission is saved. It checks if the user already exists, and if not, it creates a new user.
 - `createUser(array $values)`: This method creates a new user with the provided values.
 
+
 ## Dependencies
 
 - Drupal's Language Manager
@@ -35,6 +35,35 @@ This module provides a custom webform handler that is run when a user submits a 
 - Drupal's Password Generator
 - Drupal's Logger Factory
 
+## File Structure
+
+```
+abrsd_user_registration/
+├── abrsd_user_registration.info.yml
+├── abrsd_user_registration.install
+├── abrsd_user_registration.libraries.yml
+├── abrsd_user_registration.module
+├── abrsd_user_registration.services.yml
+├── README>md
+├── config/
+│   ├── install/ (*.yml)
+│   ├── schema/ (*.yml)
+├── css/
+├── js/
+├── src/
+│   ├── EventSubscriber/ (*.php)
+│   │   ├── UserRegistrationRedirectSubscriber.php
+│   ├── Helper/ (*.php)
+│   │   ├── UserRegistrationHelper.php
+│   ├── Plugin/ (*.php)
+│   │   ├── WebformHandler/
+│   │   │   ├── UserRegistration.php
+├── tests/
+│   ├── src/
+│   │   ├── Functional/
+│   │   │   ├── AbrsdUserRegistrationTest.php
+
+```
 ## Contributing
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.

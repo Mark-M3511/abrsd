@@ -28,12 +28,18 @@ This module provides a custom webform handler that is run when a user submits a 
 - `createUser(array $values)`: This method creates a new user with the provided values.
 
 
-## Dependencies
+## UserRegistration Class Dependencies
 
-- Drupal's Language Manager
-- Drupal's Config Factory
-- Drupal's Password Generator
-- Drupal's Logger Factory
+The `UserRegistration` class in our Drupal module depends on several core services. These are injected into the class through the constructor. Here's a list of those dependencies:
+
+- `LanguageManagerInterface`: This is used for handling language-related functionality.
+- `ConfigFactoryInterface`: This is used for accessing configuration settings.
+- `PasswordGeneratorInterface`: This is used for generating passwords.
+- `LoggerInterface`: This is used for logging messages.
+- `AccountProxyInterface`: This is used for getting information about the currently logged-in user.
+- `EntityTypeManagerInterface`: This is used for managing entities. In this class, it's specifically used for managing file entities.
+
+Each of these dependencies should be passed to the `UserRegistration` class's constructor when creating a new instance of the class.
 
 ## File Structure
 

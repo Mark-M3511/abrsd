@@ -23,27 +23,17 @@ A typical Drupal 10 project consists of several directories:
 To install a Drupal 10 project, you typically need to clone the project repository, navigate into the project directory, and install the dependencies. This can be done using Composer, a dependency management tool for PHP.
 
 ```bash
-# Clone the repository
-git clone https://github.com/username/project.git
+# Create a project directory and set up Git a local git repo
+mkdir abrsd
 
-# Navigate into the directory
-cd project
-
-# Install dependencies
-composer install
-
-## Installation
+# Navigate into the project directory
+cd abrsd
 
 # Clone the repository
 git clone https://github.com/Mark-M3511/abrsd.git
 
-# Navigate into the directory
-cd project
-
 # Install dependencies
-npm install
-
-drush serve
+composer install
 ```
 
 ### About the ABRSD Custom Theme
@@ -112,8 +102,7 @@ To install the Gulp SASS plugin, navigate to your project directory and run:
 ```bash
 npm install gulp-sass --save-dev
 ```
-Remember to run npm install in your project directory to install all Node.js dependencies before starting development.
-
+Remember to run ```npm install``` in your project directory to install all Node.js dependencies before starting development.
 
 
 Custom Module

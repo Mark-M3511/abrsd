@@ -205,6 +205,22 @@ function _abrsd_user_registration_user_picture_removed(FormStateInterface $form_
     return $result;
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter() for the user form.
+ *
+ * This function is called when altering the user form. It checks if the current user has
+ * the Comment Contributor role and hides certain fields based on that role.
+ *
+ * @param array &$form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface &$form_state
+ *   The form state object.
+ * @param string $form_id
+ *   The form ID.
+ *
+ * @throws \Exception
+ *   If an error occurs during the process.
+ */
 function abrsd_user_registration_form_user_form_alter(
     array &$form,
     FormStateInterface &$form_state,

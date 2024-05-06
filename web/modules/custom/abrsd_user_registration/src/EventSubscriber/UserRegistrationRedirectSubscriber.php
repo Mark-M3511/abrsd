@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Event subscriber for redirecting user/register routes.
@@ -30,6 +32,13 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     protected $logger;
 
+    /**
+     * The current user.
+     *
+     * @var \Drupal\Core\Session\AccountProxyInterface
+     */
+    protected $currentUser;
+
 
     /**
      * Constructs a new UserRegistrationRedirectSubscriber object.
@@ -41,10 +50,12 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     public function __construct(
         ConfigFactoryInterface $config_factory,
-        LoggerChannelFactoryInterface $logger
+        LoggerChannelFactoryInterface $logger,
+        AccountInterface $currentUser
     ) {
         $this->configFactory = $config_factory;
         $this->logger = $logger->get('abrsd_user_registration');
+        $this->currentUser = $currentUser;
     }
 
     /**
@@ -56,9 +67,11 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     {
         $config_factory = $container->get('config.factory');
         $logger = $container->get('logger.factory');
+        $currentUser = $container->get('current_user');
         return new static(
             $config_factory,
-            $logger
+            $logger,
+            $currentUser
         );
     }
 
@@ -68,9 +81,15 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents(): array
     {
-        // The higher the number, the earlier the method is called.
-        $events = [];
-        $events[KernelEvents::REQUEST][] = ['onRedirectUserRegister', 100];
+        // This method returns an array of events this subscriber subscribes to. The
+        // key is the event name and the value is the method that should be called when
+        // the event is dispatched. The higher the number, the earlier the method is called.
+        $events = [
+            KernelEvents::REQUEST => [
+                ['onRedirectUserRegister', 100],
+                ['onCommentContributorLoggedIn', 100],
+            ],
+        ];
         return $events;
     }
 
@@ -121,6 +140,35 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             }
         } catch (\Exception $e) {
             $this->logger->error('Error redirecting user: @error', ['@error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * This method is called whenever the KernelEvents::REQUEST event is
+     * dispatched. It checks if the current user has the Comment Contributor role
+     * then redirects the user to the profile page.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     */
+    public function onCommentContributorLoggedIn(RequestEvent $event)
+    {
+        try {
+            // Check if the url pattern is /user/{user id}
+            $path_info = $event->getRequest()?->getPathInfo();
+            $characters = " \n\r\t\v\0". '/';
+            $path_parts = explode('/', ltrim($path_info, $characters));
+            if ($path_parts[0] == 'user' && is_numeric($path_parts[1])) {
+                // Check if the id in the url path is the ssame as the account id
+                if ($path_parts[1] === $this->currentUser->id()) {
+                    $user = User::load($path_parts[1]);
+                    if ($user?->hasRole('comment_contributor')) {
+                        $response = new RedirectResponse('/user/profile');
+                        $event->setResponse($response);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error: @error', ['@error' => $e->getMessage()]);
         }
     }
 

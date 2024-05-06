@@ -12,6 +12,7 @@ use \Drupal\Component\Utility\Html;
 use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
 use \Drupal\user\Entity\User;
+use \Drupal\node\Entity\Node;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -628,14 +629,29 @@ function abrsd_preprocess_views_view_fields(array &$variables)
 {
   // Get the id of the current view
   $view_id = $variables['view']?->id();
-  // Set the view ids to add the current node id to
-  $view_ids = [
-    'news_topics',
-  ];
-  // Check if the current view_id is in an array of view ids
-  if (in_array($view_id, $view_ids)) {
-    // Get the current path
-    $variables['current_path'] = _abrsd_get_current_path();
+  switch ($view_id) {
+    case 'news_topics':
+      // Get the current path
+      $variables['current_path'] = _abrsd_get_current_path();
+      break;
+    case 'blog':
+      // Get the nid from the current row
+      $node = $variables['row']->_entity;
+      // Get the node object using the nid value
+      $tags = $node->field_tag;
+      $variables['tags'] = [];
+      if (!empty($tags)) {
+        foreach ($tags as $tag) {
+          // Load the referenced entity
+          $tag_entity = $tag->entity;
+          // Get the value of the referenced entity prepended with a # and suffixed with at space
+          $variables['tags'][] = '#' . $tag_entity->label() ;
+        }
+      }
+      break;
+    default:
+      // Default case
+      break;
   }
 }
 

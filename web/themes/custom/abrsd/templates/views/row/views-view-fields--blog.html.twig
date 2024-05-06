@@ -26,6 +26,9 @@
  *   - element_attributes: List of attributes for HTML element for field content.
  * - row: The raw result from the query, with all data it fetched.
  *
+ * Custom variables:
+ *   - tags (array): An array of tags to display.
+ *
  * @see template_preprocess_views_view_fields()
  *
  * @ingroup themeable
@@ -45,6 +48,7 @@
       <p class="card-text">
         {{ fields.body.content }}
       </p>
+      <p class="card-text">{{ tags|join(' ') }}</p>
       <div class="card-footer blog-card-footer d-flex justify-content-between p-0">
         <small class="text-white fw-semibold">{{ fields.field_published_on.content }}</small>
         <small class="text-white fw-semibold">{{ fields.comment_count.content }} {{' ' ~ 'comments'|t }}</small>

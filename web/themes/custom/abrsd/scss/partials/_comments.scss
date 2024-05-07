@@ -94,16 +94,16 @@
 }
 
 body:not(.user-logged-in) {
-    .comment-content-links {
-        .inline__links {
-            display: none !important;
-        }
+  .comment-content-links {
+    .inline__links {
+      display: none !important;
     }
+  }
 }
 
 .comment-content-links {
   .inline__links {
-      font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -113,6 +113,12 @@ body:not(.user-logged-in) {
 }
 
 [dir="rtl"] .indented {
-  margin-right:  0.8rem !important;
+  margin-right: 0.8rem !important;
   margin-left: 0;
+}
+
+.filter-guidelines-item {
+  .tips {
+    font-size: 0.8rem;
+  }
 }

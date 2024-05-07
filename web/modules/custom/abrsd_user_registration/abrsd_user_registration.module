@@ -94,7 +94,7 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
  * @return array
  *   The modified form element.
  */
-function _modify_format_selector_ui(array $element, FormStateInterface $form_state)
+function _modify_format_selector_ui(array $element, FormStateInterface $form_state): array
 {
     if (isset($element[0]['format'])) {
         $el = &$element[0]['format'];

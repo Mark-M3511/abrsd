@@ -66,6 +66,11 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
                 // Load the profile form values
                 _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
             }
+        } else if ($form_id === "comment_blog_comment_form") {
+            // Changes the text of the Save button to Share
+            $form['actions']['submit']['#value'] = t('Share');
+            // Hide the preview button
+            $form['actions']['preview']['#access'] = FALSE;
         }
     } catch (\Exception $e) {
         // Log any errors

@@ -101,7 +101,6 @@ function _modify_format_selector_ui(array $element, FormStateInterface $form_sta
         // Remove format, help, guidelines elements
         // unset($element[0]['format']['guidelines']);
         // unset($element[0]['format']['help']);
-        // unset($element[0]['format']['#access']);
 
         // Hide the format selector
         $el['format']['#access'] = FALSE;

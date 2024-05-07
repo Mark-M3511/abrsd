@@ -71,11 +71,43 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             $form['actions']['submit']['#value'] = t('Share');
             // Hide the preview button
             $form['actions']['preview']['#access'] = FALSE;
+            // Remove the format selector
+            $form['comment_body']['widget']['#after_build'][] = '_modify_format_selector_ui';
         }
     } catch (\Exception $e) {
         // Log any errors
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+}
+
+/**
+ * Modifies the format selector UI element.
+ *
+ * This function is called to modify the format selector UI element in a form.
+ * It removes the format, help, and guidelines elements and hides the format selector.
+ *
+ * @param array $element
+ *   The form element to be modified.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return array
+ *   The modified form element.
+ */
+function _modify_format_selector_ui(array $element, FormStateInterface $form_state)
+{
+    if (isset($element[0]['format'])) {
+        $el = &$element[0]['format'];
+        // Remove format, help, guidelines elements
+        // unset($element[0]['format']['guidelines']);
+        // unset($element[0]['format']['help']);
+        // unset($element[0]['format']['#access']);
+
+        // Hide the format selector
+        $el['format']['#access'] = FALSE;
+    }
+
+    return $element;
 }
 
 /**

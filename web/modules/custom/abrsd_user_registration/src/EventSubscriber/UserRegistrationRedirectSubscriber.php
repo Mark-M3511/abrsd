@@ -157,7 +157,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             $path_info = $event->getRequest()?->getPathInfo();
             $characters = " \n\r\t\v\0". '/';
             $path_parts = explode('/', ltrim($path_info, $characters));
-            if ($path_parts[0] == 'user' && is_numeric($path_parts[1])) {
+            if (!empty($path_parts) && ($path_parts[0] == 'user' && is_numeric($path_parts[1]))) {
                 // Check if the id in the url path is the ssame as the account id
                 if ($path_parts[1] === $this->currentUser->id()) {
                     $user = User::load($path_parts[1]);

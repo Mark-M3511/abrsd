@@ -68,6 +68,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         $config_factory = $container->get('config.factory');
         $logger = $container->get('logger.factory');
         $currentUser = $container->get('current_user');
+
         return new static(
             $config_factory,
             $logger,
@@ -90,6 +91,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
                 ['onCommentContributorLoggedIn', 100],
             ],
         ];
+
         return $events;
     }
 
@@ -184,6 +186,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         try {
             $config = $this->configFactory->get('abrsd_user_registration.settings');
             $redirect_maps = $config->get($config_name);
+
             return $redirect_maps[$path] ?? null;
         } catch (\Exception $e) {
             $this->logger->error('Error getting configuration: @error', ['@error' => $e->getMessage()]);

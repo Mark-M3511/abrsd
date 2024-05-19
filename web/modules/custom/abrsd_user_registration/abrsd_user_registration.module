@@ -160,17 +160,17 @@ function _abrsd_user_registration_load_profile_form_values(
             // If the profile picture is not empty add the profile picture display
             if (!empty($submission_data['profile_picture'])) {
                 // Add the profile picture
-                $form_elements['container']['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
+                $form_elements['container']['container_02']['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
                 // Add the webform submission ID
                 $file_url = _abrsd_user_registration_user_picture($user);
                 // Add the profile picture display if $file_url is not null
                 if (!empty($file_url)) {
-                    $form_elements['container']['profile_picture_display'] = [
+                    $form_elements['container']['container_02']['profile_picture_display'] = [
                         '#type' => 'inline_template',
                         '#template' => '<img src="{{ url }}" class="{{ css_class }}" alt="Profile picture" />',
                         '#context' => [
                             'url' => $file_url,
-                            'css_class' => $user_pic_removed ? 'hidden' : '',
+                            'css_class' => $user_pic_removed ? 'hidden' : 'me-2',
                         ],
                         '#weight' => -1,
                         // '#access' => $user_pic_removed ? FALSE : TRUE,

@@ -140,39 +140,39 @@ function _abrsd_user_registration_load_profile_form_values(
             // Element data
             $submission_data = $submission->getData();
             // Add first name
-            $form_elements['first_name']['#default_value'] = $submission_data['first_name'] ?? $user->field_first_name->value;
+            $form_elements['container']['first_name']['#default_value'] = $submission_data['first_name'] ?? $user->field_first_name->value;
             // Add last name
-            $form_elements['last_name']['#default_value'] = $submission_data['last_name'] ?? $user->field_last_name->value;
+            $form_elements['container']['last_name']['#default_value'] = $submission_data['last_name'] ?? $user->field_last_name->value;
             // Add country
-            $form_elements['country']['#default_value'] = $submission_data['country'] ?? $user->field_country->value;
+            $form_elements['container']['country']['#default_value'] = $submission_data['country'] ?? $user->field_country->value;
             // Add email
-            $form_elements['signup_email']['#default_value'] = $submission_data['signup_email'] ?? $user->getEmail();
+            $form_elements['container']['signup_email']['#default_value'] = $submission_data['signup_email'] ?? $user->getEmail();
             // Add organization
-            $form_elements['organization']['#default_value'] = $submission_data['organization'] ?? $user->field_organization->value;
+            $form_elements['container']['organization']['#default_value'] = $submission_data['organization'] ?? $user->field_organization->value;
             // Add interests
-            $form_elements['interests']['#default_value'] = $submission_data['interests'] ?? $user->field_interests->value;
+            $form_elements['container_01']['interests']['#default_value'] = $submission_data['interests'] ?? $user->field_interests->value;
             // Add about_me
-            $form_elements['about_me']['#default_value'] = $submission_data['about_me'] ?? $user->field_about_me->value;
+            $form_elements['container_01']['about_me']['#default_value'] = $submission_data['about_me'] ?? $user->field_about_me->value;
             // Add display name
-            $form_elements['display_name']['#default_value'] = $submission_data['display_name'] ?? $user->field_display_name->value;
+            $form_elements['container']['display_name']['#default_value'] = $submission_data['display_name'] ?? $user->field_display_name->value;
             // Check if the profile picture has been removed
             $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
             // If the profile picture is not empty add the profile picture display
             if (!empty($submission_data['profile_picture'])) {
                 // Add the profile picture
-                $form_elements['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
+                $form_elements['container']['profile_picture']['#default_value'] = [$submission_data['profile_picture']];
                 // Add the webform submission ID
                 $file_url = _abrsd_user_registration_user_picture($user);
                 // Add the profile picture display if $file_url is not null
                 if (!empty($file_url)) {
-                    $form_elements['profile_picture_display'] = [
+                    $form_elements['container']['profile_picture_display'] = [
                         '#type' => 'inline_template',
                         '#template' => '<img src="{{ url }}" class="{{ css_class }}" alt="Profile picture" />',
                         '#context' => [
                             'url' => $file_url,
                             'css_class' => $user_pic_removed ? 'hidden' : '',
                         ],
-                        '#weight' => 0,
+                        '#weight' => -1,
                         // '#access' => $user_pic_removed ? FALSE : TRUE,
                         '#prefix' => '<div id="profile-picture-display">',
                         '#suffix' => '</div>',

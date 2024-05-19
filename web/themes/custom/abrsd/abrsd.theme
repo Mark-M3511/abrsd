@@ -766,7 +766,7 @@ function abrsd_preprocess_field(&$variables)
       'd-inline-flex',
       'focus-ring',
       'py-1',
-      'px-2',
+      'px-3',
       'text-decoration-none',
       'border',
       'rounded-2',

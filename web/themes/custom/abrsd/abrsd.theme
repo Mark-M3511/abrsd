@@ -13,6 +13,7 @@ use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
 use \Drupal\user\Entity\User;
 use \Drupal\node\Entity\Node;
+use \Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -439,8 +440,35 @@ function abrsd_preprocess_breadcrumb(array &$variables)
     $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
     if (!empty($term)) {
       // Get the breadcrumb path
+      _breadcrumb_for_taxonomy_term_pages($variables, $term);
     }
   }
+}
+
+/**
+ * Implements hook_breadcrumb_alter().
+ *
+ * Overrides the default breadcrumb for taxonomy term pages.
+ *
+ * @param array $variables
+ *   An array of variables passed to the theme hook.
+ * @param \Drupal\taxonomy\TermInterface $term
+ *   The taxonomy term object.
+ */
+function _breadcrumb_for_taxonomy_term_pages(array &$variables, Term $term)
+{
+  // Get the taxonomy term name
+  $tname = $term->getName();
+  // Create a new translatable markup object from the term name
+  $new_breadcrumb_title = new TranslatableMarkup('@title', ['@title' => $tname]);
+  // Add the current term name to the breadcrumb array
+  $variables['breadcrumb'][] = [
+    'text' => $new_breadcrumb_title,
+    'url' => '',
+    'langcode' => '',
+  ];
+  // Do not cache the breadcrumb block
+  $variables['#cache']['max-age'] = 0;
 }
 
 /**

@@ -427,43 +427,64 @@ function _abrsd_preprocess_node_workshop(array &$variables)
  */
 function abrsd_preprocess_breadcrumb(array &$variables)
 {
-  // Get the current node
-  $node = \Drupal::routeMatch()->getParameter('node');
   // if the variables array contains a breadcrumb add the current node title to it
-  if (isset($variables['breadcrumb']) && !empty($node)) {
-    // Get the breadcrumb path
-    _breadcrumb_append_path_fragment($variables);
-    // Get the taxonomy term fromm the URL if we are on the news category page
-    $topic = _abrsd_get_term_from_url_query('topic');
-    // Get the term name from the taxonomy term object
-    $tname = is_object($topic) ? $topic->getName() : '';
-    //  Initialize field name
-    $field_name = 'field_page_title';
-    // Check if the field_page_title field exists
-    $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
-    // Use the page title field if it exists
-    $title = (!empty($field) && !empty($field->value)) ? $field->value : $node->getTitle();
-    // Set the field name to field_workshop_title
-    $field_name = 'field_committee';
-    // Get a reference to the field_workshop_type field (Taxonomy reference field)
-    $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
-    // Get the taxonomy term label
-    $label = (!empty($field) && !empty($field->entity)) ? '(' . $field->entity->label() . ')' : '';
-    // Append the taxonomy term label to the title e.g. Title - (Workshop)
-    $title .= !empty($label) ? ' ' . $label : '';
-    // Append the topic name to the title e.g. Title - (Workshop) - Topic
-    $title .= !empty($tname) ? ' (' . $tname . ')' : '';
-    // Create a new translatable markup object from the title
-    $markup = new TranslatableMarkup('@title', ['@title' => $title]);
-    // Add the current node title to the breadcrumb as translatable markup text
-    $variables['breadcrumb'][] = [
-      'text' => $markup,
-      'url' => '',
-      'langcode' => '',
-    ];
-    // Do not cache the breadcrumb block
-    $variables['#cache']['max-age'] = 0;
+  if (isset($variables['breadcrumb'])) {
+    // Get the current node
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if (!empty($node)) {
+      // Get the breadcrumb path
+      _breadcrumb_append_path_fragment($variables);
+      _breadcrumb_for_node_pages($variables, $node);
+    }
+    $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
+    if (!empty($term)) {
+      // Get the breadcrumb path
+    }
   }
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb() helper for node pages.
+ *
+ * Adds the current node title to the breadcrumb array.
+ *
+ * @param array $variables
+ *   The variables array passed to the template.
+ * @param Node $node
+ *   The node object.
+ */
+function _breadcrumb_for_node_pages(array &$variables, Node $node)
+{
+  // Get the taxonomy term fromm the URL if we are on the news category page
+  $topic = _abrsd_get_term_from_url_query('topic');
+  // Get the term name from the taxonomy term object
+  $tname = is_object($topic) ? $topic->getName() : '';
+  //  Initialize field name
+  $field_name = 'field_page_title';
+  // Check if the field_page_title field exists
+  $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
+  // Use the page title field if it exists
+  $title = (!empty($field) && !empty($field->value)) ? $field->value : $node->getTitle();
+  // Set the field name to field_workshop_title
+  $field_name = 'field_committee';
+  // Get a reference to the field_workshop_type field (Taxonomy reference field)
+  $field = $node->hasField($field_name) ? $node->get($field_name) : NULL;
+  // Get the taxonomy term label
+  $label = (!empty($field) && !empty($field->entity)) ? '(' . $field->entity->label() . ')' : '';
+  // Append the taxonomy term label to the title e.g. Title - (Workshop)
+  $title .= !empty($label) ? ' ' . $label : '';
+  // Append the topic name to the title e.g. Title - (Workshop) - Topic
+  $title .= !empty($tname) ? ' (' . $tname . ')' : '';
+  // Create a new translatable markup object from the title
+  $markup = new TranslatableMarkup('@title', ['@title' => $title]);
+  // Add the current node title to the breadcrumb as translatable markup text
+  $variables['breadcrumb'][] = [
+    'text' => $markup,
+    'url' => '',
+    'langcode' => '',
+  ];
+  // Do not cache the breadcrumb block
+  $variables['#cache']['max-age'] = 0;
 }
 
 /**
@@ -645,7 +666,7 @@ function abrsd_preprocess_views_view_fields(array &$variables)
           // Load the referenced entity
           $tag_entity = $tag->entity;
           // Get the value of the referenced entity prepended with a # and suffixed with at space
-          $variables['tags'][] = '#' . $tag_entity->label() ;
+          $variables['tags'][] = '#' . $tag_entity->label();
         }
       }
       break;

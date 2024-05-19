@@ -1,0 +1,16 @@
+.webform-submission-user-profile-form {
+  label {
+    color: #6c757d !important;
+    font-size: 0.9rem;
+  }
+
+  .form-control,
+  .text-count-wrapper {
+    font-size: 0.9rem;
+  }
+
+  input[name="files[profile_picture]"],
+  #edit-actions-submit {
+    font-weight: 700;
+  }
+}

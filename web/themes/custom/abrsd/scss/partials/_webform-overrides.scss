@@ -5,8 +5,13 @@
   }
 
   .form-control,
-  .text-count-wrapper {
+  .text-count-wrapper,
+  summary {
     font-size: 0.9rem;
+  }
+
+  summary {
+    color: #ff0000;
   }
 
   #edit-actions-submit,

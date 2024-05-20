@@ -182,6 +182,10 @@
   }
 }
 
+.password-reset-link {
+  @include link-theme-1();
+}
+
 .breadcrumb {
   .active {
     padding-top: 2px;

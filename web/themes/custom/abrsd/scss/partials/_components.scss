@@ -223,3 +223,8 @@ body[class*="page--our-work-committees-"] {
 #edit-comment-body-0-format-help {
   display: none;
 }
+
+.form-submit::before {
+  height: 0 !important;
+  width: 0 !important;
+}

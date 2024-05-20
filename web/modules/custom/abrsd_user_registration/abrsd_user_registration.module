@@ -13,6 +13,8 @@ use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Drupal\user\Entity\User;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -73,6 +75,24 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
             $form['actions']['preview']['#access'] = FALSE;
             // Remove the format selector
             $form['comment_body']['widget']['#after_build'][] = '_modify_format_selector_ui';
+        } else if ($form_id === 'user_login_form') {
+            // Add a link to the password reset form.
+            $form['actions']['password_reset'] = [
+                '#type' => 'markup',
+                '#markup' => Link::fromTextAndUrl(
+                    t('Reset password'),
+                    Url::fromRoute('user.pass', [], [
+                        'attributes' => [
+                            'class' => [
+                                'form-submit',
+                                'password-reset-link',
+                                'ms-2',
+                            ],
+                        ],
+                    ])
+                )->toString(),
+                '#weight' => 99, // Adjust this to position the link correctly.
+            ];
         }
     } catch (\Exception $e) {
         // Log any errors

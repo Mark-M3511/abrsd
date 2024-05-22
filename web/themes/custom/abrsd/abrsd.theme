@@ -174,7 +174,6 @@ function abrsd_preprocess_block(array &$variables)
   }
 }
 
-
 /**
  * Implements hook_theme_suggestions_container_alter().
  *

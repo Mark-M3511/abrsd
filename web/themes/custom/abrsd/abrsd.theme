@@ -174,7 +174,17 @@ function abrsd_preprocess_block(array &$variables)
   }
 }
 
-// Implement hook_preprocess_container
+
+/**
+ * Implements hook_theme_suggestions_container_alter().
+ *
+ * Adds template suggestions for the container on specific pages.
+ *
+ * @param array $suggestions
+ *   An array of theme suggestions.
+ * @param array $variables
+ *   An array of variables passed to the theme function.
+ */
 function abrsd_theme_suggestions_container_alter(array &$suggestions, array &$variables)
 {
   // Get the current path

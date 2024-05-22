@@ -232,3 +232,9 @@ body[class*="page--our-work-committees-"] {
   height: 0 !important;
   width: 0 !important;
 }
+
+#profile-picture-display {
+  img {
+    border-radius: 0.5rem;
+  }
+}

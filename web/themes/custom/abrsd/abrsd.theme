@@ -137,6 +137,12 @@ function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variabl
     // Add a theme suggestion for the main content block
     $suggestions[] = 'block__abrsd_content__user_login';
   }
+  // Add a theme suggesio for the main content block if page path is user/password
+  $user_pass = Url::fromRoute('user.pass')->toString();
+  if ($block == 'system_main_block' && _abrsd_get_current_path() == $user_pass) {
+    // Add a theme suggestion for the main content block
+    $suggestions[] = 'block__abrsd_content__user_pass_reset';
+  }
 }
 
 /**

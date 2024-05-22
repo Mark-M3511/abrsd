@@ -471,11 +471,16 @@ function abrsd_preprocess_breadcrumb(array &$variables)
       // Get the breadcrumb path
       _breadcrumb_append_path_fragment($variables);
       _breadcrumb_for_node_pages($variables, $node);
+      // Make an early return
+      return;
     }
+    // Get the current taxonomy term
     $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
     if (!empty($term)) {
       // Get the breadcrumb path
       _breadcrumb_for_taxonomy_term_pages($variables, $term);
+      // Make an early return
+      return;
     }
   }
 }

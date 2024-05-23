@@ -157,7 +157,7 @@ final class UserRegistration extends WebformHandlerBase
         // Get the email address from the current entity.
         $email = $storage->getElementData('confirm_email_address');
         // Check if a user with this email already exists
-        $uid = $this->searchUserByEmail($email);
+        $uid = UserRegistrationHelper::searchUserByEmail($email);
         // Set the userExists flag to TRUE if a user with the email exists
         $this->userExists = !empty($uid);
         // Set the user created ELement value to the userExists flag

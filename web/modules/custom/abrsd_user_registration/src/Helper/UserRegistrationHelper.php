@@ -97,7 +97,7 @@ class UserRegistrationHelper
 
             $uid = 0;
             if (!empty($email)) {
-                $uid = $this->userRegistration->searchUserByEmail($email);
+                $uid = static::searchUserByEmail($email);
                 if (!empty($uid)) {
                     $user = User::load($uid);
                     // Update the user account with the provided values
@@ -203,4 +203,27 @@ class UserRegistrationHelper
 
         return $result;
     }
+
+    /**
+   * Searches for a user by email.
+   *
+   * @param string $email
+   *   The email address to search for.
+   *
+   * @return int|null
+   *   The user ID if a user with the given email is found, NULL otherwise.
+   */
+  static public function searchUserByEmail(string $email): ?int
+  {
+    // Query the user entity for the email address
+    $query = \Drupal::entityTypeManager()
+      ->getStorage('user')
+      ->getQuery()->accessCheck(FALSE)
+      ->condition('mail', $email);
+    $uids = $query->execute();
+
+    // return the id
+    return !empty($uids) ? reset($uids) : NULL;
+  }
+
 }

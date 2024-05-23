@@ -93,11 +93,42 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
                 )->toString(),
                 '#weight' => 99, // Adjust this to position the link correctly.
             ];
+        } else if ($form_id === 'user_pass') {
+            // Check if the 'name' form element exists
+            if (isset($form['name'])) {
+                // Replace the title of the 'name' form element
+                $form['name']['#title'] = t('Enter the email address registered with your account');
+            }
+            // / Check if the 'submit' action exists
+            if (isset($form['actions']['submit'])) {
+                // Change the label of the 'submit' button
+                $form['actions']['submit']['#value'] = t('Continue');
+            }
+            $form['actions']['submit']['#submit'][] = '_abrsd_user_registration_user_pass_redirect';
         }
     } catch (\Exception $e) {
         // Log any errors
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+}
+
+
+/**
+ * Redirects the user after submitting the user password form.
+ *
+ * This function is called when the user submits the user password form.
+ * It redirects the user to a specific route with optional query parameters.
+ *
+ * @param array &$form
+ *   The form array.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object.
+ */
+function _abrsd_user_registration_user_pass_redirect(array &$form, FormStateInterface $form_state)
+{
+    // Redirect to a route.
+    // $form_state->setRedirectUrl(Url::fromRoute('user.pass', [], ['query' => ['destination' => '/user/password']]));
+    $form_state->setRedirectUrl(Url::fromRoute('user.pass', [], ['query' => ['mode' => 'reset_message']]));
 }
 
 /**

@@ -54,7 +54,7 @@ function abrsd_user_registration_help($route_name, RouteMatchInterface $route_ma
  * @param string $form_id
  *   The ID of the form being altered.
  */
-function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_state, $form_id)
+function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$form_state, $form_id)
 {
     try {
         if (!empty($form['#webform_id']) && ($form['#webform_id'] == 'user_profile')) {
@@ -94,17 +94,7 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
                 '#weight' => 99, // Adjust this to position the link correctly.
             ];
         } else if ($form_id === 'user_pass') {
-            // Check if the 'name' form element exists
-            if (isset($form['name'])) {
-                // Replace the title of the 'name' form element
-                $form['name']['#title'] = t('Enter the email address registered with your account');
-            }
-            // / Check if the 'submit' action exists
-            if (isset($form['actions']['submit'])) {
-                // Change the label of the 'submit' button
-                $form['actions']['submit']['#value'] = t('Continue');
-            }
-            $form['actions']['submit']['#submit'][] = '_abrsd_user_registration_user_pass_redirect';
+            _abrsd_user_registration_user_pass_config($form, $form_state);
         }
     } catch (\Exception $e) {
         // Log any errors
@@ -112,6 +102,33 @@ function abrsd_user_registration_form_alter(&$form, FormStateInterface &$form_st
     }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter() for the user_pass form.
+ *
+ * Modifies the user_pass form by changing the title of the 'name' form element
+ * and the label of the 'submit' button. It also adds a submit callback function
+ * '_abrsd_user_registration_user_pass_redirect'.
+ *
+ * @param array $form
+ *   An associative array containing the structure of the form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ */
+function _abrsd_user_registration_user_pass_config(array &$form, FormStateInterface &$form_state)
+{
+    // Check if the 'name' form element exists
+    if (isset($form['name'])) {
+        // Replace the title of the 'name' form element
+        $form['name']['#title'] = t('Enter the email address registered with your account');
+    }
+    // / Check if the 'submit' action exists
+    if (isset($form['actions']['submit'])) {
+        // Change the label of the 'submit' button
+        $form['actions']['submit']['#value'] = t('Continue');
+    }
+    // Add a submit callback function
+    $form['actions']['submit']['#submit'][] = '_abrsd_user_registration_user_pass_redirect';
+}
 
 /**
  * Redirects the user after submitting the user password form.

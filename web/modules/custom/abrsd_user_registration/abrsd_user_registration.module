@@ -214,9 +214,9 @@ function _abrsd_user_registration_load_profile_form_values(
  */
 function setDefaultValue(array &$form_elements, array $submission_data, User $user, string $key)
 {
-    // Get the container and key
+    // Get the container element by splitting the key
     $container = explode('|', $key)[0] ?? 'container';
-    // Get the key
+    // Get the element id by splitting the key
     $skey = explode('|', $key)[1] ?? $key;
     // Set the default value
     $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{"field_$skey"}->value;

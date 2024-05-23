@@ -35,7 +35,7 @@ This module provides a custom webform handler that is run when a user submits a 
 
 - `postSave()`: This method is called after a webform submission is saved. It checks the form id and calls the appropriate helper method to add or update the user account.
 
-- `searchUserByEmail()`: This method takes an email address as a parameter and searches for a user with that email. It returns the user ID if found, or NULL if not.
+- ~~searchUserByEmail()~~: This method takes an email address as a parameter and searches for a user with that email. It returns the user ID if found, or NULL if not.
 
 - `getSubmissionId()`: This method takes a user ID as a parameter and retrieves the associated submission ID. It returns the submission ID if found, or NULL if not.
 
@@ -67,6 +67,8 @@ Each of these dependencies should be passed to the `UserRegistration` class's co
 
 - `createUserAccount(array $values): ?User`: This method creates a new user account with the provided values. It takes an array of values as a parameter, creates a new `User` object with these values, and returns the `User` object.
 
+- `searchUserByEmail()`: This method takes an email address as a parameter and searches for a user with that email. It returns the user ID if found, or NULL if not.
+
 ## UserRegistrationRedirectSubscriber Class Methods
 
 - `__construct(ConfigFactoryInterface $config_factory, LoggerChannelFactoryInterface $logger)`: This is the constructor method. It initializes the `ConfigFactoryInterface` and `LoggerChannelFactoryInterface` objects.
@@ -76,6 +78,8 @@ Each of these dependencies should be passed to the `UserRegistration` class's co
 - `getSubscribedEvents()`: This static method returns an array mapping event names to method names. This tells Drupal which method to call when a certain event is dispatched.
 
 - `onRedirectUserRegister(RequestEvent $event)`: This method is called whenever the `KernelEvents::REQUEST` event is dispatched. It checks if the current path is in the allowed paths and if the user is anonymous. If both conditions are met, it redirects the user to a specified path.
+
+- `onCommentContributorLoggedIn(RequestEvent $event)`: This method is called whenever the `KernelEvents::REQUEST` event is dispatched. It checks if the current user has the Comment Contributor role then redirects the user to the profile page.
 
 - `getRedirectPathFromConfig(string $path, string $config_name)`: This method retrieves the redirect path from a configuration based on the given path and configuration name. It returns the redirect path if found, or null if not found.
 

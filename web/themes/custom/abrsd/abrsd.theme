@@ -150,6 +150,16 @@ function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variabl
       // Return the suggestions array
       return;
     }
+
+    // Add a theme suggestion for the main content block if page path is user one-time login
+    // Get the current route name
+    $current_route_name = \Drupal::routeMatch()->getRouteName();
+    // Add a theme suggestion for the main content block if page route is user.reset.login
+    if ($current_route_name == 'user.reset.form') {
+      $suggestions[] = 'block__abrsd_content__user_reset_form';
+      // Return the suggestions array
+      return;
+    }
   }
 }
 

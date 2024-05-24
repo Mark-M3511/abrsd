@@ -162,7 +162,7 @@ final class UserRegistration extends WebformHandlerBase
           // Set the userExists flag to TRUE if a user with the email exists
           $this->userExists = !empty($uid);
           // Set the user created ELement value to the userExists flag
-          if ($storage->getElementData('user_created') === NULL) {
+          if (empty($storage->getElementData('user_created'))) {
             $storage->setElementData('user_created', !$this->userExists);
           }
           break;

@@ -153,17 +153,35 @@ final class UserRegistration extends WebformHandlerBase
       // Get the form id
       $form_id = $storage->getWebform()->id();
       // Check if the form id is 'user_registration'
-      if ($form_id == 'user_registration') {
-        // Get the email address from the current entity.
-        $email = $storage->getElementData('confirm_email_address');
-        // Check if a user with this email already exists
-        $uid = UserRegistrationHelper::searchUserByEmail($email);
-        // Set the userExists flag to TRUE if a user with the email exists
-        $this->userExists = !empty($uid);
-        // Set the user created ELement value to the userExists flag
-        if ($storage->getElementData('user_created') === NULL) {
-          $storage->setElementData('user_created', !$this->userExists);
-        }
+      switch ($form_id) {
+        case 'user_registration':
+          // Get the email address from the current entity.
+          $email = $storage->getElementData('confirm_email_address');
+          // Check if a user with this email already exists
+          $uid = UserRegistrationHelper::searchUserByEmail($email);
+          // Set the userExists flag to TRUE if a user with the email exists
+          $this->userExists = !empty($uid);
+          // Set the user created ELement value to the userExists flag
+          if ($storage->getElementData('user_created') === NULL) {
+            $storage->setElementData('user_created', !$this->userExists);
+          }
+          break;
+        case 'user_profile':
+          // Get the new_password field value
+          $new_password = $storage->getElementData('new_password');
+          // Check if the new_password field is empty
+          if (!empty($new_password)) {
+            // Get the current user entity
+            $user = User::load($this->currentUser->id());
+            // Save the new password to the user entity
+            $user->setPassword($new_password)->enforceIsNew(FALSE)->save();
+            // Set the password field to: 'Password changed by user'
+            $storage->setElementData('new_password', 'Password changed by user');
+          }
+          break;
+        default:
+          // Handle other form ids here
+          break;
       }
     } catch (\Exception $e) {
       $this->logger->error($e->getMessage());

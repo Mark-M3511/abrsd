@@ -155,7 +155,7 @@ function _abrsd_user_registration_user_pass_config(array &$form, FormStateInterf
                     'message_4' => t("Still need help? <a href=\"/contact-us\" title=\"Contact Us\">Contact us.</a>."),
                 ],
                 // '#weight' => -1,
-                '#prefix' => '<div id="reset-message class="reset-message">',
+                '#prefix' => '<div id="reset-message" class="reset-message">',
                 '#suffix' => '</div>',
             ];
         }

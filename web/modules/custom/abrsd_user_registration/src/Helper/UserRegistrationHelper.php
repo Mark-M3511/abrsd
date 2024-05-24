@@ -111,10 +111,6 @@ class UserRegistrationHelper
                     $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
                     $user->enforceIsNew(FALSE)->save();
                     $this->updateProfilePicture($values['profile_picture'], $user);
-                    if (!empty($values['new_password'])) {
-                        // Save new password
-                        $user->setPassword($values['new_password'])->enforceIsNew(FALSE)->save();
-                    }
                 }
             }
         } catch (\Exception $e) {

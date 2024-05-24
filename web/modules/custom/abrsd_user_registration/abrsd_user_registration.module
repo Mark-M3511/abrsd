@@ -30,7 +30,6 @@ function abrsd_user_registration_help($route_name, RouteMatchInterface $route_ma
         case 'help.page.abrsd_user_registration':
             $help .= '<p>' . t('This module is used to create/update a custom user registration form.') . '</p>';
             break;
-
             // Module-specific help for another route.
         case 'abrsd_user_registration.some_route':
             $help .= '<p>' . t('Description of some feature of the abrsd_user_registration module.') . '</p>';
@@ -116,18 +115,31 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
  */
 function _abrsd_user_registration_user_pass_config(array &$form, FormStateInterface &$form_state)
 {
-    // Check if the 'name' form element exists
-    if (isset($form['name'])) {
-        // Replace the title of the 'name' form element
-        $form['name']['#title'] = t('Enter the email address registered with your account');
+    // Check the current URL for the mode parameter
+    $mode = \Drupal::request()->query->get('mode');
+    if (empty($mode)) {
+        // Check if the 'name' form element exists
+        if (isset($form['name'])) {
+            // Replace the title of the 'name' form element
+            $form['name']['#title'] = t('Enter the email address registered with your account');
+        }
+        // / Check if the 'submit' action exists
+        if (isset($form['actions']['submit'])) {
+            // Change the label of the 'submit' button
+            $form['actions']['submit']['#value'] = t('Continue');
+        }
+        // Add a submit callback function
+        $form['#submit'][] = '_abrsd_user_registration_user_pass_redirect';
+    } else {
+        // Check if the mode is 'reset_message'
+        if ($mode === 'reset_message') {
+            // Change the title of the form
+            $form['#title'] = t('Check your email');
+            // Hide the submit button and name field
+            $form['name']['#access'] = FALSE;
+            $form['actions']['submit']['#access'] = FALSE;
+        }
     }
-    // / Check if the 'submit' action exists
-    if (isset($form['actions']['submit'])) {
-        // Change the label of the 'submit' button
-        $form['actions']['submit']['#value'] = t('Continue');
-    }
-    // Add a submit callback function
-    $form['actions']['submit']['#submit'][] = '_abrsd_user_registration_user_pass_redirect';
 }
 
 /**
@@ -143,8 +155,7 @@ function _abrsd_user_registration_user_pass_config(array &$form, FormStateInterf
  */
 function _abrsd_user_registration_user_pass_redirect(array &$form, FormStateInterface $form_state)
 {
-    // Redirect to a route.
-    // $form_state->setRedirectUrl(Url::fromRoute('user.pass', [], ['query' => ['destination' => '/user/password']]));
+    // Redirect the user to the user password reset form with the 'mode' query parameter set to 'reset_message'
     $form_state->setRedirectUrl(Url::fromRoute('user.pass', [], ['query' => ['mode' => 'reset_message']]));
 }
 

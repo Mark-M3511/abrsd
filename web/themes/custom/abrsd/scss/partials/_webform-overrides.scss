@@ -29,4 +29,14 @@
   #edit-submit {
     font-weight: 700;
   }
+
+  .form-item-name {
+    label {
+      &::before,
+      &::after {
+        position: relative;
+        top: 0.2rem;
+      }
+    }
+  }
 }

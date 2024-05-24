@@ -192,6 +192,12 @@
   }
 }
 
+.user-pass-message {
+  a {
+    @include link-theme-1();
+  }
+}
+
 .tag {
   color: $tag-text;
 }

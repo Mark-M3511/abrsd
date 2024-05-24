@@ -137,7 +137,27 @@ function _abrsd_user_registration_user_pass_config(array &$form, FormStateInterf
             $form['#title'] = t('Check your email');
             // Hide the submit button and name field
             $form['name']['#access'] = FALSE;
+            $form['mail']['#access'] = FALSE;
             $form['actions']['submit']['#access'] = FALSE;
+            // Add a message to the form using an inline template
+            $form['message'] = [
+                '#type' => 'inline_template',
+                '#template' => '
+                   <p class="user-pass-message text-center">{{ message_1 }}</p>
+                   <p class="user-pass-message text-center">{{ message_2 }}</p>
+                   <p class="user-pass-message text-center">{{ message_3 }}</p>
+                   <p class="user-pass-message text-center">{{ message_4 }}</p>
+                   ',
+                '#context' => [
+                    'message_1' => t('Check your email to reset your password.'),
+                    'message_2' => t("If there's an ABRSD Peel account asscciated with your email you will receive a link in your inbox."),
+                    'message_3' => t("If you don't receive an email, please check your spam folder or <a href=\"/user/password\" title=\"Reset your password\">try again</a>."),
+                    'message_4' => t("Still need help? <a href=\"/contact-us\" title=\"Contact Us\">Contact us.</a>."),
+                ],
+                // '#weight' => -1,
+                '#prefix' => '<div id="reset-message class="reset-message">',
+                '#suffix' => '</div>',
+            ];
         }
     }
 }

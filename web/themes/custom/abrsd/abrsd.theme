@@ -130,9 +130,10 @@ function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variabl
  */
 function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variables)
 {
+  // Get the block id
   $block = $variables['elements']['#configuration']['id'];
+  // Get the current route name
   $current_route_name = \Drupal::routeMatch()->getRouteName();
-
   // Check if the block is the main content block
   if ($block == 'system_main_block') {
     // Add a theme suggestion for the main content block based on the current route

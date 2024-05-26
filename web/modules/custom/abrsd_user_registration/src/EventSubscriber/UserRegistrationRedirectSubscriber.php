@@ -171,19 +171,29 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     public function onCommentContributorLoggedIn(RequestEvent $event)
     {
         try {
-            // Check if the url pattern is /user/{user id}
+
             $path_info = $event->getRequest()?->getPathInfo();
-            $characters = " \n\r\t\v\0". '/';
-            $path_parts = explode('/', ltrim($path_info, $characters));
-            if (!empty($path_parts) && ($path_parts[0] == 'user' && is_numeric($path_parts[1]))) {
-                // Check if the id in the url path is the ssame as the account id
-                if ($path_parts[1] === $this->currentUser->id()) {
-                    $user = User::load($path_parts[1]);
+            $path_parts = explode('/', ltrim($path_info, " \n\r\t\v\0/"));
+
+            if (empty($path_parts) || $path_parts[0] !== 'user') {
+                return;
+            }
+
+            if ($path_parts[1] === $this->currentUser->id()) {
+                if ($this->session->get('user_pass_reset')) {
+                    // Remove the 'user_pass_reset' key from the session
+                    $this->session->remove('user_pass_reset');
+                } else {
+                    // Redirect the user to the profile page if they have the Comment Contributor role
+                    $user = User::load($this->currentUser->id());
                     if ($user?->hasRole('comment_contributor')) {
                         $response = new RedirectResponse('/user/profile');
                         $event->setResponse($response);
                     }
                 }
+            } elseif ($path_parts[1] === 'reset') {
+                // Set a key/value pair in the session to indicate the one-time login link has been used
+                $this->session->set('user_pass_reset', TRUE);
             }
         } catch (\Exception $e) {
             $this->logger->error('Error: @error', ['@error' => $e->getMessage()]);

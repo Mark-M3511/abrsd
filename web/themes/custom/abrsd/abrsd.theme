@@ -160,6 +160,14 @@ function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variabl
       // Return the suggestions array
       return;
     }
+
+    // Add a theme suggestion for the main content block if page path is user/user_id/edit
+    $user_edit = Url::fromRoute('entity.user.edit_form', ['user' => \Drupal::currentUser()->id()])->toString();
+    if ($current_path == $user_edit) {
+      $suggestions[] = 'block__abrsd_content__user_edit_form';
+      // Return the suggestions array
+      return;
+    }
   }
 }
 

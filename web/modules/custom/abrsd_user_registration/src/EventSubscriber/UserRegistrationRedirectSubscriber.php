@@ -12,6 +12,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Event subscriber for redirecting user/register routes.
@@ -39,6 +40,13 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      */
     protected $currentUser;
 
+    /**
+     * The session service.
+     *
+     * @var \Drupal\Core\Session\SessionInterface
+     */
+    protected $session;
+
 
     /**
      * Constructs a new UserRegistrationRedirectSubscriber object.
@@ -47,15 +55,21 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      *   The configuration factory.
      * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
      *   The logger.
+     * @param \Drupal\Core\Session\AccountInterface $currentUser
+     *  The current user.
+     * @param \Drupal\Core\Session\SessionInterface $session
+     * The session service.
      */
     public function __construct(
         ConfigFactoryInterface $config_factory,
         LoggerChannelFactoryInterface $logger,
-        AccountInterface $currentUser
+        AccountInterface $currentUser,
+        SessionInterface $session
     ) {
         $this->configFactory = $config_factory;
         $this->logger = $logger->get('abrsd_user_registration');
         $this->currentUser = $currentUser;
+        $this->session = $session;
     }
 
     /**
@@ -68,11 +82,13 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         $config_factory = $container->get('config.factory');
         $logger = $container->get('logger.factory');
         $currentUser = $container->get('current_user');
+        $session = $container->get('session');
 
         return new static(
             $config_factory,
             $logger,
-            $currentUser
+            $currentUser,
+            $session
         );
     }
 

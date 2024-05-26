@@ -179,6 +179,10 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
                 return;
             }
 
+            if (isset($path_parts[2]) && $path_parts[2] === 'edit') {
+                return;
+            }
+
             if ($path_parts[1] === $this->currentUser->id()) {
                 if ($this->session->get('user_pass_reset')) {
                     // Remove the 'user_pass_reset' key from the session

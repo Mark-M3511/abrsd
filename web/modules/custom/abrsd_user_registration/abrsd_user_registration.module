@@ -92,6 +92,9 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
                 )->toString(),
                 '#weight' => 99, // Adjust this to position the link correctly.
             ];
+        } else if ($form_id === 'user_form') {
+            // Hide the email field
+            $form['account']['mail']['#access'] = FALSE;
         } else if ($form_id === 'user_pass') {
             _abrsd_user_registration_user_pass_config($form, $form_state);
         }

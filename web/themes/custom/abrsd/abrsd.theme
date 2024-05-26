@@ -131,7 +131,6 @@ function abrsd_theme_suggestions_image_alter(array &$suggestions, array $variabl
 function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variables)
 {
   $block = $variables['elements']['#configuration']['id'];
-  // $current_path = _abrsd_get_current_path();
   $current_route_name = \Drupal::routeMatch()->getRouteName();
 
   // Check if the block is the main content block

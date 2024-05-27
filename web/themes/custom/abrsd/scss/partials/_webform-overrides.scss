@@ -41,3 +41,18 @@
     }
   }
 }
+
+.webform-confirmation-modal {
+  .ui-dialog-titlebar-close {
+    &::after {
+      // content: "\f00d";
+      // font-family: "Font Awesome 5 Free";
+      content: "\00d7";
+      font-family: "Bootstrap Icons";
+      font-size: 1.5rem;
+      font-weight: 700;
+      position: relative;
+      top: -11px;
+    }
+  }
+}

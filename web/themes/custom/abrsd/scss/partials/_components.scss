@@ -192,7 +192,8 @@
   }
 }
 
-.user-pass-message {
+.user-pass-message,
+.webform-element-description {
   a {
     @include link-theme-1();
   }

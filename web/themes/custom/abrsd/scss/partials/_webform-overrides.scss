@@ -1,13 +1,14 @@
-.webform-submission-user-profile-form {
+.webform-submission-user-profile-form,
+.webform-submission-user-registration-form {
   label {
     color: #6c757d !important;
-    font-size: 0.9rem;
+    font-size: $font-size-sm;
   }
 
   .form-control,
   .text-count-wrapper,
   summary {
-    font-size: 0.9rem;
+    font-size: $font-size-sm;
   }
 
   summary {
@@ -23,7 +24,7 @@
 #user-pass {
   label,
   p {
-    font-size: 0.9rem;
+    font-size: $font-size-sm;
   }
 
   #edit-submit {

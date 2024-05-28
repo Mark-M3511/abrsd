@@ -14,6 +14,7 @@ use \Drupal\Core\Site\Settings;
 use \Drupal\user\Entity\User;
 use \Drupal\node\Entity\Node;
 use \Drupal\taxonomy\Entity\Term;
+use \Drupal\node\NodeInterface;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.
@@ -152,7 +153,7 @@ function abrsd_theme_suggestions_block_alter(array &$suggestions, array $variabl
         break;
       case 'entity.node.canonical':
         $node = \Drupal::routeMatch()->getParameter('node');
-        if ($node instanceof \Drupal\node\NodeInterface && $node->getType() === 'page') {
+        if ($node instanceof NodeInterface && $node->getType() === 'page') {
           $suggestions[] = 'block__abrsd_content__basic_page';
         }
         break;

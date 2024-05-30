@@ -201,25 +201,47 @@ class UserRegistrationHelper
     }
 
     /**
-   * Searches for a user by email.
-   *
-   * @param string $email
-   *   The email address to search for.
-   *
-   * @return int|null
-   *   The user ID if a user with the given email is found, NULL otherwise.
-   */
-  static public function searchUserByEmail(string $email): ?int
-  {
-    // Query the user entity for the email address
-    $query = \Drupal::entityTypeManager()
-      ->getStorage('user')
-      ->getQuery()->accessCheck(FALSE)
-      ->condition('mail', $email);
-    $uids = $query->execute();
+     * Updates the password for a user.
+     *
+     * @param \Drupal\user\Entity\User $user
+     *   The user entity for which the password needs to be updated.
+     * @param string|null $new_password
+     *   The new password to be set for the user. If null, the password will not be updated.
+     *
+     * @throws \Exception
+     *   If an error occurs while updating the password.
+     */
+    static function updatePassword(User $user, ?string $new_password)
+    {
+        try {
+            if (!empty($new_password)) {
+                // Save the new password to the user entity
+                $user->setPassword($new_password)->enforceIsNew(FALSE)->save();
+            }
+        } catch (\Exception $e) {
+            \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+        }
+    }
 
-    // return the id
-    return !empty($uids) ? reset($uids) : NULL;
-  }
+    /**
+     * Searches for a user by email.
+     *
+     * @param string $email
+     *   The email address to search for.
+     *
+     * @return int|null
+     *   The user ID if a user with the given email is found, NULL otherwise.
+     */
+    static public function searchUserByEmail(string $email): ?int
+    {
+        // Query the user entity for the email address
+        $query = \Drupal::entityTypeManager()
+            ->getStorage('user')
+            ->getQuery()->accessCheck(FALSE)
+            ->condition('mail', $email);
+        $uids = $query->execute();
 
+        // return the id
+        return !empty($uids) ? reset($uids) : NULL;
+    }
 }

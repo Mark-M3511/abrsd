@@ -13,6 +13,7 @@ use Drupal\user\Entity\User;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\abrsd_user_registration\Helper\UserRegistrationHelper;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 
 /**
  * Form submission handler.
@@ -71,6 +72,11 @@ final class UserRegistration extends WebformHandlerBase
    */
   private $fileEntity;
 
+  /**
+   * @var \Drupal\user\PrivateTempStoreFactory
+   */
+  protected $tempStoreFactory;
+
   public function __construct(
     array $configuration,
     $plugin_id,
@@ -80,7 +86,8 @@ final class UserRegistration extends WebformHandlerBase
     PasswordGeneratorInterface $password_generator,
     LoggerInterface $logger,
     AccountProxyInterface $account_proxy,
-    EntityTypeManagerInterface $fileEntity
+    EntityTypeManagerInterface $fileEntity,
+    PrivateTempStoreFactory $tempStoreFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->languageManager = $language_manager;
@@ -90,6 +97,7 @@ final class UserRegistration extends WebformHandlerBase
     $this->userExists = FALSE;
     $this->currentUser = $account_proxy;
     $this->fileEntity = $fileEntity;
+    $this->tempStoreFactory = $tempStoreFactory;
   }
 
   /**
@@ -119,6 +127,7 @@ final class UserRegistration extends WebformHandlerBase
     $logger = $container->get('logger.factory')->get('abrsd_user_registration');
     $curren_user = $container->get('current_user');
     $fileEntity = $container->get('entity_type.manager');
+    $tempStoreFactory = $container->get('tempstore.private');
     return new static(
       $configuration,
       $plugin_id,
@@ -128,7 +137,8 @@ final class UserRegistration extends WebformHandlerBase
       $password_generator,
       $logger,
       $curren_user,
-      $fileEntity
+      $fileEntity,
+      $tempStoreFactory
     );
   }
 
@@ -171,12 +181,12 @@ final class UserRegistration extends WebformHandlerBase
           $new_password = $storage->getElementData('new_password');
           // Check if the new_password field is empty
           if (!empty($new_password)) {
-            // Get the current user entity
-            $user = User::load($this->currentUser->id());
-            // Save the new password to the user entity
-            $user->setPassword($new_password)->enforceIsNew(FALSE)->save();
+            $temp_store = $this->tempStoreFactory->get('abrsd_user_registration');
+            // Store the new password in the private temp store
+            $temp_store->set('new_pass', $new_password);
             // Set the password field to: 'Password changed by user'
             $storage->setElementData('new_password', 'Password changed by user');
+            // Set the user entity password to the new password
           }
           break;
         default:
@@ -213,6 +223,13 @@ final class UserRegistration extends WebformHandlerBase
         case 'user_profile':
           if (!$update && $user->isAuthenticated()) {
             $reg_helper->updateUserAccount();
+            $temp_store = $this->tempStoreFactory->get('abrsd_user_registration');
+            $new_pass = $temp_store->get('new_pass');
+            if (!empty($new_pass)) {
+              $user->setPassword($new_pass);
+              $user->enforceIsNew(FALSE)->save();
+              $temp_store->delete('new_pass');
+            }
           }
           break;
       }

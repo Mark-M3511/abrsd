@@ -222,14 +222,14 @@ final class UserRegistration extends WebformHandlerBase
           break;
         case 'user_profile':
           if (!$update && $user->isAuthenticated()) {
-            $reg_helper->updateUserAccount();
             $temp_store = $this->tempStoreFactory->get('abrsd_user_registration');
-            $new_pass = $temp_store->get('new_pass');
+            $new_pass = $temp_store->get('new_pass') ?? '';
             if (!empty($new_pass)) {
               $user->setPassword($new_pass);
               $user->enforceIsNew(FALSE)->save();
               $temp_store->delete('new_pass');
             }
+            $reg_helper->updateUserAccount();
           }
           break;
       }

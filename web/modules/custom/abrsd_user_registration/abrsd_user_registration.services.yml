@@ -8,6 +8,7 @@ services:
       - '@logger.factory'
       - '@current_user'
       - '@entity_type.manager'
+      - '@tempstore.private'
     tags:
       - { name: webform_handler, id: abrsd_user_registration }
   abrsd_user_registration.user_registration_redirect_subscriber:

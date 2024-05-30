@@ -2,6 +2,7 @@
 
 namespace Drupal\abrsd_user_registration\EventSubscriber;
 
+use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -13,6 +14,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Drupal\abrsd_user_registration\Helper\UserRegistrationHelper;
 
 /**
  * Event subscriber for redirecting user/register routes.
@@ -46,6 +48,20 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
      * @var \Drupal\Core\Session\SessionInterface
      */
     protected $session;
+
+    /**
+     * The request object.
+     *
+     * @var \Symfony\Component\HttpFoundation\Request
+     */
+    protected $request;
+
+    /**
+     * The post data.
+     *
+     * @var array
+     */
+    protected $postData;
 
 
     /**
@@ -127,7 +143,8 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
 
         try {
             // Get the URL path from the request.
-            $path_info = $event->getRequest()?->getPathInfo();
+            $this->request = $event->getRequest();
+            $path_info = $this->request?->getPathInfo();
 
             // Check if the current path is in the allowed paths.
             if (!in_array($path_info, $allowed_paths, TRUE)) {
@@ -171,31 +188,46 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     public function onCommentContributorLoggedIn(RequestEvent $event)
     {
         try {
-
-            $path_info = $event->getRequest()?->getPathInfo();
+            // Get the URL path from the request.
+            $this->request = $event->getRequest();
+            $path_info = $this->request?->getPathInfo();
+            // Get the post data from the request
+            $postData = $this->request?->request->all();
+            // Get the path parts from the path info
             $path_parts = explode('/', ltrim($path_info, " \n\r\t\v\0/"));
-
-            if (empty($path_parts) || $path_parts[0] !== 'user') {
-                return;
-            }
-
-            if (isset($path_parts[2]) && $path_parts[2] === 'edit') {
-                return;
-            }
-
-            if ($path_parts[1] === $this->currentUser->id()) {
+            $url_param_uid = $path_parts[1] ?? NULL;
+            // Check if the user is logged in
+            if ($url_param_uid === $this->currentUser->id()) {
+                // Get the password fields from the post data
+                $pass_1 = $postData['pass']['pass1'] ?? NULL;
+                $pass_2 = $postData['pass']['pass2'] ?? NULL;
+                // Check if the password fields are not empty and match
+                if (($pass_1 == NULL && $pass_2 == NULL)) {
+                    if (isset($path_parts[0]) && $path_parts[0] !== 'user') {
+                        return;
+                    }
+                    if (isset($path_parts[2]) && $path_parts[2] === 'edit') {
+                        return;
+                    }
+                }
+                // Check if the 'user_pass_reset' key exists in the session
                 if ($this->session->get('user_pass_reset')) {
                     // Remove the 'user_pass_reset' key from the session
                     $this->session->remove('user_pass_reset');
-                } else {
-                    // Redirect the user to the profile page if they have the Comment Contributor role
-                    $user = User::load($this->currentUser->id());
-                    if ($user?->hasRole('comment_contributor')) {
+                }
+                // Redirect the user to the profile page if they have the Comment Contributor role
+                $user = User::load($this->currentUser->id());
+                // Check if user is authenticated
+                if ($user?->isAuthenticated()) {
+                    if ($pass_1 === $pass_2) {
+                        UserRegistrationHelper::updatePassword($user, $pass_1);
                         $response = new RedirectResponse('/user/profile');
                         $event->setResponse($response);
+                    } else {
+                        throw new \Exception('Passwords do not match.');
                     }
                 }
-            } elseif ($path_parts[1] === 'reset') {
+            } elseif ($url_param_uid === 'reset') {
                 // Set a key/value pair in the session to indicate the one-time login link has been used
                 $this->session->set('user_pass_reset', TRUE);
             }

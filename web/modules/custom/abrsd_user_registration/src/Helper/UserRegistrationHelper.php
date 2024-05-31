@@ -101,6 +101,8 @@ class UserRegistrationHelper
                 if (!empty($uid)) {
                     $user = User::load($uid);
                     // Update the user account with the provided values
+                    $user->set('mail', $values['mail'] ?? $user->mail->value);
+                    $user->set('name', $values['mail'] ?? $user->name->value);
                     $user->set('field_organization', $values['organization'] ?? $user->field_organization->value);
                     $user->set('field_interests', $values['interests'] ?? $user->field_interests->value);
                     $user->set('field_display_name', $values['display_name'] ?? $user->field_display_name->value);

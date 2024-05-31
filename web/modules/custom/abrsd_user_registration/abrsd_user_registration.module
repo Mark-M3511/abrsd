@@ -244,11 +244,15 @@ function _abrsd_user_registration_load_profile_form_values(
             $form_elements_keys = [
                 'container|first_name', 'container|last_name', 'container|country',
                 'container|signup_email', 'container|organization', 'container_01|interests',
-                'container_01|about_me', 'container|display_name'
+                'container_01|about_me', 'container|display_name', 'container|mail',
             ];
             // Set default values for form elements
             foreach ($form_elements_keys as $key) {
-                setDefaultValue($form_elements, $submission_data, $user, $key);
+                if ($key == 'container|mail') {
+                    setDefaultValue($form_elements, $submission_data, $user, $key, '');
+                } else {
+                    setDefaultValue($form_elements, $submission_data, $user, $key);
+                }
             }
             // Check if the profile picture has been removed
             $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
@@ -292,15 +296,22 @@ function _abrsd_user_registration_load_profile_form_values(
  *   The User object.
  * @param string $key
  *   The key used to identify the form element.
+ * @param string $prefix
+ *  The prefix used to identify the container element.
  */
-function setDefaultValue(array &$form_elements, array $submission_data, User $user, string $key)
-{
+function setDefaultValue(
+    array &$form_elements,
+    array $submission_data,
+    User $user,
+    string $key,
+    string $prefix = 'field_'
+) {
     // Get the container element by splitting the key
     $container = explode('|', $key)[0] ?? 'container';
     // Get the element id by splitting the key
     $skey = explode('|', $key)[1] ?? $key;
     // Set the default value
-    $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{"field_$skey"}->value;
+    $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{"{$prefix}{$skey}"}->value;
 }
 
 /**

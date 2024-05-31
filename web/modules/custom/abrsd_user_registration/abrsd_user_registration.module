@@ -60,14 +60,12 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
             $form['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_registration';
             // Load the logged in user
             $user = User::load(\Drupal::currentUser()->id());
-            // $user = User::load(14);
-            if (!empty($user)) {
+            // Load the custom UserRegistration service and load the user profile
+            if (!empty($user) && !empty($form['elements'])) {
                 // Load the custom UserRegistration service
                 $sid = UserRegistration::getSubmissionId($user->id());
                 // Load the profile form values if $form array is not empty and $form elements are set
-                if (!empty($form['elements'])) {
-                    _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
-                }
+                _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
             }
         } else if ($form_id === "comment_blog_comment_form") {
             // Changes the text of the Save button to Share

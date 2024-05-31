@@ -75,6 +75,8 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
             // Remove the format selector
             $form['comment_body']['widget']['#after_build'][] = '_modify_format_selector_ui';
         } else if ($form_id === 'user_login_form') {
+            // Change the wording of the Username label to Email Address
+            $form['name']['#title'] = t('Email Address');
             // Add a link to the password reset form.
             $form['actions']['password_reset'] = [
                 '#type' => 'markup',
@@ -240,7 +242,9 @@ function _abrsd_user_registration_load_profile_form_values(
             $submission = WebformSubmission::load($sid);
             // Element data
             $submission_data = $submission->getData();
-            // Define form elements
+            // Define form elements - the format conteiner|element is used to identify the form elements
+            // The words container, container_01, container_02 represent the elements used to group or
+            // contain the field elements. The field names appear after the | character.
             $form_elements_keys = [
                 'container|first_name', 'container|last_name', 'container|country',
                 'container|signup_email', 'container|organization', 'container_01|interests',

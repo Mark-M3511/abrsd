@@ -252,11 +252,8 @@ function _abrsd_user_registration_load_profile_form_values(
             ];
             // Set default values for form elements
             foreach ($form_elements_keys as $key) {
-                if ($key == 'container|mail') {
-                    setDefaultValue($form_elements, $submission_data, $user, $key, '');
-                } else {
-                    setDefaultValue($form_elements, $submission_data, $user, $key);
-                }
+                $default_value = ($key != 'container|mail') ? 'field_' : '';
+                setDefaultValue($form_elements, $submission_data, $user, $key, $default_value);
             }
             // Display the last updated date and time at the top of the form
             $form_elements['container']['last_updated'] = [

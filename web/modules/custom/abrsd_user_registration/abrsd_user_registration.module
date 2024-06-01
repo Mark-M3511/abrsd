@@ -258,6 +258,12 @@ function _abrsd_user_registration_load_profile_form_values(
                     setDefaultValue($form_elements, $submission_data, $user, $key);
                 }
             }
+            // Display the last updated date and time at the top of the form
+            $form_elements['container']['last_updated'] = [
+                '#type' => 'item',
+                '#markup' => '<p class="last-updated">Last updated:&nbsp;&nbsp;' . date('F j, Y \a\t g:i a', $submission->getChangedTime()) . '</p>',
+                '#weight' => -2,
+            ];
             // Check if the profile picture has been removed
             $user_pic_removed = _abrsd_user_registration_user_picture_removed($form_state);
             // If the profile picture is not empty add the profile picture display

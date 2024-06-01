@@ -5,3 +5,10 @@ span.file--image {
 #profile-picture-display {
     margin-bottom: .5rem;
 }
+
+.last-updated {
+    background-color: #272525;
+    color: #fff;
+    padding: 1px 7px;
+    border-radius: 5px;
+}

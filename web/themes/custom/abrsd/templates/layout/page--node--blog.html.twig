@@ -151,11 +151,10 @@ set nav_classes = [
 				<div {{navbar_attributes.addClass(nav_classes|merge(sticky_title_classes))|without('id')}}>
 					{# Get node title #}
 					{% set label = node.label %}
-					{% if label is empty %}
-						{% set label = 'Page Title' %}
-					{% endif %}
-                    {% set date_posted = node.getCreatedTime|date('M j, Y') %}
-					{{ label ~ ' | Posted: ' ~ date_posted ~ ' | ' ~ node.field_blog_comment.comment_count ~ ' comments'}}
+					{% set label = label is empty ? 'Blog Title' : label %}
+					{% set label = label|length > 64 ? label|slice(0, 64) ~ '...' : label %}
+					{% set date_posted = node.getCreatedTime|date('M j, Y') %}
+					{{ label ~ ' | Posted: ' ~ date_posted ~ ' | ' ~ node.field_blog_comment.comment_count ~ ' comment(s)'}}
 				</div>
 			{% endblock %}
 		</header>

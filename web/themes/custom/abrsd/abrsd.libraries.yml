@@ -24,6 +24,13 @@ status-msg:
   css:
     component:
       css/spinner.css: {}
+fotm-submission-loader:
+  version: VERSION
+  js:
+    js/form-submission-loader.js: {}
+  css:
+    component:
+      css/form-spinner.css: {}
 monsterrat:
   version: VERSION
   css:

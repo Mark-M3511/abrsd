@@ -155,7 +155,7 @@ set nav_classes = [
 						{% set label = 'Page Title' %}
 					{% endif %}
                     {% set date_posted = node.getCreatedTime|date('M j, Y') %}
-					{{ label ~ ' | ' ~ node.field_blog_comment.comment_count ~ ' comments' ~ ' | Posted: ' ~ date_posted}}
+					{{ label ~ ' | Posted: ' ~ date_posted ~ ' | ' ~ node.field_blog_comment.comment_count ~ ' comments'}}
 				</div>
 			{% endblock %}
 		</header>

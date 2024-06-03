@@ -20,7 +20,7 @@
             btn?.addEventListener('click', () => {
                 const loader = document.querySelector('.loader');
                 // Replace d-none with d-block class
-                loader.classList.replace('d-none', 'd-inline-block');
+                loader?.classList.replace('d-none', 'd-inline-block');
             });
         }
     };

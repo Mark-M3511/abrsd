@@ -27,7 +27,7 @@ status-msg:
 fotm-submission-loader:
   version: VERSION
   js:
-    js/form-submission-loader.js: {}
+    js/form-submission-loader.min.js: {}
   css:
     component:
       css/form-spinner.css: {}

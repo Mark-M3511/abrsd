@@ -56,16 +56,23 @@ function abrsd_user_registration_help($route_name, RouteMatchInterface $route_ma
 function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$form_state, $form_id)
 {
     try {
-        if (!empty($form['#webform_id']) && ($form['#webform_id'] == 'user_profile')) {
+        if (!empty($form['#webform_id'])) {
             $form['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_registration';
-            // Load the logged in user
-            $user = User::load(\Drupal::currentUser()->id());
-            // Load the custom UserRegistration service and load the user profile
-            if (!empty($user) && !empty($form['elements'])) {
-                // Load the custom UserRegistration service
-                $sid = UserRegistration::getSubmissionId($user->id());
-                // Load the profile form values if $form array is not empty and $form elements are set
-                _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
+            if (($form['#webform_id'] == 'user_profile')) {
+                // Load the logged in user
+                $user = User::load(\Drupal::currentUser()->id());
+                // Load the custom UserRegistration service and load the user profile
+                if (!empty($user) && !empty($form['elements'])) {
+                    // Load the custom UserRegistration service
+                    $sid = UserRegistration::getSubmissionId($user->id());
+                    // Load the profile form values if $form array is not empty and $form elements are set
+                    _abrsd_user_registration_load_profile_form_values($form['elements'], $form_state, $sid, $user);
+                }
+            } else if ($form['#webform_id'] == 'user_registration') {
+                // Get the last updated time of the user object
+                $mark_up = _get_last_updated_markup(time(), t('Registration created') . ': ');
+                // Add last updated markup to the form just above the submit button
+                $form['actions']['submit']['#prefix'] = $mark_up;
             }
         } else if ($form_id === "comment_blog_comment_form") {
             // Changes the text of the Save button to Share
@@ -256,7 +263,7 @@ function _abrsd_user_registration_load_profile_form_values(
                 setDefaultValue($form_elements, $submission_data, $user, $key, $default_value);
             }
             // Get the last updated time of the user object
-            $mark_up = _get_last_updated_markup($user->getChangedTime());
+            $mark_up = _get_last_updated_markup($user->getChangedTime(), t('Your profile was last updated') . ': ');
             // $mark_up .= '<span class="loader d-none mb-4"></span>';
             $form_elements['container']['last_updated'] = [
                 '#type' => 'item',
@@ -295,23 +302,25 @@ function _abrsd_user_registration_load_profile_form_values(
 }
 
 /**
- * Returns the last updated markup.
+ * Gets the last updated markup.
  *
- * This function is responsible for returning the last updated markup for the user profile form.
+ * This function is responsible for generating the last updated markup for the user profile form.
  *
  * @param int $time_stamp
- *   The timestamp of the last update.
+ *   The timestamp of the last updated time.
+ * @param string $message
+ *   The message to be displayed.
  *
  * @return string
  *   The last updated markup.
  */
-function _get_last_updated_markup(int $time_stamp): string
+function _get_last_updated_markup(int $time_stamp, string $message): string
 {
     $mark_up = '';
     try {
         $mark_up = '<p class="last-updated d-flex justify-content-between align-items-center px-3 py-2">';
         $mark_up .= '<span>';
-        $mark_up .= t('Your profile was last updated');
+        $mark_up .= $message;
         $mark_up .= ':&nbsp;&nbsp;' . date('F j, Y \a\t g:i a', $time_stamp);
         $mark_up .= '</span>';
         $mark_up .= '<span class="loader d-none"></span>';

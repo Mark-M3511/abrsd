@@ -255,14 +255,8 @@ function _abrsd_user_registration_load_profile_form_values(
                 $default_value = ($key != 'container|mail') ? 'field_' : '';
                 setDefaultValue($form_elements, $submission_data, $user, $key, $default_value);
             }
-            // Display the last updated date and time at the top of the form
-            $mark_up = '<p class="last-updated d-flex justify-content-between align-items-center px-3 py-2">';
-            $mark_up .= '<span>';
-            $mark_up .= t('Your profile was last updated');
-            $mark_up .= ':&nbsp;&nbsp;' . date('F j, Y \a\t g:i a', $submission->getChangedTime());
-            $mark_up .= '</span>';
-            $mark_up .= '<span class="loader d-none"></span>';
-            $mark_up .= '</p>';
+            // Get the last updated time of the user object
+            $mark_up = _get_last_updated_markup($user->getChangedTime());
             // $mark_up .= '<span class="loader d-none mb-4"></span>';
             $form_elements['container']['last_updated'] = [
                 '#type' => 'item',
@@ -298,6 +292,36 @@ function _abrsd_user_registration_load_profile_form_values(
         // Log any errors
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+}
+
+/**
+ * Returns the last updated markup.
+ *
+ * This function is responsible for returning the last updated markup for the user profile form.
+ *
+ * @param int $time_stamp
+ *   The timestamp of the last update.
+ *
+ * @return string
+ *   The last updated markup.
+ */
+function _get_last_updated_markup(int $time_stamp): string
+{
+    $mark_up = '';
+    try {
+        $mark_up = '<p class="last-updated d-flex justify-content-between align-items-center px-3 py-2">';
+        $mark_up .= '<span>';
+        $mark_up .= t('Your profile was last updated');
+        $mark_up .= ':&nbsp;&nbsp;' . date('F j, Y \a\t g:i a', $time_stamp);
+        $mark_up .= '</span>';
+        $mark_up .= '<span class="loader d-none"></span>';
+        $mark_up .= '</p>';
+    } catch (\Exception $e) {
+        // Log any errors
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+
+    return $mark_up;
 }
 
 /**

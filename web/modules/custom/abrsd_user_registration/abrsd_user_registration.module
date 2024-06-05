@@ -58,6 +58,7 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
     try {
         if (!empty($form['#webform_id'])) {
             $form['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_registration';
+            $form['#attached']['drupalSettings']['abrsd_user_registration']['serverTime'] = date('F j, Y \a\t g:i a', time());
             if (($form['#webform_id'] == 'user_profile')) {
                 // Load the logged in user
                 $user = User::load(\Drupal::currentUser()->id());
@@ -72,9 +73,9 @@ function abrsd_user_registration_form_alter(array &$form, FormStateInterface &$f
                 // Get the last updated time of the user object
                 $mark_up = _get_custom_form_markup(time(), t('Registration created') . ': ');
                 // Add last updated markup to the form just above the submit button
-                $submit_action = &$form['actions']['submit'];
-                $submit_action['#prefix'] = $mark_up;
-                $submit_action['#cache'] = 0;
+                $form['actions']['submit']['#prefix'] = $mark_up;
+                // Do not cache the form
+                // $form['#cache'] = ['max-age' => 0];
             }
         } else if ($form_id === "comment_blog_comment_form") {
             // Changes the text of the Save button to Share
@@ -321,7 +322,7 @@ function _get_custom_form_markup(int $time_stamp, string $message): string
     $mark_up = '';
     try {
         $mark_up = '<p class="last-updated d-flex justify-content-between align-items-center px-3 py-2">';
-        $mark_up .= '<span>';
+        $mark_up .= '<span class="form-message">';
         $mark_up .= $message;
         $mark_up .= ':&nbsp;&nbsp;' . date('F j, Y \a\t g:i a', $time_stamp);
         $mark_up .= '</span>';

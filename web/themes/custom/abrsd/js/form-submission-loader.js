@@ -17,12 +17,16 @@
     behaviors.formSubmissionLoader = {
         attach(context, settings) {
             const btn = document.querySelector('.webform-button--submit');
-            const regForm = document.querySelector('.webform-submission-user-registration-form');
             btn?.addEventListener('click', () => {
                 const loader = document.querySelector('.loader');
                 // Replace d-none with d-block class
                 loader?.classList.replace('d-none', 'd-inline-block');
             });
+            // Call the updateTime function
+            this.updateTime();
+        },
+        updateTime() {
+            const regForm = document.querySelector('.webform-submission-user-registration-form');
             if (regForm) {
                 const formMessage = document.querySelector('.form-message');
                 //  Get the serverTime value from the drupalSettings object

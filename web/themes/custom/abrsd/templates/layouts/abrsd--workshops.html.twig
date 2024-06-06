@@ -23,9 +23,14 @@
   ]
 %}
 {% if content %}
-  <div{{ attributes.addClass(classes) }}>
-    <div {{ region_attributes.content.addClass('layout__region', 'layout__region--content') }}>
-      {{ content.content }}
+    <div{{attributes.addClass(classes)}}>
+        <div class="workshop-breadcrumb row">
+            <div class="col-md-12">
+                {{ drupal_breadcrumb() }}
+            </div>
+        </div>
+        <div {{ region_attributes.content.addClass('layout__region', 'layout__region--content') }}>
+            {{ content.content }}
+        </div>
     </div>
-  </div>
 {% endif %}

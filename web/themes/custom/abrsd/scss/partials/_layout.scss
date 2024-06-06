@@ -18,6 +18,16 @@
   &.toolkits {
     background: $alt-background-teal;
   }
+  .toolkit-breadcrumb {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 0.5rem;
+  }
+  .workshop-breadcrumb {
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-top: 0.5rem;
+  }
 }
 
 // HERO IMAGE STYLES FOR HOMEPAGE ONLY. THIS IS DUE TO MISSING BREADCRUMB BLOCK

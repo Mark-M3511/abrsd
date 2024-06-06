@@ -49,6 +49,19 @@ picture {
   }
 }
 
+// TWITTER X2 ICON
+.twitter-x {
+  border-radius: 50%;
+  border: 1px solid $alt-background-teal;
+  background-color: $alt-background-teal;
+  width: 3rem;
+  height: 3rem;
+  svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
 // OUR WORK STYLES
 .our-work-list-svg {
   img {

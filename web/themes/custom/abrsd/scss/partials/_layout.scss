@@ -40,6 +40,13 @@
       padding-right: 1rem;
     }
   }
+
+  .toolkit-breadcrumb {
+    .breadcrumb-item.active,
+    .breadcrumb-item.active::before {
+        color: $black;
+    }
+  }
 }
 
 // HERO IMAGE STYLES FOR HOMEPAGE ONLY. THIS IS DUE TO MISSING BREADCRUMB BLOCK

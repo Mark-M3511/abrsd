@@ -4,11 +4,17 @@
 }
 
 // Image caption text
-.node__content figcaption {
+.node__content figcaption,
+.blog-date {
   font-size: 0.9em; // Smaller font size
   color: #666; // Dark gray color
   margin-top: calc(($spacer / 2) * -1); // Half of the spacer above the caption
   margin-bottom: calc($spacer / 2); // Space below the caption
+}
+
+.blog-date {
+  font-size: 0.85rem; // Smaller font size
+  margin-top: 0; // No margin above the date
 }
 
 .blog-comment-heading {

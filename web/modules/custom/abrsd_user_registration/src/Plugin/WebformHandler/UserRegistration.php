@@ -185,7 +185,7 @@ final class UserRegistration extends WebformHandlerBase
             // Store the new password in the private temp store
             $temp_store->set('new_pass', $new_password);
             // Set the password field to: 'Password changed by user'
-            $storage->setElementData('new_password', 'Password changed by user');
+            $storage->setElementData('new_password', $this->t('Password changed by user'));
             // Set the user entity password to the new password
           }
           break;

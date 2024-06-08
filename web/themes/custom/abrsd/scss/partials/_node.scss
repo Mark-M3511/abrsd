@@ -15,6 +15,10 @@
 .blog-date {
   font-size: 0.85rem; // Smaller font size
   margin-top: 0; // No margin above the date
+  // for small screens use a smaller font-size to improve layout
+  @include media-breakpoint-down(sm) {
+    font-size: 0.75rem;
+  }
 }
 
 .blog-comment-heading {

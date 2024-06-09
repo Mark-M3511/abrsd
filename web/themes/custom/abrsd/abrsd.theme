@@ -9,6 +9,7 @@ use \Drupal\Core\Form\FormStateInterface;
 use \Drupal\Core\Url;
 use \Drupal\views\Views;
 use \Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\Xss;
 use \Drupal\Core\StringTranslation\TranslatableMarkup;
 use \Drupal\Core\Site\Settings;
 use \Drupal\user\Entity\User;
@@ -367,6 +368,47 @@ function abrsd_preprocess_page(array &$variables)
     // Attach flickty library to the front page
     $variables['#attached']['library'][] = 'abrsd/flickity';
     $variables['#attached']['library'][] = 'abrsd/flickity-front';
+  }
+  _abrsd_load_cookie_consent_message($variables);
+}
+
+
+/**
+ * Loads the cookie consent message if the user is not logged in.
+ *
+ * @param array $variables
+ *   An array of variables passed by reference.
+ */
+function _abrsd_load_cookie_consent_message(array &$variables)
+{
+  // Load the cookie consent message if the user is not logged in
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    // Load the Cookie Conset message node entity with the title Cookie Consent
+    $node = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['title' => 'Cookie Consent']);
+    if (!empty($node)) {
+      // Get the first node from the array
+      $node = reset($node);
+      // Serialize node data
+      $allowed_tags =  ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'];
+      $node_data = [
+        'consent_title' => $node->field_consent_title->value,
+        'consent_body' => Xss::filter($node->field_consent_description->value, $allowed_tags),
+      ];
+      // Serialize the array
+      $node_data = json_encode($node_data);
+      // Attach data to Drupal settings
+      $variables['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#value' => "window._abrsd_ = window._abrsd_ || {}; window._abrsd_.cookieConsent = $node_data;",
+          '#attributes' => ['type' => 'text/javascript'],
+        ],
+        'cookie_consent',
+      ];
+    }
   }
 }
 

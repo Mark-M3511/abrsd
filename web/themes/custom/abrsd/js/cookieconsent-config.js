@@ -18,8 +18,8 @@ CookieConsent.run({
         translations: {
             en: {
                 consentModal: {
-                    title: 'We use cookies',
-                    description: 'Cookie modal description',
+                    title: window._abrsd_.cookieConsent.consent_title,
+                    description: window._abrsd_.cookieConsent.consent_body,
                     acceptAllBtn: 'Accept all',
                     acceptNecessaryBtn: 'Reject all',
                     showPreferencesBtn: 'Manage Individual preferences'

@@ -12,17 +12,16 @@ CookieConsent.run({
         },
         analytics: {}
     },
-
     language: {
         default: 'en',
         translations: {
             en: {
                 consentModal: {
                     title: window._abrsd_.cookieConsent.consent_title,
-                    description: window._abrsd_.cookieConsent.consent_body,
-                    acceptAllBtn: 'Accept all',
-                    acceptNecessaryBtn: 'Reject all',
-                    showPreferencesBtn: 'Manage Individual preferences'
+                    description: decodeEntities(window._abrsd_.cookieConsent.consent_description),
+                    acceptAllBtn: window._abrsd_.cookieConsent.accept_all_button,
+                    acceptNecessaryBtn: window._abrsd_.cookieConsent.accept_necessary_button,
+                    showPreferencesBtn: window._abrsd_.cookieConsent.show_preferences_button
                 },
                 preferencesModal: {
                     title: 'Manage cookie preferences',
@@ -55,5 +54,17 @@ CookieConsent.run({
                 }
             }
         }
-    }
+    },
 });
+
+function decodeEntities(encodedString) {
+    // Create a temporary DOM element
+    const tempElement = document.createElement('div');
+
+    // Set the innerHTML of the temp element to the encoded string
+    tempElement.innerHTML = encodedString;
+
+    // Use textContent to extract the decoded content (since innerHTML might parse it back)
+    // return tempElement.textContent || tempElement.innerText || "";
+    return tempElement.innerHTML;
+}

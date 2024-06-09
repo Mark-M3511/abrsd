@@ -382,7 +382,7 @@ function abrsd_preprocess_page(array &$variables)
 function _abrsd_load_cookie_consent_message(array &$variables)
 {
   // Load the cookie consent message if the user is not logged in
-  if (!\Drupal::currentUser()->isAuthenticated()) {
+  // if (!\Drupal::currentUser()->isAuthenticated()) {
     // Load the Cookie Conset message node entity with the title Cookie Consent
     $node = \Drupal::entityTypeManager()
       ->getStorage('node')
@@ -394,23 +394,26 @@ function _abrsd_load_cookie_consent_message(array &$variables)
       $allowed_tags =  ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'];
       $node_data = [
         'consent_title' => $node->field_consent_title->value,
-        'consent_body' => Xss::filter($node->field_consent_description->value, $allowed_tags),
+        'consent_description' => Xss::filter($node->field_consent_description->value, $allowed_tags),
+        'accept_all_button' => $node->field_accept_all_button->value,
+        'accept_necessary_button' => $node->field_accept_necessary_button->value,
+        'show_preferences_button' => $node->field_show_preferences_button->value,
       ];
-      // Serialize the array
-      $node_data = json_encode($node_data);
+      // Serialize the array and save the encoded string a variable
+      $node_data_jse = json_encode($node_data, JSON_UNESCAPED_SLASHES);
       // Attach data to Drupal settings
       $variables['#attached']['html_head'][] = [
         [
           '#type' => 'html_tag',
           '#tag' => 'script',
-          '#value' => "window._abrsd_ = window._abrsd_ || {}; window._abrsd_.cookieConsent = $node_data;",
+          '#value' => "window._abrsd_ = window._abrsd_ || {}; window._abrsd_.cookieConsent = $node_data_jse;",
           '#attributes' => ['type' => 'text/javascript'],
         ],
         'cookie_consent',
       ];
     }
   }
-}
+// }
 
 /**
  * Implements hook_preprocess_menu().

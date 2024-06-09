@@ -32,12 +32,14 @@ const paths = {
     bootstrap: './node_modules/bootstrap/dist/js/bootstrap.min.js',
     popper: './node_modules/@popperjs/core/dist/umd/popper.min.js',
     flickity: './node_modules/flickity/dist/flickity.pkgd.min.js',
+    vanilla_cc: './node_modules/vanilla-cookieconsent/dist/cookieconsent.umd.js',
     barrio: '../../contrib/bootstrap_barrio/js/barrio.js',
     dest: './js',
     watch: './js/**/*.js' // Add the watch pattern for JS files
   },
   css: {
     flickity: './node_modules/flickity/dist/flickity.min.css',
+    vanilla_cc: './node_modules/vanilla-cookieconsent/dist/cookieconsent.css',
     dest: './css'
   }
 }
@@ -75,21 +77,30 @@ function styles() {
 
 // Move the javascript files into our js folder
 function js() {
-  return gulp.src([paths.js.bootstrap, paths.js.popper, paths.js.flickity, paths.js.barrio])
+  return gulp.src([
+    paths.js.bootstrap,
+    paths.js.popper,
+    paths.js.flickity,
+    paths.js.vanilla_cc,
+    paths.js.barrio
+  ])
     .pipe(gulp.dest(paths.js.dest))
     .pipe(browserSync.stream())
 }
 
 // Copy CSS files to the css folder
 function css() {
-  return gulp.src([paths.css.flickity])
+  return gulp.src([paths.css.flickity, paths.css.vanilla_cc])
     .pipe(gulp.dest(paths.css.dest))
     .pipe(browserSync.stream())
 }
 
 function minifyJs() {
   // Uglify non-minified javascript files
-  return gulp.src([paths.js.dest + '/*.js', '!' + paths.js.dest + '/*.min.js'])
+  return gulp.src([
+    paths.js.dest + '/*.js',
+    '!' + paths.js.dest + '/*.{min,umd}.js'
+  ])
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(paths.js.dest))

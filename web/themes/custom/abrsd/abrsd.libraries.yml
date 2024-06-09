@@ -69,4 +69,12 @@ sticky-title:
   dependencies:
     - core/drupal
     - core/drupalSettings
+vanilla-cookieconsent:
+  version: 3.0.1
+  css:
+    component:
+      css/cookieconsent.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
 

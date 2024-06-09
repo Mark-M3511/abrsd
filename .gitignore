@@ -125,3 +125,5 @@
 
 # Ignore various config and core files in root
 docker-compose.yml
+web/themes/custom/abrsd/js/cookieconsent.umd.js
+web/themes/custom/abrsd/css/bootstrap.css

@@ -4,6 +4,8 @@ import '/themes/custom/abrsd/js/cookieconsent.umd.js';
  * All config. options available here:
  * https://cookieconsent.orestbida.com/reference/configuration-reference.html
  */
+const abrsdCC = window._abrsd_.cookieConsent || {};
+
 CookieConsent.run({
     categories: {
         necessary: {
@@ -17,17 +19,17 @@ CookieConsent.run({
         translations: {
             en: {
                 consentModal: {
-                    title: window._abrsd_.cookieConsent.consent_title,
-                    description: decodeEntities(window._abrsd_.cookieConsent.consent_description),
-                    acceptAllBtn: window._abrsd_.cookieConsent.accept_all_button,
-                    acceptNecessaryBtn: window._abrsd_.cookieConsent.accept_necessary_button,
-                    showPreferencesBtn: window._abrsd_.cookieConsent.show_preferences_button
+                    title: abrsdCC.consent_title,
+                    description: decodeEntities(abrsdCC.consent_description),
+                    acceptAllBtn: abrsdCC.accept_all_button,
+                    acceptNecessaryBtn: abrsdCC.accept_necessary_button,
+                    showPreferencesBtn: abrsdCC.show_preferences_button
                 },
                 preferencesModal: {
-                    title: 'Manage cookie preferences',
-                    acceptAllBtn: 'Accept all',
-                    acceptNecessaryBtn: 'Reject all',
-                    savePreferencesBtn: 'Accept current selection',
+                    title:  abrsdCC.pref_window_title,
+                    acceptAllBtn:abrsdCC.pref_accept_button,
+                    acceptNecessaryBtn:abrsdCC.pref_necessary_button,
+                    savePreferencesBtn:abrsdCC.pref_save_current_button,
                     closeIconLabel: 'Close modal',
                     sections: [
                         {
@@ -60,6 +62,8 @@ CookieConsent.run({
 function decodeEntities(encodedString) {
     // Create a temporary DOM element
     const tempElement = document.createElement('div');
+
+    debugger;
 
     // Set the innerHTML of the temp element to the encoded string
     tempElement.innerHTML = encodedString;

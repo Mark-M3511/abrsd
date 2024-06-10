@@ -20,7 +20,7 @@ CookieConsent.run({
             en: {
                 consentModal: {
                     title: abrsdCC.consent_title,
-                    description: decodeEntities(abrsdCC.consent_description),
+                    description: abrsdCC.consent_description,
                     acceptAllBtn: abrsdCC.accept_all_button,
                     acceptNecessaryBtn: abrsdCC.accept_necessary_button,
                     showPreferencesBtn: abrsdCC.show_preferences_button
@@ -49,7 +49,8 @@ CookieConsent.run({
                         },
                         {
                             title: abrsdCC.pref_more_info_title,
-                            description: abrsdCC.pref_more_info_description,                        }
+                            description: abrsdCC.pref_more_info_description,
+                         }
                     ]
                 }
             }

@@ -416,6 +416,7 @@ function _abrsd_load_cookie_consent_message(array &$variables)
         'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
         'pref_more_info_title' => $node->field_pref_more_info_title->value,
         'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
+        'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
       ];
       // Serialize the array and save the encoded string a variable
       $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;

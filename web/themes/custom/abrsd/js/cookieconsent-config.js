@@ -3,6 +3,10 @@ import '/themes/custom/abrsd/js/cookieconsent.umd.js';
 /**
  * All config. options available here:
  * https://cookieconsent.orestbida.com/reference/configuration-reference.html
+ * The  code is a simple example of how to configure the Cookie Consent module.
+ * The configuration is done in a separate JavaScript file that is included in the theme.
+ * The configuration file is included in the theme’s  .libraries.yml  file:
+ * web/themes/custom/abrsd/abrsd.libraries.yml
  */
 const abrsdCC = window._abrsd_.cookieConsent || {};
 
@@ -57,17 +61,3 @@ CookieConsent.run({
         }
     },
 });
-
-function decodeEntities(encodedString) {
-    // Create a temporary DOM element
-    const tempElement = document.createElement('div');
-
-    debugger;
-
-    // Set the innerHTML of the temp element to the encoded string
-    tempElement.innerHTML = encodedString;
-
-    // Use textContent to extract the decoded content (since innerHTML might parse it back)
-    // return tempElement.textContent || tempElement.innerText || "";
-    return tempElement.innerHTML;
-}

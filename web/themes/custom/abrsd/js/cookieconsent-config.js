@@ -33,25 +33,23 @@ CookieConsent.run({
                     closeIconLabel: 'Close modal',
                     sections: [
                         {
-                            title: 'Somebody said ... cookies?',
-                            description: 'I want one!'
+                            title: abrsdCC.pref_intro_title,
+                            description: abrsdCC.pref_intro_description
                         },
                         {
-                            title: 'Strictly Necessary cookies',
-                            description: 'These cookies are essential for the proper functioning of the website and cannot be disabled.',
-
+                            title: abrsdCC.pref_strict_title,
+                            description: abrsdCC.pref_strict_description,
                             //this field will generate a toggle linked to the 'necessary' category
                             linkedCategory: 'necessary'
                         },
                         {
-                            title: 'Performance and Analytics',
-                            description: 'These cookies collect information about how you use our website. All of the data is anonymized and cannot be used to identify you.',
+                            title: abrsdCC.pref_analytics_title,
+                            description: abrsdCC.pref_analytics_description,
                             linkedCategory: 'analytics'
                         },
                         {
-                            title: 'More information',
-                            description: 'For any queries in relation to my policy on cookies and your choices, please <a href="#contact-page">contact us</a>'
-                        }
+                            title: abrsdCC.pref_more_info_title,
+                            description: abrsdCC.pref_more_info_description,                        }
                     ]
                 }
             }

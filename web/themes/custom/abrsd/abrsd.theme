@@ -382,14 +382,20 @@ function abrsd_preprocess_page(array &$variables)
 function _abrsd_load_cookie_consent_message(array &$variables)
 {
   // Load the cookie consent message if the user is not logged in
-  // if (!\Drupal::currentUser()->isAuthenticated()) {
-    // Load the Cookie Conset message node entity with the title Cookie Consent
-    $node = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadByProperties(['title' => 'Cookie Consent']);
-    if (!empty($node)) {
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    // Get the Cookie Consent Message node
+    $query = \Drupal::entityQuery('node')->accessCheck(FALSE)
+      ->condition('status', 1) // Ensure the node is published
+      ->condition('type', 'cookie_consent_message') // Specify the bundle
+      ->sort('created', 'DESC') // Sort by creation date, most recent first
+      ->range(0, 1); // Limit to 1 result
+    // Execute the query to get the node IDs
+    $nids = $query->execute();
+    if (!empty($nids)) {
       // Get the first node from the array
-      $node = reset($node);
+      $nid = reset($nids);
+      // Load the full node entity
+      $node = Node::load($nid);
       // Serialize node data
       $allowed_tags =  ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'];
       $node_data = [
@@ -418,7 +424,7 @@ function _abrsd_load_cookie_consent_message(array &$variables)
       ];
     }
   }
-// }
+}
 
 /**
  * Implements hook_preprocess_menu().

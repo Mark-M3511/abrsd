@@ -408,6 +408,14 @@ function _abrsd_load_cookie_consent_message(array &$variables)
         'pref_accept_button' => $node->field_pref_accept_button->value,
         'pref_necessary_button' => $node->field_pref_necessary_button->value,
         'pref_save_current_button' => $node->field_pref_save_current_button->value,
+        'pref_intro_title' => $node->field_pref_intro_title->value,
+        'pref_intro_description' => $node->field_pref_intro_description->value,
+        'pref_strict_title' => $node->field_pref_strict_title->value,
+        'pref_strict_description' => Xss::filter($node->field_pref_strict_description->value),
+        'pref_analytics_title' => $node->field_pref_analytics_title->value,
+        'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
+        'pref_more_info_title' => $node->field_pref_more_info_title->value,
+        'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
       ];
       // Serialize the array and save the encoded string a variable
       $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;

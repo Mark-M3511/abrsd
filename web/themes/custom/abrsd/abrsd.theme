@@ -5,17 +5,17 @@
  * Functions to support theming in the SASS Starterkit subtheme.
  */
 
-use \Drupal\Core\Form\FormStateInterface;
-use \Drupal\Core\Url;
-use \Drupal\views\Views;
-use \Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\views\Views;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;
-use \Drupal\Core\StringTranslation\TranslatableMarkup;
-use \Drupal\Core\Site\Settings;
-use \Drupal\user\Entity\User;
-use \Drupal\node\Entity\Node;
-use \Drupal\taxonomy\Entity\Term;
-use \Drupal\node\NodeInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Site\Settings;
+use Drupal\user\Entity\User;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_form_system_theme_settings_alter() for settings form.

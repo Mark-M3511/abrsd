@@ -398,9 +398,14 @@ function _abrsd_load_cookie_consent_message(array &$variables)
         'accept_all_button' => $node->field_accept_all_button->value,
         'accept_necessary_button' => $node->field_accept_necessary_button->value,
         'show_preferences_button' => $node->field_show_preferences_button->value,
+        'pref_window_title' => $node->field_pref_window_title->value,
+        'pref_accept_button' => $node->field_pref_accept_button->value,
+        'pref_necessary_button' => $node->field_pref_necessary_button->value,
+        'pref_save_current_button' => $node->field_pref_save_current_button->value,
       ];
       // Serialize the array and save the encoded string a variable
-      $node_data_jse = json_encode($node_data, JSON_UNESCAPED_SLASHES);
+      $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+      $node_data_jse = json_encode($node_data, $options);
       // Attach data to Drupal settings
       $variables['#attached']['html_head'][] = [
         [

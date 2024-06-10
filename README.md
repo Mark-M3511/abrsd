@@ -1,6 +1,6 @@
 # ABR & SD Collective Web Project
 
-This project is built using Drupal 10+, a powerful open-source content management system. It allows for the creation and management of various types of content such as blogs, news, and user content.
+This project is built using Drupal 10+, a powerful open-source content management system. It allows for the creation and management of various types of content such as blogs, news, and user comments.
 
 ## Structure
 

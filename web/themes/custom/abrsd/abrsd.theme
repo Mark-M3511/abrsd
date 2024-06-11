@@ -879,7 +879,7 @@ function _add_ga_script(array &$variables)
       '#tag' => 'script',
       '#attributes' => [
         'type' => 'text/javascript',
-        'async' => 'async',
+        'defer' => 'defer',
         'src' => 'https://www.googletagmanager.com/gtag/js?id=' . $ga_id,
       ],
     ],
@@ -890,7 +890,7 @@ function _add_ga_script(array &$variables)
     [
       '#tag' => 'script',
       '#attributes' => [
-        'type' => 'text/javascript',
+        'defer' => 'defer',
       ],
       '#value' => "window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}

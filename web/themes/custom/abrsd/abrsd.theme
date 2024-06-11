@@ -369,7 +369,6 @@ function abrsd_preprocess_page(array &$variables)
     $variables['#attached']['library'][] = 'abrsd/flickity';
     $variables['#attached']['library'][] = 'abrsd/flickity-front';
   }
-  _abrsd_load_cookie_consent_message($variables);
 }
 
 
@@ -418,6 +417,22 @@ function _abrsd_load_cookie_consent_message(array &$variables)
         'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
         'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
       ];
+
+      // Add the cookie consent configuration script to the page
+      $theme_path = Drupal::service('extension.path.resolver')->getPath('theme', 'abrsd');
+      $js_path = $theme_path. '/js/cookieconsent-config.js';
+      $variables['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#attributes' => [
+            'type' => 'module',
+            'src' => $js_path,
+          ],
+        ],
+        'cookie_consent_cfg',
+      ];
+
       // Serialize the array and save the encoded string a variable
       $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
       $node_data_jse = json_encode($node_data, $options);
@@ -838,6 +853,8 @@ function abrsd_page_attachments_alter(array &$variables)
     // Attach the status-msg library
     $variables['#attached']['library'][] = 'abrsd/status-msg';
   }
+  // Add the cookie consent library to the page
+  _abrsd_load_cookie_consent_message($variables);
   // Add Google Tag Manager script to the page
   _add_ga_script($variables);
 }

@@ -16,7 +16,21 @@ CookieConsent.run({
             enabled: true,  // this category is enabled by default
             readOnly: true  // this category cannot be disabled
         },
-        analytics: {}
+        analytics: {
+            enabled: true, // this service is enabled by default
+            services: {
+                ga: {
+                    label: 'Google Analytics',
+                    onAccept: () => {
+                        console.log('Enable GA');
+                    },
+                    onReject: () => {
+                        // disable ga
+                        console.log('Disable GA');
+                    }
+                }
+            }
+        }
     },
     language: {
         default: 'en',
@@ -30,10 +44,10 @@ CookieConsent.run({
                     showPreferencesBtn: abrsdCC.show_preferences_button
                 },
                 preferencesModal: {
-                    title:  abrsdCC.pref_window_title,
-                    acceptAllBtn:abrsdCC.pref_accept_button,
-                    acceptNecessaryBtn:abrsdCC.pref_necessary_button,
-                    savePreferencesBtn:abrsdCC.pref_save_current_button,
+                    title: abrsdCC.pref_window_title,
+                    acceptAllBtn: abrsdCC.pref_accept_button,
+                    acceptNecessaryBtn: abrsdCC.pref_necessary_button,
+                    savePreferencesBtn: abrsdCC.pref_save_current_button,
                     closeIconLabel: 'Close modal',
                     sections: [
                         {
@@ -54,10 +68,20 @@ CookieConsent.run({
                         {
                             title: abrsdCC.pref_more_info_title,
                             description: abrsdCC.pref_more_info_description,
-                         }
+                        }
                     ]
                 }
             }
         }
     },
+    onConsent: ({cookie}) => {
+        console.log('GA change');
+        console.log(cookie);
+        console.log(CookieConsent.acceptedCategory('analytics'));
+        console.log(CookieConsent.acceptedService('ga', 'analytics'));
+        // Enable or disable GA based on the user's choice
+        const ga = !!CookieConsent.acceptedService('ga', 'analytics');
+        window[`ga-disable-${abrsdCC.ga_id}`] = !ga;
+        console.log('On Window OBject: ' + window[`ga-disable-${abrsdCC.ga_id}`])
+    }
 });

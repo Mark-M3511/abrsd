@@ -774,10 +774,26 @@ function abrsd_page_attachments_alter(array &$variables)
     // Attach the status-msg library
     $variables['#attached']['library'][] = 'abrsd/status-msg';
   }
-  // Add the cookie consent library to the page
-  _abrsd_load_cookie_consent_message($variables);
-  // Add Google Tag Manager script to the page
-  _add_ga_script($variables);
+  // Add the cookie consent library to the page if the user is not logged in
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    _abrsd_load_cookie_consent_message($variables);
+  }
+
+  // Add Google Tag Manager script to the page if cnrrent user does not have the following roles:
+  // 'administrator', 'content_administrator', 'content_editor', 'content_moderator'
+  $roles = ['administrator', 'cotent_editor', 'content_moderator', 'access_administrator'];
+  $user = User::load(\Drupal::currentUser()->id());
+  $has_admin_role = FALSE;
+  foreach ($roles as $role) {
+    if ($user->hasRole($role)) {
+      $has_admin_role = TRUE;
+      break;
+    }
+  }
+  // Add the Google Tag Manager script to the page if the user does not have an admin role
+  if (!$has_admin_role) {
+    _add_ga_script($variables);
+  }
 }
 
 /**
@@ -831,72 +847,75 @@ function _add_ga_script(array &$variables)
 function _abrsd_load_cookie_consent_message(array &$variables)
 {
   // Load the cookie consent message if the user is not logged in
-  if (!\Drupal::currentUser()->isAuthenticated()) {
-    // Get the Cookie Consent Message node
-    $query = \Drupal::entityQuery('node')->accessCheck(FALSE)
-      ->condition('status', 1) // Ensure the node is published
-      ->condition('type', 'cookie_consent_message') // Specify the bundle
-      ->sort('created', 'DESC') // Sort by creation date, most recent first
-      ->range(0, 1); // Limit to 1 result
-    // Execute the query to get the node IDs
-    $nids = $query->execute();
-    if (!empty($nids)) {
-      // Get the first node from the array
-      $nid = reset($nids);
-      // Load the full node entity
-      $node = Node::load($nid);
-      // Serialize node data
-      $allowed_tags =  ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'];
-      $node_data = [
-        'consent_title' => $node->field_consent_title->value,
-        'consent_description' => Xss::filter($node->field_consent_description->value, $allowed_tags),
-        'accept_all_button' => $node->field_accept_all_button->value,
-        'accept_necessary_button' => $node->field_accept_necessary_button->value,
-        'show_preferences_button' => $node->field_show_preferences_button->value,
-        'pref_window_title' => $node->field_pref_window_title->value,
-        'pref_accept_button' => $node->field_pref_accept_button->value,
-        'pref_necessary_button' => $node->field_pref_necessary_button->value,
-        'pref_save_current_button' => $node->field_pref_save_current_button->value,
-        'pref_intro_title' => $node->field_pref_intro_title->value,
-        'pref_intro_description' => $node->field_pref_intro_description->value,
-        'pref_strict_title' => $node->field_pref_strict_title->value,
-        'pref_strict_description' => Xss::filter($node->field_pref_strict_description->value),
-        'pref_analytics_title' => $node->field_pref_analytics_title->value,
-        'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
-        'pref_more_info_title' => $node->field_pref_more_info_title->value,
-        'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
-        'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
-      ];
 
-      // Add the cookie consent configuration script to the page
-      $theme_path = Drupal::service('extension.path.resolver')->getPath('theme', 'abrsd');
-      $js_path = $theme_path. '/js/cookieconsent-config.js';
-      $variables['#attached']['html_head'][] = [
-        [
-          '#type' => 'html_tag',
-          '#tag' => 'script',
-          '#attributes' => [
-            'type' => 'module',
-            'src' => $js_path,
-          ],
-        ],
-        'cookie_consent_cfg',
-      ];
+  // Get the Cookie Consent Message node
+  $query = \Drupal::entityQuery('node')->accessCheck(FALSE)
+    ->condition('status', 1) // Ensure the node is published
+    ->condition('type', 'cookie_consent_message') // Specify the bundle
+    ->sort('created', 'DESC') // Sort by creation date, most recent first
+    ->range(0, 1); // Limit to 1 result
+  // Execute the query to get the node IDs
+  $nids = $query->execute();
+  if (!empty($nids)) {
+    // Get the first node from the array
+    $nid = reset($nids);
+    // Load the full node entity
+    $node = Node::load($nid);
+    // Serialize node data
+    $allowed_tags =  ['a', 'p', 'strong', 'em', 'ul', 'ol', 'li'];
+    $node_data = [
+      'consent_title' => $node->field_consent_title->value,
+      'consent_description' => Xss::filter($node->field_consent_description->value, $allowed_tags),
+      'accept_all_button' => $node->field_accept_all_button->value,
+      'accept_necessary_button' => $node->field_accept_necessary_button->value,
+      'show_preferences_button' => $node->field_show_preferences_button->value,
+      'pref_window_title' => $node->field_pref_window_title->value,
+      'pref_accept_button' => $node->field_pref_accept_button->value,
+      'pref_necessary_button' => $node->field_pref_necessary_button->value,
+      'pref_save_current_button' => $node->field_pref_save_current_button->value,
+      'pref_intro_title' => $node->field_pref_intro_title->value,
+      'pref_intro_description' => $node->field_pref_intro_description->value,
+      'pref_strict_title' => $node->field_pref_strict_title->value,
+      'pref_strict_description' => Xss::filter($node->field_pref_strict_description->value),
+      'pref_analytics_title' => $node->field_pref_analytics_title->value,
+      'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
+      'pref_more_info_title' => $node->field_pref_more_info_title->value,
+      'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
+      'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
+    ];
 
-      // Serialize the array and save the encoded string a variable
-      $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
-      $node_data_jse = json_encode($node_data, $options);
-      // Attach data to Drupal settings
-      $variables['#attached']['html_head'][] = [
-        [
-          '#type' => 'html_tag',
-          '#tag' => 'script',
-          '#value' => "window._abrsd_ = window._abrsd_ || {}; window._abrsd_.cookieConsent = $node_data_jse;",
-          '#attributes' => ['type' => 'text/javascript'],
+    // Add the cookie consent configuration script to the page
+    $theme_path = Drupal::service('extension.path.resolver')->getPath('theme', 'abrsd');
+    // Ensure there is a single leading slash, not two
+    $js_path = '/' . ltrim($theme_path, '/');
+    // Add the cookie consent configuration script to the page
+    $js_path .= '/js/cookieconsent-config.js';
+    // Attach the cookie consent configuration script to the page
+    $variables['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => [
+          'type' => 'module',
+          'src' => $js_path,
         ],
-        'cookie_consent',
-      ];
-    }
+      ],
+      'cookie_consent_cfg',
+    ];
+
+    // Serialize the array and save the encoded string to a variable
+    $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+    $node_data_jse = json_encode($node_data, $options);
+    // Attach the cookie consent data to the page
+    $variables['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#value' => "window._abrsd_ = window._abrsd_ || {}; window._abrsd_.cookieConsent = $node_data_jse;",
+        '#attributes' => ['type' => 'text/javascript'],
+      ],
+      'cookie_consent',
+    ];
   }
 }
 

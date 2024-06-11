@@ -779,21 +779,40 @@ function abrsd_page_attachments_alter(array &$variables)
     _abrsd_load_cookie_consent_message($variables);
   }
 
-  // Add Google Tag Manager script to the page if cnrrent user does not have the following roles:
-  // 'administrator', 'content_administrator', 'content_editor', 'content_moderator'
-  $roles = ['administrator', 'cotent_editor', 'content_moderator', 'access_administrator'];
-  $user = User::load(\Drupal::currentUser()->id());
-  $has_admin_role = FALSE;
-  foreach ($roles as $role) {
-    if ($user->hasRole($role)) {
-      $has_admin_role = TRUE;
-      break;
-    }
-  }
+  $has_admin_role = _abrsd_user_has_admin_role();
   // Add the Google Tag Manager script to the page if the user does not have an admin role
   if (!$has_admin_role) {
     _add_ga_script($variables);
   }
+}
+
+
+/**
+ * Checks if the current user has an admin role.
+ *
+ * This function checks if the current user has any of the following roles:
+ * - 'administrator'
+ * - 'content_administrator'
+ * - 'content_editor'
+ * - 'content_moderator'
+ * - 'access_administrator'
+ *
+ * @return bool
+ *   Returns TRUE if the current user has an admin role, FALSE otherwise.
+ */
+function _abrsd_user_has_admin_role()
+{
+  $roles = ['administrator', 'content_editor', 'content_moderator', 'access_administrator'];
+  $user = User::load(\Drupal::currentUser()->id());
+  $result = FALSE;
+  foreach ($roles as $role) {
+    if ($user->hasRole($role)) {
+      $result = TRUE;
+      break;
+    }
+  }
+
+  return $result;
 }
 
 /**

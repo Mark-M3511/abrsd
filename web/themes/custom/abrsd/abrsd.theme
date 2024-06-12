@@ -923,7 +923,12 @@ function _abrsd_load_cookie_consent_message(array &$variables)
     ];
 
     // Serialize the array and save the encoded string to a variable
-    $options = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+    $options = JSON_UNESCAPED_SLASHES
+        | JSON_UNESCAPED_UNICODE
+        | JSON_HEX_TAG
+        | JSON_HEX_AMP
+        | JSON_HEX_APOS
+        | JSON_HEX_QUOT;
     $node_data_jse = json_encode($node_data, $options);
     // Attach the cookie consent data to the page
     $variables['#attached']['html_head'][] = [

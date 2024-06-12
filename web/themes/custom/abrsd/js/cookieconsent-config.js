@@ -82,6 +82,6 @@ CookieConsent.run({
         // Enable or disable GA based on the user's choice
         const ga = !!CookieConsent.acceptedService('ga', 'analytics');
         window[`ga-disable-${abrsdCC.ga_id}`] = !ga;
-        console.log('On Window OBject: ' + window[`ga-disable-${abrsdCC.ga_id}`])
+        console.log('On Window Object: ' + window[`ga-disable-${abrsdCC.ga_id}`])
     }
 });

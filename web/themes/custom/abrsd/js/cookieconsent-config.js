@@ -11,6 +11,20 @@ import '/themes/custom/abrsd/js/cookieconsent.umd.js';
 const abrsdCC = window._abrsd_.cookieConsent || {};
 
 CookieConsent.run({
+    guiOptions: {
+        consentModal: {
+            layout: "box wide",
+            position: "bottom left",
+            equalWeightButtons: true,
+            flipButtons: false
+        },
+        preferencesModal: {
+            layout: "box",
+            position: "right",
+            equalWeightButtons: true,
+            flipButtons: false
+        }
+    },
     categories: {
         necessary: {
             enabled: true,  // this category is enabled by default
@@ -41,7 +55,8 @@ CookieConsent.run({
                     description: abrsdCC.consent_description,
                     acceptAllBtn: abrsdCC.accept_all_button,
                     acceptNecessaryBtn: abrsdCC.accept_necessary_button,
-                    showPreferencesBtn: abrsdCC.show_preferences_button
+                    showPreferencesBtn: abrsdCC.show_preferences_button,
+                    footer: "<a href=\"#link\">Privacy Policy</a>\n<a href=\"#link\">Terms and Conditions</a>"
                 },
                 preferencesModal: {
                     title: abrsdCC.pref_window_title,

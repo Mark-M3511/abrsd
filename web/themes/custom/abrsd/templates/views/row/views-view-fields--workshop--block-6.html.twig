@@ -35,7 +35,7 @@
 {% set link_url = fields.field_workshop_link.content|striptags|trim|raw %}
 {% set self_link_url = path('entity.node.canonical', {'node': fields.nid.content|striptags|trim|raw }) %}
 {% set link_text = fields.field_workshop_link_1.content|striptags|trim|raw %}
-{% set link_text = link_text ? link_text : 'Read More'|t|upper %}
+{% set link_text = link_text %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 {% set link_url = link_url ? link_url : self_link_url %}
@@ -43,7 +43,7 @@
 <div class="card mb-3">
   <div class="card-body d-flex flex-column justify-content-between">
     {% if fields.field_committee.content is not empty %}
-       <h5 class="card-title card-tag h6 text-uppercase fw-bold">{{ fields.field_committee.content }}</h5>
+       <h5 class="card-title card-tag h6 fw-bold">{{ fields.field_committee.content }}</h5>
     {% endif %}
     <h5 class="card-title">{{ fields.field_page_title.content }}</h5>
     <div class="card-text">{{ fields.body.content }}</div>

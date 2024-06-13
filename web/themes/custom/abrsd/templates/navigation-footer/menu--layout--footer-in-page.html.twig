@@ -35,12 +35,12 @@
 			{% endif %}
 			<nav role="navigation" aria-labelledby="{{ menu_id }}-menu" class="block block-menu navigation menu--footer menu--{{menu_id}} {{ col_styles }}">
 				{% if menu_id == 'footer-contact-us' %}
-				    <a href="/contact-us"><h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2></a>
-					<h3 class="text-uppercase h2 mt-4">{{ 'Follow Us'|t }}</h3>
+				    <a href="/contact-us"><h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-{{ menu_titles[loop.index0] }}">{{ menu_titles[loop.index0]|t }}</h2></a>
+					<h3 class="h2 mt-4">{{ 'Follow Us'|t }}</h3>
 				{% elseif menu_id == 'footer-get-involved' %}
-                    <a href="/get-involved"><h2 id="{{ menu_id }}-menu" class="text-uppercase nav-link--get-involved btn btn-primary">{{ menu_titles[loop.index0]|t }}</h2></a>
+                    <a href="/get-involved"><h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-get-involved  nav-link--get-involved btn btn-primary">{{ menu_titles[loop.index0]|t }}</h2></a>
 				{% else %}
-					<h2 id="{{ menu_id }}-menu" class="text-uppercase">{{ menu_titles[loop.index0]|t }}</h2>
+					<h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-{{ menu_titles[loop.index0]|clean_class }}">{{ menu_titles[loop.index0]|t }}</h2>
 				{% endif %}
 				{{ drupal_menu(menu_id) }}
 			</nav>

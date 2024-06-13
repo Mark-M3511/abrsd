@@ -10,7 +10,35 @@ import '/themes/custom/abrsd/js/cookieconsent.umd.js';
  */
 const abrsdCC = window._abrsd_.cookieConsent || {};
 
+/**
+ * Generates the footer links HTML based on the provided links array.
+ *
+ * @param {Array} links - An array of link objects containing the URL and title.
+ * @returns {string} - The generated HTML for the footer links.
+ */
+function footer_links(links) {
+    let footer = '';
+    links.forEach(link => {
+        footer += `<a href="${link.url}">${link.title}</a>\n`;
+    });
+    return footer;
+}
+
 CookieConsent.run({
+    guiOptions: {
+        consentModal: {
+            layout: "box wide",
+            position: "bottom left",
+            equalWeightButtons: true,
+            flipButtons: false
+        },
+        preferencesModal: {
+            layout: "box",
+            position: "right",
+            equalWeightButtons: true,
+            flipButtons: false
+        }
+    },
     categories: {
         necessary: {
             enabled: true,  // this category is enabled by default
@@ -41,7 +69,9 @@ CookieConsent.run({
                     description: abrsdCC.consent_description,
                     acceptAllBtn: abrsdCC.accept_all_button,
                     acceptNecessaryBtn: abrsdCC.accept_necessary_button,
-                    showPreferencesBtn: abrsdCC.show_preferences_button
+                    showPreferencesBtn: abrsdCC.show_preferences_button,
+                    // footer: `<a href="abrsdCC.footer_links[0].url">abrsdCC.footer_links[0].title</a>\n<a href="/docs/terms-use">Terms and Conditions</a>`
+                    footer: footer_links(abrsdCC.footer_links)
                 },
                 preferencesModal: {
                     title: abrsdCC.pref_window_title,

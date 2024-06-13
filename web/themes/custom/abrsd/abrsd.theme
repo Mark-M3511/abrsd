@@ -900,6 +900,7 @@ function _abrsd_load_cookie_consent_message(array &$variables)
       'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
       'pref_more_info_title' => $node->field_pref_more_info_title->value,
       'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
+      'footer_links' => _get_cookie_consent_links($node),
       'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
     ];
 
@@ -924,11 +925,11 @@ function _abrsd_load_cookie_consent_message(array &$variables)
 
     // Serialize the array and save the encoded string to a variable
     $options = JSON_UNESCAPED_SLASHES
-        | JSON_UNESCAPED_UNICODE
-        | JSON_HEX_TAG
-        | JSON_HEX_AMP
-        | JSON_HEX_APOS
-        | JSON_HEX_QUOT;
+      | JSON_UNESCAPED_UNICODE
+      | JSON_HEX_TAG
+      | JSON_HEX_AMP
+      | JSON_HEX_APOS
+      | JSON_HEX_QUOT;
     $node_data_jse = json_encode($node_data, $options);
     // Attach the cookie consent data to the page
     $variables['#attached']['html_head'][] = [
@@ -941,6 +942,41 @@ function _abrsd_load_cookie_consent_message(array &$variables)
       'cookie_consent',
     ];
   }
+}
+
+/**
+ * Retrieves the cookie consent links from a given node.
+ *
+ * @param Node $node
+ *   The node entity from which to retrieve the cookie consent links.
+ *
+ * @return array
+ *   An array of links with their URLs, titles, and external status.
+ */
+function _get_cookie_consent_links(Node $node)
+{
+  // Initialize the links array
+  $links = [];
+
+  // Check if the field_consent_footer_links field is not empty
+  if (!$node->field_consent_footer_links->isEmpty()) {
+    foreach ($node->field_consent_footer_links as $item) {
+      // Get the URL object.
+      $url = $item->getUrl()->toString();
+      // Get the link title; default to the URL if the title is empty.
+      $title = $item->title ?: t('More info');
+      // Optionally, you can check if the link is external.
+      $is_external = $item->getUrl()->isExternal();
+      // Store or process the link URL and title as needed.
+      $links[] = [
+        'url' => $url,
+        'title' => $title,
+        'is_external' => $is_external,
+      ];
+    }
+  }
+
+  return $links;
 }
 
 /**

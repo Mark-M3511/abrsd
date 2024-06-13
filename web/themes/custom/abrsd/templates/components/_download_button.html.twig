@@ -13,8 +13,9 @@
  * @see Various calling templates
  */
 #}
+
 {% if url is not empty %}
-    {% set text = text|upper %}
+    {% set text = text %}
     {% if btn_classes is defined %}
         {% set btn_classes = btn_classes|trim ~ (extra_classes ? ' ' ~ extra_classes : '') %}
         <a href="{{ url }}" class="{{ btn_classes }}" target="{{ target }}">

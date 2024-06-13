@@ -46,14 +46,15 @@
         ]
       %}
       <li{{ item.attributes.addClass(classes) }}>
+        {% set item_url_class = item.url.getOption('attributes').class %}
         {%
           set link_classes = [
             not menu_level ? 'nav-link',
             item.in_active_trail ? 'active',
             item.below ? 'dropdown-toggle',
-            item.url.getOption('attributes').class ? item.url.getOption('attributes').class | join(' '),
+            item_url_class ? item_url_class | join(' '),
             'nav-link-' ~ item.url.toString() | clean_class,
-            (loop.index == loop.last and menu_level == 0) ? 'last-item btn btn-primary',
+            (loop.index == loop.last and menu_level == 0) ? 'last-item btn btn-primary fw-bold',
           ]
         %}
         {% if item.below %}

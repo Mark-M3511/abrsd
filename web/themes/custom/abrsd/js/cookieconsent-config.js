@@ -56,7 +56,7 @@ CookieConsent.run({
                     acceptAllBtn: abrsdCC.accept_all_button,
                     acceptNecessaryBtn: abrsdCC.accept_necessary_button,
                     showPreferencesBtn: abrsdCC.show_preferences_button,
-                    footer: "<a href=\"#link\">Privacy Policy</a>\n<a href=\"#link\">Terms and Conditions</a>"
+                    footer: "<a href=\"/docs/privacy-policy\">Privacy Policy</a>\n<a href=\"/docs/terms-use\">Terms and Conditions</a>"
                 },
                 preferencesModal: {
                     title: abrsdCC.pref_window_title,

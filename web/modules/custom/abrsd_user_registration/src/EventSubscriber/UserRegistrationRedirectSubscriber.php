@@ -160,7 +160,7 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
                 $response_code = Response::HTTP_MOVED_PERMANENTLY;
                 $url = $redirect_path;
                 if ($redirect_path === NULL) {
-                    $response_code = Response::HTTP_UNAUTHORIZED;
+                    $response_code = Response::HTTP_TEMPORARY_REDIRECT;
                     $url = '/user/register';
                 }
                 $response = new RedirectResponse($url, $response_code);

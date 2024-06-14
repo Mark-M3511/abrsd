@@ -68,15 +68,14 @@ CookieConsent.run({
                     title: abrsdCC.consent_title,
                     description: abrsdCC.consent_description,
                     acceptAllBtn: abrsdCC.accept_all_button,
-                    acceptNecessaryBtn: abrsdCC.accept_necessary_button,
+                    // acceptNecessaryBtn: abrsdCC.accept_necessary_button,
                     showPreferencesBtn: abrsdCC.show_preferences_button,
-                    // footer: `<a href="abrsdCC.footer_links[0].url">abrsdCC.footer_links[0].title</a>\n<a href="/docs/terms-use">Terms and Conditions</a>`
                     footer: footer_links(abrsdCC.footer_links)
                 },
                 preferencesModal: {
                     title: abrsdCC.pref_window_title,
                     acceptAllBtn: abrsdCC.pref_accept_button,
-                    acceptNecessaryBtn: abrsdCC.pref_necessary_button,
+                    // acceptNecessaryBtn: abrsdCC.pref_necessary_button,
                     savePreferencesBtn: abrsdCC.pref_save_current_button,
                     closeIconLabel: 'Close modal',
                     sections: [

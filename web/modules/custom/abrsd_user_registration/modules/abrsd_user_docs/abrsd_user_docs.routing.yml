@@ -1,7 +1,7 @@
 modal_node.content:
   path: "/docs/{node}"
   defaults:
-    _controller: '\Drupal\abrsd_user_docs\Controller\ModalNodeController::content'
+    _controller: 'Drupal\abrsd_user_docs\Controller\ModalNodeController::content'
     _title: "Modal Node Content"
   requirements:
     _permission: "access content"

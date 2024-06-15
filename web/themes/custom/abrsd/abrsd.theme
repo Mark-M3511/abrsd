@@ -895,11 +895,11 @@ function _abrsd_load_cookie_consent_message(array &$variables)
       'pref_intro_title' => $node->field_pref_intro_title->value,
       'pref_intro_description' => $node->field_pref_intro_description->value,
       'pref_strict_title' => $node->field_pref_strict_title->value,
-      'pref_strict_description' => Xss::filter($node->field_pref_strict_description->value),
+      'pref_strict_description' => Xss::filter($node->field_pref_strict_description->value, $allowed_tags),
       'pref_analytics_title' => $node->field_pref_analytics_title->value,
-      'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value),
+      'pref_analytics_description' => Xss::filter($node->field_pref_analytics_description->value, $allowed_tags),
       'pref_more_info_title' => $node->field_pref_more_info_title->value,
-      'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value),
+      'pref_more_info_description' => Xss::filter($node->field_pref_more_info_description->value, $allowed_tags),
       'footer_links' => _get_cookie_consent_links($node),
       'ga_id' => Settings::get('google_analytics_account', 'NOT SET'),
     ];
@@ -909,7 +909,9 @@ function _abrsd_load_cookie_consent_message(array &$variables)
     // Ensure there is a single leading slash, not two
     $js_path = '/' . ltrim($theme_path, '/');
     // Add the cookie consent configuration script to the page
-    $js_path .= '/js/cookieconsent-config.js';
+    // $js_min = \Drupal::config('system.performance')->get('preprocess.js_minified') ? 'min' : 'full';
+    $js_min = true ? 'min.' : '';
+    $js_path .= "/js/cookieconsent-config.{$js_min}js";
     // Attach the cookie consent configuration script to the page
     $variables['#attached']['html_head'][] = [
       [

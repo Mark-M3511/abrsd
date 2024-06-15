@@ -1,0 +1,7 @@
+name: 'ABRSD User Documentation'
+type: module
+description: 'Custom module for loading user docs in modals.'
+package: ABRSD (Custom)
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:node

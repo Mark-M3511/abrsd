@@ -1,0 +1,6 @@
+modal_node.content:
+  js:
+    js/abrsd_user_docs.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

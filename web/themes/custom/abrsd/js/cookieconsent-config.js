@@ -25,6 +25,9 @@ function footer_links(links) {
 }
 
 CookieConsent.run({
+    cookie: {
+        expiresAfterDays: 1
+    },
     guiOptions: {
         consentModal: {
             layout: "box wide",

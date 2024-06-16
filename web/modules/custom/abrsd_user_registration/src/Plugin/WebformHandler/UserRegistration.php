@@ -175,6 +175,10 @@ final class UserRegistration extends WebformHandlerBase
           if (empty($storage->getElementData('user_created'))) {
             $storage->setElementData('user_created', !$this->userExists);
           }
+          // We need to set the terms_of_use and code_of_conduct fields to 1s since their
+          // corresponding form fields must be checked by the user. Any dangers here?
+          $storage->setElementData('terms_of_use', 1);
+          $storage->setElementData('code_of_conduct', 1);
           break;
         case 'user_profile':
           // Get the new_password field value

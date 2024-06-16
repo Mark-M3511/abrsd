@@ -56,6 +56,14 @@
                 if (inputElement) {
                     // Set the input element as checked
                     inputElement.checked = true;
+                    // Enable the element
+                    inputElement.disabled = false;
+                    // Dispatch a change event
+                    const event = new Event('change', {
+                        'bubbles': true,
+                        'cancelable': true,
+                    });
+                    inputElement.dispatchEvent(event);
                 }
             });
 

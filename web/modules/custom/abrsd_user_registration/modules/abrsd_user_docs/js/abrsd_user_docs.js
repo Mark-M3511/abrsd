@@ -1,3 +1,10 @@
+/**
+ * @file
+ * A JavaScript file for the abrsd_user_docs module.
+ * This file is responsible for loading the content of a node in a modal.
+ * The modal is displayed when a link with the class 'open-modal
+ * is clicked.
+ */
 (function (Drupal, settings) {
     Drupal.behaviors.abrsdUserDocs = {
         attach: function (context, settings) {

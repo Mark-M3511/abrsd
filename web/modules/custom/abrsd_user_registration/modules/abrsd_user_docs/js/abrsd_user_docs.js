@@ -26,7 +26,6 @@
                                 const modal = new bootstrap.Modal(document.querySelector('#docsModal'));
                                 modal.show();
                             }
-                            console.log(newElement.querySelector('.field--name-body').innerHTML);
                         })
                         .catch(error => console.error('Error loading the URL: ', error));
                 });

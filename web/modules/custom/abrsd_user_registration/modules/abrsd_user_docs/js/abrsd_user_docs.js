@@ -9,7 +9,12 @@
                     const nodeUrl = this.getAttribute('href');
                     // Fetch the content from the URL
                     fetch(nodeUrl)
-                        .then(response => response.text())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('There was an error loading the URL: ' + response.statusText);
+                            }
+                            return response.text();
+                        })
                         .then(html => {
                             const newElement = document.createElement('div');
                             // Assign the fetched HTML to the new element
@@ -17,8 +22,9 @@
                             const docContent = newElement.querySelector('.field--name-body').innerHTML
                             const docTitle = newElement.querySelector('.field--name-body h2').innerText;
                             // Find the modal body and set its content
-                            const modalBody = document.querySelector('#docsModal .modal-body');
-                            const modalTitle = document.querySelector('#docsModal .modal-title');
+                            const modal = document.querySelector('#docsModal');
+                            const modalBody = modal.querySelector('.modal-body');
+                            const modalTitle = modal.querySelector('.modal-title');
                             if (modalBody && docContent) {
                                 modalTitle.innerHTML = `You are required to read and acknowledge the ${docTitle}`;
                                 modalBody.innerHTML = docContent;
@@ -42,6 +48,15 @@
             docsModal.addEventListener('hidden.bs.modal', function (event) {
                 // Code to execute after the modal is closed
                 console.log('Modal has been closed');
+                // Get the data-node-url attribute of the modal-body element
+                const nodeUrl = docsModal.querySelector('.modal-body').getAttribute('data-node-url');
+                // Get the input element with the same attribute value
+                const inputElement = document.querySelector(`input[data-node-url="${nodeUrl}"]`);
+                // Check if the input element exists
+                if (inputElement) {
+                    // Set the input element as checked
+                    inputElement.checked = true;
+                }
             });
 
         }

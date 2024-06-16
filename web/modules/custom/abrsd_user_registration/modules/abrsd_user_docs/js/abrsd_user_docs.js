@@ -44,6 +44,11 @@
             });
             // Get the modal element
             const docsModal = document.querySelector('#docsModal');
+            // Add event listener for when the modal is shown
+            docsModal.addEventListener('show.bs.modal', function () {
+                const closeButton = document.querySelector('.btn-accept');
+                closeButton.setAttribute('disabled', 'disabled');
+            });
             // Add event listener for when the modal is closed
             docsModal.addEventListener('hidden.bs.modal', function (event) {
                 // Code to execute after the modal is closed
@@ -68,7 +73,7 @@
             });
 
             // Add event listener for when the modal is closed
-            document.querySelector('.modal-body').addEventListener('scroll', function() {
+            docsModal.querySelector('.modal-body').addEventListener('scroll', function () {
                 const container = this;
                 const scrollableHeight = container.scrollHeight;
                 const containerHeight = container.clientHeight;
@@ -76,9 +81,9 @@
 
                 // Check if the user has scrolled to the bottom
                 if (currentScrollPosition + containerHeight >= scrollableHeight - 5) { // 5 is a small threshold
-                  document.querySelector('.btn-accept').disabled = false;
+                    docsModal.querySelector('.btn-accept').disabled = false;
                 }
-              });
+            });
 
         }
     };

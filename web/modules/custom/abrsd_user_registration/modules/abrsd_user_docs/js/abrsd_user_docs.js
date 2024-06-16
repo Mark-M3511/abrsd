@@ -59,6 +59,19 @@
                 }
             });
 
+            // Add event listener for when the modal is closed
+            document.querySelector('.modal-body').addEventListener('scroll', function() {
+                const container = this;
+                const scrollableHeight = container.scrollHeight;
+                const containerHeight = container.clientHeight;
+                const currentScrollPosition = container.scrollTop;
+
+                // Check if the user has scrolled to the bottom
+                if (currentScrollPosition + containerHeight >= scrollableHeight - 5) { // 5 is a small threshold
+                  document.querySelector('.btn-accept').disabled = false;
+                }
+              });
+
         }
     };
 })(Drupal, drupalSettings);

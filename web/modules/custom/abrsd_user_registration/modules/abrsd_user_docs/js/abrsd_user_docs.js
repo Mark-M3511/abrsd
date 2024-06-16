@@ -98,12 +98,11 @@
             docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
                 let decision = null;
                 if (e.target.classList.contains('btn-accept')) {
-                    // Save the response to local storage
                     decision = 'accept';
-
                 } else {
                     decision = 'reject';
                 }
+                // Save the response to local storage
                 localStorage.setItem('userDecision', decision);
                 console.log(decision);
             });

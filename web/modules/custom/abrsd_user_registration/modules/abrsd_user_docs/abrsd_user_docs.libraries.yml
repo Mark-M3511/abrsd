@@ -1,6 +1,9 @@
 modal_node.content:
   js:
     js/abrsd_user_docs.js: {}
+  css:
+    theme:
+      css/abrsd_user_docs.css: {}
   dependencies:
     - core/drupal
     - core/drupalSettings

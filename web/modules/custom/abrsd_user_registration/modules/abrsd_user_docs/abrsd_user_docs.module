@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Contains abrsd_user_docs.module.
+ */
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Adds the 'abrsd_user_docs/modal_node.content' library to the page attachments.
+ *
+ * This function is called when Drupal is preparing the attachments for a page.
+ * It allows modules to alter the attachments array before it is rendered.
+ *
+ * @param array $attachments
+ *   The attachments array containing the page attachments.
+ */
+function abrsd_user_docs_page_attachments_alter(array &$attachments)
+{
+    // If current node path is user/create-member-account, add the modal_node.content library.
+    $current_path = \Drupal::service('path.current')->getPath();
+    $current_path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    if ($current_path_alias == '/user/create-member-account') {
+        $attachments['#attached']['library'][] = 'abrsd_user_docs/modal_node.content';
+    }
+}

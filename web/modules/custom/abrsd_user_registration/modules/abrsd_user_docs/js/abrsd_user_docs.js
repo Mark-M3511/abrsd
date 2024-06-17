@@ -9,24 +9,23 @@
     const { behaviors } = Drupal;
     behaviors.abrsdUserDocs = {
         scrollThreshold: 5,
+        docsModal: document.querySelector('#docsModal'),
         attach: function (context, settings) {
             // Ensure the code runs only once per element
             behaviors.abrsdUserDocs.init();
-            // Get the modal element
-            const docsModal = document.querySelector('#docsModal');
             // Disable the modal buttons
-            behaviors.abrsdUserDocs.disableModalButtons(docsModal);
+            behaviors.abrsdUserDocs.disableModalButtons();
             // Add event listener for when the modal is closed
-            behaviors.abrsdUserDocs.addModalCloseListener(docsModal);
+            behaviors.abrsdUserDocs.addModalCloseListener();
             // Add event listener for when the content div is scrolled
-            behaviors.abrsdUserDocs.addScrollListener(docsModal);
+            behaviors.abrsdUserDocs.addScrollListener();
             // Add a click event to the modal form and check which button dimissed the modal
-            behaviors.abrsdUserDocs.addModalClickEvent(docsModal);
+            behaviors.abrsdUserDocs.addModalClickEvent();
         },
         init: function () {
-            document.querySelectorAll('.open-modal:not(.loadNodeInModal-processed)').forEach(function (element) {
-                element.classList.add('loadNodeInModal-processed'); // Mark element as processed
-                element.addEventListener('click', function (e) {
+            document.querySelectorAll('.open-modal:not(.loadNodeInModal-processed)').forEach(function (el) {
+                el.classList.add('loadNodeInModal-processed'); // Mark element as processed
+                el.addEventListener('click', function (e) {
                     e.preventDefault();
                     const nodeUrl = this.getAttribute('href');
                     behaviors.abrsdUserDocs.showLoadingMessage(true, nodeUrl);
@@ -76,7 +75,9 @@
             }
             hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         },
-        disableModalButtons: function (docsModal) {
+        disableModalButtons: function () {
+            // Get the modal element
+            const docsModal = behaviors.abrsdUserDocs.docsModal;
             // Add event listener for when the modal is shown
             docsModal.addEventListener('show.bs.modal', function () {
                 let btn = docsModal.querySelector('.btn-accept');
@@ -85,7 +86,10 @@
                 btn.setAttribute('disabled', 'disabled');
             });
         },
-        addModalCloseListener: function (docsModal) {
+        addModalCloseListener: function () {
+            // Get the modal element
+            const docsModal = behaviors.abrsdUserDocs.docsModal;
+            // Add event listener for when the modal is closed
             docsModal.addEventListener('hidden.bs.modal', function (event) {
                 // Code to execute after the modal is closed
                 console.log('Modal has been closed');
@@ -114,7 +118,10 @@
                 behaviors.abrsdUserDocs.showLoadingMessage(false, nodeUrl);
             });
         },
-        addScrollListener: function (docsModal) {
+        addScrollListener: function () {
+            // Get the modal element
+            const docsModal = behaviors.abrsdUserDocs.docsModal;
+            // Add event listener for when the content div is scrolled
             docsModal.querySelector('.modal-body').addEventListener('scroll', function () {
                 const container = this;
                 const scrollableHeight = container.scrollHeight;
@@ -128,7 +135,10 @@
                 }
             });
         },
-        addModalClickEvent: function (docsModal) {
+        addModalClickEvent: function () {
+            // Get the modal element
+            const docsModal = behaviors.abrsdUserDocs.docsModal;
+            // Add a click event to the modal form and check which button dimissed the modal
             docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
                 let decision = null;
                 if (e.target.classList.contains('btn-accept')) {

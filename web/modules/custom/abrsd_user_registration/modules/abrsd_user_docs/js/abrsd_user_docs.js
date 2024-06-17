@@ -70,7 +70,8 @@
                 if (inputElement) {
                     // Set the input element as checked
                     inputElement.checked = (decision === 'accept');
-                    // Enable the element
+                    // Enable the element by negating and assigning the value
+                    // of the checked property
                     inputElement.disabled = !inputElement.checked;
                     // Dispatch a change event
                     const event = new Event('change', {
@@ -79,6 +80,8 @@
                     });
                     inputElement.dispatchEvent(event);
                 }
+                // Clear the local storage
+                localStorage.removeItem('userDecision');
             });
 
             // Add event listener for when the modal is closed

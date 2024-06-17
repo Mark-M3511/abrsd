@@ -8,6 +8,7 @@
 (function (Drupal, settings) {
     const { behaviors } = Drupal;
     behaviors.abrsdUserDocs = {
+        scrollThreshold: 5,
         attach: function (context, settings) {
             // Ensure the code runs only once per element
             behaviors.abrsdUserDocs.init();
@@ -21,15 +22,6 @@
             behaviors.abrsdUserDocs.addScrollListener(docsModal);
             // Add a click event to the modal form and check which button dimissed the modal
             behaviors.abrsdUserDocs.addModalClickEvent(docsModal);
-        },
-        showLoadingMessage: function (hide, nodeUrl) {
-            let span = null;
-            if (nodeUrl.includes('code-conduct')) {
-                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
-            } else {
-                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
-            }
-            hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         },
         init: function () {
             document.querySelectorAll('.open-modal:not(.loadNodeInModal-processed)').forEach(function (element) {
@@ -74,6 +66,15 @@
                         .catch(error => console.error('Error loading the URL: ', error));
                 });
             });
+        },
+        showLoadingMessage: function (hide, nodeUrl) {
+            let span = null;
+            if (nodeUrl.includes('code-conduct')) {
+                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
+            } else {
+                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
+            }
+            hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         },
         disableModalButtons: function (docsModal) {
             // Add event listener for when the modal is shown
@@ -121,7 +122,7 @@
                 const currentScrollPosition = container.scrollTop;
 
                 // Check if the user has scrolled to the bottom
-                if (currentScrollPosition + containerHeight >= scrollableHeight - 5) { // 5 is a small threshold
+                if (currentScrollPosition + containerHeight >= scrollableHeight - behaviors.abrsdUserDocs.scrollThreshold) { // 5 is a small threshold
                     docsModal.querySelector('.btn-accept').disabled = false;
                     docsModal.querySelector('.btn-reject').disabled = false;
                 }

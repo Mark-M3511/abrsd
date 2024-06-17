@@ -140,12 +140,7 @@
             const docsModal = behaviors.abrsdUserDocs.docsModal;
             // Add a click event to the modal form and check which button dimissed the modal
             docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
-                let decision = null;
-                if (e.target.classList.contains('btn-accept')) {
-                    decision = 'accept';
-                } else {
-                    decision = 'reject';
-                }
+                const decision = e.target.classList.contains('btn-accept') ? 'accept' : 'reject';
                 // Save the response to local storage
                 localStorage.setItem('userDecision', decision);
                 console.log(decision);

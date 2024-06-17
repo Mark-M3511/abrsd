@@ -10,6 +10,83 @@
     behaviors.abrsdUserDocs = {
         attach: function (context, settings) {
             // Ensure the code runs only once per element
+            behaviors.abrsdUserDocs.init();
+            // Get the modal element
+            const docsModal = document.querySelector('#docsModal');
+            // Add event listener for when the modal is shown
+            docsModal.addEventListener('show.bs.modal', function () {
+                let btn = docsModal.querySelector('.btn-accept');
+                btn.setAttribute('disabled', 'disabled');
+                btn = docsModal.querySelector('.btn-reject');
+                btn.setAttribute('disabled', 'disabled');
+            });
+            // Add event listener for when the modal is closed
+            docsModal.addEventListener('hidden.bs.modal', function (event) {
+                // Code to execute after the modal is closed
+                console.log('Modal has been closed');
+                // Get the data-node-url attribute of the modal-body element
+                const nodeUrl = docsModal.querySelector('.modal-body').getAttribute('data-node-url');
+                // Get the input element with the same attribute value
+                const inputElement = document.querySelector(`input[data-node-url="${nodeUrl}"]`);
+                // Get the user decision from local storage
+                const decision = localStorage.getItem('userDecision');
+                // Check if the input element exists
+                if (inputElement) {
+                    // Set the input element as checked
+                    inputElement.checked = (decision === 'accept');
+                    // Enable the element by negating and assigning the value
+                    // of the checked property
+                    inputElement.disabled = !inputElement.checked;
+                    // Dispatch a change event
+                    const event = new Event('change', {
+                        'bubbles': true,
+                        'cancelable': true,
+                    });
+                    inputElement.dispatchEvent(event);
+                }
+                // Clear the local storage
+                localStorage.removeItem('userDecision');
+                behaviors.abrsdUserDocs.showLoadingMessage(false, nodeUrl);
+            });
+
+            // Add event listener for when the modal is closed
+            docsModal.querySelector('.modal-body').addEventListener('scroll', function () {
+                const container = this;
+                const scrollableHeight = container.scrollHeight;
+                const containerHeight = container.clientHeight;
+                const currentScrollPosition = container.scrollTop;
+
+                // Check if the user has scrolled to the bottom
+                if (currentScrollPosition + containerHeight >= scrollableHeight - 5) { // 5 is a small threshold
+                    docsModal.querySelector('.btn-accept').disabled = false;
+                    docsModal.querySelector('.btn-reject').disabled = false;
+                }
+            });
+
+            // Add a click event to the modal form and check which button dimissed the modal
+            docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
+                let decision = null;
+                if (e.target.classList.contains('btn-accept')) {
+                    decision = 'accept';
+                } else {
+                    decision = 'reject';
+                }
+                // Save the response to local storage
+                localStorage.setItem('userDecision', decision);
+                console.log(decision);
+            });
+
+        },
+        showLoadingMessage: function (hide, nodeUrl) {
+            let span = null;
+            if (nodeUrl.includes('code-conduct')) {
+                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
+            } else {
+                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
+            }
+            hide ? span.classList.remove('d-none') : span.classList.add('d-none');
+        },
+        init: function () {
             document.querySelectorAll('.open-modal:not(.loadNodeInModal-processed)').forEach(function (element) {
                 element.classList.add('loadNodeInModal-processed'); // Mark element as processed
                 element.addEventListener('click', function (e) {
@@ -52,77 +129,6 @@
                         .catch(error => console.error('Error loading the URL: ', error));
                 });
             });
-            // Get the modal element
-            const docsModal = document.querySelector('#docsModal');
-            // Add event listener for when the modal is shown
-            docsModal.addEventListener('show.bs.modal', function () {
-                const acceptBtn = document.querySelector('.btn-accept');
-                acceptBtn.setAttribute('disabled', 'disabled');
-            });
-            // Add event listener for when the modal is closed
-            docsModal.addEventListener('hidden.bs.modal', (event) => {
-                // Code to execute after the modal is closed
-                console.log('Modal has been closed');
-                // Get the data-node-url attribute of the modal-body element
-                const nodeUrl = docsModal.querySelector('.modal-body').getAttribute('data-node-url');
-                // Get the input element with the same attribute value
-                const inputElement = document.querySelector(`input[data-node-url="${nodeUrl}"]`);
-                // Get the user decision from local storage
-                const decision = localStorage.getItem('userDecision');
-                // Check if the input element exists
-                if (inputElement) {
-                    // Set the input element as checked
-                    inputElement.checked = (decision === 'accept');
-                    // Enable the element by negating and assigning the value
-                    // of the checked property
-                    inputElement.disabled = !inputElement.checked;
-                    // Dispatch a change event
-                    const event = new Event('change', {
-                        'bubbles': true,
-                        'cancelable': true,
-                    });
-                    inputElement.dispatchEvent(event);
-                }
-                // Clear the local storage
-                localStorage.removeItem('userDecision');
-                behaviors.abrsdUserDocs.showLoadingMessage(false, nodeUrl);
-            });
-
-            // Add event listener for when the modal is closed
-            docsModal.querySelector('.modal-body').addEventListener('scroll', function () {
-                const container = this;
-                const scrollableHeight = container.scrollHeight;
-                const containerHeight = container.clientHeight;
-                const currentScrollPosition = container.scrollTop;
-
-                // Check if the user has scrolled to the bottom
-                if (currentScrollPosition + containerHeight >= scrollableHeight - 5) { // 5 is a small threshold
-                    docsModal.querySelector('.btn-accept').disabled = false;
-                }
-            });
-
-            // Add a click event to the modal form and check which button dimissed the modal
-            docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
-                let decision = null;
-                if (e.target.classList.contains('btn-accept')) {
-                    decision = 'accept';
-                } else {
-                    decision = 'reject';
-                }
-                // Save the response to local storage
-                localStorage.setItem('userDecision', decision);
-                console.log(decision);
-            });
-
-        },
-        showLoadingMessage: function (hide, nodeUrl) {
-            let span = null;
-            if (nodeUrl.includes('code-conduct')) {
-                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
-            } else {
-                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
-            }
-            hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         }
     };
 })(Drupal, drupalSettings);

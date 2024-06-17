@@ -6,7 +6,8 @@
  * is clicked.
  */
 (function (Drupal, settings) {
-    Drupal.behaviors.abrsdUserDocs = {
+    const { behaviors } = Drupal;
+    behaviors.abrsdUserDocs = {
         attach: function (context, settings) {
             // Ensure the code runs only once per element
             document.querySelectorAll('.open-modal:not(.loadNodeInModal-processed)').forEach(function (element) {
@@ -14,6 +15,7 @@
                 element.addEventListener('click', function (e) {
                     e.preventDefault();
                     const nodeUrl = this.getAttribute('href');
+                    behaviors.abrsdUserDocs.showLoadingMessage(true, nodeUrl);
                     // Fetch the content from the URL
                     fetch(nodeUrl)
                         .then(response => {
@@ -32,6 +34,7 @@
                             const modal = document.querySelector('#docsModal');
                             const modalBody = modal.querySelector('.modal-body');
                             const modalTitle = modal.querySelector('.modal-title');
+
                             if (modalBody && docContent) {
                                 modalTitle.innerHTML = `You are required to read and acknowledge the ${docTitle}`;
                                 modalBody.innerHTML = docContent;
@@ -57,7 +60,7 @@
                 acceptBtn.setAttribute('disabled', 'disabled');
             });
             // Add event listener for when the modal is closed
-            docsModal.addEventListener('hidden.bs.modal',  (event) => {
+            docsModal.addEventListener('hidden.bs.modal', (event) => {
                 // Code to execute after the modal is closed
                 console.log('Modal has been closed');
                 // Get the data-node-url attribute of the modal-body element
@@ -82,6 +85,7 @@
                 }
                 // Clear the local storage
                 localStorage.removeItem('userDecision');
+                behaviors.abrsdUserDocs.showLoadingMessage(false, nodeUrl);
             });
 
             // Add event listener for when the modal is closed
@@ -110,6 +114,15 @@
                 console.log(decision);
             });
 
+        },
+        showLoadingMessage: function (hide, nodeUrl) {
+            let span = null;
+            if (nodeUrl.includes('code-conduct')) {
+                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
+            } else {
+                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
+            }
+            hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         }
     };
 })(Drupal, drupalSettings);

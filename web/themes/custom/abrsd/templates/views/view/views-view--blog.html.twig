@@ -65,6 +65,8 @@
   {% set title_text = 'Latest Blogs'|t %}
   {% if display_id == 'block_2' %}
     {% set title_text = 'Most Commented and Latest'|t %}
+  {% elseif display_id == 'block_3' %}
+    {% set title_text = 'Blog List'|t %}
   {% endif %}
   {# eof: Set title #}
   <h3 class="section-title section-title-latest-news mb-3">{{ title_text }}</h3>

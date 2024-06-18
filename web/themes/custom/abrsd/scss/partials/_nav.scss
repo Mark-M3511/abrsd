@@ -143,8 +143,6 @@ a.nav-link--::before {
     &:hover {
       color: $menu-background !important;
     }
-  }
-  .nav-link--blog-list {
     @include jtc-styles;
   }
 

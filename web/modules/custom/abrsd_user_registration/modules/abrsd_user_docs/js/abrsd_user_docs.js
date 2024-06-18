@@ -44,9 +44,8 @@
                             const docContent = newElement.querySelector('.field--name-body').innerHTML
                             const docTitle = newElement.querySelector('.field--name-body h2').innerText;
                             // Find the modal body and set its content
-                            const modal = document.querySelector('#docsModal');
-                            const modalBody = modal.querySelector('.modal-body');
-                            const modalTitle = modal.querySelector('.modal-title');
+                            const modalBody = behaviors.abrsdUserDocs.docsModal.querySelector('.modal-body');
+                            const modalTitle = behaviors.abrsdUserDocs.docsModal.querySelector('.modal-title');
 
                             if (modalBody && docContent) {
                                 modalTitle.innerHTML = `You are required to read and acknowledge the ${docTitle}`;
@@ -54,7 +53,7 @@
                                 // Add a data attribute with the path of the node
                                 modalBody.setAttribute('data-node-url', nodeUrl);
                                 // Show the modal, assuming Bootstrap's modal is initialized in JavaScript
-                                const modal = new bootstrap.Modal(document.querySelector('#docsModal'),
+                                const modal = new bootstrap.Modal(behaviors.abrsdUserDocs.docsModal,
                                     {
                                         keyboard: false,
                                         backdrop: 'static'
@@ -67,12 +66,10 @@
             });
         },
         showLoadingMessage: function (hide, nodeUrl) {
-            let span = null;
-            if (nodeUrl.includes('code-conduct')) {
-                span = document.querySelector('#edit-code-of-conduct--description .loading-msg');
-            } else {
-                span = document.querySelector('#edit-terms-of-use--description .loading-msg');
-            }
+            const selector = nodeUrl.includes('code-conduct')
+                ? '#edit-code-of-conduct--description .loading-msg'
+                : '#edit-terms-of-use--description .loading-msg';
+            const span = document.querySelector(selector);
             hide ? span.classList.remove('d-none') : span.classList.add('d-none');
         },
         disableModalButtons: function () {
@@ -100,7 +97,7 @@
                 // Get the user decision from local storage
                 const decision = localStorage.getItem('userDecision');
                 // Check if the input element exists
-                if (inputElement) {
+                if (inputElement && decision !== 'close-only') {
                     // Set the input element as checked
                     inputElement.checked = (decision === 'accept');
                     // Enable the element by negating and assigning the value
@@ -139,8 +136,10 @@
             // Get the modal element
             const docsModal = behaviors.abrsdUserDocs.docsModal;
             // Add a click event to the modal form and check which button dimissed the modal
-            docsModal.querySelector('.modal-footer').addEventListener('click', function (e) {
-                const decision = e.target.classList.contains('btn-accept') ? 'accept' : 'reject';
+            docsModal.querySelector('.modal-content').addEventListener('click', function (e) {
+                const cl = e.target.classList;
+                let decision = cl.contains('btn-accept') ? 'accept' : 'reject';
+                decision = cl.contains('btn-close') ? 'close-only' : decision;
                 // Save the response to local storage
                 localStorage.setItem('userDecision', decision);
                 console.log(decision);

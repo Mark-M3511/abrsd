@@ -26,3 +26,9 @@
     color: $black;
   }
 }
+
+@mixin jtc-styles {
+  width: 10rem;
+  line-height: 1.05rem;
+  font-size: 1.1rem;
+}

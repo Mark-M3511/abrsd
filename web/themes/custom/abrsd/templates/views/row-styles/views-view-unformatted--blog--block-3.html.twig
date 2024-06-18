@@ -18,8 +18,7 @@
 {% if title %}
 	<h3>{{ title }}</h3>
 {% endif %}
-{# We set the title here and not in the view via the visual editor. #}
-{# <h3 class="section-title section-title-current=news mb-3">{{ 'All Blogs'|t }}</h3> #}
+{# We set the title in the view structure template and not in the visual editor. #}
 {% for row in rows %}
 	{%
     set row_classes = [

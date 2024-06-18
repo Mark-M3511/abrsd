@@ -35,12 +35,10 @@
 {% set link_url = fields.view_node.content|striptags|trim|raw %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 {% set tags = fields.field_tag.content|striptags|trim|raw %}
-{% set page_title = fields.title.content ? fields.title.content : fields.title.content %}
 
 <a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{page_title}}</h5>
-    {# <small>{{'Updated'|t}}&nbsp;{{fields.changed.content}}</small> #}
+    <h5 class="mb-1 w-75">{{ fields.title.content }}</h5>
     <small class="external-link">
       <span class="me-2 d-none d-md-inline">{{fields.field_published_on.content}}</span>
     </small>

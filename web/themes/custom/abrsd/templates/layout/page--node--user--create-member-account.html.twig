@@ -83,23 +83,9 @@ set nav_classes = [
 %}
 
 <div id="page-wrapper">
-	<div class="modal fade" id="docsModal" tabindex="-1" aria-labelledby="docsModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h5 class="modal-title" id="docsModalLabel">ABR & SD Document Title</h5>
-			  {# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
-			</div>
-			<div class="modal-body">
-			  ABR & SD Privacy Policy, Terms of Use, and other legal documents will be available here.
-			</div>
-			<div class="modal-footer">
-			  <button type="button" disabled class="btn btn-success btn-accept" data-bs-dismiss="modal">Accept</button>
-			  <button type="button" disabled class="btn btn-primary btn-danger btn-reject" data-bs-dismiss="modal">Reject</button>
-			</div>
-		  </div>
-		</div>
-	</div>
+	{# bof: Include the partial @abrsd/partials/_modal-node-docs.html.twig #}
+	{% include "@abrsd/partials/_modal-node-docs.html.twig" %}
+	{# eof: Include the partial @abrsd/partials/_modal-node-docs.html.twig #}
 	<div id="page" class="{{ page_path }}">
 		<header id="header" class="header" role="banner" aria-label="{{ 'Site header'|t}}">
 			{% block head %}

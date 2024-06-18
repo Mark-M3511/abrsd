@@ -1,0 +1,29 @@
+{#
+/**
+* @file
+* Theme implementation to display a modal for ABR & SD Node Documents.
+*
+* Available variables:
+* - None
+*
+* @ingroup themeable
+*/
+#}
+
+<div class="modal fade" id="docsModal" tabindex="-1" aria-labelledby="docsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="docsModalLabel">ABR & SD Document Title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ABR & SD Privacy Policy, Terms of Use, and other legal documents will be available here.
+        </div>
+        <div class="modal-footer">
+          <button type="button" disabled class="btn btn-success btn-accept" data-bs-dismiss="modal">Accept</button>
+          <button type="button" disabled class="btn btn-primary btn-danger btn-reject" data-bs-dismiss="modal">Reject</button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -88,8 +88,6 @@
             const docsModal = behaviors.abrsdUserDocs.docsModal;
             // Add event listener for when the modal is closed
             docsModal.addEventListener('hidden.bs.modal', function (event) {
-                // Code to execute after the modal is closed
-                console.log('Modal has been closed');
                 // Get the data-node-url attribute of the modal-body element
                 const nodeUrl = docsModal.querySelector('.modal-body').getAttribute('data-node-url');
                 // Get the input element with the same attribute value
@@ -104,11 +102,11 @@
                     // of the checked property
                     inputElement.disabled = !inputElement.checked;
                     // Dispatch a change event
-                    const event = new Event('change', {
+                    const newEvent = new Event('change', {
                         'bubbles': true,
                         'cancelable': true,
                     });
-                    inputElement.dispatchEvent(event);
+                    inputElement.dispatchEvent(newEvent);
                 }
                 // Clear the local storage
                 localStorage.removeItem('userDecision');
@@ -142,7 +140,7 @@
                 decision = cl.contains('btn-close') ? 'close-only' : decision;
                 // Save the response to local storage
                 localStorage.setItem('userDecision', decision);
-                console.log(decision);
+                // console.log(decision);
             });
         }
     };

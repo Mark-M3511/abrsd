@@ -107,13 +107,15 @@ CookieConsent.run({
         }
     },
     onConsent: ({cookie}) => {
-        console.log('GA change');
-        console.log(cookie);
-        console.log(CookieConsent.acceptedCategory('analytics'));
-        console.log(CookieConsent.acceptedService('ga', 'analytics'));
+        // console.log('Cookie prefs updated');
         // Enable or disable GA based on the user's choice
         const ga = !!CookieConsent.acceptedService('ga', 'analytics');
         window[`ga-disable-${abrsdCC.ga_id}`] = !ga;
-        console.log('On Window Object: ' + window[`ga-disable-${abrsdCC.ga_id}`])
+        CookieConsent.setCookieData({
+            value: {flag: '_ga_disable', disabled: ga ? 'no' : 'yes'}
+        })
+        CookieConsent.setCookieData({
+            value: {analytics: 'GA Analytics', accepted: ga ? 'yes' : 'no'}
+        })
     }
 });

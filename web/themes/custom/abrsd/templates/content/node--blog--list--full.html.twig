@@ -104,11 +104,10 @@
             {% endif %}
         </header>
         <div{{content_attributes.addClass('node__content','clearfix','row')}}>
-            <div class="col-md-7 offset-xl-1 col-xl-6">
+            <div class="col-md-7 offset-xl-1 col-xl-7">
                 {{ content|without('field_published_on', 'field_updated_on') }}
             </div>
-            <div class="col-md-5 col-xl-3 mx-xl-3">
-                {# Include the related blog summaries here #}
+            <div class="col-md-5 col-xl-3">
                 {{ drupal_view('blog', 'block_2') }}
             </div>
         </div>

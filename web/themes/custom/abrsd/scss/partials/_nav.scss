@@ -3,7 +3,7 @@
 .navbar-nav {
   background-color: $menu-background !important;
   .nav-item {
-    margin-left: 1.5rem;
+    margin-left: 0.75rem;
   }
   @include media-breakpoint-down(lg) {
     li:has(a.last-item) {
@@ -121,7 +121,7 @@ a.nav-link--::before {
 
 .menu--main li a {
   color: $white;
-  font-size: $font-size-lg;
+  font-size: $font-size-base + $additional-size;
 }
 
 .site-name-line-1 {

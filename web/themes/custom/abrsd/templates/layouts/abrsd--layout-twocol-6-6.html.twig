@@ -21,9 +21,10 @@
 {% if content %}
     <div{{attributes.addClass(classes)}}>
         <div class="row">
-            <div class="col-md-12">
+            <!-- If at the top of the page re-enable breadcrumbs -->
+            {# <div class="col-md-12">
                 {{ drupal_breadcrumb() }}
-            </div>
+            </div> #}
             {% if content.top %}
                 <div {{ region_attributes.top.addClass('region--top') }}>
                     {{ content.top }}

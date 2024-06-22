@@ -35,7 +35,8 @@ class UserRegistrationHelper
     public function __construct(
         User $user,
         WebformSubmissionInterface $webform_submission,
-        UserRegistration $userRegistration
+        UserRegistration $userRegistration,
+        public int $accountStatus = 1
     ) {
         $this->user = $user;
         $this->webform_submission = $webform_submission;
@@ -172,7 +173,7 @@ class UserRegistrationHelper
                 'name' => $email,
                 'langcode' => $language_id,
                 'init' => $email,
-                'status' => 0,
+                'status' => $this->accountStatus,
                 'preferred_langcode' => $language_id,
                 'preferred_admin_langcode' => $language_id,
                 'field_organization' => $values['organization'],

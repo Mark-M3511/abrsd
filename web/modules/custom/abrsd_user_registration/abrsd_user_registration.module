@@ -363,8 +363,11 @@ function setDefaultValue(
     $container = explode('|', $key)[0] ?? 'container';
     // Get the element id by splitting the key
     $skey = explode('|', $key)[1] ?? $key;
+    // if $skey == 'container|signup_email' set the field key to mail, otherwise use the value of $skey
+    $fkey = ($skey == 'signup_email') ? 'mail' : $skey;
+    $fkey = ($fkey == 'mail') ? $fkey : $prefix . $fkey;
     // Set the default value
-    $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{"{$prefix}{$skey}"}->value;
+    $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{$fkey}->value;
 }
 
 /**

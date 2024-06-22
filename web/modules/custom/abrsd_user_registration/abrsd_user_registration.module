@@ -259,6 +259,8 @@ function _abrsd_user_registration_load_profile_form_values(
                 'container|first_name', 'container|last_name', 'container|country',
                 'container|signup_email', 'container|organization', 'container_01|interests',
                 'container_01|about_me', 'container|display_name', 'container|mail',
+                'container|province', 'container|state', 'container|postal_code',
+                'container|zip',
             ];
             // Set default values for form elements
             foreach ($form_elements_keys as $key) {

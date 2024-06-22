@@ -186,6 +186,12 @@
   @include link-theme-1();
 }
 
+.modal {
+  a {
+    @include link-theme-1();
+  }
+}
+
 .breadcrumb {
   .active {
     padding-top: 2px;

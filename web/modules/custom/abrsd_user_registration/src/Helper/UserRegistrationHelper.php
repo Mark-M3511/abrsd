@@ -111,7 +111,13 @@ class UserRegistrationHelper
                     $user->set('field_country', $values['country'] ?? $user->field_country->value);
                     $user->set('field_about_me', $values['about_me'] ?? $user->field_about_me->value);
                     $user->set('field_webform_submission_id', $values['sid'] ?? $user->field_webform_submission_id->value);
+                    // Save the province or state value based on the selected country
+                    $this->saveProvinceStateUser($user, $values);
+                    // Save the postal or zip code based on the country
+                    $this->savePostalZipUser($user, $values);
+                    // Save the user entity
                     $user->enforceIsNew(FALSE)->save();
+                    // Update the user profile picture
                     $this->updateProfilePicture($values['profile_picture'], $user);
                 }
             }
@@ -162,7 +168,6 @@ class UserRegistrationHelper
             $email = $values['confirm_email_address'];
 
             $user_values = [
-                // 'pass' => $password,
                 'mail' => $email,
                 'name' => $email,
                 'langcode' => $language_id,
@@ -179,6 +184,11 @@ class UserRegistrationHelper
                 'field_about_me' => $values['about_me'],
                 'field_webform_submission_id' => $values['sid'],
             ];
+
+            // Save the province or state value based on the selected country
+            $this->saveProvinceState($user_values, $values);
+            // Save the postal or zip code based on the country
+            $this->savePostalZip($user_values, $values);
 
             // Create a new user
             $user = User::create($user_values);
@@ -200,6 +210,116 @@ class UserRegistrationHelper
         }
 
         return $result;
+    }
+
+    /**
+     * Returns an array mapping country codes to province/state field names.
+     *
+     * @return array
+     *   An array where the keys are country codes and the values are the corresponding
+     *   province/state field names.
+     */
+    public static function getCountryProvStateMap()
+    {
+        return [
+            'CA' => 'province',
+            'US' => 'state',
+        ];
+    }
+
+    /**
+     * Returns an array mapping country codes to postal/zip code field names.
+     *
+     * @return array
+     *   An array where the keys are country codes and the values are the corresponding
+     *   postal/zip code field names.
+     */
+    public static function getCountryPostalZip()
+    {
+        return [
+            'CA' => 'postal_code',
+            'US' => 'zip',
+        ];
+    }
+
+    /**
+     * Saves the province or state value based on the selected country.
+     *
+     * @param array &$user_values The array containing user values.
+     * @param array $values The array containing the form values.
+     * @return void
+     */
+    private function saveProvinceState(array &$user_values, array $values): void
+    {
+        $country_prov_state_map = self::getCountryProvStateMap();
+        try {
+            if (array_key_exists($values['country'], $country_prov_state_map)) {
+                $user_values['field_province_state'] = $values[$country_prov_state_map[$values['country']]];
+            }
+        } catch (\Exception $e) {
+            // Handle exception or log error
+            $this->userRegistration->logger->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Saves the province or state information for a user based on the selected country.
+     *
+     * @param User $user The user object to save the province or state information for.
+     * @param array $values An array containing the country, province, and state values.
+     * @return void
+     */
+    private function saveProvinceStateUser(User $user, array $values): void
+    {
+        $country_prov_state_map = self::getCountryProvStateMap();
+        try {
+            if (array_key_exists($values['country'], $country_prov_state_map)) {
+                $field_key = $country_prov_state_map[$values['country']];
+                $user->set('field_province_state', $values[$field_key]);
+            }
+        } catch (\Exception $e) {
+            $this->userRegistration->logger->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Saves the postal or zip code based on the country.
+     *
+     * @param array &$user_values The array containing user values.
+     * @param array $values The array containing the form values.
+     * @return void
+     */
+    private function savePostalZip(array &$user_values, array $values): void
+    {
+        $country_postal_zip_map = self::getCountryPostalZip();
+        try {
+            if (array_key_exists($values['country'], $country_postal_zip_map)) {
+                $user_values['field_postal_zip_code'] = $values[$country_postal_zip_map[$values['country']]];
+            }
+        } catch (\Exception $e) {
+            // Handle exception or log error
+            $this->userRegistration->logger->error($e->getMessage());
+        }
+    }
+
+    /**
+     * Saves the postal code or zip code for a user based on the country.
+     *
+     * @param User $user The user object.
+     * @param array $values An array of values containing the country and the postal/zip code.
+     * @return void
+     */
+    private function savePostalZipUser(User $user, array $values): void
+    {
+        $country_postal_zip_map = self::getCountryPostalZip();
+        try {
+            if (array_key_exists($values['country'], $country_postal_zip_map)) {
+                $field_key = $country_postal_zip_map[$values['country']];
+                $user->set('field_postal_zip_code', $values[$field_key]);
+            }
+        } catch (\Exception $e) {
+            $this->userRegistration->logger->error($e->getMessage());
+        }
     }
 
     /**

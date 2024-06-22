@@ -60,7 +60,7 @@ class UserRegistrationHelper
                 _user_mail_notify('register_no_approval_required', $user);
             }
         } else {
-            $this->userRegistration->logger->info('User already exists with Email address: ' . $email);
+            $this->userRegistration->logger->info('User already exists with email address: ' . $email);
         }
     }
 

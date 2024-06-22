@@ -464,6 +464,8 @@ function abrsd_user_registration_form_user_form_alter(
                 $form['field_organization']['#access'] = FALSE;
                 $form['field_about_me']['#access'] = FALSE;
                 $form['field_interests']['#access'] = FALSE;
+                $form['field_province_state']['#access'] = FALSE;
+                $form['field_postal_zip_code']['#access'] = FALSE;
             }
         }
     } catch (\Exception $e) {

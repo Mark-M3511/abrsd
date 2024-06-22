@@ -55,8 +55,8 @@ class UserRegistrationHelper
             $user = $this->createUserAccount($values);
             if ($user) {
                 $this->userRegistration->logger->info('User created: ' . $user->mail->value);
-                // Send an email to the user of the type 'user_register_pending_approval'
-                _user_mail_notify('register_pending_approval', $user);
+                // Send an email to the user of the type 'register_no_approval_required'
+                _user_mail_notify('register_no_approval_required', $user);
             }
         } else {
             $this->userRegistration->logger->info('User already exists with Email address: ' . $email);

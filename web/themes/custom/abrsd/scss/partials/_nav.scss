@@ -225,8 +225,7 @@ a.nav-link--::before {
 // USER ACCESS
 #navbar-top {
   background-color: $white !important;
-
-  height: 1.5rem;
+  height: 1.8rem;
   z-index: 1037;
   // On mobile devices, the user access menu background is accent-shade
   @include media-breakpoint-down(md) {
@@ -235,7 +234,7 @@ a.nav-link--::before {
 }
 
 #block-abrsd-useraccess {
-  margin-top: -0.7rem;
+  margin-top: -0.4rem;
 
   .nav-item {
     margin-left: -2rem;
@@ -243,9 +242,8 @@ a.nav-link--::before {
 
   .nav-link {
     color: $black !important;
-    a {
-      font-size: 0.9rem;
-    }
+    font-size: 0.95rem !important;
+    font-weight: bold !important;
   }
 
   .nav-link--user-login::before {

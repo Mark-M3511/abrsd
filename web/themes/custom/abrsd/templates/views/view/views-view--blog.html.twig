@@ -64,7 +64,7 @@
   {# bof: Set title  #}
   {% set title_text = 'Latest Blogs'|t %}
   {% set heading_class = '' %}
-  {% if display_id == 'block_2' %}
+  {% if display_id in ['block_2', 'block_4'] %}
     {% set title_text = 'Most Commented & Latest'|t %}
     {% set heading_class = ' h5' %}
   {% elseif display_id == 'block_3' %}

@@ -63,13 +63,15 @@
   {% endif %}
   {# bof: Set title  #}
   {% set title_text = 'Latest Blogs'|t %}
+  {% set heading_class = '' %}
   {% if display_id == 'block_2' %}
-    {% set title_text = 'Most Commented and Latest'|t %}
+    {% set title_text = 'Most Commented & Latest'|t %}
+    {% set heading_class = ' h5' %}
   {% elseif display_id == 'block_3' %}
     {% set title_text = 'Blog List'|t %}
   {% endif %}
   {# eof: Set title #}
-  <h3 class="section-title section-title-latest-news mb-3">{{ title_text }}</h3>
+  <h3 class="section-title section-title-latest-news mb-3{{ heading_class }}">{{ title_text }}</h3>
   {% if rows %}
     <div class="view-content row align-items-stretch g-2 blog-carousel">
       {{ rows }}

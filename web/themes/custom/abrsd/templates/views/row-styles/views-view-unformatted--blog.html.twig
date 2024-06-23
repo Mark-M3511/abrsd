@@ -28,8 +28,17 @@
       'card',
       'sidebar-roll',
       'border-0',
+      'shadow',
     ]
   %}
+  {# If the iteraction count is 1 print the CTA card #}
+  {% if loop.index == 1 %}
+    {% set row_classes_cta = row_classes|filter(class => class not in ['sidebar-roll', 'border-0'])|merge(['bg-light']) %}
+    {% set cta_attr = create_attribute() %}
+    <div{{ cta_attr.addClass(row_classes_cta) }}>
+      {% include "@abrsd/partials/_blog_list_sidebar_top_card.html.twig" %}
+    </div>
+  {% endif %}
   {# Exclude the current node by id #}
   {% if row.content['#row']._entity.id() != nid %}
     <div{{ row.attributes.addClass(row_classes) }}>

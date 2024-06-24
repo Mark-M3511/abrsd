@@ -21,6 +21,7 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
+
 {% for row in rows %}
   {%
     set row_classes = [
@@ -31,10 +32,7 @@
       'shadow',
     ]
   %}
-  {# Exclude the current node by id #}
-  {% if row.content['#row']._entity.id() != nid %}
-    <div{{ row.attributes.addClass(row_classes) }}>
-     {{ row.content }}
-    </div>
-  {% endif %}
+  <div{{ row.attributes.addClass(row_classes) }}>
+    {{ row.content }}
+  </div>
 {% endfor %}

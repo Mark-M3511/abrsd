@@ -57,3 +57,14 @@
     }
   }
 }
+
+.form-item-postal-code input,
+.form-item-zip input{
+  width: 50%;
+}
+
+.webform-submission-form {
+  label {
+    color: $black !important;
+  }
+}

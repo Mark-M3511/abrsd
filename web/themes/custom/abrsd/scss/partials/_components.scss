@@ -190,6 +190,13 @@
   a {
     @include link-theme-1();
   }
+  h2 {
+    @include font-size($h2-font-size-modal);
+  }
+  h3 {
+    @include font-size($h3-font-size-modal);
+
+  }
 }
 
 .breadcrumb {

@@ -36,3 +36,7 @@ $h3-font-size: $font-size-base * 1.75;
 $h4-font-size: $font-size-base * 1.5;
 $h5-font-size: $font-size-base * 1.25;
 $h6-font-size: $font-size-base;
+
+// Modal overrrides
+$h2-font-size-modal: $h2-font-size - 0.6rem;
+$h3-font-size-modal: $h3-font-size - 0.6rem;

@@ -35,7 +35,7 @@
 {% set link_url = fields.field_workshop_link.content|striptags|trim|raw %}
 {% set self_link_url = path('entity.node.canonical', {'node': fields.nid.content|striptags|trim|raw }) %}
 {% set link_text = fields.field_workshop_link_1.content|striptags|trim|raw %}
-{% set link_text = link_text ? link_text : 'Read More'|t|upper %}
+{% set link_text = link_text ? link_text : 'Read More'|t %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 {% set link_url = link_url ? link_url : self_link_url %}

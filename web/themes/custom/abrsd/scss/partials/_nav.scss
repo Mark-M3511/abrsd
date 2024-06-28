@@ -157,6 +157,9 @@ a.nav-link--::before {
 .dropdown-menu {
   background-color: $black;
   .dropdown-item {
+    &.active {
+      background-color: $black;
+    }
     &:hover,
     &:focus {
       background-color: $white;
@@ -177,6 +180,10 @@ a.nav-link--::before {
       }
     }
   }
+}
+
+.nav-link--user ~ ul > li.dropdown-item:not(:has(.nav-link--user-logout)) {
+  border-bottom: 1px solid $white;
 }
 
 // NAV STYLES

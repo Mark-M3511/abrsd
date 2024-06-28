@@ -34,7 +34,7 @@
 {# Set up variables to be used #}
 {% set link_url = fields.field_partner_website.content|striptags|trim|raw %}
 {% set link_text = fields.field_partner_website_1.content %}
-{% set link_text = link_text ? link_text : 'Read More' %}
+{% set link_text = link_text ? link_text : 'Read More'|t %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 
 <div class="card">

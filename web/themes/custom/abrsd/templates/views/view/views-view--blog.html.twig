@@ -64,16 +64,20 @@
   {# bof: Set title  #}
   {% set title_text = 'Latest Blogs'|t %}
   {% set heading_class = '' %}
-  {% set gap_class = ' g-2 ' %}
+  {% set gap_class = ' g-2' %}
+  {% set carousel_class = ' blog-carousel' %}
+  {% set list_group_class = '' %}
 
   {% if display_id in ['block_2', 'block_4'] %}
     {% set title_text = 'Most Commented & Latest'|t %}
     {% set heading_class = ' h5' %}
   {% elseif display_id == 'block_3' %}
     {% set title_text = 'Blog List'|t %}
+    {% set carousel_class = '' %}
+    {% set list_group_class = ' list-group' %}
   {% elseif display_id == 'block_5' %}
-     {% set gap_class = '' %}
-     {% set title_text = '' %}
+    {% set gap_class = '' %}
+    {% set title_text = '' %}
   {% endif %}
 
   {# eof: Set title #}
@@ -81,7 +85,7 @@
     <h3 class="section-title section-title-latest-news mb-3{{ heading_class }}">{{ title_text }}</h3>
   {% endif %}
   {% if rows %}
-    <div class="view-content row align-items-stretch{{ gap_class }}blog-carousel">
+    <div class="view-content row align-items-stretch{{list_group_class}}{{ gap_class }}{{ carousel_class }}">
       {{ rows }}
     </div>
   {% elseif empty %}

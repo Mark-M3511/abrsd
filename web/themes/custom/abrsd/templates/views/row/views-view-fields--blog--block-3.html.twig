@@ -36,7 +36,7 @@
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 {% set tags = fields.field_tag.content|striptags|trim|raw %}
 
-<a href="{{link_url}}" target="{{target}}" class="list-group-item list-group-item-action" aria-current="true">
+<a href="{{link_url}}" target="{{target}}" aria-current="true" class="list-group-item list-group-item-action">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1 w-75">{{ fields.title.content }}</h5>
     <small class="external-link">

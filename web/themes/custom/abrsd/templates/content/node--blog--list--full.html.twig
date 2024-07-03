@@ -79,8 +79,10 @@
 {% set updated_on =  content.field_updated_on|render|striptags|trim|raw %}
 
 <article{{attributes.addClass(classes)}}>
-    <div class="container-sm">
-        <header>
+    <div class="container px-md-5">
+        {# Hide header empty element #}
+        {% if label %}
+          <header>
             {{ title_prefix }}
             {% if label and not page %}
                 <h2{{title_attributes.addClass('node__title')}}>
@@ -102,9 +104,10 @@
                     {{ metadata }}
                 </div>
             {% endif %}
-        </header>
+          </header>
+        {% endif %}
         <div{{content_attributes.addClass('node__content','clearfix','row')}}>
-            <div class="col-md-7 offset-xl-1 col-xl-7">
+            <div class="col-md-7 col-xl-9">
                 {{ content|without('field_published_on', 'field_updated_on') }}
             </div>
             <div class="col-md-5 col-xl-3">

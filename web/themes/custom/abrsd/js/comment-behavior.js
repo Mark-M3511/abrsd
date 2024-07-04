@@ -13,7 +13,7 @@
             const elem = context.querySelector('.field--name-field-blog-comment');
             // Add a click event listener for the element
             elem.addEventListener('click', function (event) {
-                // If the clicked element doesn't have the right selector, bail
+                // Check if the target is an image
                 if (event.target.matches('img.image-style-thumbnail')) {
                     // Don't follow the link
                     event.preventDefault();

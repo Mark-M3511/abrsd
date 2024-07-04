@@ -77,4 +77,11 @@ vanilla-cookieconsent:
   dependencies:
     - core/drupal
     - core/drupalSettings
+comment-behavior:
+  version: VERSION
+  js:
+    js/comment-behavior.min.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
 

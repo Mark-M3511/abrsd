@@ -75,9 +75,6 @@
   ]
 %}
 
-{% set published_on =  content.field_published_on|render|striptags|trim|raw %}
-{% set updated_on =  content.field_updated_on|render|striptags|trim|raw %}
-
 <article{{attributes.addClass(classes)}}>
     <div class="container px-md-5">
         {# Hide header empty element #}

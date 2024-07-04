@@ -631,7 +631,7 @@ function _breadcrumb_append_path_fragment(array &$variables)
     ->getStorage('taxonomy_term')
     ->loadMultiple($result);
   // Initialize the breadcrumb path
-  $breadcrumb_path = $target_path = $new_breadcrumb_title = '';
+  $breadcrumb_path = $new_breadcrumb_title = '';
   // Loop through the terms
   foreach ($terms as $term) {
     // Get the path field value
@@ -640,10 +640,8 @@ function _breadcrumb_append_path_fragment(array &$variables)
     $anchor = $term->field_anchor->value;
     // Get the anchor field value
     $anchor_mark = $anchor ? '#' : '';
-    // Set the target path
-    $target_path = empty($anchor) ? '/' . $path : $target_path;
     // If anchor is true and the fragment field is not empty, set the path to the fragment
-    $path = ($anchor) ? $anchor : $path;
+    $path = ($anchor) ? $term->field_fragment->value : $path;
     // Get the breadcrumb path
     $breadcrumb_path .= $anchor_mark . $path;
     // If the current term name is not in the breadcrumb array, add it

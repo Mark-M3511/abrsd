@@ -607,12 +607,15 @@ function _breadcrumb_append_path_fragment(array &$variables)
   $node_path = ltrim($node_path, '/');
   // Get the different path segments from the current node path
   $node_path_segments = explode('/', $node_path);
-  // if the count of node path segments is 1 return
-  if (count($node_path_segments) == 1) {
+  // Early return if there's only one segment or the path ends with '/list'
+  // This is a specific condition to avoid processing certain types of paths such as list paths
+  if (count($node_path_segments) == 1 || str_ends_with($node_path, '/list')) {
     return;
   }
   // Set the node path segments to [-1] if it is empty
-  $node_path_segments = is_array($node_path_segments) ? $node_path_segments : [-1];
+  if ($node_path_segments === FALSE || empty($node_path_segments)) {
+    $node_path_segments = [-1];
+  }
   // Search for a match on the path field in the breadcrumb taxonomy
   $result = \Drupal::entityQuery('taxonomy_term')->accessCheck(FALSE)
     ->condition('vid', 'breadcrumb')
@@ -636,13 +639,13 @@ function _breadcrumb_append_path_fragment(array &$variables)
     // Get the anchor field value
     $anchor = $term->field_anchor->value;
     // Get the anchor field value
-    $anchor = $anchor ? '#' : '';
+    $anchor_mark = $anchor ? '#' : '';
     // Set the target path
     $target_path = empty($anchor) ? '/' . $path : $target_path;
     // If anchor is true and the fragment field is not empty, set the path to the fragment
-    $path = ($anchor && $term->field_fragment->value) ? $term->field_fragment->value : $path;
+    $path = ($anchor) ? $anchor : $path;
     // Get the breadcrumb path
-    $breadcrumb_path .= $anchor . $path;
+    $breadcrumb_path .= $anchor_mark . $path;
     // If the current term name is not in the breadcrumb array, add it
     if (!in_array($term->name->value, array_column($variables['breadcrumb'], 'text'))) {
       // Create a new translatable markup object from the term name

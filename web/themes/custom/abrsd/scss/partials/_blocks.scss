@@ -14,12 +14,29 @@
 
 .page--news-list,
 .page--resources-news-categories,
-.page--about-us,
-.node--type-blog {
+.page--about-us {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {
       padding-left: 4rem;
       padding-right: 4rem;
+    }
+  }
+}
+
+.page--blog-list {
+  @include media-breakpoint-up(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 7rem;
+      padding-right: 7rem;
+    }
+  }
+}
+
+.node--type-blog {
+  @include media-breakpoint-up(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 11rem;
+      padding-right: 11rem;
     }
   }
 }

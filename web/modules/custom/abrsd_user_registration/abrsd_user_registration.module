@@ -475,3 +475,93 @@ function abrsd_user_registration_form_user_form_alter(
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
 }
+
+/**
+ * Implements hook_tokens_info().
+ *
+ * This function is called to provide information about the tokens provided by the module.
+ *
+ * @return array
+ *   An array of token information.
+ */
+function abrsd_user_registration_token_info()
+{
+    $info = [];
+
+    // Define the user_display_name_with_fallback token
+    $info['tokens']['user']['user_display_name_with_fallback'] = [
+        'name' => t('User Display Name with Fallback'),
+        'description' => t('Provides the user entered display name or their Drupal user name as fallback.'),
+    ];
+
+    return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ *
+ * This function is called to replace tokens with values.
+ *
+ * @param string $type
+ *   The type of token.
+ * @param array $tokens
+ *   An array of tokens.
+ * @param array $data
+ *   An array of data.
+ * @param array $options
+ *   An array of options.
+ *
+ * @return array
+ *   An array of token replacements.
+ */
+function abrsd_user_registration_tokens($type, $tokens, array $data = [], array $options = [])
+{
+    $replacements = [];
+
+    // Check if the type is user and the data array contains a user object
+    if ($type == 'user' && isset($data['user']) && $data['user'] instanceof User) {
+        $user = $data['user'];
+        foreach ($tokens as $name => $original) {
+            switch ($name) {
+                case 'user_display_name_with_fallback':
+                    $user = User::load($user->id());
+                    $display_name = $user->get('field_display_name')->value;
+                    $replacements[$original] = !empty($display_name) ? $display_name : generate_unique_username($user->getAccountName());
+                    break;
+            }
+        }
+    }
+
+    return $replacements;
+}
+
+/**
+ * Generates a unique username.
+ *
+ * This function is called to generate a unique username based on the base username.
+ *
+ * @param string $base_username
+ *   The base username.
+ *
+ * @return string
+ *   The unique username.
+ */
+function generate_unique_username($base_username) {
+    $username = $base_username;
+    // If the username is an email address, remove the domain part
+    if (strpos($username, '@') !== FALSE) {
+        $username = explode('@', $username)[0];
+    }
+    $i = 1;
+
+    // Load the user storage
+    $user_storage = \Drupal::entityTypeManager()->getStorage('user');
+    // Loop until a unique username is found
+    while ($user_storage->loadByProperties(['name' => $username])) {
+        // If the username exists, append a number and check again
+        $username = $base_username . $i;
+        $i++;
+    }
+
+    return $username;
+}

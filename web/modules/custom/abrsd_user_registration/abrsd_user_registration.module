@@ -367,7 +367,11 @@ function setDefaultValue(
     $fkey = ($skey == 'signup_email') ? 'mail' : $skey;
     $fkey = ($fkey == 'mail') ? $fkey : $prefix . $fkey;
     // Set the default value
-    $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey] ?? $user->{$fkey}->value;
+    if (array_key_exists($skey, $submission_data) && !empty($submission_data[$skey])) {
+        $form_elements[$container][$skey]['#default_value'] = $submission_data[$skey];
+    } elseif (isset($user->{$fkey}) && isset($user->{$fkey}->value)) {
+        $form_elements[$container][$skey]['#default_value'] = $user->{$fkey}->value;
+    }
 }
 
 /**

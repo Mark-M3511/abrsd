@@ -15,6 +15,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\User;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Drupal\abrsd_user_registration\Helper\UserRegistrationHelper;
+use Drupal\Core\Path\PathValidator;
 
 /**
  * Event subscriber for redirecting user/register routes.
@@ -57,6 +58,13 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
     protected $request;
 
     /**
+     * The path validator service.
+     *
+     * @var \Drupal\Core\Path\PathValidator
+     */
+    protected $pathValidator;
+
+    /**
      * The post data.
      *
      * @var array
@@ -80,12 +88,14 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         ConfigFactoryInterface $config_factory,
         LoggerChannelFactoryInterface $logger,
         AccountInterface $currentUser,
-        SessionInterface $session
+        SessionInterface $session,
+        PathValidator $path_validator
     ) {
         $this->configFactory = $config_factory;
         $this->logger = $logger->get('abrsd_user_registration');
         $this->currentUser = $currentUser;
         $this->session = $session;
+        $this->pathValidator = $path_validator;
     }
 
     /**
@@ -99,12 +109,14 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         $logger = $container->get('logger.factory');
         $currentUser = $container->get('current_user');
         $session = $container->get('session');
+        $path_validator = $container->get('path.validator');
 
         return new static(
             $config_factory,
             $logger,
             $currentUser,
-            $session
+            $session,
+            $path_validator
         );
     }
 
@@ -190,17 +202,25 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
         try {
             // Get the URL path from the request.
             $this->request = $event->getRequest();
+            // Get the URL path from the request
             $path_info = $this->request?->getPathInfo();
             // Get the post data from the request
-            $postData = $this->request?->request->all();
+            $this->postData = $this->request?->request->all();
             // Get the path parts from the path info
             $path_parts = explode('/', ltrim($path_info, " \n\r\t\v\0/"));
-            $url_param_uid = $path_parts[1] ?? NULL;
-            // Check if the user is logged in
+            // Use the path validator service to get the URL object if the path is valid
+            $url_object = $this->pathValidator->getUrlIfValid($path_info);
+            // If the URL object is not null, get the route name and parameters
+            $url_param_uid = NULL;
+            if (isset($url_object) && $url_object->getRouteName() === 'entity.user.canonical') {
+                // This is a user path, extract the user ID from the route parameters.
+                $url_param_uid = $url_object->getRouteParameters()['user'];
+            }
+            // Check if the user ID in the URL matches the current user ID
             if ($url_param_uid === $this->currentUser->id()) {
                 // Get the password fields from the post data
-                $pass_1 = $postData['pass']['pass1'] ?? NULL;
-                $pass_2 = $postData['pass']['pass2'] ?? NULL;
+                $pass_1 = $this->postData['pass']['pass1'] ?? NULL;
+                $pass_2 = $this->postData['pass']['pass2'] ?? NULL;
                 // Check if the password fields are not empty and match
                 if (($pass_1 == NULL && $pass_2 == NULL)) {
                     if (isset($path_parts[0]) && $path_parts[0] !== 'user') {

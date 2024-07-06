@@ -18,5 +18,6 @@ services:
       - '@logger.factory'
       - '@current_user'
       - '@session'
+      - '@path.validator'
     tags:
       - { name: event_subscriber }

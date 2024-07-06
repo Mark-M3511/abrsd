@@ -560,7 +560,7 @@ function generate_unique_username($base_username) {
     if (strpos($username, '@') !== FALSE) {
         $username = explode('@', $username)[0];
         $username = substr($username, 0, 20);
-        $username = strlen($username) < 5 ? str_pad($username, 5, "0") : $username;
+        $username = strlen($username) < 5 ? str_pad($username, 5, "01") : $username;
     }
 
     $i = 1;

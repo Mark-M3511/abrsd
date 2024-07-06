@@ -551,19 +551,26 @@ function abrsd_user_registration_tokens($type, $tokens, array $data = [], array 
  *   The unique username.
  */
 function generate_unique_username($base_username) {
+    // Ensure base username is between 4 and 20 characters, using substr and str_pad if necessary
+    $base_username = substr($base_username, 0, 20);
+    $base_username = strlen($base_username) < 5 ? str_pad($base_username, 5, "0") : $base_username;
+
     $username = $base_username;
-    // If the username is an email address, remove the domain part
+    // If the username is an email address, remove the domain part and ensure it's within the length limits
     if (strpos($username, '@') !== FALSE) {
         $username = explode('@', $username)[0];
+        $username = substr($username, 0, 20);
+        $username = strlen($username) < 5 ? str_pad($username, 5, "0") : $username;
     }
-    $i = 1;
 
+    $i = 1;
     // Load the user storage
     $user_storage = \Drupal::entityTypeManager()->getStorage('user');
     // Loop until a unique username is found
-    while ($user_storage->loadByProperties(['name' => $username])) {
-        // If the username exists, append a number and check again
-        $username = $base_username . $i;
+    while ($user_storage->loadByProperties(['field_display_name' => $username])) {
+        // If the username exists, append a number and check again, ensuring it doesn't exceed 20 characters
+        $temp_username = $base_username . $i;
+        $username = strlen($temp_username) > 20 ? substr($temp_username, 0, 20 - strlen((string)$i)) . $i : $temp_username;
         $i++;
     }
 

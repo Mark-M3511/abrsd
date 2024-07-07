@@ -212,7 +212,8 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             $url_object = $this->pathValidator->getUrlIfValid($path_info);
             // If the URL object is not null, get the route name and parameters
             $url_param_uid = NULL;
-            if (isset($url_object) && $url_object->getRouteName() === 'entity.user.canonical') {
+            $arr_route_names = ['entity.user.canonical', 'entity.user.edit_form'];
+            if (is_object($url_object) && in_array($url_object->getRouteName(), $arr_route_names, TRUE)) {
                 // This is a user path, extract the user ID from the route parameters.
                 $url_param_uid = $url_object->getRouteParameters()['user'];
             }

@@ -7,12 +7,9 @@
 
 
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\webform\Entity\WebformSubmission;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\abrsd_user_registration\Plugin\WebformHandler\UserRegistration;
 use Drupal\user\Entity\User;
-use Drupal\file\Entity\File;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 

@@ -265,7 +265,7 @@ function _abrsd_user_registration_load_profile_form_values(
             // Set default values for form elements
             foreach ($form_elements_keys as $key) {
                 $default_value = ($key != 'container|mail') ? 'field_' : '';
-                setDefaultValue($form_elements, $submission_data, $user, $key, $default_value);
+                _set_default_value($form_elements, $submission_data, $user, $key, $default_value);
             }
             // Get the last updated time of the user object
             $mark_up = _get_custom_form_markup($user->getChangedTime(), t('Your profile was last updated') . ': ');
@@ -352,7 +352,7 @@ function _get_custom_form_markup(int $time_stamp, string $message): string
  * @param string $prefix
  *  The prefix used to identify the container element.
  */
-function setDefaultValue(
+function _set_default_value(
     array &$form_elements,
     array $submission_data,
     User $user,

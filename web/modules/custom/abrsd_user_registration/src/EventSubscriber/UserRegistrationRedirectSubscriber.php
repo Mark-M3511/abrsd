@@ -208,7 +208,8 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             $this->postData = $this->request?->request->all();
             // Get the path parts from the path info
             $path_parts = explode('/', ltrim($path_info, " \n\r\t\v\0/"));
-            // Use the path validator service to get the URL object if the path is valid
+            // Use the path validator service to get the URL object if the path is valid. This method
+            // may return false if the path is not valid.
             $url_object = $this->pathValidator->getUrlIfValid($path_info);
             // If the URL object is not null, get the route name and parameters
             $url_param_uid = NULL;
@@ -217,16 +218,18 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
                 // This is a user path, extract the user ID from the route parameters.
                 $url_param_uid = $url_object->getRouteParameters()['user'];
             }
-            // Check if the user ID in the URL matches the current user ID
+            // Check if the user ID in the route parameters is the same as the current user ID
             if ($url_param_uid === $this->currentUser->id()) {
                 // Get the password fields from the post data
                 $pass_1 = $this->postData['pass']['pass1'] ?? NULL;
                 $pass_2 = $this->postData['pass']['pass2'] ?? NULL;
                 // Check if the password fields are not empty and match
                 if (($pass_1 == NULL && $pass_2 == NULL)) {
+                    // Check if the path is not a user path then return so that the user can take action
                     if (isset($path_parts[0]) && $path_parts[0] !== 'user') {
                         return;
                     }
+                    // Check if the path is an edit path then return so that the user can edit their password for example
                     if (isset($path_parts[2]) && $path_parts[2] === 'edit') {
                         return;
                     }

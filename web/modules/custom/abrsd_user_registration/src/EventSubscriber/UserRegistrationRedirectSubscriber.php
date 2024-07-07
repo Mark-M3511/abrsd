@@ -220,7 +220,10 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
             }
             // Check if the user ID in the route parameters is the same as the current user ID
             if ($url_param_uid === $this->currentUser->id()) {
-                // Get the password fields from the post data
+                // Get the password fields from the post data. The password values will be present
+                // in the post data when the user is changing their password. These values will be
+                // present after the user submits the password reset form or Drupal's user edit form.
+                // Otherwise, the password values will be null.
                 $pass_1 = $this->postData['pass']['pass1'] ?? NULL;
                 $pass_2 = $this->postData['pass']['pass2'] ?? NULL;
                 // Check if the password fields are not empty and match

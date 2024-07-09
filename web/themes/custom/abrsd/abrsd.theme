@@ -486,8 +486,12 @@ function abrsd_preprocess_breadcrumb(array &$variables)
     // Get the current taxonomy term
     $term = \Drupal::routeMatch()->getParameter('taxonomy_term');
     if (!empty($term)) {
+      // If blog-tag is in the current path, set the pre_path to 'Blog'
+      if (strpos(_abrsd_get_current_path(), 'blog-tag') !== FALSE) {
+        $pre_path = ['name' => 'Blog', 'url' => '/blog'];
+      }
       // Get the breadcrumb path
-      _breadcrumb_for_taxonomy_term_pages($variables, $term);
+      _breadcrumb_for_taxonomy_term_pages($variables, $term, $pre_path);
       // Make an early return
       return;
     }
@@ -503,9 +507,22 @@ function abrsd_preprocess_breadcrumb(array &$variables)
  *   An array of variables passed to the theme hook.
  * @param \Drupal\taxonomy\TermInterface $term
  *   The taxonomy term object.
+ * @param array|null $pre_path
+ *  The path to prepend to the breadcrumb.
  */
-function _breadcrumb_for_taxonomy_term_pages(array &$variables, Term $term)
+function _breadcrumb_for_taxonomy_term_pages(array &$variables, Term $term, ?array $pre_path = [])
 {
+  // If pre_path is not empty, prepend it to the breadcrumb
+  if (!empty($pre_path)) {
+    // Create a new translatable markup object from the pre_path
+    $new_breadcrumb_title = new TranslatableMarkup('@title', ['@title' => $pre_path['name']]);
+    // Add the pre_path to the breadcrumb array
+    $variables['breadcrumb'][] = [
+      'text' => $new_breadcrumb_title,
+      'url' => $pre_path['url'],
+      'langcode' => '',
+    ];
+  }
   // Get the taxonomy term name
   $tname = $term->getName();
   // Create a new translatable markup object from the term name

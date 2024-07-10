@@ -32,20 +32,54 @@
   }
 }
 
-.node--type-blog {
+.page--contact-us {
+  @include media-breakpoint-up(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+.node--type-blog,
+.page-vocabulary-blog-tags {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {
       padding-left: 11rem;
       padding-right: 11rem;
     }
   }
+  @include media-breakpoint-down(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 7rem;
+      padding-right: 7rem;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    .block-system-breadcrumb-block {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
 }
 
-.page--contact-us {
+.page--forum {
   @include media-breakpoint-up(lg) {
     .block-system-breadcrumb-block {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 7rem;
+      padding-right: 7rem;
+    }
+  }
+  @include media-breakpoint-down(lg) {
+    .block-system-breadcrumb-block {
+      padding-left: 10rem;
+      padding-right: 10rem;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    .block-system-breadcrumb-block {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 }

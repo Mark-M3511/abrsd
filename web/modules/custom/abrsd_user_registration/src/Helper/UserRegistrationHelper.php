@@ -178,7 +178,7 @@ class UserRegistrationHelper
                 'preferred_admin_langcode' => $language_id,
                 'field_organization' => $values['organization'],
                 'field_interests' => $values['interests'],
-                'field_display_name' => generate_unique_username($email),
+                'field_display_name' => _generate_unique_username($email),
                 'field_first_name' => $values['first_name'],
                 'field_last_name' => $values['last_name'],
                 'field_country' => $values['country'],

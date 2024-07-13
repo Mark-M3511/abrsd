@@ -35,20 +35,27 @@
 {% set link_url = fields.view_node.content|striptags|trim|raw %}
 {% set target = 'http' in link_url ? '_blank' : '_self' %}
 {% set tags = fields.field_tag.content|striptags|trim|raw %}
+{% set tids = fields.field_tag_1.content|striptags|trim|raw %}
 
-<a href="{{link_url}}" target="{{target}}" aria-current="true" class="list-group-item list-group-item-action">
-  <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1 w-75">{{ fields.title.content }}</h5>
-    <small class="external-link">
-      <span class="me-2 d-none d-md-inline">{{fields.field_published_on.content}}</span>
-    </small>
-  </div>
-  <p class="me-2 d-block d-md-none">{{fields.field_published_on.content}}</p>
-  <p class="mb-1">{{fields.body.content}}</p>
-  {% if tags %}
-    {% set terms = tags|split(',') %}
-    {% for term in terms %}
-         <span class="badge d-inline-block" data-term="{{term}}">{{term}}</span>
-    {% endfor %}
-  {% endif %}
-</a>
+
+  <a href="{{link_url}}" target="{{target}}" aria-current="true" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1 w-75">{{ fields.title.content }}</h5>
+      <small class="external-link">
+        <span class="me-2 d-none d-md-inline">{{fields.field_published_on.content}}</span>
+      </small>
+    </div>
+    <p class="me-2 d-block d-md-none">{{fields.field_published_on.content}}</p>
+    <p class="mb-1">{{fields.body.content}}</p>
+    {% if tags %}
+      {% set terms = tags|split(',') %}
+      {% set term_ids = tids|split(',') %}
+      {% for term in terms %}
+        {% set attr = path('entity.taxonomy_term.canonical', {'taxonomy_term': term_ids[loop.index0]}) %}
+        <span class="d-inline-block badge" data-term="{{ attr }}">
+             {{term}}
+        </span>
+      {% endfor %}
+    {% endif %}
+  </a>
+

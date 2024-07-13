@@ -52,7 +52,7 @@
       {% set term_ids = tids|split(',') %}
       {% for term in terms %}
         {% set attr = path('entity.taxonomy_term.canonical', {'taxonomy_term': term_ids[loop.index0]}) %}
-        <span class="d-inline-block badge" data-term="{{ attr }}">
+        <span class="d-inline-block badge" data-href="{{ attr }}" data-term="{{ term|clean_class }}">
              {{term}}
         </span>
       {% endfor %}

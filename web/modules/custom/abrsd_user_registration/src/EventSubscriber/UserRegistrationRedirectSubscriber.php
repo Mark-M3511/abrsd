@@ -237,7 +237,9 @@ class UserRegistrationRedirectSubscriber implements EventSubscriberInterface
                         return;
                     }
                 }
-                // Check if the 'user_pass_reset' key exists in the session
+                // Check if the 'user_pass_reset' key exists in the session. This is custom session atribute set when the user
+                // uses a one-time login link to reset their password. If the key exists, remove it from the session. If needed
+                // later it will be set again.
                 if ($this->session->get('user_pass_reset')) {
                     // Remove the 'user_pass_reset' key from the session
                     $this->session->remove('user_pass_reset');

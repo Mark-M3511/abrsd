@@ -488,7 +488,7 @@ function abrsd_preprocess_breadcrumb(array &$variables)
     if (!empty($term)) {
       // If blog-tag is in the current path, set the pre_path to 'Blog'
       if (strpos(_abrsd_get_current_path(), 'blog-tag') !== FALSE) {
-        $pre_path = ['name' => 'Blog', 'url' => '/blog'];
+        $pre_path = ['name' => t('Forum'), 'url' => '/forum'];
       }
       // Get the breadcrumb path
       _breadcrumb_for_taxonomy_term_pages($variables, $term, $pre_path);

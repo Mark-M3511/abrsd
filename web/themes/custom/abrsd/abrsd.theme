@@ -764,8 +764,8 @@ function abrsd_preprocess_views_view_fields(array &$variables)
         foreach ($tags as $tag) {
           // Load the referenced entity
           $tag_entity = $tag->entity;
-          // Get the value of the referenced entity prepended with a # and suffixed with at space
-          $variables['tags'][] = '#' . $tag_entity->label();
+          // Get the value of the referenced entity prepended with a # and suffixed with a space
+          $variables['tags'][] = '#' . $tag_entity?->label();
         }
       }
       break;

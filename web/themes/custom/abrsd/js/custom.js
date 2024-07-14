@@ -54,7 +54,8 @@
     // If the click target is a badge or card body, redirect to the link.
     if (classList.contains('badge') || classList.contains('card-body')) {
       e.preventDefault();
-      window.location.href = '/' + href;
+      // Remove the leading slash from the href if it exists
+      window.location.href = '/' + href.replace(/^\//, '');
     }
   }
 
@@ -111,9 +112,12 @@
         });
       }
 
+      // Set the classes of the elements to be selected for list gorup elements
+      const listGroupClasses = '.news-list, .forum-list';
+
       const headerNav = (context.querySelector('.navbar-nav') || document.querySelector('.navbar-nav'));
       const footerNav = (context.querySelector('.footer--onecol') || document.querySelector('.footer--onecol'));
-      const listGroup = (context.querySelector('.news-list') || document.querySelector('.news-list'));
+      const listGroup = (context.querySelector(listGroupClasses) || document.querySelector(listGroupClasses));
       const contactForm = (context.querySelector('.webform-submission-contact-add-form') || document.querySelector('.webform-submission-contact-add-form'));
       /**
        * Set up click event listeners for header and footer nav links

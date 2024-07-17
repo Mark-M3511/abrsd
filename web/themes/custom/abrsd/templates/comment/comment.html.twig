@@ -65,6 +65,7 @@
  * - created_ago: Relative time since the comment was created.
  * - has_picture: Whether the comment author has a profile picture.
  * - display_name: The display name of the comment author.
+ * - user_uuid: The UUID of the comment author.
  *
  * @see template_preprocess_comment()
  */
@@ -119,6 +120,7 @@
     {% include "@abrsd/partials/_profile_image.html.twig" with{
        'user_picture': user_picture,
        'author': commenter,
+       'author_uuid': user_uuid,
        'has_picture': has_picture,
        'additional_classes': 'd-none d-xl-flex',
     }%}
@@ -139,6 +141,7 @@
            'user_picture': user_picture,
            'has_picture:': has_picture,
            'author': commenter,
+           'author_uuid': user_uuid,
            'additional_classes': 'd-flex d-xl-none',
         }%}
         <div class="comment-author-time align-self-center p-2 p-xl-0">

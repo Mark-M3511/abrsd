@@ -289,6 +289,10 @@ function abrsd_preprocess_comment(array &$variables)
     $user = User::load($user->id());
     // Get the display name
     $variables['display_name'] = _abrsd_get_display_name($user);
+    // Get the UUID of the user if they do not have the 'administer comments' permission
+    if (!$user->hasPermission('administer comments')) {
+      $variables['user_uuid'] = $user->uuid();
+    }
   } catch (Exception $e) {
     \Drupal::logger('abrsd')->error($e->getMessage());
   }

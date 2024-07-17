@@ -1,0 +1,9 @@
+name: "ABRSD User Mail"
+type: module
+description: "Custom module for handling user mail in ABRSD"
+core_version_requirement: ^9 || ^10
+package: ABRSD (Custom)
+dependencies:
+  - abrsd_user_registration:abrsd_user_registration
+  - drupal:symfony_mailer
+  - drupal:user

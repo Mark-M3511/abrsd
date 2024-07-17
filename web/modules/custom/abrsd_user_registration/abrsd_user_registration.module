@@ -224,3 +224,26 @@ function abrsd_user_registration_tokens($type, $tokens, array $data = [], array 
 
     return $replacements;
 }
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Adds the 'abrsd_user_docs/modal_node.content' library to the page attachments.
+ *
+ * This function is called when Drupal is preparing the attachments for a page.
+ * It allows modules to alter the attachments array before it is rendered.
+ *
+ * @param array $attachments
+ *   The attachments array containing the page attachments.
+ */
+function abrsd_user_registration_page_attachments_alter(array &$attachments)
+{
+    // Get the current node path.
+    $current_path = \Drupal::service('path.current')->getPath();
+    // Get the alias of the current node path.
+    $current_path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+    // If the path starts with 'blog' then add the library.
+    if (strpos($current_path_alias, '/blog') === 0) {
+        $attachments['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_info';
+    }
+}

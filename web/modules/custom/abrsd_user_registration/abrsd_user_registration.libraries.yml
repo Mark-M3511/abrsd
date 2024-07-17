@@ -7,3 +7,9 @@ abrsd_user_registration:
   dependencies:
     - core/drupal
     - core/drupalSettings
+abrsd_user_info:
+  js:
+    js/abrsd_user_info.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

@@ -5,15 +5,18 @@
  * Available variables:
  * - user_picture: A user picture render array.
  * - author: The user name.
+ * - author_uuid: The user UUID.
  * - has_picture: A flag indicating whether the user has a picture.
 #}
 
+{% set commenter_id = author_uuid ? 'data-source-id=' ~ author_uuid  : '' %}
+
 {% if has_picture %}
-    <div class="user-picture {{ additional_classes }}">
+    <div class="user-picture {{ additional_classes }}" {{ commenter_id }}>
         {{ user_picture }}
     </div>
 {% else %}
-    <div class="user-initials {{ additional_classes }} justify-content-center">
+    <div class="user-initials {{ additional_classes }} justify-content-center" {{ commenter_id }}>
         {% set initial = author|striptags|trim|raw|upper[0:1] %}
         <span class="align-self-center">{{ initial }}</span>
     </div>

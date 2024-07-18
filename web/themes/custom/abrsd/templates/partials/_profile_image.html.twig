@@ -18,6 +18,6 @@
 {% else %}
     <div class="user-initials {{ additional_classes }} justify-content-center" {{ commenter_id }}>
         {% set initial = author|striptags|trim|raw|upper[0:1] %}
-        <span class="align-self-center">{{ initial }}</span>
+        <span class="user-initial align-self-center">{{ initial }}</span>
     </div>
 {% endif %}

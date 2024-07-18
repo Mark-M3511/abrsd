@@ -14,7 +14,7 @@
                 // If the click target is a profile image or user name, get the user data
                 if (target) {
                     const userId = e.target.getAttribute('data-source-id')
-                        || e.target.closest('[data-source-id]').getAttribute('data-source-id');
+                        || e.target.closest('[data-source-id]')?.getAttribute('data-source-id');
                     if (userId) {
                         behaviors.abrsdUserInfo.getUserDataFromAPI(userId);
                     } else {
@@ -49,8 +49,8 @@
                 })
                 .then(responseData => {
                     // console.log('User data:', data);
-                    const { name, created, field_about_me } = responseData.data.attributes;
-                    const message = `Name: ${name}\nMember since: ${behaviors.abrsdUserInfo.formatDate(created)}` +
+                    const { field_display_name, created, field_about_me } = responseData.data.attributes;
+                    const message = `Name: ${field_display_name}\nMember since: ${behaviors.abrsdUserInfo.formatDate(created)}` +
                         `\nAbout Me: ${field_about_me ?? 'N/A'}`;
                     console.log(message);
                 })

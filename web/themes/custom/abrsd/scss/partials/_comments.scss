@@ -123,3 +123,9 @@ body:not(.user-logged-in) {
     font-size: 0.8rem;
   }
 }
+
+.user-initial {
+  &:hover {
+    text-decoration: none;
+  }
+}

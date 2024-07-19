@@ -3,29 +3,23 @@
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
             console.log('abrsdUserInfo');
-            // #comment-13 > div.comment__meta.d-none.d-lg-block.col-sm-2 > div > article > div > a > img
-            // const img = document.querySelector('.field--name-user-picture img');
-            const comment = document.querySelector('.field--name-field-blog-comment');
+            const comment = context.querySelector('.field--name-field-blog-comment');
             comment?.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = e.target.classList.contains('image-style-thumbnail')
-                    || e.target.classList.contains('user-initials')
-                    || e.target.classList.contains('user-initial');
-                // If the click target is a profile image or user name, get the user data
+                const target = e.target.closest('[data-source-id]');
                 if (target) {
-                    const userId = e.target.getAttribute('data-source-id')
-                        || e.target.closest('[data-source-id]')?.getAttribute('data-source-id');
+                    const userId = target.getAttribute('data-source-id');
                     if (userId) {
-                        behaviors.abrsdUserInfo.getUserDataFromAPI(userId);
+                        behaviors.abrsdUserInfo.getUserDataFromAPI(userId, target);
                     } else {
                         console.error('User profile not found');
                     }
                 }
             });
+
         },
-        getUserDataFromAPI: function (userId) {
+        getUserDataFromAPI: function (userId, thisEl) {
             // Define the user ID and API endpoint URL
-            // const userId = 'e87fd47d-ccb8-4237-b2bd-8bf36be678e0'; // Replace with the actual user ID
             const apiUrl = `/jsonapi/user/user/${userId}`;
 
             // Basic authentication credentials
@@ -50,9 +44,17 @@
                 .then(responseData => {
                     // console.log('User data:', data);
                     const { field_display_name, created, field_about_me } = responseData.data.attributes;
-                    const message = `Name: ${field_display_name}\nMember since: ${behaviors.abrsdUserInfo.formatDate(created)}` +
-                        `\nAbout Me: ${field_about_me ?? 'N/A'}`;
-                    console.log(message);
+                    const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
+                        `\n\n<strong>About Me:</strong> ${field_about_me ?? 'Bio not available'}`;
+                    const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
+                        trigger: 'hover focus',
+                        placement: 'top',
+                        html: true,
+                        content: message,
+                        title: field_display_name,
+                    });
+                    popover.show();
+                    // console.log(message);
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);

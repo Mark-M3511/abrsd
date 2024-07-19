@@ -4,7 +4,7 @@
         attach: function (context, settings) {
             console.log('abrsdUserInfo');
             const comment = context.querySelector('.field--name-field-blog-comment');
-            comment?.addEventListener('click', function (e) {
+            comment?.addEventListener('mouseover', function (e) {
                 e.preventDefault();
                 const target = e.target.closest('[data-source-id]');
                 if (target) {
@@ -16,7 +16,20 @@
                     }
                 }
             });
-
+            comment?.addEventListener('mouseout', function (e) {
+                e.preventDefault();
+                const target = e.target.closest('[data-source-id]');
+                if (target) {
+                    const popover = bootstrap.Popover.getOrCreateInstance(target);
+                    popover.hide();
+                }
+            });
+            comment?.addEventListener('click', function (e) {
+                const target = e.target.closest('[data-source-id]');
+                if (target) {
+                    e.preventDefault();
+                }
+            });
         },
         getUserDataFromAPI: function (userId, thisEl) {
             // Define the user ID and API endpoint URL
@@ -44,10 +57,11 @@
                 .then(responseData => {
                     // console.log('User data:', data);
                     const { field_display_name, created, field_about_me } = responseData.data.attributes;
+                    // Get only the first 255 characters of the bio
+                    // const bio = field_about_me.length > 255 ? field_about_me.substring(0, 255) + '...' : field_about_me;
                     const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
                         `\n\n<strong>About Me:</strong> ${field_about_me ?? 'Bio not available'}`;
                     const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
-                        trigger: 'hover focus',
                         placement: 'top',
                         html: true,
                         content: message,

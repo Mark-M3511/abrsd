@@ -123,6 +123,7 @@
        'author_uuid': user_uuid,
        'has_picture': has_picture,
        'additional_classes': 'd-none d-xl-flex',
+       'comment_id': comment.id ~ '-lg',
     }%}
     {#
       Indicate the semantic relationship between parent and child comments
@@ -143,6 +144,7 @@
            'author': commenter,
            'author_uuid': user_uuid,
            'additional_classes': 'd-flex d-xl-none',
+           'comment_id': comment.id ~ '-sm',
         }%}
         <div class="comment-author-time align-self-center p-2 p-xl-0">
           <span class="comment__author">{{ commenter }} - </span>

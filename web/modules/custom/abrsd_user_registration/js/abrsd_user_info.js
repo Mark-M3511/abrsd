@@ -6,22 +6,31 @@
             const comment = context.querySelector('.field--name-field-blog-comment');
             comment?.addEventListener('mouseover', function (e) {
                 e.preventDefault();
-                const target = e.target.closest('[data-source-id]');
+                // const target = e.target.closest('[data-source-id]');
+                let target;
+                if (e.target.tagName === 'A' && e.target.href.includes('/user/')) {
+                    target = e.target;
+                } else if (e.target.tagName === 'IMG') {
+                    target = e.target.closest('a');
+                }
                 if (target) {
-                    const userId = target.getAttribute('data-source-id');
+                    const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
                     if (userId) {
                         behaviors.abrsdUserInfo.getUserDataFromAPI(userId, target);
-                    } else {
-                        console.error('User profile not found');
                     }
                 }
             });
             comment?.addEventListener('mouseout', function (e) {
                 e.preventDefault();
-                const target = e.target.closest('[data-source-id]');
+                let target;
+                if (e.target.tagName === 'A' && e.target.href.includes('/user/')) {
+                    target = e.target;
+                } else if (e.target.tagName === 'IMG') {
+                    target = e.target.closest('a');
+                }
                 if (target) {
                     const popover = bootstrap.Popover.getOrCreateInstance(target);
-                    popover.hide();
+                    popover?.hide();
                 }
             });
             comment?.addEventListener('click', function (e) {
@@ -58,10 +67,11 @@
                     // console.log('User data:', data);
                     const { field_display_name, created, field_about_me } = responseData.data.attributes;
                     // Get only the first 255 characters of the bio
-                    // const bio = field_about_me.length > 255 ? field_about_me.substring(0, 255) + '...' : field_about_me;
+                    const bio = (field_about_me && field_about_me.length > 255) ? field_about_me.substring(0, 255) + '...' : 'Bio not available';
                     const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
-                        `\n\n<strong>About Me:</strong> ${field_about_me ?? 'Bio not available'}`;
+                        `\n\n<strong>About Me:</strong> ${bio}`;
                     const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
+                        animate: true,
                         placement: 'top',
                         html: true,
                         content: message,

@@ -1,5 +1,6 @@
 (function (Drupal, settings) {
     const { behaviors } = Drupal;
+    const { apiUser } = settings.abrsd_user_registration;
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
             console.log('abrsdUserInfo');
@@ -45,7 +46,7 @@
             const apiUrl = `/jsonapi/user/user/${userId}`;
 
             // Basic authentication credentials
-            const username = '3f1d9b2e-4e2f-4a2b-9e8e-60a3a7e1b3c6';
+            const username = apiUser;
             const password = 'u7Wg7k2qsmsqRwX7rKNlDgtevmKO3iO4wAYdQOFz4929756KJBATe3p95bP0xWwZ';
             const authHeader = 'Basic ' + btoa(`${username}:${password}`);
 

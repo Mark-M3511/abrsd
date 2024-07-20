@@ -7,18 +7,19 @@
  * - author: The user name.
  * - author_uuid: The user UUID.
  * - has_picture: A flag indicating whether the user has a picture.
+ * - additional_classes: Additional classes passed to the template.
+ * - comment_id: The comment ID.
 #}
 
 {% set commenter_id = author_uuid ? 'data-source-id=' ~ author_uuid  : '' %}
-{% set popover_content = 'User: ' ~ author %}
 {% set initial = author|striptags|trim|raw|upper[0:1] %}
 
 {% if has_picture %}
-    <div class="user-picture {{ additional_classes }}" {{ commenter_id }}>
+    <div id="user-comment-{{ comment_id }}" class="user-picture {{ additional_classes }}" {{ commenter_id }}>
         {{ user_picture }}
     </div>
 {% else %}
-    <div class="user-initials {{ additional_classes }} justify-content-center" {{ commenter_id }}>
+    <div id="user-comment-{{ comment_id }}" class="user-initials {{ additional_classes }} justify-content-center" {{ commenter_id }}>
         <a href="/user/{{ author }}" class="user-initial align-self-center">
            {# <span class="align-self-center">{{ initial }}</span> #}
            {{ initial }}

@@ -49,9 +49,7 @@
             const apiUrl = `/jsonapi/user/user/${userId}`;
 
             // Basic authentication credentials
-            const username = apiUser;
-            const password = apiToken;
-            const authHeader = 'Basic ' + btoa(`${username}:${password}`);
+            const authHeader = 'Basic ' + btoa(`${apiUser}:${apiToken}`);
 
             // Fetch user data from the Drupal JSON API
             fetch(apiUrl, {

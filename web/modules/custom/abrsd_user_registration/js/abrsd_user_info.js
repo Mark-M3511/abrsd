@@ -47,10 +47,8 @@
         getUserDataFromAPI: function (apiUser, apiToken, userId, thisEl) {
             // Define the user ID and API endpoint URL
             const apiUrl = `/jsonapi/user/user/${userId}`;
-
             // Basic authentication credentials
             const authHeader = 'Basic ' + btoa(`${apiUser}:${apiToken}`);
-
             // Fetch user data from the Drupal JSON API
             fetch(apiUrl, {
                 method: 'GET',

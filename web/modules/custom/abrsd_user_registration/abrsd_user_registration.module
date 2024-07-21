@@ -268,7 +268,7 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
  * @return \Drupal\user\Entity\User|null
  *   The API user entity if found, or null if not found.
  */
-function _abrsd_user_registration_load_api_user_credentials(string $role)
+function _abrsd_user_registration_load_api_user_credentials(string $role): ?User
 {
     try {
         $api_user = [];

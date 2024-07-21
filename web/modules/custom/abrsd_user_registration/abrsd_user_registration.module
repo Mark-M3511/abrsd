@@ -292,7 +292,7 @@ function _abrsd_user_registration_load_api_user_credentials(string $role): ?User
  * @return string
  *   The API key.
  */
-function _abrsd_user_registration_get_api_key()
+function _abrsd_user_registration_get_api_key(): string
 {
     $config = \Drupal::config('rest_api_authentication.settings');
     $result = $config->get('api_token');

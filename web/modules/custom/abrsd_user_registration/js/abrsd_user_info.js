@@ -56,33 +56,30 @@
                     'Authorization': authHeader,
                     'Accept': 'application/vnd.api+json'
                 }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(responseData => {
-                    // console.log('User data:', data);
-                    const { field_display_name, created, field_about_me } = responseData.data.attributes;
-                    // Get only the first 255 characters of the bio
-                    const bio = (field_about_me && field_about_me.length > 255) ? field_about_me.substring(0, 255) + '...' : 'Bio not available';
-                    const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
-                        `\n\n<strong>About Me:</strong> ${bio}`;
-                    const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
-                        animate: true,
-                        placement: 'top',
-                        html: true,
-                        content: message,
-                        title: field_display_name,
-                    });
-                    popover.show();
-                    // console.log(message);
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            }).then(responseData => {
+                // console.log('User data:', data);
+                const { field_display_name, created, field_about_me } = responseData.data.attributes;
+                // Get only the first 255 characters of the bio
+                const bio = (field_about_me && field_about_me.length > 255) ? field_about_me.substring(0, 255) + '...' : 'Bio not available';
+                const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
+                    `\n\n<strong>About Me:</strong> ${bio}`;
+                const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
+                    animate: true,
+                    placement: 'top',
+                    html: true,
+                    content: message,
+                    title: field_display_name,
                 });
+                popover.show();
+                // console.log(message);
+            }).catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
         },
         formatDate: function formatDate(dateString) {
             const date = new Date(dateString);

@@ -245,7 +245,7 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
     // If the path starts with 'blog' then add the library.
     if (strpos($current_path_alias, '/blog') === 0) {
         $attachments['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_info';
-        $user = _abrsd_user_registration_load_api_user_credentials('api_accessor_read');
+        $user = _abrsd_user_registration_load_api_user_credentials(['api_accessor_read']);
         if (!empty($user)) {
             // Add the API user name to the page attachments via drupalSettings.
             $attachments['#attached']['drupalSettings']['abrsd_user_registration']['apiUser'] = $user->getAccountName();
@@ -262,18 +262,18 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
 /**
  * Loads the API user credentials for a given role.
  *
- * @param string $role
- *   The role for which to load the API user credentials.
+ * @param array $roles
+ *   An array of roles to search for.
  *
  * @return \Drupal\user\Entity\User|null
  *   The API user entity if found, or null if not found.
  */
-function _abrsd_user_registration_load_api_user_credentials(string $role): ?User
+function _abrsd_user_registration_load_api_user_credentials(array $roles): ?User
 {
     try {
         $api_user = [];
         $query = \Drupal::entityQuery('user')->accessCheck(FALSE)
-            ->condition('roles', $role)
+            ->condition('roles', $roles, 'IN')
             ->condition('status', 1)
             ->range(0, 1);
         $uids = $query->execute();

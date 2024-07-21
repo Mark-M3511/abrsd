@@ -1,10 +1,8 @@
 (function (Drupal, settings) {
     // Define the behaviors object if it's not already defined
     const { behaviors } = Drupal;
-    // Setup the behaviors object if it's not already defined
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
-            // console.log('abrsdUserInfo');
             const comment = context.querySelectorAll('[data-source-id]');
             // Mouseover event listener
             comment?.forEach(function (el) {

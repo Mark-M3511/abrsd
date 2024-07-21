@@ -1,6 +1,7 @@
 (function (Drupal, settings) {
+    // Define the behaviors object if it's not already defined
     const { behaviors } = Drupal;
-    const { apiUser } = settings.abrsd_user_registration;
+    // Setup the behaviors object if it's not already defined
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
             console.log('abrsdUserInfo');
@@ -16,8 +17,10 @@
                 }
                 if (target) {
                     const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
+                    // Define the basic authentication credentials
+                    const { apiUser, apiToken } = settings.abrsd_user_registration;
                     if (userId) {
-                        behaviors.abrsdUserInfo.getUserDataFromAPI(userId, target);
+                        behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, userId, target);
                     }
                 }
             });
@@ -41,13 +44,13 @@
                 }
             });
         },
-        getUserDataFromAPI: function (userId, thisEl) {
+        getUserDataFromAPI: function (apiUser, apiToken, userId, thisEl) {
             // Define the user ID and API endpoint URL
             const apiUrl = `/jsonapi/user/user/${userId}`;
 
             // Basic authentication credentials
             const username = apiUser;
-            const password = 'u7Wg7k2qsmsqRwX7rKNlDgtevmKO3iO4wAYdQOFz4929756KJBATe3p95bP0xWwZ';
+            const password = apiToken;
             const authHeader = 'Basic ' + btoa(`${username}:${password}`);
 
             // Fetch user data from the Drupal JSON API

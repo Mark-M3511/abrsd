@@ -249,6 +249,11 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
         if (!empty($user)) {
             // Add the API user name to the page attachments via drupalSettings.
             $attachments['#attached']['drupalSettings']['abrsd_user_registration']['apiUser'] = $user->getAccountName();
+            $api_token =_abrsd_user_registration_get_api_key();
+            if (!empty($api_token)) {
+                // Add the API token to the page attachments via drupalSettings.
+                $attachments['#attached']['drupalSettings']['abrsd_user_registration']['apiToken'] = $api_token;
+            }
         }
     }
 }
@@ -279,4 +284,17 @@ function _abrsd_user_registration_load_api_user_credentials(string $role)
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+}
+
+/**
+ * Retrieves the API key from the configuration.
+ *
+ * @return string
+ *   The API key.
+ */
+function _abrsd_user_registration_get_api_key()
+{
+    $config = \Drupal::config('rest_api_authentication.settings');
+    $result = $config->get('api_token');
+    return $result;
 }

@@ -4,45 +4,41 @@
     // Setup the behaviors object if it's not already defined
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
-            console.log('abrsdUserInfo');
-            const comment = context.querySelector('.field--name-field-blog-comment');
-            comment?.addEventListener('mouseover', function (e) {
-                e.preventDefault();
-                // const target = e.target.closest('[data-source-id]');
-                let target;
-                if (e.target.tagName === 'A' && e.target.href.includes('/user/')) {
-                    target = e.target;
-                } else if (e.target.tagName === 'IMG') {
-                    target = e.target.closest('a');
-                }
-                if (target) {
-                    const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
-                    if (userId) {
-                        // Define the basic authentication credentials
-                        const { apiUser, apiToken } = settings.abrsd_user_registration;
-                        behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, userId, target);
+            // console.log('abrsdUserInfo');
+            const comment = context.querySelectorAll('[data-source-id]');
+            // Mouseover event listener
+            comment?.forEach(function (el) {
+                el.addEventListener('mouseover', function (e) {
+                    const target = el.querySelector('a');
+                    if (!target?.hasAttribute('showing-popover')) {
+                        if (target) {
+                            const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
+                            if (userId) {
+                                const { apiUser, apiToken } = settings.abrsd_user_registration;
+                                behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, userId, target);
+                            }
+                        }
+                        target.setAttribute('showing-popover', '');
                     }
-                }
+                });
             });
-            comment?.addEventListener('mouseout', function (e) {
-                e.preventDefault();
-                let target;
-                if (e.target.tagName === 'A' && e.target.href.includes('/user/')) {
-                    target = e.target;
-                } else if (e.target.tagName === 'IMG') {
-                    target = e.target.closest('a');
-                }
-                if (target) {
-                    const popover = bootstrap.Popover.getOrCreateInstance(target);
-                    popover?.hide();
-                }
+            // Mouseout event listener
+            comment?.forEach(function (el) {
+                el.addEventListener('mouseout', function (e) {
+                    const target = el.querySelector('a');
+                    if (target?.hasAttribute('showing-popover')) {
+                        const popover = bootstrap.Popover.getOrCreateInstance(target);
+                        popover?.hide();
+                        target.removeAttribute('showing-popover');
+                    }
+                });
             });
-            comment?.addEventListener('click', function (e) {
-                const target = e.target.closest('[data-source-id]');
-                if (target) {
-                    e.preventDefault();
-                }
-            });
+            // comment?.addEventListener('click', function (e) {
+            //     const target = e.target.closest('[data-source-id]');
+            //     if (target) {
+            //         e.preventDefault();
+            //     }
+            // });
         },
         getUserDataFromAPI: function (apiUser, apiToken, userId, thisEl) {
             // Define the user ID and API endpoint URL
@@ -62,12 +58,12 @@
                 }
                 return response.json();
             }).then(responseData => {
-                // console.log('User data:', data);
                 const { field_display_name, created, field_about_me } = responseData.data.attributes;
                 // Get only the first 255 characters of the bio
                 const bio = (field_about_me && field_about_me.length > 255) ? field_about_me.substring(0, 255) + '...' : 'Bio not available';
                 const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
                     `\n\n<strong>About Me:</strong> ${bio}`;
+                console.log(message);
                 const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
                     animate: true,
                     placement: 'top',
@@ -76,7 +72,6 @@
                     title: field_display_name,
                 });
                 popover.show();
-                // console.log(message);
             }).catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
             });

@@ -17,9 +17,9 @@
                 }
                 if (target) {
                     const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
-                    // Define the basic authentication credentials
-                    const { apiUser, apiToken } = settings.abrsd_user_registration;
                     if (userId) {
+                        // Define the basic authentication credentials
+                        const { apiUser, apiToken } = settings.abrsd_user_registration;
                         behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, userId, target);
                     }
                 }

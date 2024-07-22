@@ -244,15 +244,19 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
     $current_path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
     // If the path starts with 'blog' then add the library.
     if (strpos($current_path_alias, '/blog') === 0) {
-        $attachments['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_info';
-        $user = _abrsd_user_registration_load_api_user_credentials(['api_accessor_read']);
-        if (!empty($user)) {
-            // Add the API user name to the page attachments via drupalSettings.
-            $attachments['#attached']['drupalSettings']['abrsd_user_registration']['apiUser'] = $user->getAccountName();
-            $api_token =_abrsd_user_registration_get_api_key();
-            if (!empty($api_token)) {
-                // Add the API token to the page attachments via drupalSettings.
-                $attachments['#attached']['drupalSettings']['abrsd_user_registration']['apiToken'] = $api_token;
+        // If JSON API is enabled, add the library.
+        if (\Drupal::moduleHandler()->moduleExists('jsonapi')) {
+            $attachments['#attached']['library'][] = 'abrsd_user_registration/abrsd_user_info';
+            $user = _abrsd_user_registration_load_api_user_credentials(['api_accessor_read']);
+            if (!empty($user)) {
+                // Add the API user name to the page attachments via drupalSettings.
+                $api_credentials = &$attachments['#attached']['drupalSettings']['abrsd_user_registration'];
+                $api_credentials['apiUser'] = $user->getAccountName();
+                $api_token = _abrsd_user_registration_get_api_key();
+                if (!empty($api_token)) {
+                    // Add the API token to the page attachments via drupalSettings.
+                    $api_credentials['apiToken'] = $api_token;
+                }
             }
         }
     }
@@ -271,7 +275,7 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
 function _abrsd_user_registration_load_api_user_credentials(array $roles): ?User
 {
     try {
-        $api_user = [];
+        $api_user = NULL;
         $query = \Drupal::entityQuery('user')->accessCheck(FALSE)
             ->condition('roles', $roles, 'IN')
             ->condition('status', 1)

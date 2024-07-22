@@ -12,8 +12,8 @@
                         if (target) {
                             const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
                             if (userId) {
-                                const { apiUser, apiToken } = settings.abrsd_user_registration;
-                                behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, userId, target);
+                                const { apiUser, apiToken, apiBaseUrl } = settings.abrsd_user_registration;
+                                behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, apiBaseUrl, userId, target);
                             }
                         }
                         target.setAttribute('showing-popover', '');
@@ -41,9 +41,9 @@
             //     });
             // });
         },
-        getUserDataFromAPI: function (apiUser, apiToken, userId, thisEl) {
+        getUserDataFromAPI: function (apiUser, apiToken, apiBaseUrl, userId, thisEl) {
             // Define the user ID and API endpoint URL
-            const apiUrl = `/jsonapi/user/user/${userId}`;
+            const apiUrl = `${apiBaseUrl}/${userId}`;
             // Basic authentication credentials
             const authHeader = 'Basic ' + btoa(`${apiUser}:${apiToken}`);
             // Fetch user data from the Drupal JSON API

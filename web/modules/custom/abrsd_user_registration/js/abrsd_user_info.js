@@ -31,11 +31,14 @@
                     }
                 });
             });
-            // comment?.addEventListener('click', function (e) {
-            //     const target = e.target.closest('[data-source-id]');
-            //     if (target) {
-            //         e.preventDefault();
-            //     }
+            // Click event listener
+            // comment?.forEach(function (el) {
+            //     el.addEventListener('click', function (e) {
+            //         const target = el.querySelector('a[href^="/user/"]');
+            //         if (target) {
+            //             e.preventDefault();
+            //         }
+            //     });
             // });
         },
         getUserDataFromAPI: function (apiUser, apiToken, userId, thisEl) {

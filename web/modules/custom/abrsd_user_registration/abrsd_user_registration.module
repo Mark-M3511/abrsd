@@ -258,12 +258,7 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
                     $api_credentials['apiToken'] = $api_token;
                 }
                 // Add the API base URL to the page attachments via drupalSettings.
-                // 1. Get the Drupal global container.
-                $container = \Drupal::getContainer();
-                // 2. Get the JSON API base path parameter.
-                $jsonapi_base_path = $container->getParameter('jsonapi.base_path');
-                // 3. Add the API base URL to the page attachments via drupalSettings.
-                $api_credentials['apiBaseUrl'] = "$jsonapi_base_path/user/user";
+                $api_credentials['apiBaseUrl'] = _abrsd_user_registration_jsonapi_base_path();
             }
         }
     }
@@ -278,6 +273,9 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
  *
  * @return \Drupal\user\Entity\User|null
  *   The API user entity if found, or null if not found.
+ *
+ * @throws \Exception
+ *  If an error occurs while loading the API user credentials.
  */
 function _abrsd_user_registration_load_api_user_credentials(array $roles): ?User
 {
@@ -291,26 +289,57 @@ function _abrsd_user_registration_load_api_user_credentials(array $roles): ?User
         if (!empty($uids)) {
             $api_user = User::load(array_shift($uids));
         }
-        return $api_user;
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
+    return $api_user;
 }
+
 
 /**
  * Retrieves the API key from the configuration.
  *
  * @return string
- *   The API key.
+ *   The API token.
+ *
+ * @throws \Exception
+ *   If an error occurs while retrieving the API token.
  */
 function _abrsd_user_registration_get_api_key(): string
 {
     try {
         $config = \Drupal::config('rest_api_authentication.settings');
         $result = $config->get('api_token');
-        return $result;
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
-        return '';
     }
+    return $result;
+}
+
+/**
+ * Retrieves the JSON API base path for the custom module.
+ *
+ * @return string
+ *   The JSON API base path.
+ *
+ * @throws \Exception
+ *   If an error occurs while retrieving the JSON API base path.
+ */
+function _abrsd_user_registration_jsonapi_base_path(): string
+{
+    try {
+        // Add the API base URL to the page attachments via drupalSettings.
+        $result  = 'jsonapi';
+        // 1. Get the Drupal global container.
+        $container = \Drupal::getContainer();
+        // 2. Get the JSON API base path parameter.
+        $result = $container->getParameter('jsonapi.base_path');
+        if (!empty($jsonapi_base_path)) {
+            $result = "$result/user/user";
+        }
+    } catch (\Exception $e) {
+        \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+    }
+    // 3. Add the API base URL to the page attachments via drupalSettings.
+    return $result;
 }

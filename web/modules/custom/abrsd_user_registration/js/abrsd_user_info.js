@@ -44,7 +44,8 @@
                 });
             });
         },
-        getUserDataFromAPI: function (apiUser, apiToken, apiBaseUrl, userId, thisEl) {
+        getUserDataFromAPI: function (apiParams, userId, thisEl) {
+            const { apiUser, apiToken, apiBaseUrl } = apiParams;
             // Define the user ID and API endpoint URL
             const apiUrl = `${apiBaseUrl}/${userId}`;
             // Basic authentication credentials

@@ -257,9 +257,12 @@ function abrsd_user_registration_page_attachments_alter(array &$attachments)
                     // Add the API token to the page attachments via drupalSettings.
                     $api_credentials['apiToken'] = $api_token;
                 }
-                // Get the config for jsonapi.base_path
+                // Add the API base URL to the page attachments via drupalSettings.
+                // 1. Get the Drupal global container.
                 $container = \Drupal::getContainer();
+                // 2. Get the JSON API base path parameter.
                 $jsonapi_base_path = $container->getParameter('jsonapi.base_path');
+                // 3. Add the API base URL to the page attachments via drupalSettings.
                 $api_credentials['apiBaseUrl'] = "$jsonapi_base_path/user/user";
             }
         }

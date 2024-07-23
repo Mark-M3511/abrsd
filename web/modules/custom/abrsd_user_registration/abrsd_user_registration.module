@@ -299,13 +299,13 @@ function _abrsd_user_registration_load_api_user_credentials(array $roles): ?User
 /**
  * Retrieves the API key from the configuration.
  *
- * @return string
+ * @return string|null
  *   The API token.
  *
  * @throws \Exception
  *   If an error occurs while retrieving the API token.
  */
-function _abrsd_user_registration_get_api_key(): string
+function _abrsd_user_registration_get_api_key(): ?string
 {
     try {
         $config = \Drupal::config('rest_api_authentication.settings');
@@ -328,16 +328,11 @@ function _abrsd_user_registration_get_api_key(): string
 function _abrsd_user_registration_jsonapi_base_path(): string
 {
     try {
-        // 1. Get the Drupal global container.
-        $container = \Drupal::getContainer();
-        // 2. Get the JSON API base path parameter.
-        $result = $container->getParameter('jsonapi.base_path');
-        // 3. Add the API base URL to the page attachments via drupalSettings.
-        if (empty($result)) {
-            $result = '/jsonapi';
-        }
+        // Get the JSON API base path parameter from the Drupal global container.
+        $result = \Drupal::getContainer()->getParameter('jsonapi.base_path') ?: '/jsonapi';
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
+        $result = '/jsonapi';
     }
     return "$result/user/user";
 }

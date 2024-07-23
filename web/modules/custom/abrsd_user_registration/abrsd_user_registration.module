@@ -334,12 +334,12 @@ function _abrsd_user_registration_jsonapi_base_path(): string
         $container = \Drupal::getContainer();
         // 2. Get the JSON API base path parameter.
         $result = $container->getParameter('jsonapi.base_path');
+        // 3. Add the API base URL to the page attachments via drupalSettings.
         if (!empty($jsonapi_base_path)) {
             $result = "$result/user/user";
         }
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
-    // 3. Add the API base URL to the page attachments via drupalSettings.
     return $result;
 }

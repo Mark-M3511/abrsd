@@ -12,8 +12,11 @@
                         if (target) {
                             const userId = target.closest('[data-source-id]')?.getAttribute('data-source-id');
                             if (userId) {
-                                const { apiUser, apiToken, apiBaseUrl } = settings.abrsd_user_registration;
-                                behaviors.abrsdUserInfo.getUserDataFromAPI(apiUser, apiToken, apiBaseUrl, userId, target);
+                                behaviors.abrsdUserInfo.getUserDataFromAPI(
+                                    settings.abrsd_user_registration,
+                                    userId,
+                                    target
+                                );
                             }
                         }
                         target.setAttribute('showing-popover', '');

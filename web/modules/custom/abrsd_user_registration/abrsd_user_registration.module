@@ -328,18 +328,16 @@ function _abrsd_user_registration_get_api_key(): string
 function _abrsd_user_registration_jsonapi_base_path(): string
 {
     try {
-        // Add the API base URL to the page attachments via drupalSettings.
-        $result  = 'jsonapi';
         // 1. Get the Drupal global container.
         $container = \Drupal::getContainer();
         // 2. Get the JSON API base path parameter.
         $result = $container->getParameter('jsonapi.base_path');
         // 3. Add the API base URL to the page attachments via drupalSettings.
-        if (!empty($jsonapi_base_path)) {
-            $result = "$result/user/user";
+        if (empty($result)) {
+            $result = '/jsonapi';
         }
     } catch (\Exception $e) {
         \Drupal::logger('abrsd_user_registration')->error($e->getMessage());
     }
-    return $result;
+    return "$result/user/user";
 }

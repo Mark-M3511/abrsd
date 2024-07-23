@@ -35,14 +35,14 @@
                 });
             });
             // Click event listener
-            // comment?.forEach(function (el) {
-            //     el.addEventListener('click', function (e) {
-            //         const target = el.querySelector('a[href^="/user/"]');
-            //         if (target) {
-            //             e.preventDefault();
-            //         }
-            //     });
-            // });
+            comment?.forEach(function (el) {
+                el.addEventListener('click', function (e) {
+                    const target = el.querySelector('a[href^="/user/"]');
+                    if (target === e.target) {
+                        target.preventDefault();
+                    }
+                });
+            });
         },
         getUserDataFromAPI: function (apiUser, apiToken, apiBaseUrl, userId, thisEl) {
             // Define the user ID and API endpoint URL

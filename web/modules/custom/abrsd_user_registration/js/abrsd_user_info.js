@@ -37,10 +37,7 @@
             // Click event listener
             comment?.forEach(function (el) {
                 el.addEventListener('click', function (e) {
-                    const target = el.querySelector('a[href^="/user/"]');
-                    if (target === e.target) {
-                        target.preventDefault();
-                    }
+                  e.preventDefault();
                 });
             });
         },

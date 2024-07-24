@@ -35,7 +35,8 @@
                 });
             });
             // Click event listener
-            comment?.forEach(function (el) {
+            const commentMeta = context.querySelectorAll('.comment__meta');
+            commentMeta?.forEach(function (el) {
                 el.addEventListener('click', function (e) {
                   e.preventDefault();
                 });

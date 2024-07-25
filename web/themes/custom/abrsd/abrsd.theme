@@ -806,6 +806,17 @@ function abrsd_page_attachments_alter(array &$variables)
   if (!$has_admin_role) {
     _add_ga_script($variables);
   }
+
+  // Add the 'use_one_time_login_title' to the page title if the current route is 'user.reset.form'
+  if (\Drupal::routeMatch()->getRouteName() == 'user.reset.form') {
+    $variables['#attached']['html_head'][] = [
+      [
+        '#tag' => 'title',
+        '#value' => t('Use one-time login'). ' | ' . \Drupal::config('system.site')->get('name'),
+      ],
+      'use_one_time_login_title'
+    ];
+  }
 }
 
 

@@ -807,16 +807,8 @@ function abrsd_page_attachments_alter(array &$variables)
     _add_ga_script($variables);
   }
 
-  // Add the 'use_one_time_login_title' to the page title if the current route is 'user.reset.form'
-  if (\Drupal::routeMatch()->getRouteName() == 'user.reset.form') {
-    $variables['#attached']['html_head'][] = [
-      [
-        '#tag' => 'title',
-        '#value' => t('Use one-time login'). ' | ' . \Drupal::config('system.site')->get('name'),
-      ],
-      'use_one_time_login_title'
-    ];
-  }
+  // Add the 'use_one_time_login_title' to the page title if required
+  _customize_page_title($variables);
 }
 
 
@@ -888,6 +880,28 @@ function _add_ga_script(array &$variables)
     ],
     'ga4-script-config',
   ];
+}
+
+/**
+ * Customize the page title for a specific route.
+ *
+ * @param array $variables
+ *   An associative array containing the page variables.
+ *   The array is passed by reference, so any modifications made to it will
+ *   affect the original variable.
+ */
+function _customize_page_title(array &$variables)
+{
+  // Add the 'use_one_time_login_title' to the page title if the current route is 'user.reset.form'
+  if (\Drupal::routeMatch()->getRouteName() == 'user.reset.form') {
+    $variables['#attached']['html_head'][] = [
+      [
+        '#tag' => 'title',
+        '#value' => t('Use one-time login') . ' | ' . \Drupal::config('system.site')->get('name'),
+      ],
+      'use_one_time_login_title'
+    ];
+  }
 }
 
 /**

@@ -1062,7 +1062,7 @@ function abrsd_preprocess_status_messages(array &$variables)
  * @return void
  *   There is no return value for this function.
  */
-function abrsd_preprocess_field(&$variables)
+function abrsd_preprocess_field(array &$variables)
 {
   // Check that we are processing the 'field_tag' field, and the entity bundler is 'blog',
   // and the view mode is 'full'

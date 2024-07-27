@@ -1,16 +1,16 @@
 span.file--image {
-    display: none;
+  display: none;
 }
 
 #profile-picture-display {
-    margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .last-updated {
-    background-color: #272525;
-    color: #fff;
-    padding: 1px 7px;
-    border-radius: 5px;
-    font-family: 'Arial', sans-serif;
-    font-size: 0.85rem;
+  background-color: #272525;
+  color: #fff;
+  padding: 1px 7px;
+  border-radius: 5px;
+  font-family: "Arial", sans-serif;
+  font-size: 0.85rem;
 }

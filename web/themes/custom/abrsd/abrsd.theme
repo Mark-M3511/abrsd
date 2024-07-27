@@ -1095,7 +1095,7 @@ function abrsd_preprocess_field(array &$variables)
     // Load the user entity
     if ($user = User::load($uid)) {
       // Get the display name once
-      $display_name = $user->field_display_name->value;
+      $display_name = $user->field_display_name->value ?: 'an unnamed user';
       // Change the alt attribute of the user picture
       foreach ($variables['items'] as &$item) {
         if (isset($item['content']['#url'])) {

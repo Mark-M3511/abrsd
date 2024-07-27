@@ -1,0 +1,19 @@
+.user-info-popover .popover-header {
+    background-color: #ffbc2d; /* Light gray background */
+    color: #333; /* Dark text color */
+    font-weight: bold; /* Bold text */
+}
+
+.user-info-popover .popover-body {
+    background-color: #fbfdff; /* White background */
+    color: #555; /* Medium dark text color */
+    font-size: 14px; /* Font size */
+    line-height: 1.5; /* Line height */
+    padding: 10px; /* Padding */
+}
+
+/* Additional custom styles */
+.user-info-popover .popover {
+    border: 1px solid #ddd; /* Light gray border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}

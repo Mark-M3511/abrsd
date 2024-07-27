@@ -1100,7 +1100,7 @@ function abrsd_preprocess_field(array &$variables)
       foreach ($variables['items'] as &$item) {
         if (isset($item['content']['#url'])) {
           $item['content']['#item']->alt = new TranslatableMarkup(
-            'Profile picture of @username',
+            'Profile picture for @username',
             ['@username' => $display_name]
           );
         }

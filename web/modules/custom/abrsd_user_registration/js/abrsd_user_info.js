@@ -38,7 +38,7 @@
             const commentMeta = context.querySelectorAll('.comment__meta');
             commentMeta?.forEach(function (el) {
                 el.addEventListener('click', function (e) {
-                  e.preventDefault();
+                    e.preventDefault();
                 });
             });
         },
@@ -73,6 +73,13 @@
                     html: true,
                     content: message,
                     title: field_display_name,
+                    template: `
+        <div class="popover user-info-popover" role="tooltip">
+            <div class="popover-arrow"></div>
+            <h3 class="popover-header"></h3>
+            <div class="popover-body"></div>
+        </div>
+    `
                 });
                 popover.show();
             }).catch(error => {

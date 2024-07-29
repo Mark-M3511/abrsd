@@ -11,6 +11,7 @@
    'footer-about-us',
    'footer-our-work',
    'footer-resources',
+   'footer-forum',
    'footer-get-involved',
    'footer-contact-us',
   ]
@@ -21,24 +22,27 @@
     'About Us',
     'Our Work',
     'Resources',
-    'Get Involved',
+	'Forum',
+    'Join the Conversation',
     'Contact Us',
    ]
 %}
 
 <div class="layout layout--onecol footer--onecol container-fluid mt-3 px-5">
-	<div class="layout__region layout__region--content row justify-content-center pt-5 pb-3">
+	<div class="layout__region layout__region--content row pt-5 pb-3">
 		{% for menu_id in menu_ids %}
-			{% set col_styles = 'col-6 col-lg-2' %}
+			{% set col_styles = 'col-6 col-lg' %}
 			{% if menu_id == 'footer-contact-us' %}
-				{% set col_styles = 'col-lg-3' %}
+				{% set col_styles = 'col-12 col-lg-3' %}
+		    {% elseif menu_id == 'footer-forum' %}
+				{% set col_styles = 'col-12 col-lg' %}
 			{% endif %}
 			<nav role="navigation" aria-labelledby="{{ menu_id }}-menu" class="block block-menu navigation menu--footer menu--{{menu_id}} {{ col_styles }}">
 				{% if menu_id == 'footer-contact-us' %}
 				    <a href="/contact-us"><h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-{{ menu_titles[loop.index0] }}">{{ menu_titles[loop.index0]|t }}</h2></a>
 					<h3 class="h2 mt-4">{{ 'Follow Us'|t }}</h3>
 				{% elseif menu_id == 'footer-get-involved' %}
-                    <a href="/get-involved"><h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-get-involved nav-link--get-involved btn btn-primary fw-bold">{{ menu_titles[loop.index0]|t }}</h2></a>
+                    <a href="/join-conversation"><h2 id="{{ menu_id }}-menu" class="d-inline-block w-lg-75 footer-menu-item footer-menu-get-involved nav-link--get-involved btn btn-primary fw-bold">{{ menu_titles[loop.index0]|t }}</h2></a>
 				{% else %}
 					<h2 id="{{ menu_id }}-menu" class="footer-menu-item footer-menu-{{ menu_titles[loop.index0]|clean_class }}">{{ menu_titles[loop.index0]|t }}</h2>
 				{% endif %}

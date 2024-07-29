@@ -153,6 +153,10 @@ a.nav-link--::before {
   }
 }
 
+.footer-menu-get-involved {
+  @include jtc-styles-no-width;
+}
+
 // DROPDOWN MENU STYLES
 .dropdown-menu {
   background-color: $black;
@@ -232,7 +236,8 @@ a.nav-link--::before {
 // USER ACCESS
 #navbar-top {
   background-color: $white !important;
-  height: 1.8rem;
+  padding: 0.2rem 1rem;
+  height: 2rem;
   z-index: 1037;
   // On mobile devices, the user access menu background is accent-shade
   @include media-breakpoint-down(md) {

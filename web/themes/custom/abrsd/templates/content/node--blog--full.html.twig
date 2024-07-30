@@ -115,6 +115,7 @@
                         | <span class="blog-date d-inline-block ms-2 pt-1">{{'Updated:' }} {{ updated_on }}</span>
                     {% endif %}
                 </div>
+                {{ drupal_block('social_sharing_buttons_block') }}
                 {{ content|without('field_published_on', 'field_updated_on') }}
             </div>
             <div class="col-md-5 mx-xl-5 col-xl-3">

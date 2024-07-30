@@ -18,6 +18,7 @@
         "composer/installers": "^2.0",
         "drupal/admin_toolbar": "^3.3",
         "drupal/backup_migrate": "^5.0",
+        "drupal/better_social_sharing_buttons": "^4.0",
         "drupal/block_content_suggestions": "^1.0",
         "drupal/bootstrap_barrio": "^5.5",
         "drupal/bootstrap_library": "^2.0",

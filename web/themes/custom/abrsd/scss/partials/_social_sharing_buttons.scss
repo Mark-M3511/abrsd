@@ -3,3 +3,17 @@
   margin: 0.5rem 0;
   justify-content: start;
 }
+
+.social-sharing-buttons {
+  .share-facebook,
+  .share-x,
+  .share-linkedin,
+  .share-email {
+    border: 2px black solid;
+    border-radius: 50%;
+    svg {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+}

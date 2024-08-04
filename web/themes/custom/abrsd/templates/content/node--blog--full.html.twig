@@ -80,6 +80,14 @@
 {% set published_on =  content.field_published_on|render|striptags|trim|raw %}
 {% set updated_on =  content.field_updated_on|render|striptags|trim|raw %}
 
+{% set field_list = [
+    'field_published_on',
+    'field_updated_on',
+    'field_blog_hero_image',
+    'field_image_caption',
+    'field_tag',
+] %}
+
 <article{{attributes.addClass(classes)}}>
     <div class="container-sm">
         <header>
@@ -115,8 +123,15 @@
                         | <span class="blog-date d-inline-block ms-2 pt-1">{{'Updated:' }} {{ updated_on }}</span>
                     {% endif %}
                 </div>
+                {# Print the tag field #}
+                {{ content.field_tag }}
+                {# Print the hero image #}
+                {{ content.field_blog_hero_image }}
+                {# Print the image caption #}
+                {{ content.field_image_caption }}
+                {# Print the social sharing buttons #}
                 {{ drupal_block('social_sharing_buttons_block') }}
-                {{ content|without('field_published_on', 'field_updated_on') }}
+                {{ content|without(field_list) }}
             </div>
             <div class="col-md-5 mx-xl-5 col-xl-3">
                 {# Include the related blog summaries here #}

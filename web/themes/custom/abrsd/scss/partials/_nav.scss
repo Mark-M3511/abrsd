@@ -284,3 +284,10 @@ a.nav-link--user-logout::before {
   width: 0 !important;
   height: 0 !important;
 }
+
+// A FIX FOR THE USER ACCESS MENU OVERLAPPING THE ADMIN NAVIGATION MENU
+.user-logged-in {
+  #navbar-top {
+    z-index: 100;
+  }
+}

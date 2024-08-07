@@ -4,6 +4,7 @@
     behaviors.abrsdUserInfo = {
         attach: function (context, settings) {
             const comment = context.querySelectorAll('[data-source-id]');
+            let popover = null;
             // Mouseover event listener
             comment?.forEach(function (el) {
                 el.addEventListener('mouseover', function (e) {
@@ -28,8 +29,11 @@
                 el.addEventListener('mouseout', function (e) {
                     const target = el.querySelector('a');
                     if (target?.hasAttribute('showing-popover')) {
-                        const popover = bootstrap.Popover.getOrCreateInstance(target);
-                        popover?.hide();
+                        // popover?.hide();
+                        // Hide the popover associated with the target element
+                        if (bootstrap.Popover.getInstance(target)) {
+                            bootstrap.Popover.getInstance(target).hide();
+                        }
                         target.removeAttribute('showing-popover');
                     }
                 });
@@ -42,7 +46,7 @@
                 });
             });
         },
-        getUserDataFromAPI: function (apiParams, userId, thisEl) {
+        getUserDataFromAPI: function (apiParams, userId, targetEl) {
             const { apiUser, apiToken, apiBaseUrl } = apiParams;
             // Define the user ID and API endpoint URL
             const apiUrl = `${apiBaseUrl}/${userId}`;
@@ -66,8 +70,13 @@
                 const bio = (field_about_me && field_about_me.length > 255) ? field_about_me.substring(0, 255) + '...' : 'Bio not available';
                 const message = `<strong>Member since:</strong> ${behaviors.abrsdUserInfo.formatDate(created)}` +
                     `\n\n<strong>About Me:</strong> ${bio}`;
-                console.log(message);
-                const popover = bootstrap.Popover.getOrCreateInstance(thisEl, {
+                // console.log(targetEl);
+                // console.log(message);
+                if (bootstrap.Popover.getInstance(targetEl)) {
+                    bootstrap.Popover.getInstance(targetEl).dispose();
+                }
+                popover = bootstrap.Popover.getOrCreateInstance(targetEl, {
+                    trigger: 'manual',
                     animate: true,
                     placement: 'top',
                     html: true,

@@ -21,8 +21,7 @@
 {% else %}
     <div id="user-comment-{{ comment_id }}" class="user-initials {{ additional_classes }} justify-content-center" {{ commenter_id }}>
         <a href="/user/{{ author }}" class="user-initial align-self-center">
-           {# <span class="align-self-center">{{ initial }}</span> #}
-           {{ initial }}
+           <span>{{ initial }}</span>
         </a>
     </div>
 {% endif %}
